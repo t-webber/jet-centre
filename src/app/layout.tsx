@@ -15,9 +15,7 @@ export default async function RootLayout({
 }>) {
     return (
         <html lang="fr">
-            <body className={cn(inter.className, 'min-h-screen flex flex-1 flex-col')}>
-                {children}
-            </body>
+            <body className={cn(inter.className, 'dark h-dvh')}>{children}</body>
         </html>
     );
 }

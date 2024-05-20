@@ -1,4 +1,4 @@
-import NavBar from '@/components/ui/navbar';
+import NavBar from '@/components/navigation/navbar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import React from 'react';
 
@@ -10,11 +10,11 @@ const Layout = ({
     return (
         <div className="flex flex-row h-full">
             <ResizablePanelGroup direction="horizontal">
-                <ResizablePanel minSize={10} maxSize={20} defaultSize={10}>
+                <ResizablePanel minSize={10} maxSize={20} defaultSize={1}>
                     <NavBar />
                 </ResizablePanel>
                 <ResizableHandle />
-                <ResizablePanel>{children}</ResizablePanel>
+                <ResizablePanel defaultSize={8}>{children}</ResizablePanel>
             </ResizablePanelGroup>
         </div>
     );

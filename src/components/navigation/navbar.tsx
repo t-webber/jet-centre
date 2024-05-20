@@ -1,8 +1,4 @@
-import { PointerEventHandler, useState } from 'react';
-import { Button } from './button';
-import LogoBird from './logo';
-import { cn } from '@/lib/utils';
-import { useRouter } from 'next/navigation';
+import LogoBird from '../ui/logo';
 
 const Logo = () => {
     return (
