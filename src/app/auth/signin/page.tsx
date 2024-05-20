@@ -16,7 +16,7 @@ export default async function SignInPage() {
                         height={555}
                         className="w-[50%]"
                     />
-                    <h1 className="text-4xl text-je-red">Telecom Etude</h1>
+                    <h1 className="text-4xl dark:text-je-red text-primary">Telecom Etude</h1>
                     <p className="text-center">
                         Notre expertise à votre service afin de vous accompagner dans votre
                         transition <strong className="text-primary font-normal">numérique</strong>.
@@ -72,11 +72,13 @@ export default async function SignInPage() {
                 </div>
                 <div className="flex-1 max-w-[504px] 2xl:max-w-[720px] hidden lg:block">
                     <section>
-                        <h2 className="p-10 pl-0 text-je-red text-3xl">Qui sommes nous&nbsp;?</h2>
+                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                            Qui sommes nous&nbsp;?
+                        </h2>
                         <p>
                             Fondée en 1979,{' '}
                             <Link
-                                className="text-link hover:underline"
+                                className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr"
                             >
                                 Telecom Etude
@@ -87,14 +89,14 @@ export default async function SignInPage() {
                             savons trouver des solutions sur mesure à vos projets. Certifiée de la
                             norme{' '}
                             <Link
-                                className="text-link hover:underline"
+                                className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr/projets"
                             >
                                 ISO9001
                             </Link>{' '}
                             et de la meilleure mention de la{' '}
                             <Link
-                                className="text-link hover:underline"
+                                className=" font-semibold text-link hover:underline"
                                 href="https://junior-entreprises.com"
                             >
                                 CNJE
@@ -103,10 +105,12 @@ export default async function SignInPage() {
                         </p>
                     </section>
                     <section>
-                        <h2 className="p-10 pl-0 text-je-red text-3xl">Pourquoi nous&nbsp;?</h2>
+                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                            Pourquoi nous&nbsp;?
+                        </h2>
                         <p>
                             <Link
-                                className="text-link hover:underline"
+                                className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr"
                             >
                                 Telecom Etude
@@ -118,12 +122,14 @@ export default async function SignInPage() {
                         </p>
                     </section>
                     <section>
-                        <h2 className="p-10 pl-0 text-je-red text-3xl">Notre fonctionnement</h2>
+                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                            Notre fonctionnement
+                        </h2>
                         <p>
                             Pour avoir plus d&apos;informations sur notre fonctionnement, vous
                             pouvez consulter notre site internet en cliquant{' '}
                             <Link
-                                className="text-link hover:underline"
+                                className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr"
                             >
                                 ici

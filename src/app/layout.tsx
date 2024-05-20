@@ -15,7 +15,7 @@ export default async function RootLayout({
 }>) {
     return (
         <html lang="fr">
-            <body className={cn(inter.className, 'h-dvh dark')}>{children}</body>
+            <body className={cn(inter.className, 'h-dvh')}>{children}</body>
         </html>
     );
 }
