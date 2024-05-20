@@ -19,6 +19,10 @@ const config = {
         },
         extend: {
             colors: {
+                je: {
+                    red: 'hsl(var(--je-red))',
+                },
+                link: 'hsl(var(--link))',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
                 ring: 'hsl(var(--ring))',
