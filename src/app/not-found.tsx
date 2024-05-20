@@ -1,9 +1,7 @@
-const NotFoundPage = () => {
+export default () => {
     return (
-        <div className="flex flex-col items-center justify-center h-full">
-            <div>404 - Not found</div>
+        <div>
+            <h1>404 - Page Not Found</h1>
         </div>
     );
 };
-
-export default NotFoundPage;

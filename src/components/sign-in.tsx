@@ -1,19 +1,17 @@
 'use server';
 
-import { auth, signIn } from '@/actions/auth';
-import React from 'react';
+import { signIn } from '@/actions/auth';
+import { Button } from './ui/button';
 
 export default async function SignInPage() {
-    const session = await auth();
-    console.log(0);
-    if (!session || !session.user) {
-        signIn();
-        return <>Please sign in</>;
-    } else {
-        return (
-            <div>
-                Your are signed in as {session.user.name} ({session.user.email}).
-            </div>
-        );
-    }
+    return (
+        <form
+            action={async () => {
+                'use server';
+                await signIn();
+            }}
+        >
+            <Button type="submit">SignIn</Button>
+        </form>
+    );
 }
