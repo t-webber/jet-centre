@@ -3,7 +3,7 @@
 import { auth, signIn } from '@/actions/auth';
 import React from 'react';
 
-export default async function SignInLayout({ children }: { children: React.ReactNode }) {
+export default async function SignInPage() {
     const session = await auth();
     console.log(0);
     if (!session || !session.user) {
@@ -13,7 +13,6 @@ export default async function SignInLayout({ children }: { children: React.React
         return (
             <div>
                 Your are signed in as {session.user.name} ({session.user.email}).
-                {children}
             </div>
         );
     }
