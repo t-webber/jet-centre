@@ -11,8 +11,9 @@ interface NextAuthRequest extends NextRequest {
 
 export default auth((request: NextAuthRequest) => {
     const session = request.auth;
-    if (!session || !session.user || !session.user.email) {
-        return NextResponse.redirect(new URL('/', request.nextUrl));
+    console.log('devmode = ', process.env.DEV_MODE);
+    if (!process.env.DEV_MODE && (!session || !session.user || !session.user.email)) {
+        return NextResponse.redirect(new URL('/auth/signin', request.nextUrl));
     }
 });
 

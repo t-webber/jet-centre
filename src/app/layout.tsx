@@ -16,15 +16,6 @@ export default async function RootLayout({
     return (
         <html lang="fr">
             <body className={cn(inter.className, 'min-h-screen flex flex-1 flex-col')}>
-                <form
-                    action={async () => {
-                        'use server';
-                        await signOut();
-                    }}
-                >
-                    <button type="submit">Sign out</button>
-                </form>
-                {JSON.stringify(session)}
                 {children}
             </body>
         </html>

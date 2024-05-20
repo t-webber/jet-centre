@@ -9,7 +9,7 @@ const config = {
     providers: [Google],
     pages: {
         signIn: '/auth/signin',
-        signOut: '/auth/signout',
+        // signOut: '/auth/signout',
     },
 } satisfies NextAuthConfig;
 
