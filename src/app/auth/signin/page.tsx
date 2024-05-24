@@ -16,18 +16,20 @@ export default async function SignInPage() {
                         height={555}
                         className="w-[50%]"
                     />
-                    <h1 className="text-4xl dark:text-je-red text-primary">Telecom Etude</h1>
+                    <h1 className="text-4xl dark: text-primary">Telecom Etude</h1>
                     <p className="text-center">
                         Notre expertise à votre service afin de vous accompagner dans votre
                         transition <strong className="text-primary font-normal">numérique</strong>.
                     </p>
-                    <Link
-                        className=" bg-gradient-to-tl from-primary/80 p-2 px- to-je-red/90 rounded flex items-center space-x-2"
-                        href="https://www.telecom-etude.fr"
-                    >
-                        <p>En savoir plus</p>
-                        <FaArrowRight />
-                    </Link>
+                    <Button asChild>
+                        <Link
+                            className="flex items-center space-x-2"
+                            href="https://telecom-etude.fr"
+                        >
+                            <p className="text-justify">En savoir plus</p>
+                            <FaArrowRight />
+                        </Link>
+                    </Button>
                     <p className="text-center">
                         Vous êtes (futur) administrateur de Telecom Etude&nbsp;? Accéder à
                         l&apos;outil de gestion en cliquant ci-dessous.
@@ -37,45 +39,34 @@ export default async function SignInPage() {
                             'use server';
                             await signIn(googleId);
                         }}
-                        className="w-full"
+                        className="w-full flex justify-center"
                     >
-                        <button
-                            type="submit"
-                            className="bg-gradient-to-br from-je-red/90 to-primary/75 w-full rounded border-je-red/20 border-8"
-                        >
-                            <div className="flex p-2 items-center justify-around sm:w-full flex-col sm:flex-row">
+                        <Button type="submit" className="py-10" variant="outline">
+                            <div className="flex space-x-6 items-center justify-around sm:w-full flex-col sm:flex-row">
                                 <Image
                                     src="/google.svg"
                                     alt="Google Logo"
                                     width={24}
                                     height={24}
-                                    className="bg-white rounded-full h-14 w-14 p-2 m-2 border-white"
+                                    className="bg-white rounded-full h-12 w-12 p-2 m-2 border-white"
                                 />
-                                <div className="flex flex-col ">
-                                    <p className="sm:w-fit sm:text-justify text-center">
-                                        Authentification avec Google
-                                    </p>
-                                    <p className="sm:w-fit sm:text-justify text-center">
-                                        Utilisez votre compte telecom-etude.fr
-                                    </p>
-                                </div>
+                                <span>Sign in with google</span>
                             </div>
-                        </button>
+                        </Button>
                     </form>
                     <p className="text-center">Une erreur est survenue ? Une question ?</p>
-                    <Link
-                        className="bg-gradient-to-tl from-primary/80 p-2 px-4 to-je-red/90  rounded"
-                        href="mailto:jet.info@telecom-etude.fr"
-                    >
-                        Contactez-nous !
-                    </Link>
+                    <Button asChild variant="secondary">
+                        <Link className=" p-2 px-4" href="mailto:jet.info@telecom-etude.fr">
+                            Contactez-nous !
+                        </Link>
+                    </Button>
                 </div>
                 <div className="flex-1 max-w-[504px] 2xl:max-w-[720px] hidden lg:block">
                     <section>
-                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                        <h2 className="p-10 pl-0 dark: text-primary text-3xl">
                             Qui sommes nous&nbsp;?
                         </h2>
-                        <p>
+                        <p className="text-justify">
                             Fondée en 1979,{' '}
                             <Link
                                 className=" font-semibold text-link hover:underline"
@@ -92,6 +83,7 @@ export default async function SignInPage() {
                                 className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr/projets"
                             >
+                                {' '}
                                 ISO9001
                             </Link>{' '}
                             et de la meilleure mention de la{' '}
@@ -105,10 +97,10 @@ export default async function SignInPage() {
                         </p>
                     </section>
                     <section>
-                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                        <h2 className="p-10 pl-0 dark: text-primary text-3xl">
                             Pourquoi nous&nbsp;?
                         </h2>
-                        <p>
+                        <p className="text-justify">
                             <Link
                                 className=" font-semibold text-link hover:underline"
                                 href="https://telecom-etude.fr"
@@ -122,10 +114,10 @@ export default async function SignInPage() {
                         </p>
                     </section>
                     <section>
-                        <h2 className="p-10 pl-0 dark:text-je-red text-primary text-3xl">
+                        <h2 className="p-10 pl-0 dark: text-primary text-3xl">
                             Notre fonctionnement
                         </h2>
-                        <p>
+                        <p className="text-justify">
                             Pour avoir plus d&apos;informations sur notre fonctionnement, vous
                             pouvez consulter notre site internet en cliquant{' '}
                             <Link

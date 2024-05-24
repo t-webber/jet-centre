@@ -7,7 +7,7 @@ export const googleId = Google({}).id;
 const config = {
     providers: [Google],
     pages: {
-        signIn: '/auth/signin',
+        // signIn: '/auth/signin',
         // signOut: '/auth/signout',
     },
 } satisfies NextAuthConfig;
