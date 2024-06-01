@@ -22,6 +22,10 @@ const config = {
                 je: {
                     red: 'hsl(var(--je-red))',
                 },
+                box: {
+                    background: 'hsl(var(--box-background))',
+                    title: 'hsl(var(--box-title))',
+                },
                 link: 'hsl(var(--link))',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',

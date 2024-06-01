@@ -41,13 +41,13 @@ const Editor = () => {
     }, []);
 
     return (
-        <div style={{ height: '90vh', width: '100%' }}>
+        <div className="w-full h-full">
             <MonacoEditor
                 height="100%"
                 width="100%"
                 language="latex"
                 defaultValue="% some comment"
-                theme="vs-dark" // optional, to match the background color
+                theme="vs-dark"
             />
         </div>
     );

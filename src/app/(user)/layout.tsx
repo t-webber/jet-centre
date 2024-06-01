@@ -1,4 +1,5 @@
 import NavBar from '@/components/navigation/navbar';
+import { TopBar } from '@/components/navigation/topbar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
 import React from 'react';
 
@@ -14,7 +15,12 @@ const Layout = ({
                     <NavBar />
                 </ResizablePanel>
                 <ResizableHandle />
-                <ResizablePanel defaultSize={8}>{children}</ResizablePanel>
+                <ResizablePanel defaultSize={8}>
+                    <div className="flex flex-col p-10 space-y-10">
+                        <TopBar />
+                        {children}
+                    </div>
+                </ResizablePanel>
             </ResizablePanelGroup>
         </div>
     );
