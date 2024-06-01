@@ -11,7 +11,7 @@ const Layout = ({
     return (
         <div className="flex flex-row h-full">
             <ResizablePanelGroup direction="horizontal">
-                <ResizablePanel minSize={10} maxSize={20} defaultSize={1}>
+                <ResizablePanel minSize={15} maxSize={30} defaultSize={1}>
                     <NavBar />
                 </ResizablePanel>
                 <ResizableHandle />

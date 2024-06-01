@@ -1,21 +1,20 @@
-import LogoBird from '../ui/logo';
-
-const Logo = () => {
-    return (
-        <div className="flex flex-row space-x-2 justify-center">
-            <LogoBird />
-            <div className="text-base">
-                <p>TELECOM</p>
-                <p>ETUDE</p>
-            </div>
-        </div>
-    );
-};
+import { LogoBirdText } from '../logo';
+import { Separator } from '@/components/ui/separator';
+import { Button } from '@/components/ui/button';
+import { NavbarContent } from './navbar-content';
 
 const NavBar = () => {
     return (
-        <div className="relative overflow-hidden p-main bg-[#11121b] h-full">
-            <Logo />
+        <div className="relative overflow-hidden p-main bg-box-background h-full flex flex-col items-center space-y-main">
+            <div className="flex-1 w-full flex flex-col items-center space-y-main">
+                <LogoBirdText />
+                <Separator />
+                <NavbarContent missions={['223072', '223073', '223074']} position="Respo Info" />
+            </div>
+            <Separator />
+            <Button variant="outline" className="w-full">
+                <span>Nicolas Glady</span>
+            </Button>
         </div>
     );
 };
