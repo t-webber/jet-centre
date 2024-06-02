@@ -1,0 +1,35 @@
+import {
+    NavigationMenu,
+    NavigationMenuItem,
+    NavigationMenuLink,
+    NavigationMenuList,
+} from '@/components/ui/navigation-menu';
+import { Separator } from '@/components/ui/separator';
+import Link from 'next/link';
+import { Button } from '../ui/button';
+
+interface LinkProps {
+    href: string;
+    name: string;
+}
+
+export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
+    <NavigationMenu className="flex flex-col space-y-main">
+        {links.map((section, i) => (
+            <>
+                {i ? <Separator /> : null}
+                <NavigationMenuList key={i} className="flex flex-col space-y-4">
+                    {section.map(({ href, name }, i) => (
+                        <NavigationMenuItem key={i}>
+                            <Button asChild variant="underline" className="text-foreground">
+                                <Link href={href} passHref>
+                                    <NavigationMenuLink>{name}</NavigationMenuLink>
+                                </Link>
+                            </Button>
+                        </NavigationMenuItem>
+                    ))}
+                </NavigationMenuList>
+            </>
+        ))}
+    </NavigationMenu>
+);
