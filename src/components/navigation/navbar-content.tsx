@@ -2,52 +2,31 @@
 
 import { useState } from 'react';
 import { Button } from '../ui/button';
-import { Separator } from '../ui/separator';
 import { MissionNavbar } from './navbar-mission';
-
-const Switcher = ({
-    isCDP,
-    setIsCDP,
-    position,
-}: {
-    isCDP: boolean;
-    setIsCDP: (newValue: boolean) => void;
-    position: string;
-}) => (
-    <div className="flex justify-between">
-        <Button
-            variant={isCDP ? 'secondary' : 'outline'}
-            onClick={() => setIsCDP(true)}
-            className={isCDP ? 'active' : ''}
-            disabled={isCDP}
-        >
-            CDP
-        </Button>
-        <Button
-            variant={!isCDP ? 'secondary' : 'outline'}
-            onClick={() => setIsCDP(false)}
-            className={!isCDP ? 'active' : ''}
-            disabled={!isCDP}
-        >
-            {position}
-        </Button>
-    </div>
-);
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export const NavbarContent = ({ missions, position }: { missions: string[]; position: string }) => {
-    const [isCDP, setIsCDP] = useState(true);
     const [missionNb, setMissionNb] = useState(0);
     return (
-        <>
-            <Switcher isCDP={isCDP} setIsCDP={setIsCDP} position={position} />
-            <Separator />
-            {isCDP ? (
+        <Tabs defaultValue="cdp" className="w-full h-full">
+            <TabsList className="flex">
+                <TabsTrigger className="flex-1" value="cdp">
+                    CDP
+                </TabsTrigger>
+                <TabsTrigger className="flex-1" value="position">
+                    {position}
+                </TabsTrigger>
+            </TabsList>
+            <TabsContent value="cdp" className="h-full py-main">
                 <MissionNavbar
                     missions={missions}
                     missionNb={missionNb}
                     setMissionNb={setMissionNb}
                 />
-            ) : null}
-        </>
+            </TabsContent>
+            <TabsContent value="position" className="h-full py-main">
+                Todo.
+            </TabsContent>
+        </Tabs>
     );
 };

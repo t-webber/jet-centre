@@ -35,9 +35,7 @@ const avenir = localFont({
 
 export default async function RootLayout({
     children,
-    children,
 }: Readonly<{
-    children: React.ReactNode;
     children: React.ReactNode;
 }>) {
     return (

@@ -1,6 +1,13 @@
 import { Button } from '../ui/button';
 import { Separator } from '../ui/separator';
 import { NavigationTemplate } from './menu-template';
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationNext,
+    PaginationPrevious,
+} from '@/components/ui/pagination';
 
 export const MissionNavbar = ({
     missionNb,
@@ -57,24 +64,41 @@ export const MissionNavbar = ({
     ];
 
     return (
-        <>
+        <div className="h-full flex flex-col flex-1">
             <div className="flex-1">
                 <NavigationTemplate links={links} />
             </div>
             <div className="flex flex-col items-center space-y-4">
                 <div>{mission}</div>
                 <Separator />
-                <div className="flex space-x-2">
-                    {missions.map((m, i) => (
-                        <Button
-                            variant={missionNb === i ? 'secondary' : 'outline'}
-                            className="rounded-full aspect-square w-8 h-8 p-0"
-                            key={i}
-                            onClick={() => setMissionNb(i)}
-                        />
-                    ))}
-                </div>
+                <Pagination>
+                    <PaginationContent>
+                        <PaginationItem>
+                            <PaginationPrevious
+                                onClick={() =>
+                                    setMissionNb(
+                                        (missionNb - 1 + missions.length) % missions.length,
+                                    )
+                                }
+                            ></PaginationPrevious>
+                        </PaginationItem>
+                        {missions.map((m, i) => (
+                            <PaginationItem key={i}>
+                                <Button
+                                    className="rounded-full aspect-square w-6 h-6 p-0"
+                                    variant={missionNb === i ? 'secondary' : 'outline'}
+                                    onClick={() => setMissionNb(i)}
+                                />
+                            </PaginationItem>
+                        ))}
+                        <PaginationItem>
+                            <PaginationNext
+                                onClick={() => setMissionNb((missionNb + 1) % missions.length)}
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
             </div>
-        </>
+        </div>
     );
 };

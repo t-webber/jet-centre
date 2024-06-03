@@ -18,7 +18,7 @@ export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
         {links.map((section, i) => (
             <>
                 {i ? <Separator /> : null}
-                <NavigationMenuList key={i} className="flex flex-col space-y-4">
+                <NavigationMenuList key={i} className="flex flex-col">
                     {section.map(({ href, name }, i) => (
                         <NavigationMenuItem key={i}>
                             <Button asChild variant="underline" className="text-foreground">
