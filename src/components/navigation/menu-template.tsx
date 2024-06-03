@@ -7,6 +7,7 @@ import {
 import { Separator } from '@/components/ui/separator';
 import Link from 'next/link';
 import { Button } from '../ui/button';
+import React from 'react';
 
 interface LinkProps {
     href: string;
@@ -16,7 +17,7 @@ interface LinkProps {
 export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
     <NavigationMenu className="flex flex-col space-y-main">
         {links.map((section, i) => (
-            <>
+            <React.Fragment key={i}>
                 {i ? <Separator /> : null}
                 <NavigationMenuList key={i} className="flex flex-col">
                     {section.map(({ href, name }, i) => (
@@ -29,7 +30,7 @@ export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
                         </NavigationMenuItem>
                     ))}
                 </NavigationMenuList>
-            </>
+            </React.Fragment>
         ))}
     </NavigationMenu>
 );
