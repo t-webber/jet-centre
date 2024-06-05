@@ -15,11 +15,11 @@ interface LinkProps {
 }
 
 export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
-    <NavigationMenu className="flex flex-col space-y-main">
+    <NavigationMenu className="flex flex-col items-start space-y-main">
         {links.map((section, i) => (
             <React.Fragment key={i}>
                 {i ? <Separator /> : null}
-                <NavigationMenuList key={i} className="flex flex-col">
+                <NavigationMenuList key={i} className="flex flex-col items-start">
                     {section.map(({ href, name }, i) => (
                         <NavigationMenuItem key={i}>
                             <Button asChild variant="underline" className="text-foreground">

@@ -68,7 +68,7 @@ export const MissionNavbar = ({
             <div className="flex-1">
                 <NavigationTemplate links={links} />
             </div>
-            <div className="flex flex-col items-center space-y-4">
+            <div className="flex flex-col space-y-4">
                 <div>{mission}</div>
                 <Separator />
                 <Pagination>
