@@ -16,11 +16,22 @@ const Separator = React.forwardRef<
         className={cn(
             'shrink-0 bg-border',
             orientation === 'horizontal' ? 'h-[1px] w-full' : 'h-full w-[1px]',
-            className,
+            className
         )}
         {...props}
     />
 ));
 Separator.displayName = SeparatorPrimitive.Root.displayName;
 
-export { Separator };
+const LabeledSeparator = ({ content }: { content: string }) => {
+    return (
+        <div className="relative">
+            <div className="w-full h-1 absolute bg-input top-[50%] rounded"></div>
+            <div className="flex justify-center">
+                <div className="relative px-2 bg-background">{content}</div>
+            </div>
+        </div>
+    );
+};
+
+export { Separator, LabeledSeparator };
