@@ -23,41 +23,41 @@ export const MissionNavbar = ({
     const links = [
         [
             {
-                href: 'dashboard',
+                href: mission + '/dashboard',
                 name: 'Tableau de bord',
             },
         ],
         [
             {
-                href: 'notes',
+                href: mission + '/notes',
                 name: 'Notes clients & étude',
             },
             {
-                href: 'mri',
+                href: mission + '/mri',
                 name: 'Écriture MRI',
             },
             {
-                href: 'assignees',
+                href: mission + '/assignees',
                 name: "Sélection d'intervenants",
             },
             {
-                href: 'docs',
+                href: mission + '/docs',
                 name: 'Documents',
             },
         ],
         [
             {
-                href: 'suivi',
+                href: mission + '/suivi',
                 name: "Suivi de l'étude",
             },
             {
-                href: 'finalisation',
+                href: mission + '/finalisation',
                 name: "Finalisation de l'étude",
             },
         ],
         [
             {
-                href: 'treso',
+                href: mission + '/treso',
                 name: 'Espace trésorerie',
             },
         ],
@@ -68,7 +68,7 @@ export const MissionNavbar = ({
             <div className="flex-1">
                 <NavigationTemplate links={links} />
             </div>
-            <div className="flex flex-col space-y-4">
+            <div className="flex flex-col items-center space-y-4 py-4">
                 <div>{mission}</div>
                 <Separator />
                 <Pagination>
