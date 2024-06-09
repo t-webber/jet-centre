@@ -34,7 +34,7 @@
         --input: 0 0% 89.8%;
         --ring: 0 0% 3.9%;
 
-        --radius: 0.5rem;
+        --radius: 10px;
 
         --box-background: 0 0% 0%;
         --box-title: 0 0% 0%;
@@ -68,6 +68,9 @@
         --border: 236 12% 29%;
         --input: 236 12% 29%;
         --ring: 0 0% 83.1%;
+
+        --disabled: 234 23% 9%;
+        --disabled-foreground: 236 10% 52%;
 
         --box-background: 235 20% 12%;
         --box-title: 235 16% 16%;

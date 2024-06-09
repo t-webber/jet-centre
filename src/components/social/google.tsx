@@ -4,7 +4,11 @@ import LogoGoogle from '@/../public/google.svg';
 
 const SignInWithGoogle = () => {
     return (
-        <Button type="submit" className="py-10 bg-white rounded-xl p-8 w-full" variant="default">
+        <Button
+            type="submit"
+            className="py-10 bg-white rounded-xl p-8 w-full hover:bg-white"
+            variant="default"
+        >
             <Image
                 src={LogoGoogle}
                 alt="Google Logo"

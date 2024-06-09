@@ -17,6 +17,16 @@ const config = {
                 '2xl': '1400px',
             },
         },
+        borderRadius: {
+            DEFAULT: 'var(--radius)',
+            sm: '0.125rem',
+            md: '0.375rem',
+            lg: '0.5rem',
+            xl: '0.75rem',
+            '2xl': '1rem',
+            '3xl': '1.5rem',
+            full: '9999px',
+        },
         extend: {
             colors: {
                 je: {
@@ -60,11 +70,10 @@ const config = {
                     DEFAULT: 'hsl(var(--card))',
                     foreground: 'hsl(var(--card-foreground))',
                 },
-            },
-            borderRadius: {
-                lg: 'var(--radius)',
-                md: 'calc(var(--radius) - 2px)',
-                sm: 'calc(var(--radius) - 4px)',
+                disabled: {
+                    DEFAULT: 'hsl(var(--disabled))',
+                    foreground: 'hsl(var(--disabled-foreground))',
+                },
             },
             spacing: {
                 main: '20px',
