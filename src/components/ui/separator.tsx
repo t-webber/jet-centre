@@ -27,9 +27,9 @@ const LabeledSeparator = ({ content }: { content: string }) => {
     return (
         <div className="relative">
             <div className="flex justify-center items-center">
-                <div className="w-4 h-1 bg-input top-[50%] rounded"></div>
+                <div className="w-full h-1 bg-input top-[50%] rounded"></div>
                 <div className="relative px-2 text-disabled-foreground">{content}</div>
-                <div className="w-4 h-1 bg-input top-[50%] rounded"></div>
+                <div className="w-full h-1 bg-input top-[50%] rounded"></div>
             </div>
         </div>
     );
