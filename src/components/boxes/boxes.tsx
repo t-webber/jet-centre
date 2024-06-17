@@ -26,5 +26,5 @@ export const BoxLink = ({ children, href }: { children: string | string[]; href:
     </Button>
 );
 export const BoxTitle = ({ children }: { children: string | string[] }) => (
-    <h3 className="font-semibold">{children}</h3>
+    <h3 className="font-semibold text-lg">{children}</h3>
 );

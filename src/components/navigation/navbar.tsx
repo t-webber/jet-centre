@@ -5,7 +5,7 @@ import { NavbarContent } from './navbar-content';
 
 const NavBar = () => {
     return (
-        <div className="relative overflow-hidden p-main bg-box-background h-full flex flex-col items-center space-y-main">
+        <div className="relative p-main bg-box-background h-full flex flex-col items-center space-y-main">
             <div className="flex-1 w-full flex flex-col items-center space-y-main">
                 <LogoBirdText />
                 <Separator />

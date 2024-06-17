@@ -1,36 +1,43 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Telecom Etude Centralised Tool
 
 ## Getting Started
 
-First, run the development server:
+### `.env.local`setup
+
+Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 32`), and set up the following environment variables in a `.env.local` file at the root of the project:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+AUTH_SECRET=your_auth_secret
+AUTH_GOOGLE_ID=your_google_id
+AUTH_GOOGLE_SECRET=your_google_secret
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Node Setup
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Then you can install and run the project:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+```bash
+npm i && npm run dev 
+```
 
-## Learn More
+## External resources
 
-To learn more about Next.js, take a look at the following resources:
+- [Planning and Specifications](https://docs.google.com/document/d/1CzvHDF7RaJH02KWRsCnQcQE092i8NNxbOPfbOsbXEHg/edit?usp=sharing)
+- [Figma Design](https://www.figma.com/design/3MOoUXn1fM81b36aXTMpKJ/Telecom-Etude-Centralized-Tool?node-id=0-1&t=yhJvmaIEMpC5kIlt-1)
+- [DB Designer](https://dbdesigner.page.link/URRwLbFdp8r9qiiF6)
 
--   [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
--   [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Used technologies
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Technical stack
 
-## Deploy on Vercel
+- Fullstack [Next.js](https://nextjs.org/) (v14), with the App router.
+- [TypeScript](https://www.typescriptlang.org/), for type safety.
+- [Tailwind CSS](https://tailwindcss.com/), for styling.
+- [Auth.js](https://authjs.dev/) (v5 of [NextAuth.js](https://next-auth.js.org/)), for authentication, with the Google Provider.
+- [MongoDB](https://www.mongodb.com/), for the database.
+- [Mongoose](https://mongoosejs.com/), for MongoDB object modeling.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Recommended tutorials
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Auth.js](https://www.youtube.com/watch?v=1MTyCvS05V4) (advanced level, for deep understanding)
+- [Google Provuder](https://www.youtube.com/watch?v=Rs8018RO5YQ)
