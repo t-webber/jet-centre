@@ -93,7 +93,7 @@ const config = {
                     '50%': { transform: 'translate(100px, -20px) scale(0.2)' },
                     '75%': { transform: 'translate(-100px, 20px) scale(1)' },
                 },
-                wiggle2: {
+                largewiggle: {
                     '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
                     '25%': { transform: 'translate(-100px, -20px) scale(0.5)' },
                     '50%': { transform: 'translate(-100px, 20px) scale(0.8)' },
@@ -104,7 +104,7 @@ const config = {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'float-around': 'wiggle 20s ease-in-out infinite',
-                'float-around-2': 'wiggle2 20s ease-in-out infinite',
+                'float-around-2': 'largewiggle 20s ease-in-out infinite',
             },
         },
     },
