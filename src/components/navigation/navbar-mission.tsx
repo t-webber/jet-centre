@@ -23,41 +23,41 @@ export const MissionNavbar = ({
     const links = [
         [
             {
-                href: mission + '/dashboard',
+                href: '/' + mission + '/dashboard',
                 name: 'Tableau de bord',
             },
         ],
         [
             {
-                href: mission + '/notes',
+                href: '/' + mission + '/notes',
                 name: 'Notes clients & étude',
             },
             {
-                href: mission + '/mri',
+                href: '/' + mission + '/mri',
                 name: 'Écriture MRI',
             },
             {
-                href: mission + '/assignees',
+                href: '/' + mission + '/assignees',
                 name: "Sélection d'intervenants",
             },
             {
-                href: mission + '/docs',
+                href: '/' + mission + '/docs',
                 name: 'Documents',
             },
         ],
         [
             {
-                href: mission + '/suivi',
+                href: '/' + mission + '/suivi',
                 name: "Suivi de l'étude",
             },
             {
-                href: mission + '/finalisation',
+                href: '/' + mission + '/finalisation',
                 name: "Finalisation de l'étude",
             },
         ],
         [
             {
-                href: mission + '/treso',
+                href: '/' + mission + '/treso',
                 name: 'Espace trésorerie',
             },
         ],
