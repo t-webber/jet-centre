@@ -23,9 +23,7 @@ export const NavigationTemplate = ({ links }: { links: LinkProps[][] }) => (
                     {section.map(({ href, name }, i) => (
                         <NavigationMenuItem key={i}>
                             <Button asChild variant="underline" className="text-foreground">
-                                <NavigationMenuLink asChild>
-                                    <Link href={href}>{name}</Link>
-                                </NavigationMenuLink>
+                                <NavigationMenuLink href={href}>{name}</NavigationMenuLink>
                             </Button>
                         </NavigationMenuItem>
                     ))}

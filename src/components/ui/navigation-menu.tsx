@@ -2,6 +2,8 @@ import * as React from 'react';
 import * as NavigationMenuPrimitive from '@radix-ui/react-navigation-menu';
 import { cva } from 'class-variance-authority';
 import { ChevronDown } from 'lucide-react';
+import NextLink from 'next/link';
+import { usePathname } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
 
@@ -74,7 +76,22 @@ const NavigationMenuContent = React.forwardRef<
 ));
 NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName;
 
-const NavigationMenuLink = NavigationMenuPrimitive.Link;
+// See: https://www.radix-ui.com/primitives/docs/components/navigation-menu#with-client-side-routing
+const NavigationMenuLink = React.forwardRef<
+    React.ElementRef<typeof NextLink>,
+    React.ComponentPropsWithoutRef<typeof NextLink>
+>(({ className, href, ...props }, ref) => {
+    const pathname = usePathname();
+    const isActive = href === pathname;
+    console.log('NavigationMenuLink', { isActive, href, pathname });
+
+    return (
+        <NavigationMenuPrimitive.Link asChild active={isActive}>
+            <NextLink href={href ?? ''} className={className} ref={ref} {...props} />
+        </NavigationMenuPrimitive.Link>
+    );
+});
+NavigationMenuLink.displayName = NavigationMenuPrimitive.Link.displayName;
 
 const NavigationMenuViewport = React.forwardRef<
     React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
