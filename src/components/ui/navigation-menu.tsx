@@ -83,7 +83,6 @@ const NavigationMenuLink = React.forwardRef<
 >(({ className, href, ...props }, ref) => {
     const pathname = usePathname();
     const isActive = href === pathname;
-    console.log('NavigationMenuLink', { isActive, href, pathname });
 
     return (
         <NavigationMenuPrimitive.Link asChild active={isActive}>
