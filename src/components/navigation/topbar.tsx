@@ -8,9 +8,9 @@ export const TopBar = () => {
     return (
         <div className="flex w-full items-center">
             <div className="flex-1">
-                <p className="text-primary font-semi">
+                <h1 className="text-primary font-semi">
                     <Title />
-                </p>
+                </h1>
             </div>
             <div>
                 <Search />

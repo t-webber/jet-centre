@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FaFilePdf, FaGripLines } from 'react-icons/fa';
 import { RiExpandUpDownFill } from 'react-icons/ri';
+import { MdOpenInNew } from 'react-icons/md';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import SortableList from '@/components/animations/drag';
@@ -10,16 +11,12 @@ import { Button } from '@/components/ui/button';
 
 import { Assignee } from './page';
 import { Interview } from './right-components/interview';
-import { MRIForm } from './right-components/mri-form';
 import { PDF } from './right-components/pdf';
 import { IconType } from 'react-icons/lib';
 
 function getCurrentTitle(right: Right, current: Assignee) {
     var currentTitle;
     switch (right) {
-        case 'mri_form':
-            currentTitle = 'Formulaire MRI';
-            break;
         case 'pass_interview':
             currentTitle = "Effectuer l'entretien";
             break;
@@ -34,7 +31,7 @@ function getCurrentTitle(right: Right, current: Assignee) {
     return currentTitle;
 }
 
-type Right = 'cv' | 'pass_interview' | 'see_interview' | 'mri_form';
+type Right = 'cv' | 'pass_interview' | 'see_interview';
 
 function AssigneeButton({ onClick, Icon }: { onClick: () => void; Icon: IconType }) {
     return (
@@ -51,21 +48,37 @@ export default function ClientAssignees({ assignees }: { assignees: [Assignee, .
     const [current, setCurrent] = useState<Assignee>(assignees[0]);
     const [isOpen, setIsOpen] = useState(false);
     return (
-        <div className="flex space-x-main w-full">
+        <div className="flex space-x-main w-full h-full">
             <Box className="w-full">
                 <BoxHeader>
                     <BoxTitle>Retour des candidatures</BoxTitle>
                 </BoxHeader>
-                <BoxContent>
+                <BoxContent fill>
                     <SortableList
                         initialItems={assignees}
                         colors={{}}
+                        className="h-full"
                         getKey={(assignee) => assignee.email}
                         render={(assignee) => (
-                            <div className="p-2">
+                            <div className="p-2 h-full">
                                 <div className="bg-box-title p-2 flex justify-between items-center rounded">
                                     <p>{assignee.firstname + ' ' + assignee.lastname}</p>
                                     <div className="flex items-center">
+                                        <Button
+                                            onClick={() => {
+                                                setCurrent(assignee);
+                                                setRight(
+                                                    assignee.interview
+                                                        ? 'see_interview'
+                                                        : 'pass_interview',
+                                                );
+                                            }}
+                                            variant="secondary"
+                                            className="flex items-center space-x-2"
+                                        >
+                                            <p>Entretien</p>
+                                            <MdOpenInNew />
+                                        </Button>
                                         <AssigneeButton
                                             onClick={() => {
                                                 if (current === assignee && isOpen) {
@@ -106,15 +119,14 @@ export default function ClientAssignees({ assignees }: { assignees: [Assignee, .
                     />
                 </BoxContent>
             </Box>
-            <Box className="w-full">
+            <Box className="w-full h-full">
                 <BoxHeader>
                     <BoxTitle>{getCurrentTitle(right, current)}</BoxTitle>
                 </BoxHeader>
-                <BoxContent>
+                <BoxContent fill>
                     {right === 'cv' && <PDF />}
                     {right === 'pass_interview' && <Interview editable />}
                     {right === 'see_interview' && <Interview />}
-                    {right === 'mri_form' && <MRIForm />}
                 </BoxContent>
             </Box>
         </div>

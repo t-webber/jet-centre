@@ -26,6 +26,10 @@ export const MissionNavbar = ({
                 href: '/' + mission + '/dashboard',
                 name: 'Tableau de bord',
             },
+            {
+                href: '/' + mission + '/params',
+                name: "Paramètres de l'étude",
+            },
         ],
         [
             {

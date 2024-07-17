@@ -11,7 +11,7 @@ const Layout = ({
     return (
         <div className="flex h-full">
             <NavBar />
-            <div className="flex flex-col p-10 space-y-10 w-full">
+            <div className="flex flex-col p-main space-y-main w-full">
                 <TopBar />
                 {children}
             </div>

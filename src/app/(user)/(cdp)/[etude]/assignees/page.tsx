@@ -19,7 +19,7 @@ export interface Assignee {
     ideas: string;
     je_experience: string;
     cv_path: string;
-    interview: InterviewElt[];
+    interview: InterviewElt[] | undefined;
 }
 
 const assignees: [Assignee, ...Assignee[]] = [
@@ -72,7 +72,7 @@ const assignees: [Assignee, ...Assignee[]] = [
 
 export default function Assignees() {
     return (
-        <div className="flex space-x-main">
+        <div className="flex space-x-main h-full">
             <ClientAssignees assignees={assignees} />
         </div>
     );

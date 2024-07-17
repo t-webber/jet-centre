@@ -14,6 +14,7 @@ import {
 interface SortableProps<T> {
     initialItems: T[];
     padding?: number;
+    className?: string;
     itemStyle?: CSSProperties;
     listStyle?: CSSProperties;
     render: (item: T) => ReactNode;
@@ -26,10 +27,11 @@ interface SortableProps<T> {
     };
 }
 
-export default function App<T>({
+export default function SortableList<T>({
     initialItems,
     padding = 8,
     itemStyle,
+    className,
     listStyle,
     getKey,
     render,
@@ -63,7 +65,7 @@ export default function App<T>({
         // background: isDraggingOver ? draggingOver_color : notDraggingOver_color,
         // padding: padding,
         // width: 250,
-        // ...listStyle,
+        ...listStyle,
     });
 
     const [items, setItems] = useState(initialItems);
@@ -82,6 +84,7 @@ export default function App<T>({
                         {...provided.droppableProps}
                         ref={provided.innerRef}
                         style={getListStyle(snapshot.isDraggingOver)}
+                        className={className}
                     >
                         {items.map((item, index) => (
                             <Draggable key={getKey(item)} draggableId={getKey(item)} index={index}>
