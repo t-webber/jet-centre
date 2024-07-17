@@ -1,19 +1,20 @@
 'use client';
 
-import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { Assignee } from './page';
 import { useState } from 'react';
+import { FaFilePdf, FaGripLines } from 'react-icons/fa';
+import { RiExpandUpDownFill } from 'react-icons/ri';
+
+import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
+import SortableList from '@/components/animations/drag';
+import { Button } from '@/components/ui/button';
+
+import { Assignee } from './page';
 import { Interview } from './right-components/interview';
 import { MRIForm } from './right-components/mri-form';
 import { PDF } from './right-components/pdf';
-import { SortableList } from '@/components/animations/sortable';
-import { FaFilePdf, FaGripLines } from 'react-icons/fa';
-import { Button } from '@/components/ui/button';
+import { IconType } from 'react-icons/lib';
 
-export default function ClientAssignees({ assignees }: { assignees: Assignee[] }) {
-    const [right, setRight] = useState<'cv' | 'pass_interview' | 'see_interview' | 'mri_form'>();
-    const [current, setCurrent] = useState<number>(0);
-    const assignee = assignees[current];
+function getCurrentTitle(right: Right, current: Assignee) {
     var currentTitle;
     switch (right) {
         case 'mri_form':
@@ -29,7 +30,26 @@ export default function ClientAssignees({ assignees }: { assignees: Assignee[] }
             currentTitle = 'CV';
             break;
     }
-    currentTitle += ` - ${assignee.firstname} ${assignee.lastname}`;
+    currentTitle += ` - ${current?.firstname} ${current?.lastname}`;
+    return currentTitle;
+}
+
+type Right = 'cv' | 'pass_interview' | 'see_interview' | 'mri_form';
+
+function AssigneeButton({ onClick, Icon }: { onClick: () => void; Icon: IconType }) {
+    return (
+        <Button variant="ghost" className="m-0 p-2" onClick={onClick}>
+            <Icon />
+        </Button>
+    );
+}
+
+const eltCN = 'bg-background border-2 border-muted p-2';
+
+export default function ClientAssignees({ assignees }: { assignees: [Assignee, ...Assignee[]] }) {
+    const [right, setRight] = useState<Right>('cv');
+    const [current, setCurrent] = useState<Assignee>(assignees[0]);
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <div className="flex space-x-main w-full">
             <Box className="w-full">
@@ -38,43 +58,57 @@ export default function ClientAssignees({ assignees }: { assignees: Assignee[] }
                 </BoxHeader>
                 <BoxContent>
                     <SortableList
-                        data={assignees.map((assignee, i) => (
-                            <div
-                                className="bg-box-title p-2 my-4 flex justify-between items-center rounded"
-                                key={i}
-                            >
-                                <p>{assignee.firstname + ' ' + assignee.lastname}</p>
-                                <div className="flex items-center">
-                                    <Button
-                                        variant="ghost"
-                                        onClick={() => setCurrent(i)}
-                                        className="m-0 p-2"
-                                    >
-                                        <div
-                                            className={`border-transparent
-                                            border-${current === i ? 'b' : 't'}-[10px] border-${current === i ? 'b' : 't'}-foreground
-                                            border-r-[7px] border-l-[7px] 
-                                    `}
+                        initialItems={assignees}
+                        colors={{}}
+                        getKey={(assignee) => assignee.email}
+                        render={(assignee) => (
+                            <div className="p-2">
+                                <div className="bg-box-title p-2 flex justify-between items-center rounded">
+                                    <p>{assignee.firstname + ' ' + assignee.lastname}</p>
+                                    <div className="flex items-center">
+                                        <AssigneeButton
+                                            onClick={() => {
+                                                if (current === assignee && isOpen) {
+                                                    setIsOpen(false);
+                                                } else {
+                                                    setCurrent(assignee);
+                                                    setIsOpen(true);
+                                                }
+                                            }}
+                                            Icon={RiExpandUpDownFill}
                                         />
-                                    </Button>
-                                    <Button
-                                        variant="ghost"
-                                        className="m-0 p-2"
-                                        onClick={() => setCurrent(i)}
-                                    >
-                                        <FaFilePdf />
-                                    </Button>
-
-                                    <FaGripLines className="cursor-grab" />
+                                        <AssigneeButton
+                                            onClick={() => {
+                                                setCurrent(assignee);
+                                                setRight('cv');
+                                            }}
+                                            Icon={FaFilePdf}
+                                        />
+                                        <FaGripLines />
+                                    </div>
                                 </div>
+                                {isOpen && current === assignee && (
+                                    <div className="bg-background grid grid-cols-[20%_80%] rounded p-4  gap-2px">
+                                        <div className={eltCN}>Email</div>
+                                        <div className={eltCN}>{assignee.email}</div>
+                                        <div className={eltCN}>Expérience</div>
+                                        <div className={eltCN}>{assignee.experience}</div>
+                                        <div className={eltCN}>Connaissances</div>
+                                        <div className={eltCN}>{assignee.knowledge}</div>
+                                        <div className={eltCN}>Idées</div>
+                                        <div className={eltCN}>{assignee.ideas}</div>
+                                        <div className={eltCN}>Expérience JE</div>
+                                        <div className={eltCN}>{assignee.je_experience}</div>
+                                    </div>
+                                )}
                             </div>
-                        ))}
+                        )}
                     />
                 </BoxContent>
             </Box>
-            <Box>
+            <Box className="w-full">
                 <BoxHeader>
-                    <BoxTitle>{currentTitle}</BoxTitle>
+                    <BoxTitle>{getCurrentTitle(right, current)}</BoxTitle>
                 </BoxHeader>
                 <BoxContent>
                     {right === 'cv' && <PDF />}

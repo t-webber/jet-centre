@@ -52,18 +52,18 @@ export default function App<T>({
         draggableStyle: DraggingStyle | NotDraggingStyle | undefined,
     ): CSSProperties => ({
         userSelect: 'none',
-        padding: padding * 2,
-        margin: `0 0 ${padding}px 0`,
-        background: isDragging ? dragging_color : notDragging_color,
+        // padding: padding * 2,
+        // margin: `0 0 ${padding}px 0`,
+        // background: isDragging ? dragging_color : notDragging_color,
         ...itemStyle,
         ...draggableStyle,
     });
 
     const getListStyle = (isDraggingOver: boolean) => ({
-        background: isDraggingOver ? draggingOver_color : notDraggingOver_color,
-        padding: padding,
-        width: 250,
-        ...listStyle,
+        // background: isDraggingOver ? draggingOver_color : notDraggingOver_color,
+        // padding: padding,
+        // width: 250,
+        // ...listStyle,
     });
 
     const [items, setItems] = useState(initialItems);

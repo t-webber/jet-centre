@@ -22,7 +22,7 @@ export interface Assignee {
     interview: InterviewElt[];
 }
 
-const assignees: Assignee[] = [
+const assignees: [Assignee, ...Assignee[]] = [
     {
         firstname: 'Jean',
         lastname: 'Dupont',
