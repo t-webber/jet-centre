@@ -1,4 +1,10 @@
-import { ReactNode } from 'react';
+import { Fragment } from 'react';
+
+import { Separator } from '@/components/ui/separator';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
 
 type EltItem =
     | {
@@ -13,10 +19,6 @@ type EltItem =
     | {
           type: 'check';
           question: string;
-      }
-    | {
-          type: 'title';
-          title: string;
       }
     | {
           type: 'text';
@@ -46,9 +48,8 @@ const assigneeInterviewTemplate: Elt[] = [
     {
         title: "Question pour mettre à l'aise",
         content: [
-            { type: 'question', question: 'Nom' },
-            { type: 'question', question: 'Prénom' },
-            { type: 'question', question: 'Moins de 27 ans (obligatoire)\u00A0?' },
+            { type: 'question', question: 'Nom, Prénom' },
+            { type: 'check', question: 'Moins de 27 ans (obligatoire)\u00A0?' },
             {
                 type: 'select',
                 question: 'Promo',
@@ -177,14 +178,50 @@ const assigneeInterviewTemplate: Elt[] = [
     },
 ];
 
-export function Interview({ editable }: { editable?: boolean }) {
-    return (
-        <div>
-            {assigneeInterviewTemplate.map((section, i) => (
-                <div key={i}>
-                    <h3></h3>
+function InterviewItem({ item, editable }: { item: EltItem; editable: boolean }) {
+    switch (item.type) {
+        case 'check':
+            return (
+                <div className="flex space-x-2 items-center">
+                    <Checkbox />
+                    <p>{item.question}</p>
                 </div>
-            ))}
+            );
+        case 'text':
+            return <li>{item.text}</li>;
+        case 'question':
+            return (
+                <li>
+                    <Label>{item.question}</Label>
+                    {editable ? <Textarea className="p-2 h-2" resizable /> : <p></p>}
+                </li>
+            );
+        case 'select':
+            return <></>;
+    }
+}
+
+export function Interview({ editable = false }: { editable?: boolean }) {
+    return (
+        <div className="flex flex-col itesm-center">
+            <div className="space-y-main">
+                {assigneeInterviewTemplate.map((section, i) => (
+                    <section key={i} className="space-y-main">
+                        {i ? <Separator /> : null}
+                        <h3 className="font-semibold text-md">{section.title}</h3>
+                        <ul className="list-disc list-inside space-y-4">
+                            {section.content.map((item, i) => (
+                                <Fragment key={i}>
+                                    <InterviewItem item={item} key={i} editable={editable} />
+                                </Fragment>
+                            ))}
+                        </ul>
+                    </section>
+                ))}
+            </div>
+            <Button>
+                <p>Terminer l&apos;entretien</p>
+            </Button>
         </div>
     );
 }
