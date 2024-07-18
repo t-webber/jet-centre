@@ -1,5 +1,4 @@
 import { Button } from '../ui/button';
-import { Separator } from '../ui/separator';
 import { NavigationTemplate } from './menu-template';
 import {
     Pagination,
@@ -68,13 +67,12 @@ export const MissionNavbar = ({
     ];
 
     return (
-        <div className="h-full flex flex-col flex-1">
-            <div className="flex-1">
+        <div className="h-full flex flex-col justify-between">
+            <div>
                 <NavigationTemplate links={links} />
             </div>
-            <div className="flex flex-col items-center space-y-4 py-4">
+            <div className="flex flex-col items-center">
                 <div>{mission}</div>
-                <Separator />
                 <Pagination>
                     <PaginationContent>
                         <PaginationItem>

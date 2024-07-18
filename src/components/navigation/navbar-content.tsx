@@ -8,7 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 export const NavbarContent = ({ missions, position }: { missions: string[]; position: string }) => {
     const [missionNb, setMissionNb] = useState(0);
     return (
-        <Tabs defaultValue="cdp" className="w-full h-full">
+        <Tabs defaultValue="cdp" className="w-full h-full flex flex-col">
             <TabsList className="flex">
                 <TabsTrigger className="flex-1" value="cdp">
                     CDP
@@ -17,14 +17,14 @@ export const NavbarContent = ({ missions, position }: { missions: string[]; posi
                     {position}
                 </TabsTrigger>
             </TabsList>
-            <TabsContent value="cdp" className="h-full py-main">
+            <TabsContent value="cdp" className="flex-grow py-2">
                 <MissionNavbar
                     missions={missions}
                     missionNb={missionNb}
                     setMissionNb={setMissionNb}
                 />
             </TabsContent>
-            <TabsContent value="position" className="h-full py-main">
+            <TabsContent value="position" className="h-fit">
                 Todo.
             </TabsContent>
         </Tabs>
