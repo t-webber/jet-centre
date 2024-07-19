@@ -7,6 +7,7 @@ import { Form } from '@/components/ui/form';
 import { DOMAINS, FormType, PAYS, defaultMriCreationSchema, mriCreationSchema } from './schema';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownFormElement } from '@/components/meta-components/form/dropdown';
+import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
 
 export default function MRICreationForm() {
     const form = useForm<FormType>({
@@ -22,28 +23,32 @@ export default function MRICreationForm() {
         <Form {...form}>
             <form className="space-y-5 py-5">
                 <InputFormElement label="Titre" name="title" form={form} onChange={onChange} />
-                <InputFormElement
+                <TextAreaFormElement
                     label="Introduction"
                     name="intro"
                     form={form}
+                    resizable
                     onChange={onChange}
                 />
-                <InputFormElement
+                <TextAreaFormElement
                     label="Compétences"
                     name="skills"
                     form={form}
+                    resizable
                     onChange={onChange}
                 />
-                <InputFormElement
+                <TextAreaFormElement
                     label="Échéances"
                     name="due_date"
                     form={form}
+                    resizable
                     onChange={onChange}
                 />
-                <InputFormElement
+                <TextAreaFormElement
                     label="Description"
                     name="description"
                     form={form}
+                    resizable
                     onChange={onChange}
                 />
                 <DropdownFormElement

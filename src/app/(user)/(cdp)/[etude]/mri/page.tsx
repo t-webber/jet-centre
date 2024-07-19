@@ -1,6 +1,7 @@
 import { Box, BoxContent, BoxHeader, BoxLink, BoxTitle } from '@/components/boxes/boxes';
 import { Metadata } from 'next';
 import MRICreationForm from './form/form';
+import { RenderMRI } from './render';
 
 export const metadata = {
     title: 'Écriture MRI',
@@ -20,9 +21,11 @@ export default ({ params: { etude } }: { params: { etude: string } }) => {
             </Box>
             <Box className="w-full">
                 <BoxHeader>
-                    <BoxTitle>Prévisualiser le MRI</BoxTitle>
+                    <BoxTitle>Prévisualisation du MRI</BoxTitle>
                 </BoxHeader>
-                <BoxContent>d</BoxContent>
+                <BoxContent>
+                    <RenderMRI etude={etude} />
+                </BoxContent>
             </Box>
         </div>
     );

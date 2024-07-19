@@ -1,19 +1,22 @@
-import { Input } from '@/components/ui/input';
 import { FieldValues } from 'react-hook-form';
 import { FormElementWrapper, FormElementProps } from './wrapper';
+import { Textarea } from '@/components/ui/textarea';
 
-interface InputFormElementProps<T extends FieldValues> extends FormElementProps<T> {
+interface TextAreaFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     onChange?: (newValue: string) => void;
+    resizable?: boolean;
 }
 
-export const InputFormElement = <T extends FieldValues>({
+export const TextAreaFormElement = <T extends FieldValues>({
     onChange,
+    resizable = false,
     ...props
-}: InputFormElementProps<T>) => (
+}: TextAreaFormElementProps<T>) => (
     <FormElementWrapper
         {...props}
         son={(field) => (
-            <Input
+            <Textarea
+                resizable={resizable}
                 {...field}
                 onChange={(e) => {
                     field.onChange(e);
