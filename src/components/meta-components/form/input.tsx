@@ -1,12 +1,17 @@
 import { Input } from '@/components/ui/input';
-import { FieldValues, UseFormReturn } from 'react-hook-form';
+import { FieldValues } from 'react-hook-form';
 import { FormElementWrapper, FormElementProps } from './wrapper';
+
+interface InputFormElementProps<T extends FieldValues> extends FormElementProps<T> {
+    onChange?: (newValue: string) => void;
+}
 
 export const InputFormElement = <T extends FieldValues>({
     form,
     label,
     name,
-}: FormElementProps<T>) => (
+    onChange,
+}: InputFormElementProps<T>) => (
     <FormElementWrapper
         form={form}
         name={name}
@@ -16,7 +21,10 @@ export const InputFormElement = <T extends FieldValues>({
                 {...field}
                 onChange={(e) => {
                     field.onChange(e);
-                    console.log(form.getValues().title);
+                    if (onChange) {
+                        onChange(e.target.value);
+                    }
+                    // console.log(form.getValues()[name]);
                 }}
                 className="p-4"
             />

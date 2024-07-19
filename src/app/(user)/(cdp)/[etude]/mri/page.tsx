@@ -6,14 +6,13 @@ export const metadata = {
     title: 'Écriture MRI',
 } satisfies Metadata;
 
-export default () => {
-    const onChange = () => {};
+export default ({ params: { etude } }: { params: { etude: string } }) => {
     return (
         <div className="flex space-x-main">
             <Box className="w-full">
                 <BoxHeader>
-                    <BoxTitle>MRI à valider</BoxTitle>
-                    <BoxLink href="/examples">Examples de MRIs</BoxLink>
+                    <BoxTitle>MRI-{etude}</BoxTitle>
+                    <BoxLink href="/mri-examples">Examples de MRIs</BoxLink>
                 </BoxHeader>
                 <BoxContent>
                     <MRICreationForm />
@@ -22,7 +21,6 @@ export default () => {
             <Box className="w-full">
                 <BoxHeader>
                     <BoxTitle>Prévisualiser le MRI</BoxTitle>
-                    <BoxLink href="/examples">Valider le MRI</BoxLink>
                 </BoxHeader>
                 <BoxContent>d</BoxContent>
             </Box>

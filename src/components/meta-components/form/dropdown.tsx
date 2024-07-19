@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils';
 
 interface DropdownFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     values: string[];
+    onChange?: (newValue: string) => void;
 }
 
 export const DropdownFormElement = <T extends FieldValues>({
@@ -23,6 +24,7 @@ export const DropdownFormElement = <T extends FieldValues>({
     label,
     name,
     values,
+    onChange,
 }: DropdownFormElementProps<T>) => (
     <FormElementWrapper
         form={form}
@@ -37,23 +39,26 @@ export const DropdownFormElement = <T extends FieldValues>({
                         // aria-expanded={open}
                         className="flex w-full justify-between"
                     >
-                        {form.getValues()[name] || `Selectionner ${label}...`}
+                        {form.getValues()[name] || `Sélectionner ${label}...`}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-[200px] p-0">
                     <Command>
-                        <CommandInput placeholder={`Selectionner ${label}...`} />
+                        <CommandInput placeholder={`Sélectionner ${label}...`} />
                         <CommandList>
-                            <CommandEmpty>No framework found.</CommandEmpty>
+                            <CommandEmpty>Entrée invalide.</CommandEmpty>
                             <CommandGroup>
                                 {values.map((value) => (
                                     <CommandItem
                                         key={value}
                                         value={value}
-                                        onSelect={(new_val) => {
-                                            form.setValue(name, new_val as PathValue<T, Path<T>>);
-                                            console.log(form.getValues()[name]);
+                                        onSelect={(newValue) => {
+                                            if (onChange) {
+                                                onChange(newValue);
+                                            }
+                                            form.setValue(name, newValue as PathValue<T, Path<T>>);
+                                            // console.log(form.getValues()[name]);
                                         }}
                                     >
                                         <Check

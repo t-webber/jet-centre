@@ -1,5 +1,12 @@
 import { ControllerRenderProps, FieldValues, Path, UseFormReturn } from 'react-hook-form';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import {
+    FormControl,
+    FormDescription,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from '../../ui/form';
 import { ReactNode } from 'react';
 
 export interface FormElementProps<T extends FieldValues> {
@@ -10,6 +17,7 @@ export interface FormElementProps<T extends FieldValues> {
 
 interface FormElementWrapperProps<T extends FieldValues> extends FormElementProps<T> {
     son: (field: ControllerRenderProps<T>) => ReactNode;
+    description?: string | ReactNode;
 }
 
 export const FormElementWrapper = <T extends FieldValues>({
@@ -17,6 +25,7 @@ export const FormElementWrapper = <T extends FieldValues>({
     label,
     name,
     son,
+    description,
 }: FormElementWrapperProps<T>) => (
     <FormField
         control={form.control}
@@ -25,7 +34,7 @@ export const FormElementWrapper = <T extends FieldValues>({
             <FormItem>
                 <FormLabel>{label}</FormLabel>
                 <FormControl>{son(field)}</FormControl>
-                {/* <FormDescription>This is your public display name.</FormDescription> */}
+                {description && <FormDescription>{description}</FormDescription>}
                 <FormMessage />
             </FormItem>
         )}
