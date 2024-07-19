@@ -1,10 +1,10 @@
-import { Fragment } from 'react';
-
 import { Separator } from '@/components/ui/separator';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { SingleCombobox } from '@/components/meta-components/combobox';
+import { Fragment, useState } from 'react';
 
 type EltItem =
     | {
@@ -14,15 +14,12 @@ type EltItem =
     | {
           type: 'select';
           question: string;
-          options: (string | number)[];
-      }
-    | {
-          type: 'check';
-          question: string;
+          options: string[];
       }
     | {
           type: 'text';
           text: string;
+          note?: true;
       };
 
 interface Elt {
@@ -46,14 +43,14 @@ const assigneeInterviewTemplate: Elt[] = [
         ],
     },
     {
-        title: "Question pour mettre à l'aise",
+        title: "Questions pour mettre à l'aise",
         content: [
             { type: 'question', question: 'Nom, Prénom' },
-            { type: 'check', question: 'Moins de 27 ans (obligatoire)\u00A0?' },
+            { type: 'text', text: 'Moins de 27 ans (obligatoire)\u00A0?' },
             {
                 type: 'select',
                 question: 'Promo',
-                options: Array.from(Array(7)).map((_, i) => 2020 + i),
+                options: Array.from(Array(8)).map((_, i) => (2020 + i).toString()),
             },
         ],
     },
@@ -63,7 +60,7 @@ const assigneeInterviewTemplate: Elt[] = [
             {
                 type: 'question',
                 question:
-                    "A combien d'études l'intervenant.e a postulé\u00A0? (Nombre de fois que la personne à répondu à un MRI, cette étude exclue)",
+                    "À combien d'études l'intervenant.e a postulé\u00A0? (Nombre de fois que la personne à répondu à un MRI, cette étude exclue)",
             },
             {
                 type: 'question',
@@ -81,14 +78,15 @@ const assigneeInterviewTemplate: Elt[] = [
         content: [
             {
                 type: 'text',
-                text: 'Revenir plus en détail sur le contexte de la mission:\n - Qui est le client (PME/Grosse entreprise; Domaine)\n - But de la mission\u00A0?\n - Comment semble fonctioner le client\n? (Réactif, directif, à rassurer, vague)\n - Travail intervenant solo ou en groupe\u00A0?\n - Timeline\u00A0?',
+                text: 'Qui est le client (PME/Grosse entreprise; Domaine)\u00A0?',
             },
+            { type: 'text', text: 'But de la mission\u00A0?' },
             {
-                type: 'select',
-                question:
-                    "Est-ce que l'intervenant.e est disponible\u00A0? (N'est pas disponible si déjà sur une étude ou chargé.e en travail à l'école ). Bien préciser par rapport aux points réguliers avec le client. Parler des deadlines.",
-                options: ['Oui', 'Non'],
+                type: 'text',
+                text: 'Comment semble fonctioner le client\n? (Réactif, directif, à rassurer, vague)',
             },
+            { type: 'text', text: 'Travail intervenant solo ou en groupe\u00A0?' },
+            { type: 'text', text: 'Timeline\u00A0?' },
             {
                 type: 'text',
                 text: 'Expliquer en quoi consiste précisément la mission. ATTENTION, ne surtout pas dire comment on pense réaliser la mission (sauf si explicité par le client). Il faut laisser réfléchir et ne pas influencer.',
@@ -96,11 +94,30 @@ const assigneeInterviewTemplate: Elt[] = [
         ],
     },
     {
+        title: "Disponibilité de l'intervenant",
+        content: [
+            {
+                type: 'text',
+                text: 'Bien préciser par rapport aux points réguliers avec le client. Parler des deadlines.',
+            },
+            {
+                type: 'select',
+                question: 'Disponible ?',
+                options: ['Oui', 'Non'],
+            },
+            {
+                type: 'text',
+                text: "Pas disponible si déjà sur une étude ou chargé.e en travail à l'école.",
+                note: true,
+            },
+        ],
+    },
+    {
         title: "Profil de l'intervenant",
         content: [
             {
-                type: 'check',
-                question: "Demander su l'intervenant à des questions jusque là",
+                type: 'text',
+                text: "Demander si l'intervenant à des questions jusque là.",
             },
             {
                 type: 'question',
@@ -154,56 +171,84 @@ const assigneeInterviewTemplate: Elt[] = [
                     'Quel type de chef de projet il/elle veut\u00A0? (directif...) et comment vous serez avec lui/elle',
             },
             {
-                type: 'check',
-                question:
-                    "Expliquer à l'intervenant comment se déroule une mission à la JE (sélection d'intervenant, réunion tripartite, signature CE/RM, points réguliers avec le client, remise livrable...).",
+                type: 'text',
+                text: "Expliquer à l'intervenant comment se déroule une mission à la JE (sélection d'intervenant, réunion tripartite, signature CE/RM, points réguliers avec le client, remise livrable...).",
             },
-            { type: 'check', question: 'Est-ce que tu as des questions pour la suite\u00A0?' },
-            { type: 'check', question: 'Dire que pas de lien direct avec le client' },
+            { type: 'text', text: 'Est-ce que tu as des questions pour la suite\u00A0?' },
+            { type: 'text', text: 'Dire que pas de lien direct avec le client' },
             {
-                type: 'check',
-                question: 'Expliquer combien il/elle sera payé, et combien y a de cotisations',
+                type: 'text',
+                text: 'Expliquer combien il/elle sera payé, et combien y a de cotisations',
             },
             {
-                type: 'check',
-                question:
-                    'Dire que la rétribution ne doit pas être considérée comme source de revenu principale',
+                type: 'text',
+                text: 'Dire que la rétribution ne doit pas être considérée comme source de revenu principale',
             },
-            { type: 'check', question: 'Parler des 3 mois de garantie' },
+            { type: 'text', text: 'Parler des 3 mois de garantie' },
             {
-                type: 'check',
-                question: "Dire quand vous lui donnerez la réponse (s'il/elle est pris.e)",
+                type: 'text',
+                text: "Dire quand vous lui donnerez la réponse (s'il/elle est pris.e)",
             },
         ],
     },
 ];
 
+function InterviewText({ text }: { text: string }) {
+    const [checked, setChecked] = useState(false);
+    return (
+        <li className="list-none">
+            <div className="flex  space-x-2 items-start">
+                <Checkbox onClick={() => setChecked(!checked)} />
+                <p
+                    className={`text-base ${checked ? 'line-through text-accent' : 'no-underline text-foreground'}`}
+                >
+                    {text}
+                </p>
+            </div>
+        </li>
+    );
+}
+
+function InterviewSelect({ question, options }: { question: string; options: string[] }) {
+    const [currentKey, selectKey] = useState<string | null>(null);
+    return (
+        <li>
+            <SingleCombobox
+                currentKey={currentKey}
+                selectKey={(k) => selectKey(k)}
+                title={question}
+                placeholder=""
+                emptyMessage="Année invalide, vérifier l'année saisie ou faire un ticket pour signaler le problème."
+                items={options}
+            />
+        </li>
+    );
+}
+
 function InterviewItem({ item, editable }: { item: EltItem; editable: boolean }) {
     switch (item.type) {
-        case 'check':
-            return (
-                <div className="flex space-x-2 items-center">
-                    <Checkbox />
-                    <p>{item.question}</p>
-                </div>
-            );
-        case 'text':
-            return <li>{item.text}</li>;
+        case 'text': {
+            if (!item.note) {
+                return <InterviewText {...item} />;
+            } else {
+                return <li className="text-base italic list-none">{item.text}</li>;
+            }
+        }
         case 'question':
             return (
                 <li>
-                    <Label>{item.question}</Label>
+                    <Label className="text-base">{item.question}</Label>
                     {editable ? <Textarea className="p-2 h-2" resizable /> : <p></p>}
                 </li>
             );
         case 'select':
-            return <></>;
+            return <InterviewSelect {...item} />;
     }
 }
 
 export function Interview({ editable = false }: { editable?: boolean }) {
     return (
-        <div className="flex flex-col itesm-center">
+        <div className="flex flex-col items-center space-y-main">
             <div className="space-y-main">
                 {assigneeInterviewTemplate.map((section, i) => (
                     <section key={i} className="space-y-main">
@@ -219,7 +264,7 @@ export function Interview({ editable = false }: { editable?: boolean }) {
                     </section>
                 ))}
             </div>
-            <Button>
+            <Button className="w-fit">
                 <p>Terminer l&apos;entretien</p>
             </Button>
         </div>

@@ -17,7 +17,7 @@ type ComboboxProps = {
     emptyMessage: string;
     placeholder: string;
     title: string;
-    items: { [key: string]: string };
+    items: string[];
 };
 
 type ManyComboBoxProps = {
@@ -53,13 +53,13 @@ export const ManyComboBox = ({
                     <CommandList>
                         <CommandEmpty>{emptyMessage}</CommandEmpty>
                         <CommandGroup>
-                            {Object.entries(items).map(([key, value], i) => (
+                            {items.map((item, i) => (
                                 <CommandItem
                                     key={i}
-                                    value={key}
+                                    value={item}
                                     onSelect={(val) => addRemoveKey(val)}
                                     className={
-                                        selectedKeys.length == 4 && !selectedKeys.includes(key)
+                                        selectedKeys.length == 4 && !selectedKeys.includes(item)
                                             ? 'cursor-not-allowed'
                                             : 'cursor-pointer'
                                     }
@@ -67,13 +67,13 @@ export const ManyComboBox = ({
                                     <Checkbox
                                         className={cn(
                                             'mr-2 h-4 w-4',
-                                            selectedKeys.includes(key)
+                                            selectedKeys.includes(item)
                                                 ? 'opacity-100'
                                                 : 'opacity-0',
                                         )}
-                                        checked={selectedKeys.includes(key)}
+                                        checked={selectedKeys.includes(item)}
                                     />
-                                    {value}
+                                    {item}
                                 </CommandItem>
                             ))}
                         </CommandGroup>
@@ -93,16 +93,6 @@ export const SingleCombobox = ({
     placeholder,
 }: SingleComboboxProps) => {
     const [open, setOpen] = useState(false);
-    const entries = Object.entries(items);
-    const getValue = (currentKey: string | null) => {
-        if (currentKey) {
-            const v = entries.find(([key, _]) => key === currentKey);
-            if (v) {
-                return v[1];
-            }
-        }
-        return title;
-    };
 
     return (
         <Popover open={open} onOpenChange={setOpen}>
@@ -113,7 +103,7 @@ export const SingleCombobox = ({
                     aria-expanded={open}
                     className="w-[200px] justify-between"
                 >
-                    {getValue(currentKey)}
+                    {currentKey && items.includes(currentKey) ? currentKey : title}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
             </PopoverTrigger>
@@ -123,13 +113,13 @@ export const SingleCombobox = ({
                     <CommandList>
                         <CommandEmpty>{emptyMessage}</CommandEmpty>
                         <CommandGroup>
-                            {entries.map(([key, value], i) => (
+                            {items.map((item, i) => (
                                 <CommandItem
                                     key={i}
-                                    value={key}
+                                    value={item}
                                     onSelect={(newKey) => {
-                                        if (currentKey && currentKey !== newKey) {
-                                            selectKey(currentKey);
+                                        if (!currentKey || currentKey !== newKey) {
+                                            selectKey(newKey);
                                         }
                                         setOpen(false);
                                     }}
@@ -137,10 +127,10 @@ export const SingleCombobox = ({
                                     <Check
                                         className={cn(
                                             'mr-2 h-4 w-4',
-                                            currentKey === key ? 'opacity-100' : 'opacity-0',
+                                            currentKey === item ? 'opacity-100' : 'opacity-0',
                                         )}
                                     />
-                                    {value}
+                                    {item}
                                 </CommandItem>
                             ))}
                         </CommandGroup>
