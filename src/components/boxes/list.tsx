@@ -8,6 +8,7 @@ import {
     BoxCollapseButton,
     BoxHeaderBlock,
     BoxDragHandle,
+    BoxButtonPlus,
 } from './boxes';
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
 import { useState, memo, ReactNode } from 'react';
@@ -27,10 +28,26 @@ type BoxContent = {
 
 type ItemType = BoxContent & { id: string };
 
-export function ListBox({ items: boxes }: { items: Array<BoxContent> }) {
+export function ListBox({
+    items: boxes,
+    itemFactory,
+}: {
+    items: Array<BoxContent>;
+    itemFactory: () => BoxContent;
+}) {
     const [items, setItems] = useState<Array<ItemType>>(
-        boxes.map((box: BoxContent, index: number) => ({ ...box, id: `box-id-${index}` })),
+        boxes.map((box: BoxContent, index: number) => ({ ...box, id: `box-id-${index}` }))
     );
+
+    function addItem() {
+        setItems([
+            ...items,
+            {
+                ...itemFactory(),
+                id: `box-id-${items.length}`,
+            },
+        ]);
+    }
 
     function onDragEnd(result: DropResult) {
         if (!result.destination) {
@@ -57,6 +74,10 @@ export function ListBox({ items: boxes }: { items: Array<BoxContent> }) {
                     >
                         <ItemList items={items} />
                         {provided.placeholder}
+
+                        <div className="flex justify-center">
+                            <BoxButtonPlus onClick={addItem} />
+                        </div>
                     </div>
                 )}
             </Droppable>
@@ -88,9 +109,7 @@ function Item({ note, index }: { note: ItemType; index: number }): ReactNode {
                             <BoxDragHandle {...provided.dragHandleProps} />
                         </BoxHeaderBlock>
                     </BoxHeader>
-                    <BoxContent collapse={collapse}>
-                        {note.content}
-                    </BoxContent>
+                    <BoxContent collapse={collapse}>{note.content}</BoxContent>
                 </Box>
             )}
         </Draggable>

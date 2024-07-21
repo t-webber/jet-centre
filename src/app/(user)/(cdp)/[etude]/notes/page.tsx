@@ -66,7 +66,7 @@ type NoteType = {
 };
 
 export default function Notes() {
-    const [notes, setNotes] = useState<Array<NoteType>>([
+    const notes = [
         {
             title: 'MRI à valider',
             markdown: TEST_MD,
@@ -79,15 +79,18 @@ export default function Notes() {
             title: 'Prévisualiser le MRI',
             markdown: TEST_MD,
         },
-    ]);
+    ];
 
     return (
         <ListBox
             items={notes.map((notes) => ({
                 title: notes.title,
-                // content: notes.markdown,
-                content: <MDXEditor markdown={notes.markdown}/>,
+                content: <MDXEditor markdown={notes.markdown} displayToolbar={true} />,
             }))}
+            itemFactory={() => ({
+                title: 'Nouvelle Note',
+                content: <MDXEditor markdown={''} displayToolbar={true} />,
+            })}
         />
     );
 }

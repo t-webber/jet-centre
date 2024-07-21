@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
 import Link from 'next/link';
 import { ReactNode, forwardRef } from 'react';
 import { Button } from '../ui/button';
 import { cn } from '@/lib/utils';
-import { FaGripLines } from 'react-icons/fa';
+import { FaGripLines, FaPlus } from 'react-icons/fa';
 import AnimateHeight from 'react-animate-height';
 import { ANIMATION_DURATION_MS } from '@/settings/vars';
 
@@ -45,6 +45,12 @@ export const BoxTitle = ({ children }: { children: string | string[] }) => (
     <h3 className="font-semibold">{children}</h3>
 );
 
+export const BoxButtonPlus = ({ onClick }: { onClick: () => void }) => (
+    <Button onClick={onClick} variant="title" className="rounded-xl p-4 w-14 h-14">
+        <FaPlus className="w-full h-full" />
+    </Button>
+);
+
 export const BoxDragHandle = forwardRef<HTMLDivElement>((props, ref) => (
     <div className="h-6 w-6 content-center" ref={ref} {...props}>
         <FaGripLines />
@@ -65,8 +71,8 @@ export const BoxCollapseButton = ({
     return (
         <Button
             onClick={toggleCollapse}
-            variant="default"
-            className="px-0 py-0 h-6 w-6 bg-transparent hover:bg-transparent"
+            variant="title"
+            className="p-0 h-6 w-6 bg-transparent hover:bg-transparent"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
