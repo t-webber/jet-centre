@@ -1,7 +1,5 @@
 'use client';
 
-import MDXEditor from '@/components/note/mdxEditor';
-
 import {
     Box,
     BoxContent,

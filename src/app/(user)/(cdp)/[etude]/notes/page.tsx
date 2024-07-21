@@ -1,17 +1,8 @@
 'use client';
 
-import {
-    Box,
-    BoxContent,
-    BoxHeader,
-    BoxTitle,
-    BoxCollapseButton,
-    BoxHeaderBlock,
-} from '@/components/boxes/boxes';
 import { ListBox } from '@/components/boxes/list';
 import MDXEditor from '@/components/note/mdxEditor';
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
-import { useState, memo, ReactNode } from 'react';
+import { useState } from 'react';
 
 const TEST_MD = `
 ## Headers
