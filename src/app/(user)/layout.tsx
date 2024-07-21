@@ -16,7 +16,7 @@ const Layout = ({
                 </ResizablePanel>
                 <ResizableHandle />
                 <ResizablePanel defaultSize={8}>
-                    <div className="flex flex-col p-10 space-y-10">
+                    <div className="flex flex-col p-10 space-y-10 h-full overflow-auto">
                         <TopBar />
                         {children}
                     </div>
