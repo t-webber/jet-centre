@@ -1,0 +1,128 @@
+
+.je-theme {
+    /* --accentBase: #f00 !important;         Utile pour ? */
+    /* --accentBgSubtle: #0f0 !important;     Utile pour ? */
+    /* --accentBg: #00f !important;           Utile pour ? */
+    /* --accentBgHover: #f0f !important;      Utile pour ? */
+    /* --accentBgActive: #0ff !important;     Utile pour ? */
+    /* --accentLine: #ff0 !important;         Utile pour ? */
+    /* --accentBorderHover: #0f0 !important;  Utile pour ? */
+    /* --baseBgHover: #0ff !important;        Utile pour ? */
+    /* --baseLine: #ff0 !important;           Utile pour CodeMirror */
+    /* --baseSolid: #00f !important;          Utile pour les images et les tables */
+    --accentBorder: hsl(var(--border)) !important;
+    --accentSolid: hsl(var(--border)) !important;
+    --accentSolidHover: hsl(var(--link)) !important;
+    --accentText: hsl(var(--link)) !important;
+    --accentTextContrast: hsl(var(--link)) !important;
+
+    --baseBase: hsl(var(--box-accent)) !important;
+    --baseBgSubtle: #0f0 !important;
+    --baseBg: hsl(var(--box-accent)) !important;
+    --baseBgActive: hsl(var(--accent)) !important;
+    --baseBorder: hsl(var(--border)) !important;
+    --baseBorderHover: hsl(var(--accent)) !important;
+    --baseSolidHover: hsl(var(--secondary-foreground)) !important;
+    --baseText: hsl(var(--foreground)) !important;
+    --baseTextContrast: hsl(var(--foreground)) !important;
+    --basePageBg: hsl(var(--box-background)) !important;
+
+    color: hsl(var(--foreground));
+    background: var(--basePageBg);
+}
+
+.mdxeditor h1 {
+    font-size: xx-large;
+    color: hsl(var(--primary));
+    border-bottom: 2px solid hsl(var(--muted-foreground));
+    margin-bottom: 1rem;
+}
+.mdxeditor h2 {
+    font-size: x-large;
+    color: hsl(var(--primary));
+    border-bottom: 2px solid hsl(var(--muted-foreground));
+    margin-bottom: 0.75rem;
+    width: 80%;
+}
+.mdxeditor h3 {
+    font-size: larger;
+    color: hsl(var(--primary));
+    border-bottom: 2px solid hsl(var(--muted-foreground));
+    margin-bottom: 0.75rem;
+    width: 60%;
+}
+.mdxeditor h4 {
+    font-size: large;
+    color: hsl(var(--primary));
+    border-bottom: 2px solid hsl(var(--muted-foreground));
+    margin-bottom: 0.75rem;
+    width: 40%;
+}
+.mdxeditor h5 {
+    font-size: medium;
+    color: hsl(var(--primary));
+}
+.mdxeditor h6 {
+    font-size: small;
+    color: hsl(var(--primary));
+}
+
+.mdxeditor hr {
+    margin: 1rem 0;
+}
+
+.mdxeditor p {
+    margin-bottom: 1rem;
+}
+
+.mdxeditor a > span {
+    color: hsl(var(--link));
+    text-decoration: none;
+    border-bottom: 1px solid hsl(var(--link));
+}
+
+.mdxeditor ul {
+    list-style-type: disc;
+    padding-left: 1em;
+}
+
+.mdxeditor ul ul {
+    list-style-type: circle;
+    padding-left: 1em;
+}
+
+.mdxeditor ul ul ul {
+    list-style-type: square;
+    padding-left: 1em;
+}
+
+.mdxeditor ol {
+    list-style-type: decimal;
+    padding-left: 1em;
+}
+
+.mdxeditor ol ol {
+    list-style-type: lower-alpha;
+    padding-left: 1em;
+}
+
+.mdxeditor ol ol ol {
+    list-style-type: lower-roman;
+    padding-left: 1em;
+}
+
+.mdxeditor li:has(ul, ol) {
+    list-style-type: none;
+}
+
+.mdxeditor blockquote {
+    border-left: 4px solid hsl(var(--primary));
+    background-color: hsl(var(--muted));
+    color: hsl(var(--muted-foreground));
+    padding-left: 1em;
+    margin-left: 0;
+}
+
+.mdxeditor-popup-container {
+    z-index: 100 !important;
+}

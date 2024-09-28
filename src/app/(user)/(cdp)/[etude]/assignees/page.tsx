@@ -1,4 +1,4 @@
-import ClientAssignees from './client';
+import ClientsAssignees from './clientsAssignees';
 
 export const metadata = {
     title: 'Sélection des intervenants',
@@ -70,7 +70,7 @@ const assignees: [Assignee, ...Assignee[]] = [
 export default function Assignees() {
     return (
         <div className="flex space-x-main h-full">
-            <ClientAssignees assignees={assignees} />
+            <ClientsAssignees assignees={assignees} />
         </div>
     );
 }
