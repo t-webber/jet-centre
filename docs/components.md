@@ -46,9 +46,7 @@ export default function Page() {
             colors={{}}
             className="h-full"
             getKey={(assignee) => assignee.email}
-            render={(assignee) => (
-                <div>{assignee.name}</div>
-            )}
+            render={(assignee) => <div>{assignee.name}</div>}
         />
     );
 }
