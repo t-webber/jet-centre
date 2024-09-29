@@ -52,7 +52,6 @@ export default function ClientsAssignees({ assignees }: { assignees: [Assignee, 
                                 dragHandleProps={dragHandleProps}
                                 setCurrent={setCurrent}
                                 setRight={setRight}
-                                current={current}
                             />
                         )}
                     />

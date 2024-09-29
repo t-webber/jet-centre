@@ -23,8 +23,21 @@ export const Box = forwardRef<
     </div>
 ));
 
+export const InnerBox = forwardRef<
+    HTMLDivElement,
+    { children: ReactNode; className?: string | string[] } & Omit<any, 'children' | 'className'>
+>(({ children, className, ...props }, ref) => (
+    <div
+        ref={ref}
+        className={cn('rounded-xl bg-background flex flex-col overflow-auto', className)}
+        {...props}
+    >
+        {children}
+    </div>
+));
+
 export const BoxHeader = ({ children, ...props }: { children?: ReactNode }) => (
-    <div className="bg-box-title flex justify-between items-center p-2" {...props}>
+    <div className="bg-box-title p-2 flex justify-between items-center" {...props}>
         {children}
     </div>
 );
@@ -33,8 +46,24 @@ export const BoxHeaderBlock = ({ children }: { children?: ReactNode }) => (
     <div className="flex justify-between items-center gap-2">{children}</div>
 );
 
-export const BoxContent = ({ children }: { children: ReactNode }) => (
-    <div className={cn('p-2 overflow-y-auto max-h-[calc(100vh-144px)]')}>{children}</div>
+export type Height = 'auto' | 'limited';
+
+export const BoxContent = ({
+    children,
+    height = 'auto',
+}: {
+    children: ReactNode;
+    height?: Height;
+}) => (
+    <div
+        className={cn(
+            'p-2',
+            height === 'auto' && 'h-auto',
+            height === 'limited' && 'overflow-y-auto max-h-[calc(100vh-144px)]'
+        )}
+    >
+        {children}
+    </div>
 );
 
 export const BoxCollapser = ({
@@ -74,11 +103,14 @@ export const BoxDragHandle = forwardRef<HTMLDivElement>((props, ref) => (
 export const BoxCollapseButton = ({
     collapse,
     setCollapse,
+    onClick,
 }: {
     collapse: boolean;
     setCollapse: (c: boolean) => void;
+    onClick?: () => void;
 }) => {
     function toggleCollapse() {
+        onClick && onClick();
         setCollapse(!collapse);
     }
 
@@ -101,13 +133,13 @@ export const BoxCollapseButton = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={3}
-                            d="M 7 6.5 l 5 -5 5 5"
+                            d="M 8 7 l 4 -4 4 4"
                         />
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={3}
-                            d="M 17 17.5 l -5 5 -5 -5"
+                            d="M 16 17 l -4 4 -4 -4"
                         />
                     </>
                 ) : (
@@ -118,13 +150,13 @@ export const BoxCollapseButton = ({
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={3}
-                            d="M 17 2 l -5 5 -5 -5"
+                            d="M 16 3 l -4 4 -4 -4"
                         />
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={3}
-                            d="M 7 22 l 5 -5 5 5"
+                            d="M 8 21 l 4 -4 4 4"
                         />
                     </>
                 )}

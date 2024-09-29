@@ -193,35 +193,26 @@ const assigneeInterviewTemplate: Elt[] = [
     },
 ];
 
-function InterviewText({ text }: { text: string }) {
-    const [checked, setChecked] = useState(false);
+export function Interview({ editable = false }: { editable?: boolean }) {
     return (
-        <li className="list-none">
-            <div className="flex  space-x-2 items-start">
-                <Checkbox onClick={() => setChecked(!checked)} />
-                <p
-                    className={`text-base ${checked ? 'line-through text-accent' : 'no-underline text-foreground'}`}
-                >
-                    {text}
-                </p>
+        <div className="flex flex-col items-center space-y-main">
+            <div className="space-y-main">
+                {assigneeInterviewTemplate.map((section, i) => (
+                    <section key={i} className="space-y-main">
+                        {i ? <Separator /> : null}
+                        <h3 className="font-semibold text-md">{section.title}</h3>
+                        <ul className="list-disc list-inside space-y-4">
+                            {section.content.map((item, i) => (
+                                <InterviewItem item={item} key={i} editable={editable} />
+                            ))}
+                        </ul>
+                    </section>
+                ))}
             </div>
-        </li>
-    );
-}
-
-function InterviewSelect({ question, options }: { question: string; options: string[] }) {
-    const [currentKey, selectKey] = useState<string | null>(null);
-    return (
-        <li>
-            <SingleCombobox
-                currentKey={currentKey}
-                selectKey={(k) => selectKey(k)}
-                title={question}
-                placeholder=""
-                emptyMessage="Année invalide, vérifier l'année saisie ou faire un ticket pour signaler le problème."
-                items={options}
-            />
-        </li>
+            <Button className="w-fit">
+                <p>Terminer l&apos;entretien</p>
+            </Button>
+        </div>
     );
 }
 
@@ -246,27 +237,36 @@ function InterviewItem({ item, editable }: { item: EltItem; editable: boolean })
     }
 }
 
-export function Interview({ editable = false }: { editable?: boolean }) {
+function InterviewText({ text }: { text: string }) {
+    const [checked, setChecked] = useState(false);
     return (
-        <div className="flex flex-col items-center space-y-main">
-            <div className="space-y-main">
-                {assigneeInterviewTemplate.map((section, i) => (
-                    <section key={i} className="space-y-main">
-                        {i ? <Separator /> : null}
-                        <h3 className="font-semibold text-md">{section.title}</h3>
-                        <ul className="list-disc list-inside space-y-4">
-                            {section.content.map((item, i) => (
-                                <Fragment key={i}>
-                                    <InterviewItem item={item} key={i} editable={editable} />
-                                </Fragment>
-                            ))}
-                        </ul>
-                    </section>
-                ))}
+        <li className="list-none">
+            <div className="flex  space-x-2 items-start">
+                <Checkbox onClick={() => setChecked(!checked)} />
+                <p
+                    className={`text-base ${
+                        checked ? 'line-through text-accent' : 'no-underline text-foreground'
+                    }`}
+                >
+                    {text}
+                </p>
             </div>
-            <Button className="w-fit">
-                <p>Terminer l&apos;entretien</p>
-            </Button>
-        </div>
+        </li>
+    );
+}
+
+function InterviewSelect({ question, options }: { question: string; options: string[] }) {
+    const [currentKey, selectKey] = useState<string | null>(null);
+    return (
+        <li>
+            <SingleCombobox
+                currentKey={currentKey}
+                selectKey={(k) => selectKey(k)}
+                title={question}
+                placeholder=""
+                emptyMessage="Année invalide, vérifier l'année saisie ou faire un ticket pour signaler le problème."
+                items={options}
+            />
+        </li>
     );
 }

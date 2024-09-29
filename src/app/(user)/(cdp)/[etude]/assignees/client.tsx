@@ -8,7 +8,16 @@ import { RiExpandUpDownFill, RiContractUpDownFill } from 'react-icons/ri';
 import { FaFilePdf, FaGripLines } from 'react-icons/fa';
 import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 
-import { BoxCollapser } from '@/components/boxes/boxes';
+import {
+    InnerBox,
+    BoxHeader,
+    BoxTitle,
+    BoxHeaderBlock,
+    BoxContent,
+    BoxCollapser,
+    BoxCollapseButton,
+    BoxDragHandle,
+} from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
 
 import { Assignee } from './page';
@@ -20,59 +29,52 @@ export type ClientProps = {
     assignee: Assignee;
     setCurrent: (assignee: Assignee) => void;
     setRight: (right: Right) => void;
-    current: Assignee;
     dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
 };
 
-export default function Client({
-    assignee,
-    setCurrent,
-    setRight,
-    current,
-    dragHandleProps,
-}: ClientProps) {
+export default function Client({ assignee, setCurrent, setRight, dragHandleProps }: ClientProps) {
     const [collapse, setCollapse] = useState(true);
 
+    function updateRightToInterview() {
+        setCurrent(assignee);
+        setRight(assignee.interview ? 'see_interview' : 'pass_interview');
+    }
+
+    function updateRightToCV() {
+        setCurrent(assignee);
+        setRight('cv');
+    }
+
+    function updateCurrent() {
+        if (collapse) {
+            setCurrent(assignee);
+        }
+    }
+
     return (
-        <div className="h-full">
-            <div
-                className="bg-box-title p-2 flex justify-between items-center rounded"
-                {...dragHandleProps}
-            >
-                <p>{assignee.firstname + ' ' + assignee.lastname}</p>
-                <div className="flex items-center">
+        <InnerBox className="w-full">
+            <BoxHeader {...dragHandleProps}>
+                <BoxTitle>{assignee.firstname + ' ' + assignee.lastname}</BoxTitle>
+                <BoxHeaderBlock>
                     <Button
-                        onClick={() => {
-                            setCurrent(assignee);
-                            setRight(assignee.interview ? 'see_interview' : 'pass_interview');
-                        }}
+                        onClick={updateRightToInterview}
                         variant="secondary"
                         className="flex items-center space-x-2"
                     >
                         <p>Entretien</p>
                         <MdOpenInNew />
                     </Button>
-                    <AssigneeButton
-                        onClick={() => {
-                            if (collapse) {
-                                setCurrent(assignee);
-                            }
-                            setCollapse(!collapse);
-                        }}
-                        Icon={collapse ? RiExpandUpDownFill : RiContractUpDownFill}
+                    <AssigneeButton onClick={updateRightToCV} Icon={FaFilePdf} />
+                    <BoxCollapseButton
+                        onClick={updateCurrent}
+                        collapse={collapse}
+                        setCollapse={setCollapse}
                     />
-                    <AssigneeButton
-                        onClick={() => {
-                            setCurrent(assignee);
-                            setRight('cv');
-                        }}
-                        Icon={FaFilePdf}
-                    />
-                    <FaGripLines />
-                </div>
-            </div>
+                    <BoxDragHandle />
+                </BoxHeaderBlock>
+            </BoxHeader>
             <BoxCollapser collapse={collapse}>
-                <div className="bg-background grid grid-cols-[20%_80%] rounded p-4  gap-2px">
+                <BoxContent>
                     <div className={eltCN}>Email</div>
                     <div className={eltCN}>{assignee.email}</div>
                     <div className={eltCN}>Expérience</div>
@@ -83,9 +85,9 @@ export default function Client({
                     <div className={eltCN}>{assignee.ideas}</div>
                     <div className={eltCN}>Expérience JE</div>
                     <div className={eltCN}>{assignee.je_experience}</div>
-                </div>
+                </BoxContent>
             </BoxCollapser>
-        </div>
+        </InnerBox>
     );
 }
 
