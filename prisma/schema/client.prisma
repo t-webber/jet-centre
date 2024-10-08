@@ -1,0 +1,50 @@
+model Clients {
+    id           String        @id @default(cuid())
+    company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    companyId    String
+    person       People        @relation(fields: [peopleId], references: [id], onDelete: Cascade)
+    peopleId     String        @unique
+    studies      Studies[]
+    StudyClients StudyClients?
+}
+
+model StudyClients {
+    id          String         @id @default(cuid())
+    study       Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId     String         @unique
+    client      Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    clientId    String         @unique
+    satifaction Satisfactions?
+}
+
+model Satisfactions {
+    id                     String       @id @default(cuid())
+    studyClient            StudyClients @relation(fields: [studyClientId], references: [id], onDelete: Cascade)
+    studyClientId          String       @unique
+    study                  Studies      @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId                String       @unique
+    publish                Boolean
+    howKnowUs              String
+    whyUs                  String
+    satisfactionObjectives Int
+    easyness               Int
+    timelaps               Int
+    recommendUs            Int
+}
+
+model Company {
+    id           String        @id @default(cuid())
+    name         String
+    adress       String
+    members      Clients[]
+    companyInfos CompanyInfos?
+}
+
+model CompanyInfos {
+    id          String  @id @default(cuid())
+    company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    companyId   String  @unique
+    nvEmployees Int
+    domains     String
+    size        Int
+}

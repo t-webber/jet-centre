@@ -1,0 +1,61 @@
+model People {
+    id        String     @id @default(cuid())
+    email     String     @unique
+    firstName String
+    lastName  String
+    number    String
+    adress    String
+    User      User?
+    Assignees Assignees?
+    Clients   Clients?
+}
+
+model User {
+    id             String       @id @default(cuid())
+    person         People       @relation(fields: [peopleId], references: [id])
+    peopleId       String       @unique
+    settings       UserSettings @relation(fields: [userSettingsId], references: [id])
+    userSettingsId String       @unique
+    role           String
+    Admins         Admins?
+    // msgBox         MsgBoxes
+}
+
+model Admins {
+    id             String      @id @default(cuid())
+    user           User        @relation(fields: [userId], references: [id])
+    userId         String      @unique
+    role           Role        @relation(fields: [roleId], references: [id])
+    roleId         String
+    studies        Studies[]   @relation("cdp")
+    auditedStudies Studies[]   @relation("auditor")
+}
+
+model Role {
+    id     String   @id @default(cuid())
+    pages  Pages[]
+    Admins Admins[]
+}
+
+model Pages {
+    id        String  @id @default(cuid())
+    url       String
+    name      String
+    navigable Boolean
+    Role      Role    @relation(fields: [roleId], references: [id])
+    roleId    String
+}
+
+model UserSettings {
+    id       String   @id @default(cuid())
+    theme    String
+    notifLvl NotifLvl
+    gui      Boolean
+    User     User?
+}
+
+enum NotifLvl {
+    LOW
+    MEDIUM
+    HIGH
+}

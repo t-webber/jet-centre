@@ -2,14 +2,20 @@
 
 ## Getting Started
 
-### `.env.local`setup
+### `.env.local` setup
 
-Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 32`), and set up the following environment variables in a `.env.local` file at the root of the project:
+Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 32`), and set up the following environment variables in a `.env.local` file at the root of the project.
+Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`. Then add the `DB_URL` variable in your `.env.local` file in this format: `"postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"`
 
+Here's what your `.env.local` file looks like :
 ```bash
 AUTH_SECRET=your_auth_secret
 AUTH_GOOGLE_ID=your_google_id
 AUTH_GOOGLE_SECRET=your_google_secret
+
+# Database
+DB_URL="postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"
+
 ```
 
 ### Node Setup
@@ -34,8 +40,8 @@ npm i && npm run dev
 -   [TypeScript](https://www.typescriptlang.org/), for type safety.
 -   [Tailwind CSS](https://tailwindcss.com/), for styling.
 -   [Auth.js](https://authjs.dev/) (v5 of [NextAuth.js](https://next-auth.js.org/)), for authentication, with the Google Provider.
--   [MongoDB](https://www.mongodb.com/), for the database.
--   [Mongoose](https://mongoosejs.com/), for MongoDB object modeling.
+-   [PostgreSQL](https://www.postgresql.org/), for the database.
+-   [Prisma](https://www.prisma.io/), for object modeling.
 
 ### Recommended tutorials
 

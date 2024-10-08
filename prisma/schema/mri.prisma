@@ -1,0 +1,87 @@
+model MRIs {
+    id             String     @id @default(cuid())
+    paycheck_under Int
+    paycheck_over  Int
+    difficulty     Int
+    introdcution   String
+    contect        String
+    schedule       String
+    skills         String
+    study          Studies    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId        String     @unique
+    formMRIs       FormMRIs[]
+    studyInfo      StudyInfo?
+}
+
+//? C'est quoi le champ `tried`
+model Assignees {
+    id          String           @id @default(cuid())
+    docs        AssigneeDocs[]
+    information AssigneeInfos?
+    person      People           @relation(fields: [peopleId], references: [id], onDelete: Cascade)
+    peopleId    String           @unique
+    studyAssign StudyAssigness[]
+}
+
+model AssigneeInfos {
+    id         String    @id @default(cuid())
+    assignee   Assignees @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+    assigneeId String    @unique
+    age        Int
+    promotion  Int
+    boursier   Boolean
+    oldJet     Boolean
+}
+
+model AssigneeDocs {
+    id            String    @id @default(cuid())
+    assignee      Assignees @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+    assigneeId    String
+    cni           Docs      @relation("cni", fields: [cniId], references: [id])
+    cniId         String    @unique
+    vitale        Docs      @relation("vitale", fields: [vitaleId], references: [id])
+    vitaleId      String    @unique
+    studentCard   Docs      @relation("studentCard", fields: [studentCardId], references: [id])
+    studentCardId String    @unique
+}
+
+model StudyAssigness {
+    id              String         @id @default(cuid())
+    study           Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId         String
+    assignee        Assignees      @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+    assigneeId      String
+    formInterview   FormInterviews @relation(fields: [formInterviewId], references: [id], onDelete: Cascade)
+    formInterviewId String         @unique
+    formMRI         FormMRIs       @relation(fields: [formMRIId], references: [id], onDelete: Cascade)
+    formMRIId       String         @unique
+    selection       String
+    taken           Boolean
+    studyInfo       StudyInfo?
+}
+
+model FormMRIs {
+    id             String          @id @default(cuid())
+    mri            MRIs            @relation(fields: [mriId], references: [id], onDelete: Cascade)
+    mriId          String          @unique
+    studyAssigness StudyAssigness?
+    experience     String
+    knowledge      String
+    ideas          String
+    JEexprerience  Int
+}
+
+model FormInterviews {
+    id              String          @id @default(cuid())
+    studyAssigness  StudyAssigness?
+    available       Boolean
+    approche        String
+    courses         String
+    STAR_S          String
+    STAR_T          String
+    STAR_A          String
+    STAR_R          String
+    motivation      String
+    cdpRequirements String
+    questions       String
+}
