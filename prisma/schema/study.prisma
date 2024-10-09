@@ -1,35 +1,34 @@
 model Studies {
-    id              String           @id @default(cuid())
-    cdp             Admins[]         @relation("cdp")
-    auditors        Admins[]         @relation("auditor")
-    information     StudyInfo?
-    progess         StudyProgress?
-    client          StudyClients[]
-    studyProgressId String
-    domains         Domains?         @relation(fields: [domainsId], references: [id])
-    domainsId       String?
-    MRIs            MRIs?
-    studyAssigness  StudyAssigness[]
-    clients         Clients?         @relation(fields: [clientsId], references: [id])
-    clientsId       String?
-    satisfactions   Satisfactions?
+    id             String           @id @default(cuid())
+    cdp            Admins[]         @relation("cdp")
+    auditors       Admins[]         @relation("auditor")
+    information    StudyInfo?
+    progess        StudyProgress?
+    client         StudyClients[]
+    domains        Domains?         @relation(fields: [domainsId], references: [id])
+    domainsId      String?
+    MRIs           MRIs?
+    studyAssigness StudyAssigness[]
+    clients        Clients?         @relation(fields: [clientsId], references: [id])
+    clientsId      String?
+    satisfactions  Satisfactions?
 }
 
 //? C'est quoi le champ `type`
 model StudyInfo {
-    id             String         @id @default(cuid())
-    study          Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
-    studyId        String         @unique
-    domaines       Domains[]
+    id             String          @id @default(cuid())
+    study          Studies         @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId        String          @unique
     title          String
-    deliverable    Deliverables   @relation(fields: [deliverablesId], references: [id])
-    assignee       StudyAssigness @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
-    assigneeId     String         @unique
-    mri            MRIs           @relation(fields: [mriId], references: [id])
-    mriId          String         @unique
     applicationFee Float
+    domaines       Domains[]
+    deliverable    Deliverables?   @relation(fields: [deliverablesId], references: [id])
+    deliverablesId String?
+    assignee       StudyAssigness? @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+    assigneeId     String?         @unique
+    mri            MRIs?           @relation(fields: [mriId], references: [id])
+    mriId          String?         @unique
     docs           StudyDocs[]
-    deliverablesId String
     adminsId       String?
 }
 
