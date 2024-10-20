@@ -1,7 +1,7 @@
 model Clients {
     id           String        @id @default(cuid())
     company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-    companyId    String
+    companyId    String        @unique
     person       People        @relation(fields: [peopleId], references: [id], onDelete: Cascade)
     peopleId     String        @unique
     studies      Studies[]
@@ -34,7 +34,7 @@ model Satisfactions {
 
 model Company {
     id           String        @id @default(cuid())
-    name         String
+    name         String        @unique
     adress       String
     members      Clients[]
     companyInfos CompanyInfos?
