@@ -2,26 +2,25 @@ model Studies {
     id             String           @id @default(cuid())
     cdp            Admins[]         @relation("cdp")
     auditors       Admins[]         @relation("auditor")
-    information    StudyInfo?
-    progess        StudyProgress?
-    client         StudyClients[]
-    domains        Domains?         @relation(fields: [domainsId], references: [id])
-    domainsId      String?
-    MRIs           MRIs?
-    studyAssigness StudyAssigness[]
     clients        Clients?         @relation(fields: [clientsId], references: [id])
     clientsId      String?
+    information    StudyInfos?
+    progess        StudyProgress?
+    client         StudyClients[]
+    MRIs           MRIs?
+    studyAssigness StudyAssigness[]
     satisfactions  Satisfactions?
 }
 
 //? C'est quoi le champ `type`
-model StudyInfo {
+model StudyInfos {
     id             String          @id @default(cuid())
     study          Studies         @relation(fields: [studyId], references: [id], onDelete: Cascade)
     studyId        String          @unique
     title          String
     applicationFee Float
-    domaines       Domains[]
+    domain         Domains?        @relation(fields: [domainId], references: [id])
+    domainId       String?
     deliverable    Deliverables?   @relation(fields: [deliverablesId], references: [id])
     deliverablesId String?
     assignee       StudyAssigness? @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
@@ -30,6 +29,8 @@ model StudyInfo {
     mriId          String?         @unique
     docs           StudyDocs[]
     adminsId       String?
+
+    @@map("StudyInfo")
 }
 
 model StudyProgress {
@@ -70,47 +71,45 @@ model JEHs {
 }
 
 model Domains {
-    id          String     @id @default(cuid())
-    name        String
-    study       Studies[]
-    studyInfo   StudyInfo? @relation(fields: [studyInfoId], references: [id])
-    studyInfoId String?
+    id         String       @id @default(cuid())
+    name       String
+    studyInfos StudyInfos[]
 }
 
 model Deliverables {
-    id        String      @id @default(cuid())
+    id        String       @id @default(cuid())
     content   String
     given     Boolean
     done      Boolean
-    studyInfo StudyInfo[]
+    studyInfo StudyInfos[]
 }
 
 model StudyDocs {
-    id          String     @id @default(cuid())
-    ce          Docs       @relation("ce", fields: [ceId], references: [id], onDelete: Cascade)
-    ceId        String     @unique
-    cc          Docs       @relation("cc", fields: [ccId], references: [id], onDelete: Cascade)
-    ccId        String     @unique
-    br          Docs       @relation("br", fields: [brId], references: [id], onDelete: Cascade)
-    brId        String     @unique
-    rm          Docs       @relation("rm", fields: [rmId], references: [id], onDelete: Cascade)
-    rmId        String     @unique
-    ace         Docs       @relation("ace", fields: [aceId], references: [id], onDelete: Cascade)
-    aceId       String     @unique
-    arm         Docs       @relation("arm", fields: [armId], references: [id], onDelete: Cascade)
-    armId       String     @unique
-    acc         Docs       @relation("acc", fields: [accId], references: [id], onDelete: Cascade)
-    accId       String     @unique
-    bcrc        Docs       @relation("bcrc", fields: [bcrcId], references: [id], onDelete: Cascade)
-    bcrcId      String     @unique
-    pvri        Docs       @relation("pvri", fields: [pvriId], references: [id], onDelete: Cascade)
-    pvriId      String     @unique
-    pvrf        Docs       @relation("pvrf", fields: [pvrfId], references: [id], onDelete: Cascade)
-    pvrfId      String     @unique
-    bv          Docs       @relation("bv", fields: [bvId], references: [id], onDelete: Cascade)
-    bvId        String     @unique
-    cconf       Docs       @relation("cconf", fields: [cconfId], references: [id], onDelete: Cascade)
-    cconfId     String     @unique
-    studyInfo   StudyInfo? @relation(fields: [studyInfoId], references: [id])
+    id          String      @id @default(cuid())
+    ce          Docs        @relation("ce", fields: [ceId], references: [id], onDelete: Cascade)
+    ceId        String      @unique
+    cc          Docs        @relation("cc", fields: [ccId], references: [id], onDelete: Cascade)
+    ccId        String      @unique
+    br          Docs        @relation("br", fields: [brId], references: [id], onDelete: Cascade)
+    brId        String      @unique
+    rm          Docs        @relation("rm", fields: [rmId], references: [id], onDelete: Cascade)
+    rmId        String      @unique
+    ace         Docs        @relation("ace", fields: [aceId], references: [id], onDelete: Cascade)
+    aceId       String      @unique
+    arm         Docs        @relation("arm", fields: [armId], references: [id], onDelete: Cascade)
+    armId       String      @unique
+    acc         Docs        @relation("acc", fields: [accId], references: [id], onDelete: Cascade)
+    accId       String      @unique
+    bcrc        Docs        @relation("bcrc", fields: [bcrcId], references: [id], onDelete: Cascade)
+    bcrcId      String      @unique
+    pvri        Docs        @relation("pvri", fields: [pvriId], references: [id], onDelete: Cascade)
+    pvriId      String      @unique
+    pvrf        Docs        @relation("pvrf", fields: [pvrfId], references: [id], onDelete: Cascade)
+    pvrfId      String      @unique
+    bv          Docs        @relation("bv", fields: [bvId], references: [id], onDelete: Cascade)
+    bvId        String      @unique
+    cconf       Docs        @relation("cconf", fields: [cconfId], references: [id], onDelete: Cascade)
+    cconfId     String      @unique
+    studyInfo   StudyInfos? @relation(fields: [studyInfoId], references: [id])
     studyInfoId String?
 }
