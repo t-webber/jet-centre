@@ -1,5 +1,5 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { AdminSelection } from './selectors';
+import { AdminSelection, StudyParams } from './selectors';
 
 interface CompanyData {
     name: string;
@@ -9,7 +9,7 @@ interface CompanyData {
     addresse: string;
 }
 
-interface StudyData {
+export interface StudyData {
     name: string;
     cc: boolean;
     ref_suivi: string;
@@ -69,7 +69,9 @@ export default function CreateStudy() {
                 <BoxHeader>
                     <BoxTitle>Paramètres de l&apos;étude</BoxTitle>
                 </BoxHeader>
-                <BoxContent>fields</BoxContent>
+                <BoxContent>
+                    <StudyParams studyData={missionData.study} admins={admins} />
+                </BoxContent>
             </Box>
         </div>
     );
