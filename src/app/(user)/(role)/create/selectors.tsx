@@ -3,26 +3,28 @@
 import { ManyComboBox, SingleCombobox } from '@/components/meta-components/combobox';
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
-import { useState } from 'react';
-import { StudyData } from './page';
+import { useState, RefAttributes } from 'react';
+import { CompanyContact, StudyData } from './page';
 import { Input, InputProps } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
+import { Separator } from '@radix-ui/react-dropdown-menu';
+
+function addRemoveKey(key: string, getList: string[], setList: (x: string[]) => void) {
+    if (getList.includes(key)) {
+        setList(getList.filter((a) => a !== key));
+    } else {
+        setList([...getList, key]);
+    }
+}
 
 export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmins: string[] }) {
     const [uiAdmins, setAdmins] = useState<string[]>(dbAdmins);
-    const addRemoveAdmin = (admin: string) => {
-        if (uiAdmins.includes(admin)) {
-            setAdmins(uiAdmins.filter((a) => a !== admin));
-        } else {
-            setAdmins([...uiAdmins, admin]);
-        }
-    };
 
     return (
         <>
             <ManyComboBox
                 items={admins}
-                addRemoveKey={addRemoveAdmin}
+                addRemoveKey={(key) => addRemoveKey(key, uiAdmins, setAdmins)}
                 selectedKeys={uiAdmins}
                 emptyMessage="Personne à TE de ce nom..."
                 title="Ajouter un CDP"
@@ -37,7 +39,7 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
                         >
                             <p>{admin}</p>
                             <Button
-                                onClick={() => addRemoveAdmin(admin)}
+                                onClick={() => addRemoveKey(admin, uiAdmins, setAdmins)}
                                 variant="ghost"
                                 className="px-0 py-0 hover:bg-transparent"
                             >
@@ -51,12 +53,10 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
     );
 }
 
-import React from 'react';
-
 function NamedInput({
     name,
     ...props
-}: { name: string } & InputProps & React.RefAttributes<HTMLInputElement>) {
+}: { name: string } & InputProps & RefAttributes<HTMLInputElement>) {
     return (
         <div>
             <p>{name}</p>
@@ -82,10 +82,41 @@ export function StudyParams({ studyData, admins }: { studyData?: StudyData; admi
                 <p>CC ?</p>
                 <Checkbox defaultChecked={studyData?.cc} />
             </span>
-            <NamedInput name="Nom de l'étude" defaultValue={studyData?.name} />
-            <NamedInput name="Durée estimée" defaultValue={studyData?.length} />
-            <NamedInput name="Deadline pré-étude" type="date" className="w-full text-white" />
-            <NamedInput name="Nombre d'intervenant" type="number" />
+            <NamedInput type="text" name="Nom de l'étude" defaultValue={studyData?.name} />
+            <NamedInput type="text" name="Durée estimée" defaultValue={studyData?.length} />
+            <NamedInput type="date" name="Deadline pré-étude" className="w-full text-white" />
+            <NamedInput type="number" name="Nombre d'intervenant" />
+        </>
+    );
+}
+
+export function ContactSelector({
+    companyContacts,
+    studyContacts
+}: {
+    companyContacts: CompanyContact[];
+    studyContacts: CompanyContact[];
+}) {
+    const [contacts, setContacts] = useState(studyContacts.map((contact) => contact.name));
+    const selectContact = () => {};
+
+    return (
+        <>
+            <NamedInput name="Nom du client" />
+            <NamedInput name="Poste dans l'entreprise" type="text" />
+            <NamedInput name="Email" type="email" />
+            <NamedInput name="Téléphone" type="tel" />
+            <div className="flex justify-center">
+                <Button variant="outline" className="w-fit" type="submit">
+                    Add
+                </Button>
+            </div>
+            <Separator />
+            <div>
+                {contacts.map((contact, i) => (
+                    <div key={i}>{contact}</div>
+                ))}
+            </div>
         </>
     );
 }

@@ -1,7 +1,8 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { AdminSelection, StudyParams } from './selectors';
+import { AdminSelection, StudyParams, ContactSelector } from './selectors';
 
 interface CompanyData {
+    id: number;
     name: string;
     size: 'µE' | 'PME' | 'ME' | 'GE'; // https://www.economie.gouv.fr/cedef/entreprises-categories,
     domain: string;
@@ -18,7 +19,7 @@ export interface StudyData {
     deadline_preetude: Date;
 }
 
-interface CompanyContact {
+export interface CompanyContact {
     name: string;
     job: string;
     email?: string;
@@ -27,12 +28,10 @@ interface CompanyContact {
 }
 
 interface MissionData {
-    company?: { general: CompanyData; contact: CompanyContact[] };
+    company?: { general: CompanyData; contacts: CompanyContact[] };
     study?: StudyData;
     cdps?: string[];
 }
-
-const admins = ['Pierre', 'Paul', 'Jacques'];
 
 function getMissionData() {
     return {};
@@ -40,8 +39,8 @@ function getMissionData() {
 
 export default function CreateStudy() {
     const missionData: MissionData = getMissionData();
-
-    const setCompany = (company: string) => {};
+    const contacts: CompanyContact[] = [];
+    const admins = ['Pierre', 'Paul', 'Jacques'];
 
     return (
         <div className=" grid grid-cols-2 gap-main">
@@ -63,7 +62,12 @@ export default function CreateStudy() {
                 <BoxHeader>
                     <BoxTitle>Contacts privilégié</BoxTitle>
                 </BoxHeader>
-                <BoxContent>fields</BoxContent>
+                <BoxContent>
+                    <ContactSelector
+                        companyContacts={contacts}
+                        studyContacts={missionData.company?.contacts || []}
+                    />
+                </BoxContent>
             </Box>
             <Box className="w-full">
                 <BoxHeader>
