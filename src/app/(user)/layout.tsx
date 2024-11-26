@@ -6,12 +6,12 @@ import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/componen
 import React, { useState } from 'react';
 
 const Layout = ({
-    children,
+    children
 }: Readonly<{
     children: React.ReactNode;
 }>) => {
     return (
-        <div className="flex flex-row h-full bg-gradient-to-br from-background to-background/95 h-[100dvh]">
+        <div className="flex flex-row bg-gradient-to-br from-background to-background/95  h-dvh">
             <ResizablePanelGroup direction="horizontal">
                 <ResizablePanel
                     minSize={15}

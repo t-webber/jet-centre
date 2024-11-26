@@ -1,4 +1,5 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
+import { AdminSelection } from './selectors';
 
 interface CompanyData {
     name: string;
@@ -25,13 +26,23 @@ interface CompanyContact {
     address?: string;
 }
 
-export interface MissionData {
-    company: { general: CompanyData; contact: CompanyContact[] };
-    study: StudyData;
-    cdps: string[];
+interface MissionData {
+    company?: { general: CompanyData; contact: CompanyContact[] };
+    study?: StudyData;
+    cdps?: string[];
 }
 
-export default function CreateStudyClient() {
+const admins = ['Pierre', 'Paul', 'Jacques'];
+
+function getMissionData() {
+    return {};
+}
+
+export default function CreateStudy() {
+    const missionData: MissionData = getMissionData();
+
+    const setCompany = (company: string) => {};
+
     return (
         <div className=" grid grid-cols-2 gap-main">
             <Box className="w-full">
@@ -44,7 +55,9 @@ export default function CreateStudyClient() {
                 <BoxHeader>
                     <BoxTitle>Chefs de projets</BoxTitle>
                 </BoxHeader>
-                <BoxContent>fields</BoxContent>
+                <BoxContent>
+                    <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} />
+                </BoxContent>
             </Box>
             <Box className="w-full">
                 <BoxHeader>
