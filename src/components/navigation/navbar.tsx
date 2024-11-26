@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { NavbarHeader } from './navbar-header';
 import { UserDropdownMenu } from './user-dropdown-menu';
 import { useState } from 'react';
@@ -35,8 +34,9 @@ const NavBar = () => {
             <div className="flex-grow flex flex-col gap-2">
                 <Tabs defaultValue="cdp" className="w-full h-full flex flex-col">
                     <TabsList className="flex bg-transparent">
-                        {tabs.map((tab) => (
+                        {tabs.map((tab, i) => (
                             <TabsTrigger
+                                key={i}
                                 className="mx-2 flex-1 rounded-lg data-[state=active]:bg-secondary data-[state=active]:text-primary"
                                 value={tab.value}
                             >
@@ -44,8 +44,8 @@ const NavBar = () => {
                             </TabsTrigger>
                         ))}
                     </TabsList>
-                    {tabs.map((tab) => (
-                        <TabsContent value={tab.value} className="flex-grow py-2">
+                    {tabs.map((tab, i) => (
+                        <TabsContent key={i} value={tab.value} className="flex-grow py-2">
                             {tab.content}
                         </TabsContent>
                     ))}
