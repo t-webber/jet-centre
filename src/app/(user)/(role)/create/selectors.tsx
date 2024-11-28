@@ -4,7 +4,7 @@ import { ManyComboBox, SingleCombobox } from '@/components/meta-components/combo
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { useState, RefAttributes } from 'react';
-import { CompanyContact, StudyData } from './page';
+import { COMPANY_SIZES, CompanyContact, CompanyData, StudyData } from './contants';
 import { Input, InputProps } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@radix-ui/react-dropdown-menu';
@@ -56,10 +56,10 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
 function NamedInput({
     name,
     ...props
-}: { name: string } & InputProps & RefAttributes<HTMLInputElement>) {
+}: { name?: string } & InputProps & RefAttributes<HTMLInputElement>) {
     return (
         <div>
-            <p>{name}</p>
+            {name && <p>{name}</p>}
             <Input {...props} />
         </div>
     );
@@ -85,7 +85,7 @@ export function StudyParams({ studyData, admins }: { studyData?: StudyData; admi
             <NamedInput type="text" name="Nom de l'étude" defaultValue={studyData?.name} />
             <NamedInput type="text" name="Durée estimée" defaultValue={studyData?.length} />
             <NamedInput type="date" name="Deadline pré-étude" className="w-full text-white" />
-            <NamedInput type="number" name="Nombre d'intervenant" />
+            <NamedInput type="number" name="Nombre d'intervenant" min={0} />
         </>
     );
 }
@@ -102,7 +102,7 @@ export function ContactSelector({
 
     return (
         <>
-            <NamedInput name="Nom du client" />
+            <NamedInput name="Nom du client" type="text" />
             <NamedInput name="Poste dans l'entreprise" type="text" />
             <NamedInput name="Email" type="email" />
             <NamedInput name="Téléphone" type="tel" />
@@ -116,6 +116,51 @@ export function ContactSelector({
                 {contacts.map((contact, i) => (
                     <div key={i}>{contact}</div>
                 ))}
+            </div>
+        </>
+    );
+}
+
+export function ComapnySelector({
+    company,
+    dbDomains
+}: {
+    company?: CompanyData;
+    dbDomains: string[];
+}) {
+    const [size, setSize] = useState(company?.size || null);
+    const [currentDomains, setDomains] = useState(company?.domains || []);
+
+    return (
+        <>
+            <NamedInput name="Nom de l'entreprise" type="text" />
+            <SingleCombobox
+                items={COMPANY_SIZES}
+                currentKey={size}
+                selectKey={(k) => setSize(k as (typeof COMPANY_SIZES)[number])}
+                placeholder="Choisir la taille"
+                emptyMessage="Cette taille n'est pas reconnue"
+                title="Taille de l'entreprise"
+            />
+            <ManyComboBox
+                items={dbDomains}
+                selectedKeys={currentDomains}
+                addRemoveKey={(k) => addRemoveKey(k, currentDomains, setDomains)}
+                title="Choisir des domains"
+                emptyMessage="Aucun domain de ce nom"
+                placeholder="Chercher un domaine"
+            />
+            <NamedInput name="CA (en k€)" type="number" min={0} />
+            <Separator />
+            <h4>Addresse</h4>
+            <div className="w-full block">
+                <div className="md:grid md:grid-cols-4 gap-4">
+                    <NamedInput className="col-span-1" placeholder="N°" type="number" min={0} />
+                    <NamedInput className="col-span-3" placeholder="Rue" type="text" />
+                    <NamedInput className="col-span-4" placeholder="Ville" type="text" />
+                    <NamedInput className="col-span-2" placeholder="Code postal" type="text" />
+                    <NamedInput className="col-span-2" placeholder="Pays" type="text" />
+                </div>
             </div>
         </>
     );

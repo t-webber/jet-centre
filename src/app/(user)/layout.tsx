@@ -1,9 +1,9 @@
-'use client';
+// 'use client';
 
 import NavBar from '@/components/navigation/navbar';
 import { TopBar } from '@/components/navigation/topbar';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable';
-import React, { useState } from 'react';
+import React from 'react';
 
 const Layout = ({
     children

@@ -1,46 +1,12 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { AdminSelection, StudyParams, ContactSelector } from './selectors';
+import { AdminSelection, StudyParams, ContactSelector, ComapnySelector } from './selectors';
+import { CompanyContact, getMissionData, MissionData } from './contants';
 
-interface CompanyData {
-    id: number;
-    name: string;
-    size: 'µE' | 'PME' | 'ME' | 'GE'; // https://www.economie.gouv.fr/cedef/entreprises-categories,
-    domain: string;
-    ca?: string;
-    addresse: string;
-}
-
-export interface StudyData {
-    name: string;
-    cc: boolean;
-    ref_suivi: string;
-    length: string;
-    nb_contributors: number;
-    deadline_preetude: Date;
-}
-
-export interface CompanyContact {
-    name: string;
-    job: string;
-    email?: string;
-    tel?: string;
-    address?: string;
-}
-
-interface MissionData {
-    company?: { general: CompanyData; contacts: CompanyContact[] };
-    study?: StudyData;
-    cdps?: string[];
-}
-
-function getMissionData() {
-    return {};
-}
-
-export default function CreateStudy() {
+export default async function CreateStudy() {
     const missionData: MissionData = getMissionData();
     const contacts: CompanyContact[] = [];
     const admins = ['Pierre', 'Paul', 'Jacques'];
+    const dbDomains: string[] = [];
 
     return (
         <div className=" grid grid-cols-2 gap-main">
@@ -48,7 +14,9 @@ export default function CreateStudy() {
                 <BoxHeader>
                     <BoxTitle>Informations générales sur l&apos;entreprise</BoxTitle>
                 </BoxHeader>
-                <BoxContent>fields</BoxContent>
+                <BoxContent>
+                    <ComapnySelector company={missionData.company?.general} dbDomains={dbDomains} />
+                </BoxContent>
             </Box>
             <Box className="w-full">
                 <BoxHeader>

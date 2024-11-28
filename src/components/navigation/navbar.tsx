@@ -1,3 +1,5 @@
+'use client';
+
 import { NavbarHeader } from './navbar-header';
 import { UserDropdownMenu } from './user-dropdown-menu';
 import { useState } from 'react';
@@ -19,13 +21,13 @@ const NavBar = () => {
                     missionNb={missionNb}
                     setMissionNb={setMissionNb}
                 />
-            ),
+            )
         },
         {
             label: position,
             value: 'position',
-            content: <div>Todo.</div>,
-        },
+            content: <div>Todo.</div>
+        }
     ];
 
     return (

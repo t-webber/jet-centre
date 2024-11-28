@@ -17,7 +17,7 @@ type ComboboxProps = {
     emptyMessage: string;
     placeholder: string;
     title: string;
-    items: string[];
+    items: readonly string[];
 };
 
 type ManyComboBoxProps = {
