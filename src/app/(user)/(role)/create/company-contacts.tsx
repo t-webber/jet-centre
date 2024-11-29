@@ -139,9 +139,9 @@ export function ContactSelector({
                 title="Rechercher un client déjà inséré"
                 items={companyContacts.map((c) => c.name)}
             />
-            <Separator />
+            <Separator primary />
             <ContactSelectorForm onSubmit={addContact} />
-            <Separator />
+            <Separator primary />
             {contacts.length === 0 ? (
                 <p className="w-full text-center">Aucun contact associé.</p>
             ) : (

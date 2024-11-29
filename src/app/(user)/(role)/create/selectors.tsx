@@ -4,10 +4,10 @@ import { ManyComboBox, SingleCombobox } from '@/components/meta-components/combo
 import { Button } from '@/components/ui/button';
 import { X } from 'lucide-react';
 import { useState, RefAttributes } from 'react';
-import { COMPANY_SIZES, CompanyContact, CompanyData, StudyData } from './contants';
+import { COMPANY_SIZES, CompanyData, StudyData } from './contants';
 import { Input, InputProps } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Separator } from '@radix-ui/react-dropdown-menu';
+import { Separator } from '@/components/ui/separator';
 
 function addRemoveKey(key: string, getList: string[], setList: (x: string[]) => void) {
     if (getList.includes(key)) {
@@ -30,7 +30,10 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
                 title="Ajouter un CDP"
                 placeholder="Prénom du CDP"
             />
-            {uiAdmins.length !== 0 && (
+            <Separator primary />
+            {uiAdmins.length === 0 ? (
+                <p className="text-center w-full">Aucun CDP sélectionné.</p>
+            ) : (
                 <div className="flex flex-wrap space-x-2 py-4">
                     {uiAdmins.map((admin: string, i) => (
                         <div
@@ -120,7 +123,7 @@ export function ComapnySelector({
                 placeholder="Chercher un domaine"
             />
             <NamedInput name="CA (en k€)" type="number" min={0} />
-            <Separator />
+            <Separator primary />
             <h4>Addresse</h4>
             <div className="w-full block">
                 <div className="grid-cols-4 grid gap-2">

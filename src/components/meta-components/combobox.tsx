@@ -42,7 +42,12 @@ export const ManyComboBox = ({
     return (
         <Popover open={open} onOpenChange={setOpen}>
             <PopoverTrigger asChild>
-                <Button className="w-full" variant="outline" role="combobox" aria-expanded={open}>
+                <Button
+                    className="w-full justify-between"
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                >
                     {title}
                     <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                 </Button>
