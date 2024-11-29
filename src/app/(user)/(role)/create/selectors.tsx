@@ -90,37 +90,6 @@ export function StudyParams({ studyData, admins }: { studyData?: StudyData; admi
     );
 }
 
-export function ContactSelector({
-    companyContacts,
-    studyContacts
-}: {
-    companyContacts: CompanyContact[];
-    studyContacts: CompanyContact[];
-}) {
-    const [contacts, setContacts] = useState(studyContacts.map((contact) => contact.name));
-    const selectContact = () => {};
-
-    return (
-        <>
-            <NamedInput name="Nom du client" type="text" />
-            <NamedInput name="Poste dans l'entreprise" type="text" />
-            <NamedInput name="Email" type="email" />
-            <NamedInput name="Téléphone" type="tel" />
-            <div className="flex justify-center">
-                <Button variant="outline" className="w-fit" type="submit">
-                    Add
-                </Button>
-            </div>
-            <Separator />
-            <div>
-                {contacts.map((contact, i) => (
-                    <div key={i}>{contact}</div>
-                ))}
-            </div>
-        </>
-    );
-}
-
 export function ComapnySelector({
     company,
     dbDomains
@@ -154,7 +123,7 @@ export function ComapnySelector({
             <Separator />
             <h4>Addresse</h4>
             <div className="w-full block">
-                <div className="md:grid md:grid-cols-4 gap-4">
+                <div className="grid-cols-4 grid gap-2">
                     <NamedInput className="col-span-1" placeholder="N°" type="number" min={0} />
                     <NamedInput className="col-span-3" placeholder="Rue" type="text" />
                     <NamedInput className="col-span-4" placeholder="Ville" type="text" />

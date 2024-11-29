@@ -1,6 +1,19 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { AdminSelection, StudyParams, ContactSelector, ComapnySelector } from './selectors';
+import { AdminSelection, StudyParams, ComapnySelector } from './selectors';
 import { CompanyContact, getMissionData, MissionData } from './contants';
+import { ContactSelector } from './company-contacts';
+import { ReactNode } from 'react';
+
+function SimpleBox({ title, children }: { title: string; children: ReactNode }) {
+    return (
+        <Box className="w-full">
+            <BoxHeader>
+                <BoxTitle>{title}</BoxTitle>
+            </BoxHeader>
+            <BoxContent>{children}</BoxContent>
+        </Box>
+    );
+}
 
 export default async function CreateStudy() {
     const missionData: MissionData = getMissionData();
@@ -9,42 +22,22 @@ export default async function CreateStudy() {
     const dbDomains: string[] = [];
 
     return (
-        <div className=" grid grid-cols-2 gap-main">
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>Informations générales sur l&apos;entreprise</BoxTitle>
-                </BoxHeader>
-                <BoxContent>
-                    <ComapnySelector company={missionData.company?.general} dbDomains={dbDomains} />
-                </BoxContent>
-            </Box>
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>Chefs de projets</BoxTitle>
-                </BoxHeader>
-                <BoxContent>
-                    <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} />
-                </BoxContent>
-            </Box>
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>Contacts privilégié</BoxTitle>
-                </BoxHeader>
-                <BoxContent>
-                    <ContactSelector
-                        companyContacts={contacts}
-                        studyContacts={missionData.company?.contacts || []}
-                    />
-                </BoxContent>
-            </Box>
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>Paramètres de l&apos;étude</BoxTitle>
-                </BoxHeader>
-                <BoxContent>
-                    <StudyParams studyData={missionData.study} admins={admins} />
-                </BoxContent>
-            </Box>
+        <div className="grid grid-cols-2 gap-main">
+            <SimpleBox title="Informations générales sur l'entreprise">
+                <ComapnySelector company={missionData.company?.general} dbDomains={dbDomains} />
+            </SimpleBox>
+            <SimpleBox title="Chefs de projets">
+                <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} />
+            </SimpleBox>
+            <SimpleBox title="Contacts privilégié">
+                <ContactSelector
+                    companyContacts={contacts}
+                    studyContacts={missionData.company?.contacts || []}
+                />
+            </SimpleBox>
+            <SimpleBox title="Paramètres de l'étude">
+                <StudyParams studyData={missionData.study} admins={admins} />
+            </SimpleBox>
         </div>
     );
 }

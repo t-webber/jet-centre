@@ -30,8 +30,9 @@ export interface CompanyContact {
     name: string;
     job: string;
     email?: string;
-    tel?: string;
+    tel?: number;
     address?: string;
+    description: string;
 }
 
 export interface MissionData {
