@@ -19,6 +19,7 @@ import { CompanyContact } from './contants';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { SingleCombobox } from '@/components/meta-components/combobox';
+import { addRemoveKey, DeletableItemList } from '@/components/selectors';
 
 const formSchema = z.object({
     name: z.string(),
@@ -124,16 +125,16 @@ export function ContactSelector({
     companyContacts: CompanyContact[];
     studyContacts: CompanyContact[];
 }) {
-    const [contacts, setContacts] = useState(studyContacts);
-    const addContact = (values: z.infer<typeof formSchema>) => {
-        setContacts([...contacts, values]);
+    const [contacts, setContacts] = useState(studyContacts.map((c) => c.name));
+    const addContact = (contact: CompanyContact) => {
+        addRemoveKey(contact.name, contacts, setContacts);
     };
 
     return (
         <>
             <SingleCombobox
                 currentKey={null}
-                selectKey={(name) => addContact(companyContacts.find((c) => c.name === name)!)}
+                selectKey={(contact) => addRemoveKey(contact, contacts, setContacts)}
                 emptyMessage="Personne inexistante. Vous pouvez la créer ci-dessous."
                 placeholder="Enter le nom"
                 title="Rechercher un client déjà inséré"
@@ -142,15 +143,10 @@ export function ContactSelector({
             <Separator primary />
             <ContactSelectorForm onSubmit={addContact} />
             <Separator primary />
-            {contacts.length === 0 ? (
-                <p className="w-full text-center">Aucun contact associé.</p>
-            ) : (
-                <div>
-                    {contacts.map((contact, i) => (
-                        <div key={i}>{contact.name}</div>
-                    ))}
-                </div>
-            )}
+            <DeletableItemList
+                items={contacts}
+                deleteItem={(contact) => addRemoveKey(contact, contacts, setContacts)}
+            />
         </>
     );
 }

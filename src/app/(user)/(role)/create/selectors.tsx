@@ -8,14 +8,7 @@ import { COMPANY_SIZES, CompanyData, StudyData } from './contants';
 import { Input, InputProps } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
-
-function addRemoveKey(key: string, getList: string[], setList: (x: string[]) => void) {
-    if (getList.includes(key)) {
-        setList(getList.filter((a) => a !== key));
-    } else {
-        setList([...getList, key]);
-    }
-}
+import { addRemoveKey, DeletableItemList } from '@/components/selectors';
 
 export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmins: string[] }) {
     const [uiAdmins, setAdmins] = useState<string[]>(dbAdmins);
@@ -34,23 +27,10 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
             {uiAdmins.length === 0 ? (
                 <p className="text-center w-full">Aucun CDP sélectionné.</p>
             ) : (
-                <div className="flex flex-wrap space-x-2 py-4">
-                    {uiAdmins.map((admin: string, i) => (
-                        <div
-                            key={i}
-                            className="flex items-center px-2 space-x-2 rounded-full bg-slate-950"
-                        >
-                            <p>{admin}</p>
-                            <Button
-                                onClick={() => addRemoveKey(admin, uiAdmins, setAdmins)}
-                                variant="ghost"
-                                className="px-0 py-0 hover:bg-transparent"
-                            >
-                                <X />
-                            </Button>
-                        </div>
-                    ))}
-                </div>
+                <DeletableItemList
+                    items={uiAdmins}
+                    deleteItem={(admin) => addRemoveKey(admin, uiAdmins, setAdmins)}
+                />
             )}
         </>
     );

@@ -17,7 +17,9 @@ function SimpleBox({ title, children }: { title: string; children: ReactNode }) 
 
 export default async function CreateStudy() {
     const missionData: MissionData = getMissionData();
-    const contacts: CompanyContact[] = [];
+    const contacts: CompanyContact[] = [
+        { name: 'Bernard', job: 'CEO', email: 'a@a.a', description: 'Admin' }
+    ];
     const admins = ['Pierre', 'Paul', 'Jacques'];
     const dbDomains: string[] = [];
 
