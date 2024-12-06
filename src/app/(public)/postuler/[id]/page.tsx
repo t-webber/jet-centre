@@ -1,4 +1,4 @@
-import { DragAndDrop } from './drag_and_drop';
+import { DragAndDrop } from './cv-upload/form';
 
 export default function Postuler({ params: { id } }: { params: { id: string } }) {
     const missionName = 'Mission name';
@@ -6,10 +6,10 @@ export default function Postuler({ params: { id } }: { params: { id: string } })
         'https://docs.google.com/forms/d/e/1FAIpQLSeFdbqAPj3xpAHyHyiSnfFXiqb2pVH29L2s6hqfhA-Tj6Zrlw/viewform?embedded=true';
 
     return (
-        <div className="h-full flex flex-col gap-8">
-            <h1 className="w-full text-center">{missionName}</h1>
+        <div className="h-full flex flex-col gap-8 p-8">
+            <h1 className="w-full text-center text-4xl">{missionName}</h1>
             <DragAndDrop id={id} />
-            <iframe src={src} className="w-full h-full">
+            <iframe src={src} className="w-full flex justify-center h-full">
                 Loading...
             </iframe>
         </div>
