@@ -67,7 +67,7 @@ export type Height = 'auto' | 'limited';
 
 export const BoxContent = ({
     children,
-    height = 'auto',
+    height = 'auto'
 }: {
     children: ReactNode;
     height?: Height;
@@ -85,7 +85,7 @@ export const BoxContent = ({
 
 export const BoxCollapser = ({
     children,
-    collapse = false,
+    collapse = false
 }: {
     children: ReactNode;
     collapse: boolean;
@@ -120,7 +120,7 @@ export const BoxDragHandle = forwardRef<HTMLDivElement>((props, ref) => (
 export const BoxCollapseButton = ({
     collapse,
     setCollapse,
-    onClick,
+    onClick
 }: {
     collapse: boolean;
     setCollapse: (c: boolean) => void;
