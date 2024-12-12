@@ -4,7 +4,7 @@ model People {
     firstName String
     lastName  String
     number    String
-    adress    String
+    address   String
     User      User?
     Assignees Assignees?
     Clients   Clients?
@@ -22,13 +22,13 @@ model User {
 }
 
 model Admins {
-    id             String      @id @default(cuid())
-    user           User        @relation(fields: [userId], references: [id])
-    userId         String      @unique
-    role           Role        @relation(fields: [roleId], references: [id])
+    id             String    @id @default(cuid())
+    user           User      @relation(fields: [userId], references: [id])
+    userId         String    @unique
+    role           Role      @relation(fields: [roleId], references: [id])
     roleId         String
-    studies        Studies[]   @relation("cdp")
-    auditedStudies Studies[]   @relation("auditor")
+    studies        Studies[] @relation("cdp")
+    auditedStudies Studies[] @relation("auditor")
 }
 
 model Role {
