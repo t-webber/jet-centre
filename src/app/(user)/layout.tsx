@@ -16,13 +16,13 @@ const Layout = ({
                 <ResizablePanel
                     minSize={15}
                     maxSize={30}
-                    defaultSize={20}
+                    defaultSize={15}
                     className="bg-box-background/50 backdrop-blur-sm border-r border-box-hover/10"
                 >
                     <NavBar />
                 </ResizablePanel>
                 <ResizableHandle className="w-1 bg-box-hover/10 hover:bg-primary/20 transition-colors" />
-                <ResizablePanel defaultSize={80}>
+                <ResizablePanel defaultSize={85}>
                     <div className="flex flex-col p-8 space-y-8 h-full overflow-auto">
                         <TopBar />
                         <main className="min-h-0 flex-1">{children}</main>
