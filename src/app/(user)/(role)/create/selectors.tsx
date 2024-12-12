@@ -38,9 +38,9 @@ export function AdminSelection({ admins, dbAdmins }: { admins: string[]; dbAdmin
 
 function NamedInput({
     name,
-    className, 
-    ...props, 
-}: { name?: string, className?:string } & InputProps & RefAttributes<HTMLInputElement>) {
+    className,
+    ...props
+}: { name?: string; className?: string } & InputProps & RefAttributes<HTMLInputElement>) {
     return (
         <div className={className}>
             {name && <p>{name}</p>}
