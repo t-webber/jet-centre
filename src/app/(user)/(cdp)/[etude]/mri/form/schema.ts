@@ -1,6 +1,6 @@
-import * as z from 'zod';
+import { z } from 'zod';
 
-export const DOMAINS: string[] = [
+const zDOMAINS = z.enum([
     'Data Science',
     'Machine Learning',
     'Intelligence Artificielle',
@@ -18,23 +18,31 @@ export const DOMAINS: string[] = [
     'Computer Graphics',
     '3D',
     'Étude de marché',
-    "État de l'art",
-];
+    "État de l'art"
+]);
+const zDIFFICULTIES = z.enum(['Faible', 'Moyenne', 'Élevée']);
+const zPAYS = z.enum(['Faible', 'Moyenne', 'Élevée']);
 
-export const DIFFICULTIES = ['Faible', 'Moyenne', 'Élevée'];
-export const PAYS = ['Faible', 'Moyenne', 'Élevée'];
+export type Domains = z.infer<typeof zDOMAINS>;
+export const DOMAINS: Domains[] = zDOMAINS.options;
+
+export type Difficulties = z.infer<typeof zDIFFICULTIES>;
+export const DIFFICULTIES: Difficulties[] = zDIFFICULTIES.options;
+
+export type Pays = z.infer<typeof zPAYS>;
+export const PAYS: Pays[] = zPAYS.options;
 
 export const mriCreationSchema = z.object({
     title: z.string(),
     intro: z.string(),
-    domain: z.enum(DOMAINS as [string, ...string[]]),
+    domain: zDOMAINS,
+    difficulty: zDIFFICULTIES,
+    pay_level: zPAYS,
     pay_under: z.number(),
     pay_over: z.number(),
-    difficulty: z.enum(DIFFICULTIES as [string, ...string[]]),
-    pay_level: z.enum(PAYS as [string, ...string[]]),
     skills: z.string(),
     due_date: z.string(),
-    description: z.string(),
+    description: z.string()
 });
 
 export type FormType = z.infer<typeof mriCreationSchema>;
