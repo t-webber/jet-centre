@@ -6,7 +6,7 @@ const config = {
         './pages/**/*.{ts,tsx}',
         './components/**/*.{ts,tsx}',
         './app/**/*.{ts,tsx}',
-        './src/**/*.{ts,tsx}',
+        './src/**/*.{ts,tsx}'
     ],
     prefix: '',
     theme: {
@@ -14,8 +14,8 @@ const config = {
             center: true,
             padding: '2rem',
             screens: {
-                '2xl': '1400px',
-            },
+                '2xl': '1400px'
+            }
         },
         borderRadius: {
             DEFAULT: 'var(--radius)',
@@ -74,6 +74,18 @@ const config = {
                     DEFAULT: 'hsl(var(--disabled))',
                     foreground: 'hsl(var(--disabled-foreground))'
                 },
+                mri: {
+                    'header-bg': '#F7F7F7',
+                    'body-bg': '#FFFFFF',
+                    title: '#222222',
+                    headers: '#444444',
+                    separator: '#EAEAEA',
+                    p: '#757575',
+                    a: '#0070f3',
+                    emphasis: '#444444',
+                    'button-bg': '#E54540',
+                    'button-fg': '#FFFFFF'
+                }
             },
             spacing: {
                 main: '20px'
@@ -106,9 +118,15 @@ const config = {
                 'float-around': 'wiggle 20s ease-in-out infinite',
                 'float-around-2': 'largewiggle 20s ease-in-out infinite'
             },
-        },
+            fontFamily: {
+                mri: ['arial', 'helvetica neue', 'helvetica', 'sans-serif']
+            },
+            screens: {
+                'small-mri': '410px'
+            }
+        }
     },
-    plugins: [require('tailwindcss-animate')],
+    plugins: [require('tailwindcss-animate'), require('@tailwindcss/container-queries')]
 } satisfies Config;
 
 export default config;

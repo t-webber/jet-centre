@@ -67,16 +67,19 @@ export type Height = 'auto' | 'limited';
 
 export const BoxContent = ({
     children,
-    height = 'auto'
+    height = 'auto',
+    noPadding = false
 }: {
     children: ReactNode;
     height?: Height;
+    noPadding?: boolean;
 }) => (
     <div
         className={cn(
-            'p-4 space-y-4 flex-grow overflow-y-scroll max-h-full',
+            'space-y-4 flex-grow overflow-y-scroll max-h-full',
             height === 'auto' && 'h-auto max-h-auto overflow-y-auto',
-            height === 'limited' && ''
+            height === 'limited' && '',
+            noPadding ? 'p-0' : 'p-4'
         )}
     >
         {children}
