@@ -142,7 +142,7 @@ export function RenderMRI({ mri }: { mri: FormType }) {
             </p>
 
             <div className="flex flex-col justify-center items-center gap-4 my-4 @sm:flex-row @sm:my-0">
-                <a href="" className="text-mri-emphasis">
+                <a href="" className="text-mri-emphasis italic">
                     why did I get this?
                 </a>
                 <a href="" className="text-mri-emphasis">
