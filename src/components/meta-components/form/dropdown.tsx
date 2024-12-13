@@ -43,7 +43,7 @@ export const DropdownFormElement = <T extends FieldValues>({
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className="p-0">
                     <Command>
                         <CommandInput placeholder={`Sélectionner ${label}...`} />
                         <CommandList>
@@ -66,7 +66,7 @@ export const DropdownFormElement = <T extends FieldValues>({
                                                 'mr-2 h-4 w-4',
                                                 form.getValues()[name] === value
                                                     ? 'opacity-100'
-                                                    : 'opacity-0',
+                                                    : 'opacity-0'
                                             )}
                                         />
                                         {value}
