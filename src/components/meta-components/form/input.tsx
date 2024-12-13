@@ -5,11 +5,13 @@ import { FormElementWrapper, FormElementProps } from './wrapper';
 interface InputFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     onChange?: (newValue: string) => void;
     placeholder?: Partial<T>;
+    type?: string;
 }
 
 export const InputFormElement = <T extends FieldValues>({
     onChange,
     placeholder,
+    type,
     ...props
 }: InputFormElementProps<T>) => (
     <FormElementWrapper
@@ -17,6 +19,7 @@ export const InputFormElement = <T extends FieldValues>({
         son={(field) => (
             <Input
                 {...field}
+                type={type}
                 onChange={(e) => {
                     field.onChange(e);
                     if (onChange) {
