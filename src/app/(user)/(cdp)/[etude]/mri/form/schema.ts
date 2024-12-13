@@ -61,9 +61,12 @@ export const emptyMriCreationSchema: FormType = {
 };
 
 export const defaultMriCreationSchema = {
-    title: "Titre de l'étude loadé",
-    intro: 'Nous vous proposons une étude...',
-    skills: 'Nous recherchons un.e intervenant.e ayant des compétences en...',
-    due_date: 'Le client désire commencer le plus tôt possible.',
-    description: 'Le but de cette étude est de...',
+    ...emptyMriCreationSchema,
+    ...{
+        title: "Développement d'un tableau de bord dynamique",
+        intro: 'Nous vous proposons une étude...',
+        skills: 'Nous recherchons un.e intervenant.e ayant des compétences en...',
+        due_date: 'Le client désire commencer le plus tôt possible.',
+        description: 'Le but de cette étude est de...'
+    }
 };

@@ -8,62 +8,35 @@ import { DOMAINS, FormType, PAYS, defaultMriCreationSchema, mriCreationSchema } 
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownFormElement } from '@/components/meta-components/form/dropdown';
 import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
+import { useEffect } from 'react';
 
-export default function MRICreationForm() {
-    const form = useForm<FormType>({
-        resolver: zodResolver(mriCreationSchema),
-        defaultValues: defaultMriCreationSchema
-    });
-
-    const onChange = (newValue: string) => {
-        console.log('new value = ', newValue);
-    };
-
+export default function MRICreationForm({ form }: { form: any }) {
     return (
         <Form {...form}>
             <form className="space-y-5 py-5">
-                <InputFormElement label="Titre" name="title" form={form} onChange={onChange} />
-                <TextAreaFormElement
-                    label="Introduction"
-                    name="intro"
-                    form={form}
-                    resizable
-                    onChange={onChange}
-                />
-                <TextAreaFormElement
-                    label="Compétences"
-                    name="skills"
-                    form={form}
-                    resizable
-                    onChange={onChange}
-                />
-                <TextAreaFormElement
-                    label="Échéances"
-                    name="due_date"
-                    form={form}
-                    resizable
-                    onChange={onChange}
-                />
-                <TextAreaFormElement
-                    label="Description"
-                    name="description"
-                    form={form}
-                    resizable
-                    onChange={onChange}
-                />
-                <DropdownFormElement
-                    label="Domaine"
-                    name="domain"
-                    values={DOMAINS}
-                    form={form}
-                    onChange={onChange}
-                />
+                <InputFormElement label="Titre" name="title" form={form} />
+                <TextAreaFormElement label="Introduction" name="intro" form={form} resizable />
+                <TextAreaFormElement label="Compétences" name="skills" form={form} resizable />
+                <TextAreaFormElement label="Échéances" name="due_date" form={form} resizable />
+                <TextAreaFormElement label="Description" name="description" form={form} resizable />
+                <DropdownFormElement label="Domaine" name="domain" values={DOMAINS} form={form} />
                 <DropdownFormElement
                     label="Rétribution"
                     name="pay_level"
                     values={PAYS}
                     form={form}
-                    onChange={onChange}
+                />
+                <InputFormElement
+                    label="Rétribution basse"
+                    name="pay_under"
+                    type="number"
+                    form={form}
+                />
+                <InputFormElement
+                    label="Rétribution haut"
+                    name="pay_over"
+                    type="number"
+                    form={form}
                 />
             </form>
         </Form>

@@ -1,35 +1,10 @@
-import { Box, BoxContent, BoxHeader, BoxLink, BoxTitle } from '@/components/boxes/boxes';
 import { Metadata } from 'next';
-import MRICreationForm from './form/form';
-import { emptyMriCreationSchema } from './form/schema';
-import { RenderMRI } from './render';
+import Inner from './inner';
 
 export const metadata = {
     title: 'Écriture MRI'
 } satisfies Metadata;
 
 export default function MRI({ params: { etude } }: { params: { etude: string } }) {
-    const mri = emptyMriCreationSchema;
-
-    return (
-        <div className="flex space-x-main h-full">
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>MRI-{etude}</BoxTitle>
-                    <BoxLink href="/mri-examples">Examples de MRIs</BoxLink>
-                </BoxHeader>
-                <BoxContent height="limited">
-                    <MRICreationForm />
-                </BoxContent>
-            </Box>
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>Prévisualisation du MRI</BoxTitle>
-                </BoxHeader>
-                <BoxContent height="limited" noPadding>
-                    <RenderMRI mri={mri} />
-                </BoxContent>
-            </Box>
-        </div>
-    );
+    return <Inner etude={etude} />;
 }
