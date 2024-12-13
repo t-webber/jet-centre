@@ -5,7 +5,7 @@ import {
     CommandGroup,
     CommandInput,
     CommandItem,
-    CommandList,
+    CommandList
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -24,7 +24,7 @@ export const DropdownFormElement = <T extends FieldValues>({
     label,
     name,
     values,
-    onChange,
+    onChange
 }: DropdownFormElementProps<T>) => (
     <FormElementWrapper
         form={form}

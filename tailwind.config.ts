@@ -25,16 +25,16 @@ const config = {
             xl: '0.75rem',
             '2xl': '1rem',
             '3xl': '1.5rem',
-            full: '9999px',
+            full: '9999px'
         },
         extend: {
             colors: {
                 je: {
-                    red: 'hsl(var(--je-red))',
+                    red: 'hsl(var(--je-red))'
                 },
                 box: {
                     background: 'hsl(var(--box-background))',
-                    title: 'hsl(var(--box-title))',
+                    title: 'hsl(var(--box-title))'
                 },
                 link: 'hsl(var(--link))',
                 border: 'hsl(var(--border))',
@@ -44,67 +44,67 @@ const config = {
                 foreground: 'hsl(var(--foreground))',
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))',
+                    foreground: 'hsl(var(--primary-foreground))'
                 },
                 secondary: {
                     DEFAULT: 'hsl(var(--secondary))',
-                    foreground: 'hsl(var(--secondary-foreground))',
+                    foreground: 'hsl(var(--secondary-foreground))'
                 },
                 destructive: {
                     DEFAULT: 'hsl(var(--destructive))',
-                    foreground: 'hsl(var(--destructive-foreground))',
+                    foreground: 'hsl(var(--destructive-foreground))'
                 },
                 muted: {
                     DEFAULT: 'hsl(var(--muted))',
-                    foreground: 'hsl(var(--muted-foreground))',
+                    foreground: 'hsl(var(--muted-foreground))'
                 },
                 accent: {
                     DEFAULT: 'hsl(var(--accent))',
-                    foreground: 'hsl(var(--accent-foreground))',
+                    foreground: 'hsl(var(--accent-foreground))'
                 },
                 popover: {
                     DEFAULT: 'hsl(var(--popover))',
-                    foreground: 'hsl(var(--popover-foreground))',
+                    foreground: 'hsl(var(--popover-foreground))'
                 },
                 card: {
                     DEFAULT: 'hsl(var(--card))',
-                    foreground: 'hsl(var(--card-foreground))',
+                    foreground: 'hsl(var(--card-foreground))'
                 },
                 disabled: {
                     DEFAULT: 'hsl(var(--disabled))',
-                    foreground: 'hsl(var(--disabled-foreground))',
+                    foreground: 'hsl(var(--disabled-foreground))'
                 },
             },
             spacing: {
-                main: '20px',
+                main: '20px'
             },
             keyframes: {
                 'accordion-down': {
                     from: { height: '0' },
-                    to: { height: 'var(--radix-accordion-content-height)' },
+                    to: { height: 'var(--radix-accordion-content-height)' }
                 },
                 'accordion-up': {
                     from: { height: 'var(--radix-accordion-content-height)' },
-                    to: { height: '0' },
+                    to: { height: '0' }
                 },
                 wiggle: {
                     '0%, 100%': { transform: 'translate(0px, 0px) scale(0.5)' },
                     '25%': { transform: 'translate(100px, 20px) scale(1)' },
                     '50%': { transform: 'translate(100px, -20px) scale(0.2)' },
-                    '75%': { transform: 'translate(-100px, 20px) scale(1)' },
+                    '75%': { transform: 'translate(-100px, 20px) scale(1)' }
                 },
                 largewiggle: {
                     '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
                     '25%': { transform: 'translate(-100px, -20px) scale(0.5)' },
                     '50%': { transform: 'translate(-100px, 20px) scale(0.8)' },
-                    '75%': { transform: 'translate(100px, 20px) scale(0.2)' },
-                },
+                    '75%': { transform: 'translate(100px, 20px) scale(0.2)' }
+                }
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'float-around': 'wiggle 20s ease-in-out infinite',
-                'float-around-2': 'largewiggle 20s ease-in-out infinite',
+                'float-around-2': 'largewiggle 20s ease-in-out infinite'
             },
         },
     },

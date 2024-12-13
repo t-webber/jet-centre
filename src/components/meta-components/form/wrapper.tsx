@@ -5,7 +5,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage,
+    FormMessage
 } from '../../ui/form';
 import { ReactNode } from 'react';
 
@@ -25,7 +25,7 @@ export const FormElementWrapper = <T extends FieldValues>({
     label,
     name,
     son,
-    description,
+    description
 }: FormElementWrapperProps<T>) => (
     <FormField
         control={form.control}

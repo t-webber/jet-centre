@@ -4,7 +4,7 @@ import MRICreationForm from './form/form';
 import { RenderMRI } from './render';
 
 export const metadata = {
-    title: 'Écriture MRI',
+    title: 'Écriture MRI'
 } satisfies Metadata;
 
 export default ({ params: { etude } }: { params: { etude: string } }) => {

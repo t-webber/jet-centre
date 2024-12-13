@@ -12,7 +12,7 @@ import { TextAreaFormElement } from '@/components/meta-components/form/textarea'
 export default function MRICreationForm() {
     const form = useForm<FormType>({
         resolver: zodResolver(mriCreationSchema),
-        defaultValues: defaultMriCreationSchema,
+        defaultValues: defaultMriCreationSchema
     });
 
     const onChange = (newValue: string) => {
