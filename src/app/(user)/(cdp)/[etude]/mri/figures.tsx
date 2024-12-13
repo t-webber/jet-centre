@@ -39,7 +39,7 @@ export function ImageElt({
 }
 
 export function getDomain(domain: Domains) {
-    let image;
+    let image = Data;
 
     switch (domain) {
         case 'Data Science':
@@ -101,7 +101,7 @@ export function getDomain(domain: Domains) {
     return { label: 'DOMAIN', value: domain, image: image };
 }
 export function getPay(pay_under: number, pay_over: number, pay_level: Pays) {
-    let image;
+    let image = PayLow;
 
     switch (pay_level) {
         case 'Faible':
@@ -122,7 +122,7 @@ export function getPay(pay_under: number, pay_over: number, pay_level: Pays) {
     };
 }
 export function getDifficulty(difficulty: Difficulties) {
-    let image;
+    let image = DifficultyEasy;
 
     switch (difficulty) {
         case 'Faible':
