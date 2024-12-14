@@ -49,7 +49,7 @@ export const InnerBox = forwardRef<
 export const BoxHeader = ({ children, ...props }: { children?: ReactNode }) => (
     <div
         className={cn(
-            'bg-box-title/50 p-4',
+            'bg-box-title/50 py-2 px-4',
             'border-b border-box-hover/10',
             'flex justify-between items-center'
         )}
