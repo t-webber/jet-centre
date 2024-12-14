@@ -1,6 +1,5 @@
 import {
     Command,
-    CommandDialog,
     CommandEmpty,
     CommandGroup,
     CommandInput,
