@@ -1,7 +1,7 @@
 // import BigData from '@/../public/mri/domains/big-data.png';
 // import Research from '@/../public/mri/domains/research.png';
+// import Web from '@/../public/mri/domains/web.png';
 import Data from '@/../public/mri/domains/data.png';
-import Web from '@/../public/mri/domains/web.png';
 import Dev from '@/../public/mri/domains/dev.png';
 import Cyber from '@/../public/mri/domains/cyber.png';
 import Se from '@/../public/mri/domains/se.png';
@@ -52,7 +52,7 @@ export function getDomain(domain: Domains) {
             image = Data;
             break;
         case 'Développement Web':
-            image = Web;
+            image = Dev;
             break;
         case 'Développement Mobile':
             image = Dev;
