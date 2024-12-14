@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { DropdownFormElement } from '@/components/meta-components/form/dropdown';
+import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { COMPANY_SIZES } from './companySchema';
 import { FormRule } from '@/components/ui/form';
@@ -18,7 +18,7 @@ export default function CompanyForm({ form }: { form: any }) {
             <BoxContent>
                 <div className="flex flex-col gap-2">
                     <InputFormElement label="Nom de l'entreprise" name="company.name" form={form} />
-                    <DropdownFormElement
+                    <DropdownSingleFormElement
                         label="Taille de l'entreprise"
                         name="company.size"
                         values={COMPANY_SIZES}

@@ -1,7 +1,7 @@
 import { Form, FormRow, FormRule } from '@/components/ui/form';
 import { DIFFICULTIES, PAYS } from './schema';
 import { InputFormElement } from '@/components/meta-components/form/input';
-import { DropdownFormElement } from '@/components/meta-components/form/dropdown';
+import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
 import { DOMAINS } from '@/settings/vars';
 
@@ -14,7 +14,12 @@ export default function MRICreationForm({ form }: { form: any }) {
 
                 <FormRule />
 
-                <DropdownFormElement label="Domaine" name="domain" values={DOMAINS} form={form} />
+                <DropdownSingleFormElement
+                    label="Domaine"
+                    name="domain"
+                    values={DOMAINS}
+                    form={form}
+                />
                 <FormRow>
                     <InputFormElement
                         className="w-1/3"
@@ -30,7 +35,7 @@ export default function MRICreationForm({ form }: { form: any }) {
                         type="number"
                         form={form}
                     />
-                    <DropdownFormElement
+                    <DropdownSingleFormElement
                         className="w-1/3"
                         label="Rétribution"
                         name="pay_level"
@@ -38,7 +43,7 @@ export default function MRICreationForm({ form }: { form: any }) {
                         form={form}
                     />
                 </FormRow>
-                <DropdownFormElement
+                <DropdownSingleFormElement
                     label="Difficulté"
                     name="difficulty"
                     values={DIFFICULTIES}

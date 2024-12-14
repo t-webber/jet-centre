@@ -22,7 +22,7 @@ interface DropdownFormElementProps<T extends FieldValues> extends FormElementPro
     className?: string;
 }
 
-export function DropdownFormElement<T extends FieldValues>({
+export function DropdownSingleFormElement<T extends FieldValues>({
     form,
     label,
     name,
