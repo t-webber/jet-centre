@@ -86,7 +86,12 @@ const NavigationMenuLink = React.forwardRef<
 
     return (
         <NavigationMenuPrimitive.Link asChild active={isActive}>
-            <NextLink href={href ?? ''} className={className} ref={ref} {...props} />
+            <NextLink
+                href={href ?? ''}
+                className={cn(className, isActive && 'font-bold')}
+                ref={ref}
+                {...props}
+            />
         </NavigationMenuPrimitive.Link>
     );
 });
