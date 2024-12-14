@@ -6,15 +6,18 @@ interface InputFormElementProps<T extends FieldValues> extends FormElementProps<
     onChange?: (newValue: string) => void;
     placeholder?: Partial<T>;
     type?: string;
+    className?: string;
 }
 
 export const InputFormElement = <T extends FieldValues>({
     onChange,
     placeholder,
     type,
+    className,
     ...props
 }: InputFormElementProps<T>) => (
     <FormElementWrapper
+        className={className}
         {...props}
         son={(field) => (
             <Input

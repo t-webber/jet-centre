@@ -17,6 +17,7 @@ import { cn } from '@/lib/utils';
 interface DropdownFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     values: string[];
     onChange?: (newValue: string) => void;
+    className?: string;
 }
 
 export const DropdownFormElement = <T extends FieldValues>({
@@ -24,9 +25,11 @@ export const DropdownFormElement = <T extends FieldValues>({
     label,
     name,
     values,
-    onChange
+    onChange,
+    className
 }: DropdownFormElementProps<T>) => (
     <FormElementWrapper
+        className={className}
         form={form}
         name={name}
         label={label}

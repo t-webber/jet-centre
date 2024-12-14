@@ -18,6 +18,7 @@ export interface FormElementProps<T extends FieldValues> {
 interface FormElementWrapperProps<T extends FieldValues> extends FormElementProps<T> {
     son: (field: ControllerRenderProps<T>) => ReactNode;
     description?: string | ReactNode;
+    className?: string;
 }
 
 export const FormElementWrapper = <T extends FieldValues>({
@@ -25,13 +26,14 @@ export const FormElementWrapper = <T extends FieldValues>({
     label,
     name,
     son,
-    description
+    description,
+    className
 }: FormElementWrapperProps<T>) => (
     <FormField
         control={form.control}
         name={name}
         render={({ field }) => (
-            <FormItem>
+            <FormItem className={className}>
                 <FormLabel>{label}</FormLabel>
                 <FormControl>{son(field)}</FormControl>
                 {description && <FormDescription>{description}</FormDescription>}
