@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export const metadata = {
     title: 'Dashboard'
@@ -10,9 +11,9 @@ const HomePage = () => {
     return (
         <>
             <div className="mb-4">Bienvenue sur le site de Telecom Etude</div>
-            <Button>
-                <a href="/create">Nouvelle étude</a>
-            </Button>
+            <Link href="/create">
+                <Button>Nouvelle étude</Button>
+            </Link>
         </>
     );
 };
