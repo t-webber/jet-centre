@@ -14,11 +14,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                 onInput: (e) => {
                     let target = e.target as HTMLElement;
                     target.style.height = 'inherit';
-                    let fontSize = parseFloat(
-                        window.getComputedStyle(target, null).getPropertyValue('font-size'),
-                    );
-                    target.style.height = `${target.scrollHeight + fontSize}px`;
-                },
+                    target.style.height = `${target.scrollHeight}px`;
+                }
             };
         }
 
