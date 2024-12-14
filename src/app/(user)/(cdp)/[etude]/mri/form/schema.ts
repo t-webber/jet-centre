@@ -1,30 +1,8 @@
+import { DOMAINS, zDOMAINS } from '@/settings/vars';
 import { z } from 'zod';
 
-const zDOMAINS = z.enum([
-    'Data Science',
-    'Machine Learning',
-    'Intelligence Artificielle',
-    'Développement Web',
-    'Développement Mobile',
-    'Développement logiciel',
-    'Cybersécurité',
-    'Cryptographie',
-    'Systèmes embarqués',
-    'Internet des objets',
-    'Réseaux',
-    'Télécommunications',
-    'Internet',
-    'Image',
-    'Computer Graphics',
-    '3D',
-    'Étude de marché',
-    "État de l'art"
-]);
 const zDIFFICULTIES = z.enum(['Faible', 'Moyenne', 'Élevée']);
 const zPAYS = z.enum(['Faible', 'Moyenne', 'Élevée']);
-
-export type Domains = z.infer<typeof zDOMAINS>;
-export const DOMAINS: Domains[] = zDOMAINS.options;
 
 export type Difficulties = z.infer<typeof zDIFFICULTIES>;
 export const DIFFICULTIES: Difficulties[] = zDIFFICULTIES.options;

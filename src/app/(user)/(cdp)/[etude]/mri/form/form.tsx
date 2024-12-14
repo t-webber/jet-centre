@@ -1,8 +1,9 @@
 import { Form, FormRow, FormRule } from '@/components/ui/form';
-import { DIFFICULTIES, DOMAINS, PAYS } from './schema';
+import { DIFFICULTIES, PAYS } from './schema';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownFormElement } from '@/components/meta-components/form/dropdown';
 import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
+import { DOMAINS } from '@/settings/vars';
 
 export default function MRICreationForm({ form }: { form: any }) {
     return (
