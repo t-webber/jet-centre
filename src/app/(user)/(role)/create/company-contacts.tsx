@@ -15,7 +15,7 @@ import {
     FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { CompanyContact } from './contants';
+import { CompanyContact } from './constants';
 import { useState } from 'react';
 import { Separator } from '@/components/ui/separator';
 import { SingleCombobox } from '@/components/meta-components/combobox';

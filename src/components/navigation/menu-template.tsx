@@ -5,7 +5,6 @@ import {
     NavigationMenuList,
 } from '@/components/ui/navigation-menu';
 import { Separator } from '@/components/ui/separator';
-import Link from 'next/link';
 import { Button } from '../ui/button';
 import React from 'react';
 

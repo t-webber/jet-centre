@@ -1,10 +1,8 @@
 'use client';
 
 import { ManyComboBox, SingleCombobox } from '@/components/meta-components/combobox';
-import { Button } from '@/components/ui/button';
-import { X } from 'lucide-react';
 import { useState, RefAttributes } from 'react';
-import { COMPANY_SIZES, CompanyData, StudyData } from './contants';
+import { COMPANY_SIZES, CompanyData, StudyData } from './constants';
 import { Input, InputProps } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
@@ -74,7 +72,7 @@ export function StudyParams({ studyData, admins }: { studyData?: StudyData; admi
     );
 }
 
-export function ComapnySelector({
+export function CompanySelector({
     company,
     dbDomains
 }: {

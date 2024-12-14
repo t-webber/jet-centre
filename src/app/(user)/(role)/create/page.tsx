@@ -1,6 +1,6 @@
 import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { AdminSelection, StudyParams, ComapnySelector } from './selectors';
-import { CompanyContact, getMissionData, MissionData } from './contants';
+import { AdminSelection, StudyParams, CompanySelector } from './selectors';
+import { CompanyContact, getMissionData, MissionData } from './constants';
 import { ContactSelector } from './company-contacts';
 import { ReactNode } from 'react';
 
@@ -26,7 +26,7 @@ export default async function CreateStudy() {
     return (
         <div className="grid grid-cols-2 gap-main">
             <SimpleBox title="Informations générales sur l'entreprise">
-                <ComapnySelector company={missionData.company?.general} dbDomains={dbDomains} />
+                <CompanySelector company={missionData.company?.general} dbDomains={dbDomains} />
             </SimpleBox>
             <SimpleBox title="Chefs de projets">
                 <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} />
