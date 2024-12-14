@@ -8,6 +8,7 @@ import {
     FormMessage
 } from '../../ui/form';
 import { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
 
 export interface FormElementProps<T extends FieldValues> {
     form: UseFormReturn<T>;
@@ -33,8 +34,8 @@ export const FormElementWrapper = <T extends FieldValues>({
         control={form.control}
         name={name}
         render={({ field }) => (
-            <FormItem className={className}>
-                <FormLabel className="block translate-x-2 translate-y-4 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md">
+            <FormItem className={cn('relative mt-2', className)}>
+                <FormLabel className="absolute left-2 top-0 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap">
                     {label}
                 </FormLabel>
                 <FormControl>{son(field)}</FormControl>
