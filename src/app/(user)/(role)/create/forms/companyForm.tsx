@@ -5,11 +5,10 @@ import { DropdownSingleFormElement } from '@/components/meta-components/form/dro
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { COMPANY_SIZES } from './companySchema';
 import { FormRule } from '@/components/ui/form';
+import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
+import { DOMAINS } from '@/settings/vars';
 
 export default function CompanyForm({ form }: { form: any }) {
-    // const [size, setSize] = useState(company?.size || null);
-    // const [currentDomains, setDomains] = useState(company?.domains || []);
-
     return (
         <Box className="w-full">
             <BoxHeader>
@@ -24,14 +23,12 @@ export default function CompanyForm({ form }: { form: any }) {
                         values={COMPANY_SIZES}
                         form={form}
                     />
-                    {/* <ManyComboBox
-                    items={dbDomains}
-                    selectedKeys={currentDomains}
-                    addRemoveKey={(k) => addRemoveKey(k, currentDomains, setDomains)}
-                    title="Choisir des domains"
-                    emptyMessage="Aucun domain de ce nom"
-                    placeholder="Chercher un domaine"
-                /> */}
+                    <DropdownManyFormElement
+                        label="Domaines d'activité"
+                        name="company.domains"
+                        values={DOMAINS}
+                        form={form}
+                    />
                     <InputFormElement
                         label="CA (en k€)"
                         name="company.ca"
