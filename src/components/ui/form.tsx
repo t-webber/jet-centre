@@ -165,6 +165,12 @@ const FormRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     }
 );
 
+const FormRule = React.forwardRef<HTMLHRElement, React.HTMLAttributes<HTMLHRElement>>(
+    ({ className, ...props }, ref) => {
+        return <hr ref={ref} className={cn('mt-3', className)} {...props} />;
+    }
+);
+
 export {
     useFormField,
     Form,
@@ -174,5 +180,6 @@ export {
     FormDescription,
     FormMessage,
     FormField,
-    FormRow
+    FormRow,
+    FormRule
 };

@@ -34,7 +34,9 @@ export const FormElementWrapper = <T extends FieldValues>({
         name={name}
         render={({ field }) => (
             <FormItem className={className}>
-                <FormLabel>{label}</FormLabel>
+                <FormLabel className="block translate-x-2 translate-y-4 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md">
+                    {label}
+                </FormLabel>
                 <FormControl>{son(field)}</FormControl>
                 {description && <FormDescription>{description}</FormDescription>}
                 <FormMessage />

@@ -28,9 +28,8 @@ export const InputFormElement = <T extends FieldValues>({
                     if (onChange) {
                         onChange(e.target.value);
                     }
-                    // console.log(form.getValues()[name]);
                 }}
-                className="p-4"
+                className="px-4 h-12"
                 placeholder={placeholder?.[field.name] || ''}
             />
         )}
