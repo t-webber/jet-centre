@@ -22,8 +22,8 @@ const Layout = ({
                     <NavBar />
                 </ResizablePanel>
                 <ResizableHandle className="w-1 bg-box-hover/10 hover:bg-primary/20 transition-colors" />
-                <ResizablePanel defaultSize={85}>
-                    <div className="flex flex-col p-8 space-y-8 h-full overflow-auto">
+                <ResizablePanel defaultSize={85} className="!overflow-y-auto">
+                    <div className="flex flex-col p-8 space-y-8 min-h-full">
                         <TopBar />
                         <main className="min-h-0 flex-1">{children}</main>
                     </div>
