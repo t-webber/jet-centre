@@ -15,15 +15,31 @@ import {
     ContactCreationSchema,
     emptyContactCreationSchema
 } from './contactSchema';
+import { useState } from 'react';
 
 export interface ContactFormProps {
     form: any;
-    contacts: Contact[];
     studyFormId: string;
     contactFormId: string;
 }
 
-export function ContactForm({ form, contacts, studyFormId, contactFormId }: ContactFormProps) {
+export function ContactForm({ form, studyFormId, contactFormId }: ContactFormProps) {
+    // TODO: prisma.Contacts.findMany()
+    const DBG_CONTACTS = [
+        {
+            id: '001',
+            firstName: 'John',
+            lastName: 'Doe'
+        },
+        {
+            id: '002',
+            firstName: 'Alice',
+            lastName: 'Smith'
+        }
+    ];
+
+    let [contacts, setContacts] = useState<Contact[]>(DBG_CONTACTS);
+
     return (
         <Box className="w-full">
             <BoxHeader>
@@ -45,11 +61,6 @@ export function ContactForm({ form, contacts, studyFormId, contactFormId }: Cont
                     />
                     <FormRule primary />
                     <ContactCreationForm formId={contactFormId} />
-                    {/* <FormRule primary />
-                    <DeletableItemList
-                        items={contacts}
-                        deleteItem={(contact) => addRemoveKey(contact, contacts, setContacts)}
-                    /> */}
                 </div>
             </BoxContent>
         </Box>
@@ -64,53 +75,51 @@ function ContactCreationForm({ formId }: { formId: string }) {
 
     return (
         <Form {...form}>
-            <form className="flex flex-col gap-2">
-                <FormRow>
-                    <InputFormElement
-                        label="Prénom du client"
-                        name="firstName"
-                        className="w-1/2"
-                        form={form}
-                        formId={formId}
-                    />
-                    <InputFormElement
-                        label="Nom du client"
-                        name="lastName"
-                        className="w-1/2"
-                        form={form}
-                        formId={formId}
-                    />
-                </FormRow>
+            <FormRow>
                 <InputFormElement
-                    label="Email du client"
-                    name="email"
-                    type="email"
+                    label="Prénom du client"
+                    name="firstName"
+                    className="w-1/2"
                     form={form}
                     formId={formId}
                 />
                 <InputFormElement
-                    label="Téléphone du client"
-                    name="tel"
-                    type="tel"
+                    label="Nom du client"
+                    name="lastName"
+                    className="w-1/2"
                     form={form}
                     formId={formId}
                 />
-                <InputFormElement
-                    label="Poste dans l'entreprise"
-                    name="job"
-                    form={form}
-                    formId={formId}
-                />
-                <InputFormElement
-                    label="Description (quand le contacter)"
-                    name="description"
-                    form={form}
-                    formId={formId}
-                />
-                <Button type="submit" className="w-full" variant="outline" formId={formId}>
-                    Ajouter ce contact
-                </Button>
-            </form>
+            </FormRow>
+            <InputFormElement
+                label="Email du client"
+                name="email"
+                type="email"
+                form={form}
+                formId={formId}
+            />
+            <InputFormElement
+                label="Téléphone du client"
+                name="tel"
+                type="tel"
+                form={form}
+                formId={formId}
+            />
+            <InputFormElement
+                label="Poste dans l'entreprise"
+                name="job"
+                form={form}
+                formId={formId}
+            />
+            <InputFormElement
+                label="Description (quand le contacter)"
+                name="description"
+                form={form}
+                formId={formId}
+            />
+            <Button type="submit" className="w-full" variant="outline" formId={formId}>
+                Ajouter ce contact
+            </Button>
         </Form>
     );
 }

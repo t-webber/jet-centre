@@ -1,27 +1,12 @@
 'use client';
 
-import { Box, BoxHeader, BoxTitle, BoxContent } from '@/components/boxes/boxes';
-import { ReactNode } from 'react';
-
 import { Form } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } from './forms/schema';
 import CompanyForm from './forms/companyForm';
 import { ContactForm } from './forms/contactForm';
-import { CdPForm } from './forms/cdpForm';
-import SettingsForm from './forms/settingsForm';
-
-function SimpleBox({ title, children }: { title: string; children: ReactNode }) {
-    return (
-        <Box className="w-full">
-            <BoxHeader>
-                <BoxTitle>{title}</BoxTitle>
-            </BoxHeader>
-            <BoxContent>{children}</BoxContent>
-        </Box>
-    );
-}
+import { SettingsForm } from './forms/settingsForm';
 
 export default function CreateStudy() {
     const form = useForm<StudyCreationSchema>({
@@ -29,40 +14,24 @@ export default function CreateStudy() {
         defaultValues: emptyStudyCreationSchema
     });
 
-    const DBG_NAMES = [
-        {
-            id: '001',
-            firstName: 'John',
-            lastName: 'Doe'
-        },
-        {
-            id: '002',
-            firstName: 'Alice',
-            lastName: 'Smith'
-        }
-    ];
-
     return (
         <>
             <form id="create-study"></form>
             <form id="create-contact"></form>
-            <form id="create-cdp"></form>
+            <form id="create-admin"></form>
             <Form {...form}>
                 <div className="grid grid-cols-2 gap-main">
                     <CompanyForm form={form} formId="create-study" />
-                    <CdPForm
+                    <SettingsForm
                         form={form}
-                        cdps={DBG_NAMES}
                         studyFormId="create-study"
-                        cdpFormId="create-cdp"
+                        adminFormId="create-admin"
                     />
                     <ContactForm
                         form={form}
-                        contacts={DBG_NAMES}
                         studyFormId="create-study"
                         contactFormId="create-contact"
                     />
-                    <SettingsForm form={form} admins={DBG_NAMES} formId="create-study" />
                 </div>
             </Form>
         </>
