@@ -77,6 +77,9 @@
         --box-title: 235 16% 16%;
         --box-accent: 235 14% 19%;
         --box-hover: 0 0% 100%;
+
+        --checkbox-border: 0, 0%, 85%;
+        --checkbox-background: 0, 0%, 45%;
     }
 }
 

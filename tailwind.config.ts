@@ -36,6 +36,10 @@ const config = {
                     background: 'hsl(var(--box-background))',
                     title: 'hsl(var(--box-title))'
                 },
+                checkbox: {
+                    border: 'hsl(var(--checkbox-border))',
+                    background: 'hsl(var(--checkbox-background))'
+                },
                 link: 'hsl(var(--link))',
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
