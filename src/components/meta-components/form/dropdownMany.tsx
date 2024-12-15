@@ -48,7 +48,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     }, [selected]);
 
     function onRemove(value: V) {
-        const newSelected = selected.filter((v) => v !== value);
+        const newSelected = selected.filter((v) => getKeyOfValue(v) !== getKeyOfValue(value));
 
         setSelected(newSelected);
 
