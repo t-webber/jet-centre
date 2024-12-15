@@ -9,12 +9,12 @@ import { Form, FormRow, FormRule } from '@/components/ui/form';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 
-import { CdP, cdpCreationSchema, CdPCreationSchema, emptyCdPCreationSchema } from './cdpSchema';
+import { Admin, cdpCreationSchema, CdPCreationSchema, emptyCdPCreationSchema } from './cdpSchema';
 import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 
 export interface CdPFormProps {
     form: any;
-    cdps: CdP[];
+    cdps: Admin[];
     studyFormId: string;
     cdpFormId: string;
 }

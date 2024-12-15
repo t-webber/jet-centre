@@ -10,6 +10,7 @@ import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } fr
 import CompanyForm from './forms/companyForm';
 import { ContactForm } from './forms/contactForm';
 import { CdPForm } from './forms/cdpForm';
+import SettingsForm from './forms/settingsForm';
 
 function SimpleBox({ title, children }: { title: string; children: ReactNode }) {
     return (
@@ -61,10 +62,7 @@ export default function CreateStudy() {
                         studyFormId="create-study"
                         contactFormId="create-contact"
                     />
-                    <SimpleBox title="Paramètres de l'étude">
-                        <p></p>
-                        {/* <StudyParams studyData={missionData.study} admins={admins} /> */}
-                    </SimpleBox>
+                    <SettingsForm form={form} admins={DBG_NAMES} formId="create-study" />
                 </div>
             </Form>
         </>

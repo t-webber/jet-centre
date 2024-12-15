@@ -1,20 +1,20 @@
 import { z } from 'zod';
 
-export const zCdP = z.object({
+export const zAdmin = z.object({
     firstName: z.string(),
     lastName: z.string(),
     id: z.string()
 });
 
-export type CdP = z.infer<typeof zCdP>;
-export const emptyCdP: CdP = {
+export type Admin = z.infer<typeof zAdmin>;
+export const emptyAdmin: Admin = {
     firstName: '',
     lastName: '',
     id: ''
 };
 
 export const cdpSchema = z.object({
-    cdps: z.array(zCdP)
+    cdps: z.array(zAdmin)
 });
 
 export type CdPSchema = z.infer<typeof cdpSchema>;
