@@ -67,7 +67,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                         <Button
                             variant="outline"
                             role="combobox"
-                            className="flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background"
+                            className="flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background focus-visible:ring-0 focus:border-foreground"
                             ref={buttonRef}
                         >
                             <PillList

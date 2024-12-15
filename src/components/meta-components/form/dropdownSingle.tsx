@@ -50,7 +50,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                             variant="outline"
                             role="combobox"
                             aria-expanded={open}
-                            className="flex w-full justify-between h-12"
+                            className="flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground"
                         >
                             {displayValue(getProperty(form.getValues(), name)) ||
                                 `Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
