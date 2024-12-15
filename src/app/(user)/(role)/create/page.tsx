@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } from './forms/schema';
 import CompanyForm from './forms/companyForm';
 import { ContactForm } from './forms/contactForm';
+import { CdPForm } from './forms/cdpForm';
 
 function SimpleBox({ title, children }: { title: string; children: ReactNode }) {
     return (
@@ -27,11 +28,16 @@ export default function CreateStudy() {
         defaultValues: emptyStudyCreationSchema
     });
 
-    const DBG_CONTACTS = [
+    const DBG_NAMES = [
         {
             id: '001',
             firstName: 'John',
             lastName: 'Doe'
+        },
+        {
+            id: '002',
+            firstName: 'Alice',
+            lastName: 'Smith'
         }
     ];
 
@@ -39,16 +45,19 @@ export default function CreateStudy() {
         <>
             <form id="create-study"></form>
             <form id="create-contact"></form>
+            <form id="create-cdp"></form>
             <Form {...form}>
                 <div className="grid grid-cols-2 gap-main">
                     <CompanyForm form={form} formId="create-study" />
-                    <SimpleBox title="Chefs de projets">
-                        <p></p>
-                        {/* <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} /> */}
-                    </SimpleBox>
+                    <CdPForm
+                        form={form}
+                        cdps={DBG_NAMES}
+                        studyFormId="create-study"
+                        cdpFormId="create-cdp"
+                    />
                     <ContactForm
                         form={form}
-                        contacts={DBG_CONTACTS}
+                        contacts={DBG_NAMES}
                         studyFormId="create-study"
                         contactFormId="create-contact"
                     />
