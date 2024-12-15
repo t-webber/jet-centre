@@ -174,7 +174,7 @@ const FormRule = React.forwardRef<HTMLHRElement, FormRuleProps>(
         return (
             <hr
                 ref={ref}
-                className={cn('mt-3', primary && 'border-primary', className)}
+                className={cn('mt-3', primary && 'border-primary mb-3', className)}
                 {...props}
             />
         );
