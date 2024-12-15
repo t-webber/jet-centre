@@ -35,7 +35,7 @@ export const FormElementWrapper = <T extends FieldValues>({
         name={name}
         render={({ field }) => (
             <FormItem className={cn('relative mt-2', className)}>
-                <FormLabel className="absolute left-2 top-0 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap">
+                <FormLabel className="absolute left-2 top-0 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap text-input">
                     {label}
                 </FormLabel>
                 <FormControl>{son(field)}</FormControl>
