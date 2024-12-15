@@ -18,21 +18,25 @@ import { cn, getProperty } from '@/lib/utils';
 import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 
-interface DropdownFormElementProps<T extends FieldValues> extends FormElementProps<T> {
-    values: string[];
-    onChange?: (newValue: string, added: boolean) => void;
+interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
+    values: V[];
+    onChange?: (newValue: V, added: boolean) => void;
     className?: string;
+    displayValue?: (value: V) => string;
+    getKeyOfValue?: (value: V) => string;
 }
 
-export function DropdownManyFormElement<T extends FieldValues>({
+export function DropdownManyFormElement<V, T extends FieldValues>({
     form,
     label,
     name,
     values,
+    displayValue = (value: V) => value as string,
+    getKeyOfValue = (value: V) => value as string,
     onChange,
     className
-}: DropdownFormElementProps<T>) {
-    const [selected, setSelected] = useState<string[]>([]);
+}: DropdownFormElementProps<V, T>) {
+    const [selected, setSelected] = useState<V[]>([]);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
@@ -43,7 +47,7 @@ export function DropdownManyFormElement<T extends FieldValues>({
         }
     }, [selected]);
 
-    function onRemove(value: string) {
+    function onRemove(value: V) {
         const newSelected = selected.filter((v) => v !== value);
 
         setSelected(newSelected);
@@ -68,6 +72,8 @@ export function DropdownManyFormElement<T extends FieldValues>({
                         >
                             <PillList
                                 values={getProperty(form.getValues(), name)}
+                                displayValue={displayValue}
+                                getKeyOfValue={getKeyOfValue}
                                 onRemove={onRemove}
                             />
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
@@ -81,9 +87,13 @@ export function DropdownManyFormElement<T extends FieldValues>({
                                 <CommandGroup>
                                     {values.map((value) => (
                                         <CommandItem
-                                            key={value}
-                                            value={value}
-                                            onSelect={(newValue) => {
+                                            key={getKeyOfValue(value)}
+                                            value={getKeyOfValue(value)}
+                                            onSelect={(newKey) => {
+                                                const newValue = values.find(
+                                                    (v) => getKeyOfValue(v) === newKey
+                                                )!;
+
                                                 const included = selected.includes(newValue);
 
                                                 if (onChange) {
@@ -117,7 +127,7 @@ export function DropdownManyFormElement<T extends FieldValues>({
                                                 )}
                                                 checked={selected.includes(value)}
                                             />
-                                            {value}
+                                            {displayValue(value)}
                                         </CommandItem>
                                     ))}
                                 </CommandGroup>
@@ -130,13 +140,19 @@ export function DropdownManyFormElement<T extends FieldValues>({
     );
 }
 
-function PillList({ values, onRemove }: { values: string[]; onRemove: (value: string) => void }) {
+interface PillListProps<V> {
+    values: V[];
+    displayValue: (value: V) => string;
+    getKeyOfValue: (value: V) => string;
+    onRemove: (value: V) => void;
+}
+function PillList<V>({ values, displayValue, getKeyOfValue, onRemove }: PillListProps<V>) {
     return (
         <div className="flex flex-wrap items-center gap-1 h-full">
             {values.map((value) => (
                 <Pill
-                    key={value}
-                    value={value}
+                    key={getKeyOfValue(value)}
+                    value={displayValue(value)}
                     onRemove={(e) => {
                         e.preventDefault();
                         onRemove(value);
