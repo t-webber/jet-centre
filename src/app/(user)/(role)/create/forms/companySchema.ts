@@ -32,9 +32,9 @@ export type CompanyCreationSchema = z.infer<typeof companyCreationSchema>;
 
 export const emptyCompanyCreationSchema = {
     name: '',
-    size: COMPANY_SIZES[0],
+    size: '',
     domains: [],
-    ca: 0,
+    ca: '',
     address: {
         number: '',
         street: '',

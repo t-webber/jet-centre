@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 export default function Inner({ etude }: { etude: string }) {
     const form = useForm<FormType>({
         resolver: zodResolver(mriCreationSchema),
+        // @ts-ignore - react-hook-form use empty string ("") as default value even for non-string fields
         defaultValues: defaultMriCreationSchema
     });
 

@@ -25,14 +25,14 @@ export const mriCreationSchema = z.object({
 
 export type FormType = z.infer<typeof mriCreationSchema>;
 
-export const emptyMriCreationSchema: FormType = {
+export const emptyMriCreationSchema = {
     title: '',
     intro: '',
-    domain: DOMAINS[0],
-    pay_under: 0,
-    pay_over: 0,
-    difficulty: DIFFICULTIES[0],
-    pay_level: PAYS[0],
+    domain: '',
+    pay_under: '',
+    pay_over: '',
+    difficulty: '',
+    pay_level: '',
     skills: '',
     due_date: '',
     description: ''
@@ -41,7 +41,6 @@ export const emptyMriCreationSchema: FormType = {
 export const defaultMriCreationSchema = {
     ...emptyMriCreationSchema,
     ...{
-        title: "Développement d'un tableau de bord dynamique",
         intro: 'Nous vous proposons une étude...',
         skills: 'Nous recherchons un.e intervenant.e ayant des compétences en...',
         due_date: 'Le client désire commencer le plus tôt possible.',

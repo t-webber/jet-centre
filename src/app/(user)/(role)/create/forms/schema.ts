@@ -10,6 +10,7 @@ export const studyCreationSchema = z.object({
 export type StudyCreationSchema = z.infer<typeof studyCreationSchema>;
 
 export const emptyStudyCreationSchema: StudyCreationSchema = {
+    // @ts-ignore - react-hook-form use empty string ("") as default value even for non-string fields
     company: emptyCompanyCreationSchema,
     contact: emptyContactSchema
 };
