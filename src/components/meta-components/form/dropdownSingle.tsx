@@ -19,9 +19,9 @@ import { useState } from 'react';
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
     values: V[];
     onChange?: (newValue: V) => void;
-    className?: string;
     displayValue?: (value: V) => string;
     getKeyOfValue?: (value: V) => string;
+    className?: string;
 }
 
 export function DropdownSingleFormElement<V, T extends FieldValues>({
@@ -29,9 +29,9 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     label,
     name,
     values,
+    onChange,
     displayValue = (value: V) => value as string,
     getKeyOfValue = (value: V) => value as string,
-    onChange,
     className
 }: DropdownFormElementProps<V, T>) {
     const [open, setOpen] = useState(false);
@@ -42,6 +42,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
             form={form}
             name={name}
             label={label}
+            reduceLabel={true}
             son={(field) => (
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
