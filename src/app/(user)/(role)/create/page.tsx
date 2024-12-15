@@ -34,10 +34,11 @@ export default function CreateStudy() {
     // const dbDomains: string[] = [];
 
     return (
-        <Form {...form}>
-            <form>
+        <>
+            <form id="create-study"></form>
+            <Form {...form}>
                 <div className="grid grid-cols-2 gap-main">
-                    <CompanyForm form={form} />
+                    <CompanyForm form={form} formId="create-study" />
                     <SimpleBox title="Chefs de projets">
                         <p></p>
                         {/* <AdminSelection dbAdmins={missionData.cdps || []} admins={admins} /> */}
@@ -54,7 +55,7 @@ export default function CreateStudy() {
                         {/* <StudyParams studyData={missionData.study} admins={admins} /> */}
                     </SimpleBox>
                 </div>
-            </form>
-        </Form>
+            </Form>
+        </>
     );
 }

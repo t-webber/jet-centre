@@ -3,6 +3,7 @@ import { FieldValues } from 'react-hook-form';
 import { FormElementWrapper, FormElementProps } from './wrapper';
 
 interface InputFormElementProps<T extends FieldValues> extends FormElementProps<T> {
+    formId?: string;
     onChange?: (newValue: string) => void;
     placeholder?: Partial<T>;
     type?: string;
@@ -10,6 +11,7 @@ interface InputFormElementProps<T extends FieldValues> extends FormElementProps<
 }
 
 export const InputFormElement = <T extends FieldValues>({
+    formId,
     onChange,
     placeholder,
     type,
@@ -31,6 +33,7 @@ export const InputFormElement = <T extends FieldValues>({
                 }}
                 className="px-4 h-12"
                 placeholder={placeholder?.[field.name] || ''}
+                form={formId}
             />
         )}
     />

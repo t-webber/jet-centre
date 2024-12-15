@@ -8,7 +8,7 @@ import { FormRule } from '@/components/ui/form';
 import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 import { DOMAINS } from '@/settings/vars';
 
-export default function CompanyForm({ form }: { form: any }) {
+export default function CompanyForm({ form, formId }: { form: any; formId: string }) {
     return (
         <Box className="w-full">
             <BoxHeader>
@@ -16,7 +16,12 @@ export default function CompanyForm({ form }: { form: any }) {
             </BoxHeader>
             <BoxContent>
                 <div className="flex flex-col gap-2">
-                    <InputFormElement label="Nom de l'entreprise" name="company.name" form={form} />
+                    <InputFormElement
+                        label="Nom de l'entreprise"
+                        name="company.name"
+                        form={form}
+                        formId={formId}
+                    />
                     <DropdownSingleFormElement
                         label="Taille de l'entreprise"
                         name="company.size"
@@ -34,6 +39,7 @@ export default function CompanyForm({ form }: { form: any }) {
                         name="company.ca"
                         type="number"
                         form={form}
+                        formId={formId}
                     />
 
                     <FormRule />
@@ -44,32 +50,37 @@ export default function CompanyForm({ form }: { form: any }) {
                             <InputFormElement
                                 label="N°"
                                 name="company.address.number"
-                                form={form}
                                 className="col-span-1"
+                                form={form}
+                                formId={formId}
                             />
                             <InputFormElement
                                 label="Rue"
                                 name="company.address.street"
-                                form={form}
                                 className="col-span-3"
+                                form={form}
+                                formId={formId}
                             />
                             <InputFormElement
                                 label="Ville"
                                 name="company.address.city"
-                                form={form}
                                 className="col-span-4"
+                                form={form}
+                                formId={formId}
                             />
                             <InputFormElement
                                 label="Code postal"
                                 name="company.address.zip"
-                                form={form}
                                 className="col-span-2"
+                                form={form}
+                                formId={formId}
                             />
                             <InputFormElement
                                 label="Pays"
                                 name="company.address.country"
-                                form={form}
                                 className="col-span-2"
+                                form={form}
+                                formId={formId}
                             />
                         </div>
                     </div>
