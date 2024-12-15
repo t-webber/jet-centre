@@ -89,7 +89,7 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                         form={form}
                     />
                     <DropdownManyFormElement
-                        label="Administrateurs existants"
+                        label="Chef(fe)s de projet"
                         name="settings.cdps"
                         values={admins}
                         getKeyOfValue={(admin) => admin.id}
