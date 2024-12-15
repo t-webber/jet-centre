@@ -165,9 +165,19 @@ const FormRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
     }
 );
 
-const FormRule = React.forwardRef<HTMLHRElement, React.HTMLAttributes<HTMLHRElement>>(
-    ({ className, ...props }, ref) => {
-        return <hr ref={ref} className={cn('mt-3', className)} {...props} />;
+interface FormRuleProps extends React.HTMLAttributes<HTMLHRElement> {
+    primary?: boolean;
+}
+
+const FormRule = React.forwardRef<HTMLHRElement, FormRuleProps>(
+    ({ className, primary, ...props }, ref) => {
+        return (
+            <hr
+                ref={ref}
+                className={cn('mt-3', primary && 'border-primary', className)}
+                {...props}
+            />
+        );
     }
 );
 
