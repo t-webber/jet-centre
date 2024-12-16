@@ -34,6 +34,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     getKeyOfValue = (value: V) => value as string,
     className
 }: DropdownFormElementProps<V, T>) {
+    const [inFocus, setInFocus] = useState(false);
     const [open, setOpen] = useState(false);
 
     return (
@@ -42,7 +43,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
             form={form}
             name={name}
             label={label}
-            reduceLabel={true}
+            labelStat={inFocus ? 'in-focus' : 'written'}
             son={(field) => (
                 <Popover open={open} onOpenChange={setOpen}>
                     <PopoverTrigger asChild>
@@ -50,14 +51,21 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                             variant="outline"
                             role="combobox"
                             aria-expanded={open}
-                            className="flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground"
+                            className={cn(
+                                'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground',
+                                inFocus && 'ring-0 border-foreground'
+                            )}
                         >
                             {displayValue(getProperty(form.getValues(), name)) ||
                                 `Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="p-0">
+                    <PopoverContent
+                        className="p-0"
+                        onFocus={() => setInFocus(true)}
+                        onCloseAutoFocus={() => setInFocus(false)}
+                    >
                         <Command>
                             <CommandInput
                                 placeholder={`Sélectionner un(e) ${label.toLocaleLowerCase()}...`}

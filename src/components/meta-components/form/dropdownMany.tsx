@@ -36,6 +36,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     onChange,
     className
 }: DropdownFormElementProps<V, T>) {
+    const [inFocus, setInFocus] = useState(false);
     const [selected, setSelected] = useState<V[]>([]);
     const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -61,13 +62,18 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
             form={form}
             name={name}
             label={label}
+            labelStat={inFocus ? 'in-focus' : undefined}
             son={(field) => (
                 <Popover>
                     <PopoverTrigger asChild>
                         <Button
                             variant="outline"
                             role="combobox"
-                            className="flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background focus-visible:ring-0 focus:border-foreground"
+                            className={cn(
+                                'flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background',
+                                'ring-0 outline-none focus-within:border-foreground',
+                                inFocus && 'ring-0 border-foreground'
+                            )}
                             ref={buttonRef}
                         >
                             <PillList
@@ -79,7 +85,11 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="p-0">
+                    <PopoverContent
+                        className="p-0"
+                        onFocus={() => setInFocus(true)}
+                        onCloseAutoFocus={() => setInFocus(false)}
+                    >
                         <Command>
                             <CommandInput placeholder={`Sélectionner ${label}...`} />
                             <CommandList>

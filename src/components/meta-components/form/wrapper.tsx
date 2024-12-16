@@ -9,6 +9,19 @@ import {
 } from '../../ui/form';
 import { ReactNode, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { cva } from 'class-variance-authority';
+
+const labelVariants = cva('', {
+    variants: {
+        labelStat: {
+            unwritten: 'text-input',
+            'in-focus': 'text-foreground left-2 top-0',
+            written: 'text-input left-2 top-0'
+        }
+    }
+});
+
+export type LabelStat = 'unwritten' | 'in-focus' | 'written';
 
 export interface FormElementProps<T extends FieldValues> {
     form: UseFormReturn<T>;
@@ -20,7 +33,7 @@ interface FormElementWrapperProps<T extends FieldValues> extends FormElementProp
     son: (field: ControllerRenderProps<T>) => ReactNode;
     description?: string | ReactNode;
     className?: string;
-    reduceLabel?: boolean;
+    labelStat?: LabelStat;
 }
 
 export function FormElementWrapper<T extends FieldValues>({
@@ -29,7 +42,7 @@ export function FormElementWrapper<T extends FieldValues>({
     name,
     son,
     description,
-    reduceLabel = false,
+    labelStat,
     className
 }: FormElementWrapperProps<T>) {
     return (
@@ -41,8 +54,8 @@ export function FormElementWrapper<T extends FieldValues>({
                     <FormLabel
                         className={cn(
                             'absolute left-2 top-6 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all',
-                            (reduceLabel || field.value.toString() !== '') &&
-                                'text-input left-2 top-0',
+                            field.value.toString() !== '' && 'text-input left-2 top-0',
+                            labelVariants({ labelStat }),
                             'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:top-0'
                         )}
                     >
