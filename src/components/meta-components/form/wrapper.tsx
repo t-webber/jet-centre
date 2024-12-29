@@ -53,10 +53,12 @@ export function FormElementWrapper<T extends FieldValues>({
                 <FormItem className={cn('group relative mt-2', className)}>
                     <FormLabel
                         className={cn(
-                            'absolute left-2 top-6 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all',
+                            'absolute left-2 top-6 bg-box-background w-fit max-w-[calc(100%-0.75rem)] px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all overflow-ellipsis overflow-hidden',
                             field.value.toString() !== '' && 'text-input left-2 top-0',
-                            labelVariants({ labelStat }),
-                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:top-0'
+                            labelVariants({
+                                labelStat: labelStat
+                            }),
+                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:top-0 group-focus-within:max-w-none'
                         )}
                     >
                         {label}
