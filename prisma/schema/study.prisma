@@ -8,7 +8,7 @@ model Studies {
     progress       StudyProgress?
     client         StudyClients[]
     MRIs           MRIs?
-    StudyAssignees StudyAssignees[]
+    studyAssignees StudyAssignees[]
     satisfactions  Satisfactions?
 }
 
