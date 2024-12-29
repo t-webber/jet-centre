@@ -29,8 +29,6 @@ model StudyInfos {
     mriId          String?         @unique
     docs           StudyDocs[]
     adminsId       String?
-
-    @@map("StudyInfo")
 }
 
 model StudyProgress {
