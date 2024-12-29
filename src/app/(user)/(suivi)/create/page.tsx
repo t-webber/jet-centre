@@ -21,7 +21,7 @@ export default function CreateStudy() {
             <form id="create-contact"></form>
             <form id="create-admin"></form>
             <Form {...form}>
-                <div className="grid grid-cols-2 gap-main">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-main">
                     <div className="flex flex-col gap-main">
                         <CompanyForm form={form} formId="create-study" />
                         <ContactForm
