@@ -36,9 +36,9 @@ export default function CreateStudy() {
                             studyFormId="create-study"
                             adminFormId="create-admin"
                         />
-                        {/* <Button type="submit" form="create-study">
+                        <Button type="submit" form="create-study">
                             Créer une nouvelle étude
-                        </Button> */}
+                        </Button>
                     </div>
                 </div>
             </Form>
