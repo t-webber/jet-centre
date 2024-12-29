@@ -1,4 +1,4 @@
-import { LogoBird } from '../logo';
+import { LogoBird } from '../../logo';
 
 export const NavbarHeader = () => {
     return (

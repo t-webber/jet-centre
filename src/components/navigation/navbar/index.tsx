@@ -1,15 +1,14 @@
 'use client';
 
-import { NavbarHeader } from './navbar-header';
-import { UserDropdownMenu } from './user-dropdown-menu';
+import { NavbarHeader } from './header';
+import { UserDropdownMenu } from '../user-dropdown-menu';
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { MissionNavbar } from './navbar-mission';
+import { MissionNavbar } from './tab-mission';
 
 const NavBar = () => {
     const [missionNb, setMissionNb] = useState(0);
     const missions = ['223072', '223073', '223074'];
-    const position = 'Respo Info';
 
     const tabs = [
         {
@@ -24,9 +23,9 @@ const NavBar = () => {
             )
         },
         {
-            label: position,
+            label: 'Respo Suivi',
             value: 'position',
-            content: <div>Todo.</div>
+            content: <h1>Todo.</h1>
         }
     ];
 
