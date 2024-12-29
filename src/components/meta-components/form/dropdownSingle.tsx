@@ -15,7 +15,6 @@ import { FormElementProps, FormElementWrapper } from './wrapper';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn, getProperty } from '@/lib/utils';
 import { useRef, useState } from 'react';
-import { InputFormElement } from './input';
 
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
     formId?: string;
@@ -33,8 +32,8 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     name,
     values,
     onChange,
-    displayValue = (value: V) => value as string,
-    getKeyOfValue = (value: V) => value as string,
+    displayValue = (value: V) => (value as any).toString(),
+    getKeyOfValue = (value: V) => (value as any).toString(),
     className
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
@@ -117,8 +116,9 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                 <Check
                                                     className={cn(
                                                         'mr-2 h-4 w-4',
-                                                        getProperty(form.getValues(), name) ===
-                                                            value
+                                                        getKeyOfValue(
+                                                            getProperty(form.getValues(), name)
+                                                        ) === getKeyOfValue(value)
                                                             ? 'opacity-100'
                                                             : 'opacity-0'
                                                     )}
