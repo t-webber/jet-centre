@@ -17,7 +17,8 @@ import DifficultyEasy from '@/../public/mri/difficulties/easy.png';
 import DifficultyMedium from '@/../public/mri/difficulties/medium.png';
 import DifficultyHard from '@/../public/mri/difficulties/hard.png';
 
-import { Domains, Pays, Difficulties } from './form/schema';
+import { Pays, Difficulties } from './form/schema';
+import { Domains } from '@/settings/vars';
 import Image, { StaticImageData } from 'next/image';
 
 export function ImageElt({
