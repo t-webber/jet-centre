@@ -14,9 +14,11 @@ import { FieldValues, Path, PathValue } from 'react-hook-form';
 import { FormElementProps, FormElementWrapper } from './wrapper';
 import { Check, ChevronsUpDown } from 'lucide-react';
 import { cn, getProperty } from '@/lib/utils';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { InputFormElement } from './input';
 
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
+    formId?: string;
     values: V[];
     onChange?: (newValue: V) => void;
     displayValue?: (value: V) => string;
@@ -26,6 +28,7 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
 
 export function DropdownSingleFormElement<V, T extends FieldValues>({
     form,
+    formId,
     label,
     name,
     values,
@@ -37,84 +40,99 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     const [inFocus, setInFocus] = useState(false);
     const [open, setOpen] = useState(false);
 
-    return (
-        <FormElementWrapper
-            className={className}
-            form={form}
-            name={name}
-            label={label}
-            labelStat={inFocus ? 'in-focus' : 'written'}
-            son={(field) => (
-                <Popover open={open} onOpenChange={setOpen}>
-                    <PopoverTrigger asChild>
-                        <Button
-                            variant="outline"
-                            role="combobox"
-                            aria-expanded={open}
-                            className={cn(
-                                'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground',
-                                inFocus && 'ring-0 border-foreground'
-                            )}
-                        >
-                            {displayValue(getProperty(form.getValues(), name)) ||
-                                `Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent
-                        className="p-0"
-                        onFocus={() => setInFocus(true)}
-                        onCloseAutoFocus={() => setInFocus(false)}
-                    >
-                        <Command>
-                            <CommandInput
-                                placeholder={`Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
-                            />
-                            <CommandList>
-                                <CommandEmpty>Entrée invalide.</CommandEmpty>
-                                <CommandGroup>
-                                    {values.map((value) => (
-                                        <CommandItem
-                                            key={getKeyOfValue(value)}
-                                            value={getKeyOfValue(value)}
-                                            onSelect={(newKey) => {
-                                                const newValue = values.find(
-                                                    (v) => getKeyOfValue(v) === newKey
-                                                )!;
+    const inputRef = useRef<HTMLInputElement>(null);
 
-                                                if (onChange) {
-                                                    onChange(newValue);
-                                                }
-                                                form.setValue(
-                                                    name,
-                                                    newValue as PathValue<T, Path<T>>
-                                                );
-                                                setOpen(false);
-                                                // console.log(
-                                                //     name,
-                                                //     newValue,
-                                                //     getProperty(form.getValues(), name),
-                                                //     form.getValues()
-                                                // );
-                                            }}
-                                        >
-                                            <Check
-                                                className={cn(
-                                                    'mr-2 h-4 w-4',
-                                                    getProperty(form.getValues(), name) === value
-                                                        ? 'opacity-100'
-                                                        : 'opacity-0'
-                                                )}
-                                            />
-                                            {displayValue(value)}
-                                        </CommandItem>
-                                    ))}
-                                </CommandGroup>
-                            </CommandList>
-                        </Command>
-                    </PopoverContent>
-                </Popover>
-            )}
-        />
+    function setInputRef(value: string) {
+        if (inputRef.current) {
+            inputRef.current.value = value;
+        } else {
+            console.error('inputRef in DropdownSingle is null');
+        }
+    }
+
+    return (
+        <>
+            <input ref={inputRef} name={name} type="text" className="hidden" form={formId} />
+            <FormElementWrapper
+                className={className}
+                form={form}
+                name={name}
+                label={label}
+                labelStat={inFocus ? 'in-focus' : 'written'}
+                son={(field) => (
+                    <Popover open={open} onOpenChange={setOpen}>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                role="combobox"
+                                aria-expanded={open}
+                                className={cn(
+                                    'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground',
+                                    inFocus && 'ring-0 border-foreground'
+                                )}
+                            >
+                                {displayValue(getProperty(form.getValues(), name)) ||
+                                    `Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                            className="p-0"
+                            onFocus={() => setInFocus(true)}
+                            onCloseAutoFocus={() => setInFocus(false)}
+                        >
+                            <Command>
+                                <CommandInput
+                                    placeholder={`Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
+                                />
+                                <CommandList>
+                                    <CommandEmpty>Entrée invalide.</CommandEmpty>
+                                    <CommandGroup>
+                                        {values.map((value) => (
+                                            <CommandItem
+                                                key={getKeyOfValue(value)}
+                                                value={getKeyOfValue(value)}
+                                                onSelect={(newKey) => {
+                                                    const newValue = values.find(
+                                                        (v) => getKeyOfValue(v) === newKey
+                                                    )!;
+
+                                                    if (onChange) {
+                                                        onChange(newValue);
+                                                    }
+                                                    setInputRef(newKey);
+                                                    form.setValue(
+                                                        name,
+                                                        newValue as PathValue<T, Path<T>>
+                                                    );
+                                                    setOpen(false);
+                                                    // console.log(
+                                                    //     name,
+                                                    //     newValue,
+                                                    //     getProperty(form.getValues(), name),
+                                                    //     form.getValues()
+                                                    // );
+                                                }}
+                                            >
+                                                <Check
+                                                    className={cn(
+                                                        'mr-2 h-4 w-4',
+                                                        getProperty(form.getValues(), name) ===
+                                                            value
+                                                            ? 'opacity-100'
+                                                            : 'opacity-0'
+                                                    )}
+                                                />
+                                                {displayValue(value)}
+                                            </CommandItem>
+                                        ))}
+                                    </CommandGroup>
+                                </CommandList>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                )}
+            />
+        </>
     );
 }

@@ -19,6 +19,7 @@ import { MouseEvent, useEffect, useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
+    formId?: string;
     values: V[];
     onChange?: (newValue: V, added: boolean) => void;
     className?: string;
@@ -28,6 +29,7 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
 
 export function DropdownManyFormElement<V, T extends FieldValues>({
     form,
+    formId,
     label,
     name,
     values,
@@ -39,6 +41,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     const [inFocus, setInFocus] = useState(false);
     const [selected, setSelected] = useState<V[]>([]);
     const buttonRef = useRef<HTMLButtonElement>(null);
+    const inputContainerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         if (buttonRef.current) {
@@ -56,97 +59,116 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
         form.setValue(name, newSelected as PathValue<T, Path<T>>);
     }
 
+    function setInputContainerRef(values: V[]) {
+        if (inputContainerRef.current) {
+            inputContainerRef.current.innerHTML = values
+                .map(
+                    (value, idx) =>
+                        `<input type="text" name="${name}.${idx}" value="${getKeyOfValue(
+                            value
+                        )}" form="${formId}"/>`
+                )
+                .join('');
+        } else {
+            console.error('inputContainerRef in DropdownMany is null');
+        }
+    }
+
     return (
-        <FormElementWrapper
-            className={className}
-            form={form}
-            name={name}
-            label={label}
-            labelStat={inFocus ? 'in-focus' : undefined}
-            son={(field) => (
-                <Popover>
-                    <PopoverTrigger asChild>
-                        <Button
-                            variant="outline"
-                            role="combobox"
-                            className={cn(
-                                'flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background',
-                                'ring-0 outline-none focus-within:border-foreground',
-                                inFocus && 'ring-0 border-foreground'
-                            )}
-                            ref={buttonRef}
+        <>
+            <div ref={inputContainerRef} className="hidden"></div>
+            <FormElementWrapper
+                className={className}
+                form={form}
+                name={name}
+                label={label}
+                labelStat={inFocus ? 'in-focus' : undefined}
+                son={(field) => (
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                role="combobox"
+                                className={cn(
+                                    'flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background',
+                                    'ring-0 outline-none focus-within:border-foreground',
+                                    inFocus && 'ring-0 border-foreground'
+                                )}
+                                ref={buttonRef}
+                            >
+                                <PillList
+                                    values={getProperty(form.getValues(), name)}
+                                    displayValue={displayValue}
+                                    getKeyOfValue={getKeyOfValue}
+                                    onRemove={onRemove}
+                                />
+                                <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent
+                            className="p-0"
+                            onFocus={() => setInFocus(true)}
+                            onCloseAutoFocus={() => setInFocus(false)}
                         >
-                            <PillList
-                                values={getProperty(form.getValues(), name)}
-                                displayValue={displayValue}
-                                getKeyOfValue={getKeyOfValue}
-                                onRemove={onRemove}
-                            />
-                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                    </PopoverTrigger>
-                    <PopoverContent
-                        className="p-0"
-                        onFocus={() => setInFocus(true)}
-                        onCloseAutoFocus={() => setInFocus(false)}
-                    >
-                        <Command>
-                            <CommandInput placeholder={`Sélectionner ${label}...`} />
-                            <CommandList>
-                                <CommandEmpty>Entrée invalide.</CommandEmpty>
-                                <CommandGroup>
-                                    {values.map((value) => (
-                                        <CommandItem
-                                            key={getKeyOfValue(value)}
-                                            value={getKeyOfValue(value)}
-                                            onSelect={(newKey) => {
-                                                const newValue = values.find(
-                                                    (v) => getKeyOfValue(v) === newKey
-                                                )!;
+                            <Command>
+                                <CommandInput placeholder={`Sélectionner ${label}...`} />
+                                <CommandList>
+                                    <CommandEmpty>Entrée invalide.</CommandEmpty>
+                                    <CommandGroup>
+                                        {values.map((value) => (
+                                            <CommandItem
+                                                key={getKeyOfValue(value)}
+                                                value={getKeyOfValue(value)}
+                                                onSelect={(newKey) => {
+                                                    const newValue = values.find(
+                                                        (v) => getKeyOfValue(v) === newKey
+                                                    )!;
 
-                                                const included = selected.includes(newValue);
+                                                    const included = selected.includes(newValue);
 
-                                                if (onChange) {
-                                                    onChange(newValue, !included);
-                                                }
+                                                    if (onChange) {
+                                                        onChange(newValue, !included);
+                                                    }
 
-                                                const newSelected = included
-                                                    ? selected.filter((v) => v !== newValue)
-                                                    : [...selected, newValue];
+                                                    const newSelected = included
+                                                        ? selected.filter((v) => v !== newValue)
+                                                        : [...selected, newValue];
 
-                                                setSelected(newSelected);
-
-                                                form.setValue(
-                                                    name,
-                                                    newSelected as PathValue<T, Path<T>>
-                                                );
-                                                // console.log(
-                                                //     name,
-                                                //     newValue,
-                                                //     newSelected,
-                                                //     form.getValues()
-                                                // );
-                                            }}
-                                        >
-                                            <Checkbox
-                                                className={cn(
-                                                    'mr-2 h-4 w-4',
-                                                    selected.includes(value)
-                                                        ? 'opacity-100'
-                                                        : 'opacity-0'
-                                                )}
-                                                checked={selected.includes(value)}
-                                            />
-                                            {displayValue(value)}
-                                        </CommandItem>
-                                    ))}
-                                </CommandGroup>
-                            </CommandList>
-                        </Command>
-                    </PopoverContent>
-                </Popover>
-            )}
-        />
+                                                    setSelected(newSelected);
+                                                    setInputContainerRef(newSelected);
+                                                    form.setValue(
+                                                        name,
+                                                        newSelected as PathValue<T, Path<T>>
+                                                    );
+                                                    // console.log(
+                                                    //     name,
+                                                    //     newValue,
+                                                    //     newSelected,
+                                                    //     form.getValues()
+                                                    // );
+                                                }}
+                                            >
+                                                <Checkbox
+                                                    className={cn(
+                                                        'mr-2 h-4 w-4',
+                                                        selected.includes(value)
+                                                            ? 'opacity-100'
+                                                            : 'opacity-0'
+                                                    )}
+                                                    checked={selected.includes(value)}
+                                                    primary
+                                                />
+                                                {displayValue(value)}
+                                            </CommandItem>
+                                        ))}
+                                    </CommandGroup>
+                                </CommandList>
+                            </Command>
+                        </PopoverContent>
+                    </Popover>
+                )}
+            />
+        </>
     );
 }
 
