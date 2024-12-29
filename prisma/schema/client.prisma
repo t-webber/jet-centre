@@ -9,12 +9,12 @@ model Clients {
 }
 
 model StudyClients {
-    id          String         @id @default(cuid())
-    study       Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
-    studyId     String         @unique
-    client      Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-    clientId    String         @unique
-    satifaction Satisfactions?
+    id           String         @id @default(cuid())
+    study        Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId      String         @unique
+    client       Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
+    clientId     String         @unique
+    satisfaction Satisfactions?
 }
 
 model Satisfactions {
@@ -27,7 +27,7 @@ model Satisfactions {
     howKnowUs              String
     whyUs                  String
     satisfactionObjectives Int
-    easyness               Int
+    easiness               Int
     timelaps               Int
     recommendUs            Int
 }
