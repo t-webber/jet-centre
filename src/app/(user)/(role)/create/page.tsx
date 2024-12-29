@@ -7,6 +7,7 @@ import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } fr
 import CompanyForm from './forms/companyForm';
 import { ContactForm } from './forms/contactForm';
 import { SettingsForm } from './forms/settingsForm';
+import { Button } from '@/components/ui/button';
 
 export default function CreateStudy() {
     const form = useForm<StudyCreationSchema>({
@@ -21,17 +22,24 @@ export default function CreateStudy() {
             <form id="create-admin"></form>
             <Form {...form}>
                 <div className="grid grid-cols-2 gap-main">
-                    <CompanyForm form={form} formId="create-study" />
-                    <SettingsForm
-                        form={form}
-                        studyFormId="create-study"
-                        adminFormId="create-admin"
-                    />
-                    <ContactForm
-                        form={form}
-                        studyFormId="create-study"
-                        contactFormId="create-contact"
-                    />
+                    <div className="flex flex-col gap-main">
+                        <CompanyForm form={form} formId="create-study" />
+                        <ContactForm
+                            form={form}
+                            studyFormId="create-study"
+                            contactFormId="create-contact"
+                        />
+                    </div>
+                    <div className="flex flex-col gap-main">
+                        <SettingsForm
+                            form={form}
+                            studyFormId="create-study"
+                            adminFormId="create-admin"
+                        />
+                        {/* <Button type="submit" form="create-study">
+                            Créer une nouvelle étude
+                        </Button> */}
+                    </div>
                 </div>
             </Form>
         </>

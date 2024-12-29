@@ -27,12 +27,14 @@ export default function CompanyForm({ form, formId }: { form: any; formId: strin
                         name="company.size"
                         values={COMPANY_SIZES}
                         form={form}
+                        formId={formId}
                     />
                     <DropdownManyFormElement
                         label="Domaines d'activité"
                         name="company.domains"
                         values={DOMAINS}
                         form={form}
+                        formId={formId}
                     />
                     <InputFormElement
                         label="CA (en k€)"

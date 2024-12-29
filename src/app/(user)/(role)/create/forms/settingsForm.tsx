@@ -43,7 +43,7 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
     const [admins, setAdmins] = useState<Admin[]>(DBG_ADMINS);
 
     return (
-        <Box className="w-full row-span-2 h-fit">
+        <Box className="w-full">
             <BoxHeader>
                 <BoxTitle>Paramètres de l'étude</BoxTitle>
             </BoxHeader>
@@ -87,6 +87,7 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                             admin.firstName + ' ' + admin.lastName
                         }
                         form={form}
+                        formId={studyFormId}
                     />
                     <DropdownManyFormElement
                         label="Chef(fe)s de projet"
@@ -99,6 +100,7 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                             admin.firstName + ' ' + admin.lastName
                         }
                         form={form}
+                        formId={studyFormId}
                     />
                     <FormRule primary />
                     <AdminCreationForm formId={adminFormId} />

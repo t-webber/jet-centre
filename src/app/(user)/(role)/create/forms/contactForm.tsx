@@ -58,6 +58,7 @@ export function ContactForm({ form, studyFormId, contactFormId }: ContactFormPro
                             contact.firstName + ' ' + contact.lastName
                         }
                         form={form}
+                        formId={studyFormId}
                     />
                     <FormRule primary />
                     <ContactCreationForm formId={contactFormId} />
