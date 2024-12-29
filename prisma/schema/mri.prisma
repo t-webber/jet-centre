@@ -3,8 +3,8 @@ model MRIs {
     paycheck_under Int
     paycheck_over  Int
     difficulty     Int
-    introdcution   String
-    contect        String
+    introduction   String
+    contact        String
     schedule       String
     skills         String
     study          Studies     @relation(fields: [studyId], references: [id], onDelete: Cascade)
@@ -20,7 +20,7 @@ model Assignees {
     information AssigneeInfos?
     person      People           @relation(fields: [peopleId], references: [id], onDelete: Cascade)
     peopleId    String           @unique
-    studyAssign StudyAssigness[]
+    studyAssign StudyAssignees[]
 }
 
 model AssigneeInfos {
@@ -45,7 +45,7 @@ model AssigneeDocs {
     studentCardId String    @unique
 }
 
-model StudyAssigness {
+model StudyAssignees {
     id              String         @id @default(cuid())
     study           Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
     studyId         String
@@ -64,7 +64,7 @@ model FormMRIs {
     id             String          @id @default(cuid())
     mri            MRIs            @relation(fields: [mriId], references: [id], onDelete: Cascade)
     mriId          String          @unique
-    studyAssigness StudyAssigness?
+    studyAssignees StudyAssignees?
     experience     String
     knowledge      String
     ideas          String
@@ -73,7 +73,7 @@ model FormMRIs {
 
 model FormInterviews {
     id              String          @id @default(cuid())
-    studyAssigness  StudyAssigness?
+    studyAssignees  StudyAssignees?
     available       Boolean
     approche        String
     courses         String

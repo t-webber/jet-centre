@@ -5,10 +5,10 @@ model Studies {
     clients        Clients?         @relation(fields: [clientsId], references: [id])
     clientsId      String?
     information    StudyInfos?
-    progess        StudyProgress?
+    progress       StudyProgress?
     client         StudyClients[]
     MRIs           MRIs?
-    studyAssigness StudyAssigness[]
+    StudyAssignees StudyAssignees[]
     satisfactions  Satisfactions?
 }
 
@@ -23,7 +23,7 @@ model StudyInfos {
     domainId       String?
     deliverable    Deliverables?   @relation(fields: [deliverablesId], references: [id])
     deliverablesId String?
-    assignee       StudyAssigness? @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
+    assignee       StudyAssignees? @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
     assigneeId     String?         @unique
     mri            MRIs?           @relation(fields: [mriId], references: [id])
     mriId          String?         @unique
@@ -48,7 +48,7 @@ enum StudyProgressStep {
     IN_STUDY
     ENDED
     ASSIGNEE_PAID
-    COMAPNY_FACTORED
+    COMPANY_FACTORED
 }
 
 model Phases {
