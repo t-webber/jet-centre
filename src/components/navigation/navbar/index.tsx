@@ -5,6 +5,7 @@ import { UserDropdownMenu } from '../user-dropdown-menu';
 import { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { MissionNavbar } from './tab-mission';
+import { SuiviNavbar } from './tab-suivi';
 
 const NavBar = () => {
     const [missionNb, setMissionNb] = useState(0);
@@ -25,7 +26,13 @@ const NavBar = () => {
         {
             label: 'Respo Suivi',
             value: 'position',
-            content: <h1>Todo.</h1>
+            content: (
+                <SuiviNavbar
+                    missions={missions}
+                    missionNb={missionNb}
+                    setMissionNb={setMissionNb}
+                />
+            )
         }
     ];
 
