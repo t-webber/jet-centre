@@ -1,11 +1,10 @@
 model Clients {
-    id           String        @id @default(cuid())
-    company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    id           String         @id @default(cuid())
+    company      Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
     companyId    String
-    person       People        @relation(fields: [peopleId], references: [id], onDelete: Cascade)
-    peopleId     String        @unique
-    studies      Studies[]
-    StudyClients StudyClients?
+    person       People         @relation(fields: [peopleId], references: [id], onDelete: Cascade)
+    peopleId     String         @unique
+    StudyClients StudyClients[]
 }
 
 model StudyClients {

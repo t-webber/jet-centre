@@ -2,11 +2,9 @@ model Studies {
     id             String           @id @default(cuid())
     cdp            Admins[]         @relation("cdp")
     auditors       Admins[]         @relation("auditor")
-    clients        Clients?         @relation(fields: [clientsId], references: [id])
-    clientsId      String?
     information    StudyInfos?
     progress       StudyProgress?
-    client         StudyClients[]
+    clients        StudyClients[]
     MRIs           MRIs?
     studyAssignees StudyAssignees[]
     satisfactions  Satisfactions?
