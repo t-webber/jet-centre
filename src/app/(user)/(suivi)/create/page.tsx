@@ -3,9 +3,11 @@ import Inner from './inner';
 import prisma from '@/db';
 
 export default async function CreateStudy() {
+    // -------- Contact ------- //
     const rawContact = await prisma.clients.findMany({
         select: {
             id: true,
+            job: true,
             person: {
                 select: {
                     firstName: true,
@@ -14,11 +16,11 @@ export default async function CreateStudy() {
             }
         }
     });
-
     const contacts: ContactFormValue[] = rawContact.map((c) => ({
         id: c.id,
         firstName: c.person.firstName,
-        lastName: c.person.lastName
+        lastName: c.person.lastName,
+        job: c.job
     }));
 
     // ----- Administrator ---- //
