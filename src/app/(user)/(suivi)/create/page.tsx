@@ -1,47 +1,28 @@
-'use client';
+import { ContactFormValue } from './forms/contactSchema';
+import Inner from './inner';
+import prisma from '@/db';
 
-import { Form } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } from './forms/schema';
-import CompanyForm from './forms/companyForm';
-import { ContactForm } from './forms/contactForm';
-import { SettingsForm } from './forms/settingsForm';
-import { Button } from '@/components/ui/button';
-
-export default function CreateStudy() {
-    const form = useForm<StudyCreationSchema>({
-        resolver: zodResolver(studyCreationSchema),
-        defaultValues: emptyStudyCreationSchema
+export default async function CreateStudy() {
+    const rawContact = await prisma.clients.findMany({
+        select: {
+            id: true,
+            person: {
+                select: {
+                    firstName: true,
+                    lastName: true
+                }
+            }
+        }
     });
 
+    const contacts: ContactFormValue[] = rawContact.map((c) => ({
+        id: c.id,
+        firstName: c.person.firstName,
+        lastName: c.person.lastName
+    }));
     return (
         <>
-            <form id="create-study"></form>
-            <form id="create-contact"></form>
-            <form id="create-admin"></form>
-            <Form {...form}>
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-main">
-                    <div className="flex flex-col gap-main">
-                        <CompanyForm form={form} formId="create-study" />
-                        <ContactForm
-                            form={form}
-                            studyFormId="create-study"
-                            contactFormId="create-contact"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-main">
-                        <SettingsForm
-                            form={form}
-                            studyFormId="create-study"
-                            adminFormId="create-admin"
-                        />
-                        <Button type="submit" form="create-study">
-                            Créer une nouvelle étude
-                        </Button>
-                    </div>
-                </div>
-            </Form>
+            <Inner contacts={contacts} />
         </>
     );
 }

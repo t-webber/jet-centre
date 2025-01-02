@@ -102,55 +102,60 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                         form={form}
                         formId={studyFormId}
                     />
-                    <FormRule primary />
-                    <AdminCreationForm formId={adminFormId} />
+                    {/* <FormRule primary />
+                    <AdminCreationForm formId={adminFormId} /> */}
                 </div>
             </BoxContent>
         </Box>
     );
 }
 
-function AdminCreationForm({ formId }: { formId: string }) {
+export function AdminCreationForm() {
     const form = useForm<AdminCreationSchema>({
         resolver: zodResolver(adminCreationSchema),
         defaultValues: emptyAdminCreationSchema
     });
 
     return (
-            <FormRow>
-                <InputFormElement
-                    label="Prénom de l'administrateur"
-                    name="firstName"
-                    className="w-1/2"
-                    form={form}
-                    formId={formId}
-                />
-                <InputFormElement
-                    label="Nom de l'administrateur"
-                    name="lastName"
-                    className="w-1/2"
-                    form={form}
-                    formId={formId}
-                />
-            </FormRow>
-            <InputFormElement
-                label="Email de l'administrateur"
-                name="email"
-                type="email"
-                form={form}
-                formId={formId}
-            />
-            <InputFormElement
-                label="Téléphone de l'administrateur"
-                name="tel"
-                type="tel"
-                form={form}
-                formId={formId}
-            />
-            <Button type="submit" className="w-full" variant="outline" formId={formId}>
-                Ajouter cet administrateur
-            </Button>
+        <Box className="w-full">
+            <BoxHeader>
+                <BoxTitle>Définir un nouvel administrateur</BoxTitle>
+            </BoxHeader>
+            <BoxContent>
                 <FormProvider {...form}>
+                    <div className="flex flex-col gap-2">
+                        <FormRow>
+                            <InputFormElement
+                                label="Prénom de l'administrateur"
+                                name="firstName"
+                                className="w-1/2"
+                                form={form}
+                            />
+                            <InputFormElement
+                                label="Nom de l'administrateur"
+                                name="lastName"
+                                className="w-1/2"
+                                form={form}
+                            />
+                        </FormRow>
+                        <InputFormElement
+                            label="Email de l'administrateur"
+                            name="email"
+                            type="email"
+                            form={form}
+                        />
+                        <InputFormElement
+                            label="Téléphone de l'administrateur"
+                            name="tel"
+                            type="tel"
+                            form={form}
+                        />
+                        <Button type="submit" className="w-full" variant="outline">
+                            Ajouter cet administrateur
+                        </Button>
+                    </div>
                 </FormProvider>
+            </BoxContent>
+        </Box>
     );
 }

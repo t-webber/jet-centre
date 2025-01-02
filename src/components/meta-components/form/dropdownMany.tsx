@@ -15,16 +15,16 @@ import { FormElementProps, FormElementWrapper } from './wrapper';
 import { ChevronsUpDown } from 'lucide-react';
 import { FaX } from 'react-icons/fa6';
 import { cn, getProperty } from '@/lib/utils';
-import { MouseEvent, useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, useEffect, useRef, useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
     formId?: string;
     values: V[];
     onChange?: (newValue: V, added: boolean) => void;
-    className?: string;
-    displayValue?: (value: V) => string;
+    displayValue?: (value: V) => React.ReactNode;
     getKeyOfValue?: (value: V) => string;
+    className?: string;
     'ping-once'?: boolean;
 }
 
@@ -177,7 +177,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
 
 interface PillListProps<V> {
     values: V[];
-    displayValue: (value: V) => string;
+    displayValue: (value: V) => React.ReactNode;
     getKeyOfValue: (value: V) => string;
     onRemove: (value: V) => void;
 }
@@ -198,7 +198,7 @@ function PillList<V>({ values, displayValue, getKeyOfValue, onRemove }: PillList
     );
 }
 
-function Pill({ value, onRemove }: { value: string; onRemove: (e: MouseEvent) => void }) {
+function Pill({ value, onRemove }: { value: React.ReactNode; onRemove: (e: MouseEvent) => void }) {
     return (
         <div className="flex justify-between items-center bg-background rounded-full border h-7">
             <span className="mx-2 py-1">{value}</span>

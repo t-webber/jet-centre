@@ -76,7 +76,7 @@ export const BoxContent = ({
 }) => (
     <div
         className={cn(
-            'space-y-4 flex-grow overflow-y-scroll max-h-full',
+            'space-y-4 flex-grow max-h-full overflow-y-scroll overflow-x-hidden',
             height === 'auto' && 'h-auto max-h-auto overflow-y-auto',
             height === 'limited' && '',
             noPadding ? 'p-0' : 'p-4'

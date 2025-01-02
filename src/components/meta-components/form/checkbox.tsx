@@ -69,10 +69,10 @@ const CheckboxFormElementWrapper = <T extends FieldValues>({
         control={form.control}
         name={name}
         render={({ field }) => (
-            <FormItem className={cn('mt-2', className)}>
-                <div className="flex flex-row gap-4 justify-start items-center h-6">
+            <FormItem className={cn('mb-4 -mt-1', className)}>
+                <div className="flex flex-row justify-start items-center h-6">
                     <FormControl>{son(field)}</FormControl>
-                    <FormLabel className="text-lg line-h leading-4 rounded-md whitespace-nowrap">
+                    <FormLabel className="pl-4 text-lg line-h leading-4 rounded-md whitespace-nowrap">
                         {label}
                     </FormLabel>
                 </div>

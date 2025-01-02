@@ -7,8 +7,8 @@ import { DOMAINS } from '@/settings/vars';
 
 export default function MRICreationForm({ form }: { form: any }) {
     return (
-            <form className="flex flex-col gap-2">
         <FormProvider {...form}>
+            <form>
                 <InputFormElement label="Titre" name="title" form={form} />
                 <TextAreaFormElement label="Introduction" name="intro" form={form} resizable />
 

@@ -13,114 +13,114 @@ import {
     Contact,
     contactCreationSchema,
     ContactCreationSchema,
-    emptyContactCreationSchema
+    ContactFormValue,
+    emptyContactCreationSchema,
+    NewContact
 } from './contactSchema';
-import { useState } from 'react';
+import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 
 export interface ContactFormProps {
     form: any;
-    studyFormId: string;
-    contactFormId: string;
+    contacts: ContactFormValue[];
+    updated: boolean;
 }
 
-export function ContactForm({ form, studyFormId, contactFormId }: ContactFormProps) {
-    // TODO: prisma.Contacts.findMany()
-    const DBG_CONTACTS = [
-        {
-            id: '001',
-            firstName: 'John',
-            lastName: 'Doe'
-        },
-        {
-            id: '002',
-            firstName: 'Alice',
-            lastName: 'Smith'
-        }
-    ];
-
-    let [contacts, setContacts] = useState<Contact[]>(DBG_CONTACTS);
-
+export function ContactForm({ form, contacts, updated }: ContactFormProps) {
     return (
         <Box className="w-full">
             <BoxHeader>
-                <BoxTitle>Contacts privilégié</BoxTitle>
+                <BoxTitle>Contacts</BoxTitle>
             </BoxHeader>
             <BoxContent>
                 <div className="flex flex-col gap-2">
-                    <DropdownSingleFormElement
-                        label="Contact existant"
+                    <DropdownManyFormElement
+                        label="Contacts"
                         name="contact.contact"
                         values={contacts}
                         getKeyOfValue={(contact) => contact.id}
-                        displayValue={(contact) =>
-                            contact.firstName &&
-                            contact.lastName &&
-                            contact.firstName + ' ' + contact.lastName
-                        }
+                        displayValue={(contact) => {
+                            // const job = contact.job ? <span><span/> : <></>;
+                            return (
+                                <span>
+                                    {contact.firstName + ' ' + contact.lastName}{' '}
+                                    {contact.job ? (
+                                        <span className="pl-2 italic">({contact.job})</span>
+                                    ) : (
+                                        <></>
+                                    )}
+                                </span>
+                            );
+                        }}
                         form={form}
-                        formId={studyFormId}
+                        ping-once={updated}
                     />
-                    <FormRule primary />
-                    <ContactCreationForm formId={contactFormId} />
                 </div>
             </BoxContent>
         </Box>
     );
 }
 
-function ContactCreationForm({ formId }: { formId: string }) {
+export interface ContactCreationFormProps {
+    addContact: (contact: NewContact) => void;
+}
+
+export function ContactCreationForm({ addContact }: ContactCreationFormProps) {
     const form = useForm<ContactCreationSchema>({
         resolver: zodResolver(contactCreationSchema),
         defaultValues: emptyContactCreationSchema
     });
 
+    function onSubmit(data: ContactCreationSchema) {
+        addContact({ ...data, id: 'new-' + Math.random(), isNew: {} });
+        form.reset();
+    }
+
     return (
-            <FormRow>
-                <InputFormElement
-                    label="Prénom du client"
-                    name="firstName"
-                    className="w-1/2"
-                    form={form}
-                    formId={formId}
-                />
-                <InputFormElement
-                    label="Nom du client"
-                    name="lastName"
-                    className="w-1/2"
-                    form={form}
-                    formId={formId}
-                />
-            </FormRow>
-            <InputFormElement
-                label="Email du client"
-                name="email"
-                type="email"
-                form={form}
-                formId={formId}
-            />
-            <InputFormElement
-                label="Téléphone du client"
-                name="tel"
-                type="tel"
-                form={form}
-                formId={formId}
-            />
-            <InputFormElement
-                label="Poste dans l'entreprise"
-                name="job"
-                form={form}
-                formId={formId}
-            />
-            <InputFormElement
-                label="Description (quand le contacter)"
-                name="description"
-                form={form}
-                formId={formId}
-            />
-            <Button type="submit" className="w-full" variant="outline" formId={formId}>
-                Ajouter ce contact
-            </Button>
+        <Box className="w-full">
+            <BoxHeader>
+                <BoxTitle>Définir un nouveau contact</BoxTitle>
+            </BoxHeader>
+            <BoxContent>
                 <FormProvider {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <FormRow>
+                            <InputFormElement
+                                label="Prénom du client"
+                                name="firstName"
+                                className="w-1/2"
+                                form={form}
+                            />
+                            <InputFormElement
+                                label="Nom du client"
+                                name="lastName"
+                                className="w-1/2"
+                                form={form}
+                            />
+                        </FormRow>
+                        <InputFormElement
+                            label="Email du client"
+                            name="email"
+                            type="email"
+                            form={form}
+                        />
+                        <InputFormElement
+                            label="Téléphone du client"
+                            name="tel"
+                            type="tel"
+                            form={form}
+                        />
+                        <InputFormElement label="Poste dans l'entreprise" name="job" form={form} />
+                        <InputFormElement
+                            label="Description (quand le contacter)"
+                            name="description"
+                            form={form}
+                        />
+                        <Button type="submit" className="w-full" variant="outline">
+                            Définir ce contact
+                        </Button>
+                    </form>
                 </FormProvider>
+            </BoxContent>
+        </Box>
     );
 }
