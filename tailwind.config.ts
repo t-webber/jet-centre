@@ -92,7 +92,8 @@ const config = {
                 }
             },
             spacing: {
-                main: '20px'
+                main: '20px',
+                '2main': '40px'
             },
             keyframes: {
                 'accordion-down': {
@@ -114,13 +115,20 @@ const config = {
                     '25%': { transform: 'translate(-100px, -20px) scale(0.5)' },
                     '50%': { transform: 'translate(-100px, 20px) scale(0.8)' },
                     '75%': { transform: 'translate(100px, 20px) scale(0.2)' }
+                },
+                pingonce: {
+                    '75%, 100%': {
+                        transform: 'scale(2)',
+                        opacity: '0'
+                    }
                 }
             },
             animation: {
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'float-around': 'wiggle 20s ease-in-out infinite',
-                'float-around-2': 'largewiggle 20s ease-in-out infinite'
+                'float-around-2': 'largewiggle 20s ease-in-out infinite',
+                'ping-once': 'pingonce 1s cubic-bezier(0, 0, 0.2, 1) forwards'
             },
             fontFamily: {
                 mri: ['arial', 'helvetica neue', 'helvetica', 'sans-serif']

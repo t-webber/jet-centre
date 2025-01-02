@@ -8,6 +8,7 @@ interface InputFormElementProps<T extends FieldValues> extends FormElementProps<
     placeholder?: Partial<T>;
     type?: string;
     className?: string;
+    'ping-once'?: boolean;
 }
 
 export const InputFormElement = <T extends FieldValues>({
@@ -16,10 +17,12 @@ export const InputFormElement = <T extends FieldValues>({
     placeholder,
     type,
     className,
+    'ping-once': pingOnce,
     ...props
 }: InputFormElementProps<T>) => (
     <FormElementWrapper
         className={className}
+        ping-once={pingOnce}
         {...props}
         son={(field) => (
             <Input

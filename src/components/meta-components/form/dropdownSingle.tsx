@@ -23,6 +23,7 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
     displayValue?: (value: V) => string;
     getKeyOfValue?: (value: V) => string;
     className?: string;
+    'ping-once'?: boolean;
 }
 
 export function DropdownSingleFormElement<V, T extends FieldValues>({
@@ -34,7 +35,8 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     onChange,
     displayValue = (value: V) => (value as any).toString(),
     getKeyOfValue = (value: V) => (value as any).toString(),
-    className
+    className,
+    'ping-once': pingOnce
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
     const [open, setOpen] = useState(false);
@@ -54,6 +56,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
             <input ref={inputRef} name={name} type="text" className="hidden" form={formId} />
             <FormElementWrapper
                 className={className}
+                ping-once={pingOnce}
                 form={form}
                 name={name}
                 label={label}
