@@ -6,14 +6,14 @@ import {
     ControllerProps,
     FieldPath,
     FieldValues,
-    FormProvider,
+    FormProvider as FP,
     useFormContext
 } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
 import { Label } from '@/components/ui/label';
 
-const Form = FormProvider;
+const FormProvider = FP;
 
 type FormFieldContextValue<
     TFieldValues extends FieldValues = FieldValues,
@@ -183,7 +183,7 @@ const FormRule = React.forwardRef<HTMLHRElement, FormRuleProps>(
 
 export {
     useFormField,
-    Form,
+    FormProvider,
     FormItem,
     FormLabel,
     FormControl,

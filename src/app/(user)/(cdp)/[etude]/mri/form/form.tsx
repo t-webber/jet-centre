@@ -1,4 +1,4 @@
-import { Form, FormRow, FormRule } from '@/components/ui/form';
+import { FormProvider, FormRow, FormRule } from '@/components/ui/form';
 import { DIFFICULTIES, PAYS } from './schema';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
@@ -7,8 +7,8 @@ import { DOMAINS } from '@/settings/vars';
 
 export default function MRICreationForm({ form }: { form: any }) {
     return (
-        <Form {...form}>
             <form className="flex flex-col gap-2">
+        <FormProvider {...form}>
                 <InputFormElement label="Titre" name="title" form={form} />
                 <TextAreaFormElement label="Introduction" name="intro" form={form} resizable />
 
@@ -56,6 +56,6 @@ export default function MRICreationForm({ form }: { form: any }) {
                 <TextAreaFormElement label="Échéances" name="due_date" form={form} resizable />
                 <TextAreaFormElement label="Description" name="description" form={form} resizable />
             </form>
-        </Form>
+        </FormProvider>
     );
 }

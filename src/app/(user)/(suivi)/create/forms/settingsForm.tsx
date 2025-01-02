@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
-import { Form, FormRow, FormRule } from '@/components/ui/form';
+import { FormProvider, FormRow, FormRule } from '@/components/ui/form';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 
@@ -117,7 +117,6 @@ function AdminCreationForm({ formId }: { formId: string }) {
     });
 
     return (
-        <Form {...form}>
             <FormRow>
                 <InputFormElement
                     label="Prénom de l'administrateur"
@@ -151,6 +150,7 @@ function AdminCreationForm({ formId }: { formId: string }) {
             <Button type="submit" className="w-full" variant="outline" formId={formId}>
                 Ajouter cet administrateur
             </Button>
-        </Form>
+                <FormProvider {...form}>
+                </FormProvider>
     );
 }
