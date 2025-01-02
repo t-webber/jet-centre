@@ -11,9 +11,11 @@ import { DropdownSingleFormElement } from '@/components/meta-components/form/dro
 
 import {
     Admin,
-    adminCreationSchema,
     AdminCreationSchema,
-    emptyAdminCreationSchema
+    adminCreationSchema,
+    AdminFormValue,
+    emptyAdminCreationSchema,
+    NewAdmin
 } from './settingsSchema';
 import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 import { CheckboxFormElement } from '@/components/meta-components/form/checkbox';
@@ -21,27 +23,11 @@ import { useState } from 'react';
 
 export interface SettingsFormProps {
     form: any;
-    studyFormId: string;
-    adminFormId: string;
+    admins: AdminFormValue[];
+    updated: boolean;
 }
 
-export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormProps) {
-    // TODO: prisma.Admins.findMany()
-    const DBG_ADMINS = [
-        {
-            id: '001',
-            firstName: 'John',
-            lastName: 'Doe'
-        },
-        {
-            id: '002',
-            firstName: 'Alice',
-            lastName: 'Smith'
-        }
-    ];
-
-    const [admins, setAdmins] = useState<Admin[]>(DBG_ADMINS);
-
+export function SettingsForm({ form, admins, updated }: SettingsFormProps) {
     return (
         <Box className="w-full">
             <BoxHeader>
@@ -49,32 +35,24 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
             </BoxHeader>
             <BoxContent>
                 <div className="flex flex-col gap-2">
-                    <InputFormElement
-                        label="Nom de l'étude"
-                        name="settings.name"
-                        form={form}
-                        formId={studyFormId}
-                    />
+                    <InputFormElement label="Nom de l'étude" name="settings.name" form={form} />
                     <InputFormElement
                         label="Durée estimée (en JEH)"
                         name="settings.duration"
                         type="number"
                         form={form}
-                        formId={studyFormId}
                     />
                     <InputFormElement
                         label="Deadline pre-étude"
                         name="settings.deadline"
                         type="date"
                         form={form}
-                        formId={studyFormId}
                     />
                     <CheckboxFormElement
                         label="CC ?"
                         name="settings.cc"
                         type="checkbox"
                         form={form}
-                        formId={studyFormId}
                     />
                     <DropdownSingleFormElement
                         label="Référent"
@@ -87,7 +65,7 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                             admin.firstName + ' ' + admin.lastName
                         }
                         form={form}
-                        formId={studyFormId}
+                        ping-once={updated}
                     />
                     <DropdownManyFormElement
                         label="Chef(fe)s de projet"
@@ -100,21 +78,28 @@ export function SettingsForm({ form, studyFormId, adminFormId }: SettingsFormPro
                             admin.firstName + ' ' + admin.lastName
                         }
                         form={form}
-                        formId={studyFormId}
+                        ping-once={updated}
                     />
-                    {/* <FormRule primary />
-                    <AdminCreationForm formId={adminFormId} /> */}
                 </div>
             </BoxContent>
         </Box>
     );
 }
 
-export function AdminCreationForm() {
+export interface AdminCreationFormProps {
+    addAdmin: (admin: NewAdmin) => void;
+}
+
+export function AdminCreationForm({ addAdmin }: AdminCreationFormProps) {
     const form = useForm<AdminCreationSchema>({
         resolver: zodResolver(adminCreationSchema),
         defaultValues: emptyAdminCreationSchema
     });
+
+    function onSubmit(data: AdminCreationSchema) {
+        addAdmin({ ...data, id: 'new-' + Math.random().toString(), isNew: {} });
+        form.reset();
+    }
 
     return (
         <Box className="w-full">
@@ -123,37 +108,39 @@ export function AdminCreationForm() {
             </BoxHeader>
             <BoxContent>
                 <FormProvider {...form}>
-                    <div className="flex flex-col gap-2">
-                        <FormRow>
+                    <form onSubmit={form.handleSubmit(onSubmit)}>
+                        <div className="flex flex-col gap-2">
+                            <FormRow>
+                                <InputFormElement
+                                    label="Prénom de l'administrateur"
+                                    name="firstName"
+                                    className="w-1/2"
+                                    form={form}
+                                />
+                                <InputFormElement
+                                    label="Nom de l'administrateur"
+                                    name="lastName"
+                                    className="w-1/2"
+                                    form={form}
+                                />
+                            </FormRow>
                             <InputFormElement
-                                label="Prénom de l'administrateur"
-                                name="firstName"
-                                className="w-1/2"
+                                label="Email de l'administrateur"
+                                name="email"
+                                type="email"
                                 form={form}
                             />
                             <InputFormElement
-                                label="Nom de l'administrateur"
-                                name="lastName"
-                                className="w-1/2"
+                                label="Téléphone de l'administrateur"
+                                name="tel"
+                                type="tel"
                                 form={form}
                             />
-                        </FormRow>
-                        <InputFormElement
-                            label="Email de l'administrateur"
-                            name="email"
-                            type="email"
-                            form={form}
-                        />
-                        <InputFormElement
-                            label="Téléphone de l'administrateur"
-                            name="tel"
-                            type="tel"
-                            form={form}
-                        />
-                        <Button type="submit" className="w-full" variant="outline">
-                            Ajouter cet administrateur
-                        </Button>
-                    </div>
+                            <Button type="submit" className="w-full" variant="outline">
+                                Ajouter cet administrateur
+                            </Button>
+                        </div>
+                    </form>
                 </FormProvider>
             </BoxContent>
         </Box>

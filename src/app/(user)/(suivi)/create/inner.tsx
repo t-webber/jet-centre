@@ -10,12 +10,14 @@ import { AdminCreationForm, SettingsForm } from './forms/settingsForm';
 import { Button } from '@/components/ui/button';
 import { ContactFormValue, NewContact } from './forms/contactSchema';
 import { useState } from 'react';
+import { AdminFormValue } from './forms/settingsSchema';
 
 export type CreateStudyProps = {
     contacts: ContactFormValue[];
+    admins: AdminFormValue[];
 };
 
-export default function Inner({ contacts: contacts_ }: CreateStudyProps) {
+export default function Inner({ contacts: contacts_, admins: admins_ }: CreateStudyProps) {
     const form = useForm<StudyCreationSchema>({
         resolver: zodResolver(studyCreationSchema),
         defaultValues: emptyStudyCreationSchema
@@ -29,6 +31,14 @@ export default function Inner({ contacts: contacts_ }: CreateStudyProps) {
     }
 
     const [contactsUpdated, setContactsUpdated] = useState(false);
+    // --------- Admin -------- //
+    const [admins, setAdmins] = useState<AdminFormValue[]>(admins_);
+    const [adminsUpdated, setAdminsUpdated] = useState(false);
+    function addAdmin(admin: AdminFormValue) {
+        setAdmins((prev) => [...prev, admin]);
+        setTimeout(() => setAdminsUpdated(true), 300);
+        setTimeout(() => setAdminsUpdated(false), 300 + 1000 + 50);
+    }
 
     return (
         <>
@@ -37,16 +47,12 @@ export default function Inner({ contacts: contacts_ }: CreateStudyProps) {
                     <FormProvider {...form}>
                         <CompanyForm form={form} formId="create-study" />
                         <ContactForm form={form} contacts={contacts} updated={contactsUpdated} />
-                        <SettingsForm
-                            form={form}
-                            studyFormId="create-study"
-                            adminFormId="create-admin"
-                        />
+                        <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
                     </FormProvider>
                 </div>
                 <div className="flex flex-col gap-main lg:col-span-3">
                     <ContactCreationForm addContact={addContact} />
-                    <AdminCreationForm />
+                    <AdminCreationForm addAdmin={addAdmin} />
                     <Button type="submit" form="create-study" className="w-fit ml-auto">
                         Créer une nouvelle étude
                     </Button>
