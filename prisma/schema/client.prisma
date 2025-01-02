@@ -4,6 +4,7 @@ model Clients {
     companyId    String
     person       People         @relation(fields: [peopleId], references: [id], onDelete: Cascade)
     peopleId     String         @unique
+    job          String
     StudyClients StudyClients[]
 }
 
