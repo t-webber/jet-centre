@@ -1,10 +1,11 @@
 import { Input } from '@/components/ui/input';
 import { FieldValues } from 'react-hook-form';
 import { FormElementWrapper, FormElementProps } from './wrapper';
+import React from 'react';
 
 interface InputFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     formId?: string;
-    onChange?: (newValue: string) => void;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder?: Partial<T>;
     type?: string;
     className?: string;
@@ -29,9 +30,9 @@ export const InputFormElement = <T extends FieldValues>({
                 {...field}
                 type={type}
                 onChange={(e) => {
-                    field.onChange(e);
+                    field.onChange(type === 'number' ? Number(e.target.value) : e.target.value);
                     if (onChange) {
-                        onChange(e.target.value);
+                        onChange(e);
                     }
                 }}
                 className="px-4 h-12"
