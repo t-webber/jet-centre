@@ -1,3 +1,4 @@
+import { EMPTY_STRING, required, stringDate } from '@/lib/zodExtends';
 import { z } from 'zod';
 
 // ~~~~~~~~~~~~~~~~ Admin ~~~~~~~~~~~~~~~~ //
@@ -16,10 +17,10 @@ export const emptyAdmin: Admin = {
 
 // ~~~~~~~~~~~ Admin Creation ~~~~~~~~~~ //
 export const adminCreationSchema = z.object({
-    firstName: z.string().min(1).trim(),
-    lastName: z.string().min(1).trim(),
+    firstName: z.string().superRefine(required),
+    lastName: z.string().superRefine(required),
     email: z.string().email(),
-    tel: z.string().optional()
+    tel: z.string().or(EMPTY_STRING)
 });
 
 export type AdminCreationSchema = z.infer<typeof adminCreationSchema>;
@@ -42,11 +43,11 @@ export type AdminFormValue = z.infer<typeof zAdminFormValue>;
 
 // ~~~~~~~~~~~~~~~ Settings ~~~~~~~~~~~~~~ //
 export const settingsCreationSchema = z.object({
-    name: z.string(),
-    duration: z.number(),
-    deadline: z.string(),
+    name: z.string().superRefine(required),
+    duration: z.number().or(EMPTY_STRING),
+    deadline: z.string().superRefine(required).superRefine(stringDate),
     cc: z.boolean(),
-    referent: zAdminFormValue,
+    referent: zAdminFormValue.superRefine(required),
     cdps: zAdminFormValue.array()
 });
 

@@ -1,5 +1,6 @@
+import { EMPTY_STRING, required } from '@/lib/zodExtends';
 import { zDOMAINS } from '@/settings/vars';
-import { number, z } from 'zod';
+import { z } from 'zod';
 
 /**
  * See {@link https://www.economie.gouv.fr/cedef/entreprises-categories}.
@@ -15,10 +16,10 @@ export type CompanySize = z.infer<typeof zCompanySize>;
 export const COMPANY_SIZES: CompanySize[] = zCompanySize.options;
 
 export const companyCreationSchema = z.object({
-    name: z.string(),
-    size: zCompanySize,
-    domains: z.array(zDOMAINS),
-    ca: z.number(),
+    name: z.string().superRefine(required),
+    size: zCompanySize.or(EMPTY_STRING),
+    domains: z.array(zDOMAINS).optional(),
+    ca: z.number().or(EMPTY_STRING),
     address: z.object({
         number: z.string(),
         street: z.string(),

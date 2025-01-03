@@ -1,3 +1,4 @@
+import { EMPTY_STRING, required } from '@/lib/zodExtends';
 import { z } from 'zod';
 
 export const zContact = z.object({
@@ -17,10 +18,10 @@ export const emptyContact: Contact = {
 
 // ~~~~~~~~~~~ Contact Creation ~~~~~~~~~~ //
 export const contactCreationSchema = z.object({
-    firstName: z.string().min(1).trim(),
-    lastName: z.string().min(1).trim(),
+    firstName: z.string().superRefine(required),
+    lastName: z.string().superRefine(required),
     email: z.string().email(),
-    tel: z.string().optional(),
+    tel: z.string().or(EMPTY_STRING),
     description: z.string(),
     job: z.string()
 });
@@ -45,10 +46,10 @@ export const zContactFormValue = zNewContact.or(zContact);
 export type ContactFormValue = z.infer<typeof zContactFormValue>;
 
 export const contactSchema = z.object({
-    contact: zContactFormValue.array()
+    contact: zContactFormValue.array().nonempty()
 });
 
 export type ContactSchema = z.infer<typeof contactSchema>;
-export const emptyContactSchema: ContactSchema = {
+export const emptyContactSchema = {
     contact: []
 };
