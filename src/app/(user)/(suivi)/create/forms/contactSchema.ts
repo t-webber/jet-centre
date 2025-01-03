@@ -15,15 +15,6 @@ export const emptyContact: Contact = {
     id: ''
 };
 
-export const contactSchema = z.object({
-    contact: zContact.array()
-});
-
-export type ContactSchema = z.infer<typeof contactSchema>;
-export const emptyContactSchema: ContactSchema = {
-    contact: []
-};
-
 // ~~~~~~~~~~~ Contact Creation ~~~~~~~~~~ //
 export const contactCreationSchema = z.object({
     firstName: z.string().min(1).trim(),
@@ -45,5 +36,19 @@ export const emptyContactCreationSchema: ContactCreationSchema = {
 };
 
 // ~~~~~~~~~~ Contact Form Value ~~~~~~~~~ //
-export type NewContact = ContactCreationSchema & { id: string; isNew: {} };
-export type ContactFormValue = Contact | NewContact;
+export const zNewContact = contactCreationSchema.merge(
+    z.object({ id: z.string(), isNew: z.object({}) })
+);
+export type NewContact = z.infer<typeof zNewContact>;
+
+export const zContactFormValue = zContact.or(zNewContact);
+export type ContactFormValue = z.infer<typeof zContactFormValue>;
+
+export const contactSchema = z.object({
+    contact: zContactFormValue.array()
+});
+
+export type ContactSchema = z.infer<typeof contactSchema>;
+export const emptyContactSchema: ContactSchema = {
+    contact: []
+};

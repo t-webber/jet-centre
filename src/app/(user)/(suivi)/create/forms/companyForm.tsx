@@ -1,5 +1,3 @@
-'use client';
-
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { InputFormElement } from '@/components/meta-components/form/input';

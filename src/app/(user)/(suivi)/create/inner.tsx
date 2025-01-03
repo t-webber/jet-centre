@@ -23,14 +23,15 @@ export default function Inner({ contacts: contacts_, admins: admins_ }: CreateSt
         defaultValues: emptyStudyCreationSchema
     });
 
+    // -------- Contact ------- //
     const [contacts, setContacts] = useState<ContactFormValue[]>(contacts_);
+    const [contactsUpdated, setContactsUpdated] = useState(false);
     function addContact(contact: NewContact) {
         setContacts((prev) => [...prev, contact]);
-        setTimeout(() => setContactsUpdated(true), 500);
-        setTimeout(() => setContactsUpdated(false), 500 + 1000 + 50);
+        setTimeout(() => setContactsUpdated(true), 300);
+        setTimeout(() => setContactsUpdated(false), 300 + 1000 + 50);
     }
 
-    const [contactsUpdated, setContactsUpdated] = useState(false);
     // --------- Admin -------- //
     const [admins, setAdmins] = useState<AdminFormValue[]>(admins_);
     const [adminsUpdated, setAdminsUpdated] = useState(false);

@@ -5,12 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
-import { FormProvider, FormRow, FormRule } from '@/components/ui/form';
+import { FormProvider, FormRow } from '@/components/ui/form';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 
 import {
-    Admin,
     AdminCreationSchema,
     adminCreationSchema,
     AdminFormValue,
@@ -19,7 +18,6 @@ import {
 } from './settingsSchema';
 import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 import { CheckboxFormElement } from '@/components/meta-components/form/checkbox';
-import { useState } from 'react';
 
 export interface SettingsFormProps {
     form: any;

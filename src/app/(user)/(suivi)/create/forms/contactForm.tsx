@@ -5,19 +5,17 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
-import { FormProvider, FormRow, FormRule } from '@/components/ui/form';
+import { FormProvider, FormRow } from '@/components/ui/form';
 import { InputFormElement } from '@/components/meta-components/form/input';
-import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
+import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 
 import {
-    Contact,
     contactCreationSchema,
     ContactCreationSchema,
     ContactFormValue,
     emptyContactCreationSchema,
     NewContact
 } from './contactSchema';
-import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 
 export interface ContactFormProps {
     form: any;
@@ -71,7 +69,7 @@ export function ContactCreationForm({ addContact }: ContactCreationFormProps) {
     });
 
     function onSubmit(data: ContactCreationSchema) {
-        addContact({ ...data, id: 'new-' + Math.random(), isNew: {} });
+        addContact({ ...data, id: 'new-' + Math.random().toString(), isNew: {} });
         form.reset();
     }
 
