@@ -95,7 +95,7 @@ export function AdminCreationForm({ addAdmin }: AdminCreationFormProps) {
     });
 
     function onSubmit(data: AdminCreationSchema) {
-        addAdmin({ ...data, id: 'new-' + Math.random().toString(), isNew: {} });
+        addAdmin({ ...data, id: 'tmp-id-' + Math.random().toString(), isNew: {} });
         form.reset();
     }
 

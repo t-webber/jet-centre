@@ -30,6 +30,8 @@ export const InputFormElement = <T extends FieldValues>({
                 {...field}
                 type={type}
                 onChange={(e) => {
+                    // Dans le cas où `type` vaut "date", on ne fais rien car sinon le champs est visuellement vide
+                    // ie. la balise <input> affiche "dd/mm/yyyy" à la place de la date rentrée
                     field.onChange(type === 'number' ? Number(e.target.value) : e.target.value);
                     if (onChange) {
                         onChange(e);

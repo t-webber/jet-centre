@@ -69,7 +69,7 @@ export function ContactCreationForm({ addContact }: ContactCreationFormProps) {
     });
 
     function onSubmit(data: ContactCreationSchema) {
-        addContact({ ...data, id: 'new-' + Math.random().toString(), isNew: {} });
+        addContact({ ...data, id: 'tmp-id-' + Math.random().toString(), isNew: {} });
         form.reset();
     }
 

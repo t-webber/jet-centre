@@ -108,12 +108,6 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                         newValue as PathValue<T, Path<T>>
                                                     );
                                                     setOpen(false);
-                                                    // console.log(
-                                                    //     name,
-                                                    //     newValue,
-                                                    //     getProperty(form.getValues(), name),
-                                                    //     form.getValues()
-                                                    // );
                                                 }}
                                             >
                                                 <Check
