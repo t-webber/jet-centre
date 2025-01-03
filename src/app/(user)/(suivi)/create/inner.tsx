@@ -61,19 +61,19 @@ export default function Inner({ contacts: contacts_, admins: admins_ }: CreateSt
                             className="flex flex-col gap-main"
                             id="create-study-form"
                         >
+                            <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
                             <CompanyForm form={form} formId="create-study" />
                             <ContactForm
                                 form={form}
                                 contacts={contacts}
                                 updated={contactsUpdated}
                             />
-                            <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
                         </form>
                     </FormProvider>
                 </div>
                 <div className="flex flex-col gap-main lg:col-span-3">
-                    <ContactCreationForm addContact={addContact} />
                     <AdminCreationForm addAdmin={addAdmin} />
+                    <ContactCreationForm addContact={addContact} />
                     <Button type="submit" className="w-fit ml-auto" formId="create-study-form">
                         Créer une nouvelle étude
                     </Button>
