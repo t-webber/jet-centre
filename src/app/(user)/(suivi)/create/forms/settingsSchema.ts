@@ -1,5 +1,4 @@
-import { EMPTY_STRING, required, stringDate } from '@/lib/zodExtends';
-import { z } from 'zod';
+import { z, EMPTY_STRING, required, stringDate } from '@/lib/zod';
 
 // ~~~~~~~~~~~~~~~~ Admin ~~~~~~~~~~~~~~~~ //
 export const zAdmin = z.object({

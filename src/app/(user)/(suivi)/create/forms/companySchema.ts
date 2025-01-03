@@ -1,6 +1,5 @@
-import { EMPTY_STRING, required } from '@/lib/zodExtends';
+import { z, EMPTY_STRING, required } from '@/lib/zod';
 import { zDOMAINS } from '@/settings/vars';
-import { z } from 'zod';
 
 /**
  * See {@link https://www.economie.gouv.fr/cedef/entreprises-categories}.

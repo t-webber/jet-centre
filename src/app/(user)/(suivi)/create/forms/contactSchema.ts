@@ -1,5 +1,4 @@
-import { EMPTY_STRING, required } from '@/lib/zodExtends';
-import { z } from 'zod';
+import { z, EMPTY_STRING, required } from '@/lib/zod';
 
 export const zContact = z.object({
     firstName: z.string(),

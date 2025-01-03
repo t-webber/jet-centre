@@ -1,6 +1,19 @@
-// superRefine<RefinedOutput extends Output>(refinement: (arg: Output, ctx: RefinementCtx) => arg is RefinedOutput): ZodEffects<this, RefinedOutput, Input>;
+import i18next from 'i18next';
+import { z, RefinementCtx } from 'zod';
+import { zodI18nMap } from 'zod-i18n-map';
+import translation from 'zod-i18n-map/locales/fr/zod.json';
 
-import { RefinementCtx, z } from 'zod';
+// lng and resources key depend on your locale.
+i18next.init({
+    lng: 'fr',
+    resources: {
+        es: { zod: translation }
+    }
+});
+z.setErrorMap(zodI18nMap);
+
+// export configured zod instance
+export { z };
 
 export const EMPTY_STRING = z.string().max(0);
 

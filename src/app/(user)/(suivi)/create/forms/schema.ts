@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from '@/lib/zod';
 import { companyCreationSchema, emptyCompanyCreationSchema } from './companySchema';
 import { contactSchema, emptyContactSchema } from './contactSchema';
 import { emptySettingsCreationSchema, settingsCreationSchema } from './settingsSchema';

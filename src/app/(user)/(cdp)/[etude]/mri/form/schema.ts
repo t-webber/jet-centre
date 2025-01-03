@@ -1,5 +1,5 @@
 import { DOMAINS, zDOMAINS } from '@/settings/vars';
-import { z } from 'zod';
+import { z } from '@/lib/zod';
 
 const zDIFFICULTIES = z.enum(['Faible', 'Moyenne', 'Élevée']);
 const zPAYS = z.enum(['Faible', 'Moyenne', 'Élevée']);
