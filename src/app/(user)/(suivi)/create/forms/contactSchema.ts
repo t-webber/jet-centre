@@ -41,7 +41,7 @@ export const zNewContact = contactCreationSchema.merge(
 );
 export type NewContact = z.infer<typeof zNewContact>;
 
-export const zContactFormValue = zContact.or(zNewContact);
+export const zContactFormValue = zNewContact.or(zContact);
 export type ContactFormValue = z.infer<typeof zContactFormValue>;
 
 export const contactSchema = z.object({

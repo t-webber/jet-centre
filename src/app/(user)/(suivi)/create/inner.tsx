@@ -9,7 +9,7 @@ import { ContactCreationForm, ContactForm } from './forms/contactForm';
 import { AdminCreationForm, SettingsForm } from './forms/settingsForm';
 import { Button } from '@/components/ui/button';
 import { ContactFormValue, NewContact } from './forms/contactSchema';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { AdminFormValue } from './forms/settingsSchema';
 
 export type CreateStudyProps = {
@@ -18,11 +18,6 @@ export type CreateStudyProps = {
 };
 
 export default function Inner({ contacts: contacts_, admins: admins_ }: CreateStudyProps) {
-    const form = useForm<StudyCreationSchema>({
-        resolver: zodResolver(studyCreationSchema),
-        defaultValues: emptyStudyCreationSchema
-    });
-
     // -------- Contact ------- //
     const [contacts, setContacts] = useState<ContactFormValue[]>(contacts_);
     const [contactsUpdated, setContactsUpdated] = useState(false);
@@ -41,20 +36,45 @@ export default function Inner({ contacts: contacts_, admins: admins_ }: CreateSt
         setTimeout(() => setAdminsUpdated(false), 300 + 1000 + 50);
     }
 
+    // ---- Principal form ---- //
+    const form = useForm<StudyCreationSchema>({
+        resolver: zodResolver(studyCreationSchema),
+        defaultValues: emptyStudyCreationSchema
+    });
+
+    useEffect(() => {
+        console.log('errors', form.formState.errors);
+    }, [form.formState.errors]);
+
+    async function onSubmit(data: StudyCreationSchema) {
+        console.log('submit ----------------------------------------------------');
+        console.log(data);
+    }
+
     return (
         <>
             <div className="grid grid-cols-1 lg:grid-cols-7 gap-2main">
                 <div className="flex flex-col gap-main lg:col-span-4">
                     <FormProvider {...form}>
-                        <CompanyForm form={form} formId="create-study" />
-                        <ContactForm form={form} contacts={contacts} updated={contactsUpdated} />
-                        <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="flex flex-col gap-main"
+                            id="create-study-form"
+                        >
+                            <CompanyForm form={form} formId="create-study" />
+                            <ContactForm
+                                form={form}
+                                contacts={contacts}
+                                updated={contactsUpdated}
+                            />
+                            <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
+                        </form>
                     </FormProvider>
                 </div>
                 <div className="flex flex-col gap-main lg:col-span-3">
                     <ContactCreationForm addContact={addContact} />
                     <AdminCreationForm addAdmin={addAdmin} />
-                    <Button type="submit" form="create-study" className="w-fit ml-auto">
+                    <Button type="submit" className="w-fit ml-auto" formId="create-study-form">
                         Créer une nouvelle étude
                     </Button>
                 </div>

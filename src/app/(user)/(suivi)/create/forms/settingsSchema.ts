@@ -37,7 +37,7 @@ export const zNewAdmin = adminCreationSchema.merge(
 
 export type NewAdmin = z.infer<typeof zNewAdmin>;
 
-export const zAdminFormValue = zAdmin.or(zNewAdmin);
+export const zAdminFormValue = zNewAdmin.or(zAdmin);
 export type AdminFormValue = z.infer<typeof zAdminFormValue>;
 
 // ~~~~~~~~~~~~~~~ Settings ~~~~~~~~~~~~~~ //
