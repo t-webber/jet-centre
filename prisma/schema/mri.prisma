@@ -1,5 +1,5 @@
 model MRIs {
-    id             String      @id @default(cuid())
+    id             String     @id @default(cuid())
     paycheck_under Int
     paycheck_over  Int
     difficulty     Int
@@ -7,10 +7,9 @@ model MRIs {
     contact        String
     schedule       String
     skills         String
-    study          Studies     @relation(fields: [studyId], references: [id], onDelete: Cascade)
-    studyId        String      @unique
+    study          Studies    @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId        String     @unique
     formMRIs       FormMRIs[]
-    studyInfo      StudyInfos?
 }
 
 //? C'est quoi le champ `tried`
@@ -57,7 +56,6 @@ model StudyAssignees {
     formMRIId       String         @unique
     selection       String
     taken           Boolean
-    studyInfo       StudyInfos?
 }
 
 model FormMRIs {

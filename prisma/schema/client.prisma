@@ -1,6 +1,6 @@
 model Clients {
     id           String         @id @default(cuid())
-    company      Company        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    company      Companies        @relation(fields: [companyId], references: [id], onDelete: Cascade)
     companyId    String
     person       People         @relation(fields: [peopleId], references: [id], onDelete: Cascade)
     peopleId     String         @unique
@@ -13,7 +13,7 @@ model StudyClients {
     study        Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
     studyId      String         @unique
     client       Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-    clientId     String         @unique
+    clientId     String         
     satisfaction Satisfactions?
 }
 
@@ -32,17 +32,18 @@ model Satisfactions {
     recommendUs            Int
 }
 
-model Company {
+model Companies {
     id           String        @id @default(cuid())
     name         String        @unique
-    address      String
+    address      Address       @relation(fields: [addressId], references: [id], onDelete: Cascade)
+    addressId    String        @unique
     members      Clients[]
     companyInfos CompanyInfos?
 }
 
 model CompanyInfos {
     id          String  @id @default(cuid())
-    company     Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    company     Companies @relation(fields: [companyId], references: [id], onDelete: Cascade)
     companyId   String  @unique
     nvEmployees Int
     domains     String

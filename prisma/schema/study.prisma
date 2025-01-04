@@ -1,7 +1,9 @@
 model Studies {
     id             String           @id @default(cuid())
-    cdp            Admins[]         @relation("cdp")
+    cdps           Admins[]         @relation("cdp")
     auditors       Admins[]         @relation("auditor")
+    referent       Admins           @relation("referent", fields: [referentId], references: [id])
+    referentId     String
     information    StudyInfos?
     progress       StudyProgress?
     clients        StudyClients[]
@@ -12,21 +14,18 @@ model Studies {
 
 //? C'est quoi le champ `type`
 model StudyInfos {
-    id             String          @id @default(cuid())
-    study          Studies         @relation(fields: [studyId], references: [id], onDelete: Cascade)
-    studyId        String          @unique
-    title          String
-    applicationFee Float
-    domain         Domains?        @relation(fields: [domainId], references: [id])
-    domainId       String?
-    deliverable    Deliverables?   @relation(fields: [deliverablesId], references: [id])
-    deliverablesId String?
-    assignee       StudyAssignees? @relation(fields: [assigneeId], references: [id], onDelete: Cascade)
-    assigneeId     String?         @unique
-    mri            MRIs?           @relation(fields: [mriId], references: [id])
-    mriId          String?         @unique
-    docs           StudyDocs[]
-    adminsId       String?
+    id               String        @id @default(cuid())
+    study            Studies       @relation(fields: [studyId], references: [id], onDelete: Cascade)
+    studyId          String        @unique
+    title            String
+    applicationFee   Float
+    duration         Int?
+    deadlinePreStudy DateTime
+    cc               Boolean
+    domain           Domains[]
+    deliverable      Deliverables? @relation(fields: [deliverablesId], references: [id])
+    deliverablesId   String?
+    docs             StudyDocs[]
 }
 
 model StudyProgress {
@@ -68,7 +67,7 @@ model JEHs {
 
 model Domains {
     id         String       @id @default(cuid())
-    name       String
+    name       String       @unique
     studyInfos StudyInfos[]
 }
 
