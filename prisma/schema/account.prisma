@@ -29,7 +29,6 @@ model Admins {
     roleId          String
     studies         Studies[] @relation("cdp")
     auditedStudies  Studies[] @relation("auditor")
-    studiesReferred Studies[] @relation("referent")
 }
 
 model Roles {
