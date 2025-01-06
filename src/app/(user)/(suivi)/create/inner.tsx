@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { ContactFormValue, NewContact } from './forms/contactSchema';
 import { useEffect, useState } from 'react';
 import { AdminFormValue } from './forms/settingsSchema';
+import { onSubmit } from './actions';
 
 export type CreateStudyProps = {
     contacts: ContactFormValue[];
@@ -46,23 +47,21 @@ export default function Inner({ contacts: contacts_, admins: admins_ }: CreateSt
         console.log('errors', form.formState.errors);
     }, [form.formState.errors]);
 
-    async function onSubmit(data: StudyCreationSchema) {
-        console.log('submit ----------------------------------------------------');
-        console.log(data);
-    }
-
     return (
         <>
             <div className="grid grid-cols-1 lg:grid-cols-7 gap-2main">
                 <div className="flex flex-col gap-main lg:col-span-4">
                     <FormProvider {...form}>
                         <form
-                            onSubmit={form.handleSubmit(onSubmit)}
+                            onSubmit={form.handleSubmit((d) => {
+                                onSubmit(JSON.stringify(d));
+                                form.reset();
+                            })}
                             className="flex flex-col gap-main"
                             id="create-study-form"
                         >
                             <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
-                            <CompanyForm form={form} formId="create-study" />
+                            <CompanyForm form={form} />
                             <ContactForm
                                 form={form}
                                 contacts={contacts}

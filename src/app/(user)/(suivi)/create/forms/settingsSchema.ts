@@ -44,9 +44,10 @@ export type AdminFormValue = z.infer<typeof zAdminFormValue>;
 export const settingsCreationSchema = z.object({
     name: z.string().superRefine(required),
     duration: z.number().or(EMPTY_STRING),
+    // TODO: make it optional
     deadline: z.string().superRefine(required).superRefine(stringDate),
     cc: z.boolean(),
-    referent: zAdminFormValue.superRefine(required),
+    // referent: zAdminFormValue.superRefine(required),
     cdps: zAdminFormValue.array()
 });
 

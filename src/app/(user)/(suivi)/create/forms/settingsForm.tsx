@@ -29,7 +29,7 @@ export function SettingsForm({ form, admins, updated }: SettingsFormProps) {
     return (
         <Box className="w-full">
             <BoxHeader>
-                <BoxTitle>Paramètres de l'étude</BoxTitle>
+                <BoxTitle>Paramètres de l&apos;étude</BoxTitle>
             </BoxHeader>
             <BoxContent>
                 <div className="flex flex-col gap-2">
@@ -52,7 +52,7 @@ export function SettingsForm({ form, admins, updated }: SettingsFormProps) {
                         type="checkbox"
                         form={form}
                     />
-                    <DropdownSingleFormElement
+                    {/* <DropdownSingleFormElement
                         label="Référent"
                         name="settings.referent"
                         values={admins}
@@ -64,7 +64,7 @@ export function SettingsForm({ form, admins, updated }: SettingsFormProps) {
                         }
                         form={form}
                         ping-once={updated}
-                    />
+                    /> */}
                     <DropdownManyFormElement
                         label="Chef(fe)s de projet"
                         name="settings.cdps"
