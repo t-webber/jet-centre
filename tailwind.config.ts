@@ -93,7 +93,8 @@ const config = {
             },
             spacing: {
                 main: '20px',
-                '2main': '40px'
+                '2main': '40px',
+                remy: '5rem',
             },
             keyframes: {
                 'accordion-down': {
