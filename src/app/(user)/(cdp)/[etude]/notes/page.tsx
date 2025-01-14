@@ -1,7 +1,6 @@
 'use client';
 
-import { SortableList } from '@/components/animations/drag';
-
+import { SortableList, useSortableList } from '@/components/animations/drag';
 import Note from './note';
 
 const TEST_MD = `
@@ -84,19 +83,18 @@ export default function Notes() {
         },
     ];
 
+    const mdList = useSortableList(notes);
+
     return (
         <SortableList
-            initialItems={notes}
-            gap={16}
-            colors={{}}
+            {...mdList}
             className="h-full"
-            getKey={(note) => note.id}
             render={(note, dragHandleProps) => <Note {...note} dragHandleProps={dragHandleProps} />}
-            defaultItemFactory={(length) => ({
-                title: 'Nouvelle Note',
-                markdown: '',
-                id: `box-${length}`,
-            })}
+            // defaultItemFactory={(length) => ({
+            //     title: 'Nouvelle Note',
+            //     markdown: '',
+            //     id: `box-${length}`,
+            // })}
         />
     );
 }

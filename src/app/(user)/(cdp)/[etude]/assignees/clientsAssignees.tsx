@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { SortableList } from '@/components/animations/drag';
+import { SortableList, useSortableList } from '@/components/animations/drag';
 
 import { Assignee } from './page';
 import { Interview } from './right-components/interview';
@@ -33,6 +33,8 @@ export default function ClientsAssignees({ assignees }: { assignees: [Assignee, 
     const [right, setRight] = useState<Right>('cv');
     const [current, setCurrent] = useState<Assignee>(assignees[0]);
 
+    const clientList = useSortableList(assignees.map((a) => ({ id: a.email, ...a })));
+
     return (
         <div className="flex space-x-main w-full h-full">
             <Box className="flex-1">
@@ -41,11 +43,8 @@ export default function ClientsAssignees({ assignees }: { assignees: [Assignee, 
                 </BoxHeader>
                 <BoxContent>
                     <SortableList
-                        initialItems={assignees}
-                        gap={16}
-                        colors={{}}
+                        {...clientList}
                         className="h-full px-2"
-                        getKey={(assignee) => assignee.email}
                         render={(assignee, dragHandleProps) => (
                             <Client
                                 assignee={assignee}

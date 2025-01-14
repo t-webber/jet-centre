@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
-
 import {
     Box,
     BoxHeader,
@@ -12,28 +10,29 @@ import {
     BoxCollapseButton,
     BoxDragHandle,
     BoxCollapser,
-    BoxContent,
+    BoxContent
 } from '@/components/boxes/boxes';
 import MDXEditor from '@/components/note/mdxEditor';
+import { DragHandle } from '@/components/animations/drag';
 
 export default function Notes({
     title,
     markdown,
-    dragHandleProps,
+    dragHandleProps
 }: {
     title: string;
     markdown: string;
-    dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
+    dragHandleProps: DragHandle;
 }) {
     const [collapse, setCollapse] = useState(true);
 
     return (
         <Box className="w-full">
-            <BoxHeader {...dragHandleProps}>
+            <BoxHeader>
                 <BoxTitle>{title}</BoxTitle>
                 <BoxHeaderBlock>
-                    <BoxCollapseButton collapse={collapse} setCollapse={setCollapse} />
-                    <BoxDragHandle />
+                    <BoxCollapseButton collapse={collapse} setCollapse={setCollapse} onClick={() => console.log("98798778456456456")}/>
+                    <BoxDragHandle {...dragHandleProps}/>
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxCollapser collapse={collapse}>

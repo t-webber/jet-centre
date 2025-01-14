@@ -6,7 +6,6 @@ import { IconType } from 'react-icons/lib';
 import { MdOpenInNew } from 'react-icons/md';
 import { RiExpandUpDownFill, RiContractUpDownFill } from 'react-icons/ri';
 import { FaFilePdf, FaGripLines } from 'react-icons/fa';
-import { DraggableProvidedDragHandleProps } from 'react-beautiful-dnd';
 
 import {
     InnerBox,
@@ -19,6 +18,7 @@ import {
     BoxDragHandle
 } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
+import { DragHandle } from '@/components/animations/drag';
 
 import { Assignee } from './page';
 import { Right } from './clientsAssignees';
@@ -29,7 +29,7 @@ export type ClientProps = {
     assignee: Assignee;
     setCurrent: (assignee: Assignee) => void;
     setRight: (right: Right) => void;
-    dragHandleProps: DraggableProvidedDragHandleProps | null | undefined;
+    dragHandleProps: DragHandle;
 };
 
 export default function Client({ assignee, setCurrent, setRight, dragHandleProps }: ClientProps) {
@@ -53,7 +53,7 @@ export default function Client({ assignee, setCurrent, setRight, dragHandleProps
 
     return (
         <InnerBox className="w-full">
-            <BoxHeader {...dragHandleProps}>
+            <BoxHeader>
                 <BoxTitle>{assignee.firstname + ' ' + assignee.lastname}</BoxTitle>
                 <BoxHeaderBlock>
                     <Button
@@ -70,7 +70,7 @@ export default function Client({ assignee, setCurrent, setRight, dragHandleProps
                         collapse={collapse}
                         setCollapse={setCollapse}
                     />
-                    <BoxDragHandle />
+                    <BoxDragHandle  {...dragHandleProps}/>
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxCollapser collapse={collapse}>

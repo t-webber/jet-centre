@@ -1,10 +1,11 @@
 'use client';
 
-import { ReactNode, forwardRef } from 'react';
+import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 import Link from 'next/link';
 
 import AnimateHeight from 'react-animate-height';
-import { FaGripLines, FaPlus } from 'react-icons/fa';
+import { FaGripLines, FaPlus } from 'react-icons/fa6';
+import { FaRegTrashAlt } from 'react-icons/fa';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -18,7 +19,6 @@ export const Box = forwardRef<
         ref={ref}
         className={cn(
             'flex flex-col',
-            'overflow-hidden',
             'border border-box-hover/10',
             'rounded-xl bg-box-background',
             'shadow-lg shadow-black/5',
@@ -39,7 +39,7 @@ export const InnerBox = forwardRef<
 >(({ children, className, ...props }, ref) => (
     <div
         ref={ref}
-        className={cn('rounded-xl bg-background flex flex-col overflow-auto', className)}
+        className={cn('rounded-xl bg-background flex flex-col ', className)}
         {...props}
     >
         {children}
@@ -50,7 +50,7 @@ export const BoxHeader = ({ children, ...props }: { children?: ReactNode }) => (
     <div
         className={cn(
             'bg-box-title/50 py-2 px-4',
-            'border-b border-box-hover/10',
+            'border-b border-box-hover/10 rounded-t-xl',
             'flex justify-between items-center'
         )}
         {...props}
@@ -76,8 +76,8 @@ export const BoxContent = ({
 }) => (
     <div
         className={cn(
-            'space-y-4 flex-grow max-h-full overflow-y-scroll overflow-x-hidden',
-            height === 'auto' && 'h-auto max-h-auto overflow-y-auto',
+            'space-y-4 flex-grow max-h-full',
+            height === 'auto' && 'h-auto max-h-auto',
             height === 'limited' && '',
             noPadding ? 'p-0' : 'p-4'
         )}
@@ -108,9 +108,22 @@ export const BoxTitle = ({ children }: { children: string | string[] }) => (
     <h2 className="font-semibold text-lg">{children}</h2>
 );
 
-export const BoxButtonPlus = ({ onClick }: { onClick: () => void }) => (
-    <Button onClick={onClick} variant="title" className="rounded-xl p-4 w-14 h-14">
+export const BoxButtonPlus = ({
+    onClick,
+    label,
+    className
+}: {
+    onClick: () => void;
+    label?: string;
+    className?: string;
+}) => (
+    <Button
+        onClick={onClick}
+        variant="outline"
+        className={cn('flex flex-row gap-2 rounded-xl p-2 h-10', className)}
+    >
         <FaPlus className="w-full h-full" />
+        {label}
     </Button>
 );
 
