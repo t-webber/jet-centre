@@ -22,13 +22,13 @@ model User {
 }
 
 model Admins {
-    id              String    @id @default(cuid())
-    user            User      @relation(fields: [userId], references: [id])
-    userId          String    @unique
-    role            Roles     @relation(fields: [roleId], references: [id])
-    roleId          String
-    studies         Studies[] @relation("cdp")
-    auditedStudies  Studies[] @relation("auditor")
+    id             String    @id @default(cuid())
+    user           User      @relation(fields: [userId], references: [id])
+    userId         String    @unique
+    role           Roles     @relation(fields: [roleId], references: [id])
+    roleId         String
+    studies        Studies[] @relation("cdp")
+    auditedStudies Studies[] @relation("auditor")
 }
 
 model Roles {
@@ -62,7 +62,7 @@ enum NotifLvl {
 }
 
 model Address {
-    id      String   @id @default(cuid())
+    id      String     @id @default(cuid())
     number  String
     street  String
     city    String

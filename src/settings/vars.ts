@@ -1,6 +1,5 @@
 import { z } from '@/lib/zod';
 
-
 // ~~~~~~~~~~~~~~~~~ Zod ~~~~~~~~~~~~~~~~~ //
 export const zDOMAINS = z.enum([
     'Data Science',
@@ -27,7 +26,7 @@ export type Domains = z.infer<typeof zDOMAINS>;
 export const DOMAINS: Domains[] = zDOMAINS.options;
 
 // ~~~~~~~~~~~~~~~~ Prisma ~~~~~~~~~~~~~~~ //
-export const CDP_ROLE_NAME = "cdp";
+export const CDP_ROLE_NAME = 'cdp';
 
 // ~~~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~ //
 export const DATA_FILES_PATH = './data';
