@@ -128,6 +128,16 @@ export const BoxButtonPlus = ({
     </Button>
 );
 
+export const BoxButtonTrash = ({ onClick }: { onClick: () => void }) => (
+    <Button
+        onClick={onClick}
+        variant="title"
+        className="p-[3px] h-6 w-6 bg-transparent hover:bg-transparent"
+    >
+        <FaRegTrashAlt className="w-full h-full" />
+    </Button>
+);
+
 export const BoxDragHandle = forwardRef<HTMLDivElement>((props, ref) => (
     <div className="h-6 w-6 content-center" ref={ref} {...props}>
         <FaGripLines />
