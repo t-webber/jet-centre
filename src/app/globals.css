@@ -138,3 +138,7 @@ input[type='number'] {
         @apply bg-box-background/50 backdrop-blur-sm border border-box-hover/10;
     }
 }
+
+.mask-bird {
+    mask-image: linear-gradient(rgb(0 0 0 / 100%), transparent);
+}
