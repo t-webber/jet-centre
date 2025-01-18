@@ -37,27 +37,28 @@ export const InnerBox = forwardRef<
     HTMLDivElement,
     { children: ReactNode; className?: string | string[] } & Omit<any, 'children' | 'className'>
 >(({ children, className, ...props }, ref) => (
-    <div
-        ref={ref}
-        className={cn('rounded-xl bg-background flex flex-col ', className)}
-        {...props}
-    >
+    <div ref={ref} className={cn('rounded-xl bg-background flex flex-col ', className)} {...props}>
         {children}
     </div>
 ));
 
-export const BoxHeader = ({ children, ...props }: { children?: ReactNode }) => (
+export const BoxHeader = forwardRef<
+    HTMLDivElement,
+    { children: ReactNode; className?: string | string[] } & Omit<any, 'children' | 'className'>
+>(({ children, className, ...props }, ref) => (
     <div
+        ref={ref}
         className={cn(
             'bg-box-title/50 py-2 px-4',
             'border-b border-box-hover/10 rounded-t-xl',
-            'flex justify-between items-center'
+            'flex justify-between items-center',
+            className
         )}
         {...props}
     >
         {children}
     </div>
-);
+));
 
 export const BoxHeaderBlock = ({ children }: { children?: ReactNode }) => (
     <div className="flex justify-between items-center gap-2">{children}</div>
