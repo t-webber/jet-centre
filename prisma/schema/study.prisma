@@ -10,7 +10,6 @@ model Studies {
     satisfactions  Satisfactions?
 }
 
-//? C'est quoi le champ `type`
 model StudyInfos {
     id               String        @id @default(cuid())
     study            Studies       @relation(fields: [studyId], references: [id], onDelete: Cascade)
@@ -35,8 +34,8 @@ model StudyProgress {
 }
 
 enum StudyProgressStep {
-    PRESTUDY
-    TRI_PARTY_MEETING
+    PRELIMINARY_STUDY
+    TRIPARTITE_MEETING
     ASSIGNEE_PAPERS
     IN_STUDY
     ENDED
@@ -93,8 +92,8 @@ model StudyDocs {
     armId       String      @unique
     acc         Docs        @relation("acc", fields: [accId], references: [id], onDelete: Cascade)
     accId       String      @unique
-    bcrc        Docs        @relation("bcrc", fields: [bcrcId], references: [id], onDelete: Cascade)
-    bcrcId      String      @unique
+    bcr         Docs        @relation("bcr", fields: [bcrId], references: [id], onDelete: Cascade)
+    bcrId       String      @unique
     pvri        Docs        @relation("pvri", fields: [pvriId], references: [id], onDelete: Cascade)
     pvriId      String      @unique
     pvrf        Docs        @relation("pvrf", fields: [pvrfId], references: [id], onDelete: Cascade)
@@ -105,4 +104,5 @@ model StudyDocs {
     cconfId     String      @unique
     studyInfo   StudyInfos? @relation(fields: [studyInfoId], references: [id])
     studyInfoId String?
+    Docs        Docs[]
 }

@@ -28,7 +28,7 @@ model Satisfactions {
     whyUs                  String
     satisfactionObjectives Int
     easiness               Int
-    timelaps               Int
+    timeElapsed            Int
     recommendUs            Int
 }
 

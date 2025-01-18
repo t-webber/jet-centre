@@ -48,11 +48,11 @@ model Pages {
 }
 
 model UserSettings {
-    id       String   @id @default(cuid())
-    theme    String
-    notifLvl NotifLvl
-    gui      Boolean
-    User     User?
+    id              String   @id @default(cuid())
+    theme           String
+    notificationLvl NotifLvl
+    gui             Boolean
+    User            User?
 }
 
 enum NotifLvl {
