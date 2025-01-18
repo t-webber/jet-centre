@@ -6,9 +6,9 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuTrigger,
+    DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
 
 interface UserDropdownMenuProps {
     username: string;
@@ -39,21 +39,22 @@ export const UserDropdownMenu = ({ username }: UserDropdownMenuProps) => {
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
                     >
-                        Profile
+                        <Link href="/profile">Profile</Link>
                     </Button>
                     <Button
                         variant="ghost"
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
                     >
-                        Settings
+                        <Link href="/settings">Paramètres</Link>
                     </Button>
                     <Button
                         variant="destructive"
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
+                        asChild
                     >
-                        Log out
+                        <Link href="/auth/signout">Déconnexion</Link>
                     </Button>
                 </DropdownMenuContent>
             </div>
