@@ -22,7 +22,6 @@ export async function onSubmit(jsonData: string) {
 
     const cdpRole = await prisma.roles.findUnique({
         where: {
-
             name: CDP_ROLE_NAME
         }
     });
@@ -64,7 +63,7 @@ export async function onSubmit(jsonData: string) {
             },
             progress: {
                 create: {
-                    step: StudyProgressStep.PRESTUDY
+                    step: StudyProgressStep.PRELIMINARY_STUDY
                 }
             }
         }
@@ -155,7 +154,7 @@ function cdpData(cdp: NewAdmin, cdpRoleId: string) {
                     settings: {
                         create: {
                             theme: 'dark',
-                            notifLvl: NotifLvl.HIGH,
+                            notificationLvl: NotifLvl.HIGH,
                             gui: true
                         }
                     }
