@@ -3,7 +3,27 @@
 import { PrismaClient } from '@prisma/client';
 
 function prismaClientSingleton() {
-    return new PrismaClient();
+    return new PrismaClient().$extends({
+        result: {
+            companyInfos: {
+                size: {
+                    needs: { size: true },
+                    compute(companyInfo) {
+                        switch (companyInfo.size) {
+                            case 'MicroEntreprise':
+                                return 'Micro-entreprise';
+                            case 'PetiteEntreprise':
+                                return 'Petite entreprise';
+                            case 'MoyenneEntreprise':
+                                return 'Moyenne entreprise';
+                            case 'GrandeEntreprise':
+                                return 'Grande entreprise';
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 declare const globalThis: {
