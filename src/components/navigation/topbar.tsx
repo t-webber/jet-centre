@@ -1,17 +1,21 @@
 import { FaBug } from 'react-icons/fa';
 import { Button } from '../ui/button';
-import { Title } from './title';
 import { Search } from './search';
 import Link from 'next/link';
+
+import {
+    Breadcrumb,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbList,
+    BreadcrumbPage,
+    BreadcrumbSeparator
+} from '@/components/ui/breadcrumb';
 
 export const TopBar = () => {
     return (
         <div className="flex w-full items-center">
-            <div className="flex-1">
-                <h1 className="text-primary font-bold text-2xl">
-                    <Title />
-                </h1>
-            </div>
+            <div className="flex-1"></div>
             <div>
                 <Search />
             </div>
