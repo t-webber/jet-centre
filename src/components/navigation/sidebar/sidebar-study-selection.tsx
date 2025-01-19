@@ -9,13 +9,13 @@ import {
 } from '@/components/ui/pagination';
 
 export function StudySelection({
-    missionNb,
     missions,
-    setMissionNb
+    selectedMission,
+    setSelectedMission
 }: {
-    missionNb: number;
     missions: string[];
-    setMissionNb: (missionNb: number) => void;
+    selectedMission: number;
+    setSelectedMission: (selectedMission: number) => void;
 }) {
     return (
         <Pagination>
@@ -23,7 +23,9 @@ export function StudySelection({
                 <PaginationItem>
                     <PaginationPrevious
                         onClick={() =>
-                            setMissionNb((missionNb - 1 + missions.length) % missions.length)
+                            setSelectedMission(
+                                (selectedMission - 1 + missions.length) % missions.length
+                            )
                         }
                     ></PaginationPrevious>
                 </PaginationItem>
@@ -31,14 +33,14 @@ export function StudySelection({
                     <PaginationItem key={i} className="flex items-center">
                         <Button
                             className="rounded-full aspect-square w-4 h-4 border-0 p-0"
-                            variant={missionNb === i ? 'default' : 'secondary'}
-                            onClick={() => setMissionNb(i)}
+                            variant={selectedMission === i ? 'default' : 'secondary'}
+                            onClick={() => setSelectedMission(i)}
                         />
                     </PaginationItem>
                 ))}
                 <PaginationItem>
                     <PaginationNext
-                        onClick={() => setMissionNb((missionNb + 1) % missions.length)}
+                        onClick={() => setSelectedMission((selectedMission + 1) % missions.length)}
                     />
                 </PaginationItem>
             </PaginationContent>
