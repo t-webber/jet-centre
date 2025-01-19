@@ -1,55 +1,35 @@
-# Telecom Etude Centralised Tool
+# Jet Centre: Telecom Etude Centralised Tool
+
+Jet Centre is an ERP-CRM for [Telecom Etude](https://telecom-etude.fr). It allows the administrators of the latter to manage more easily and proficiently their missions and their projects within the Junior-Enterprise.
+
+This is a centralised app, that will allow CDP to enter once the data, and see it mirrored on all documents, deadlines, notifications, etc., as well as having everything in one and single place (documents, communication, notifications, help for new CDPs, etc.).
 
 ## Getting Started
 
-### `.env.local` setup
+Please refer to the [Getting Started Guide](./docs/GETTING_STARTED.md) to know how to install and launch the project!
 
-Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 255`), and set up the following environment variables in a `.env.local` file at the root of the project.
+## Contributing
 
-Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`. Then add the `DB_URL` variable in your `.env.local` file in this format: `"postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"`
-
-Here's what your `.env.local` file looks like :
-
-```bash
-AUTH_SECRET=your_auth_secret
-AUTH_GOOGLE_ID=your_google_id
-AUTH_GOOGLE_SECRET=your_google_secret
-
-# Database
-DB_URL="postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"
-
-```
-
-### Node Setup
-
-Then you can install and run the project:
-
-```bash
-npm i && npm run dev
-```
+Please refer to the [Contribution Guide](./docs/CONTRIBUTING.md) before contributing to this project.
 
 ## External resources
 
--   [Planning and Specifications](https://docs.google.com/document/d/1CzvHDF7RaJH02KWRsCnQcQE092i8NNxbOPfbOsbXEHg/edit?usp=sharing)
--   [Figma Design](https://www.figma.com/design/3MOoUXn1fM81b36aXTMpKJ/Telecom-Etude-Centralized-Tool?node-id=0-1&t=yhJvmaIEMpC5kIlt-1)
--   [DB Designer](https://dbdesigner.page.link/URRwLbFdp8r9qiiF6)
+- [Planning and Specifications](https://docs.google.com/document/d/1CzvHDF7RaJH02KWRsCnQcQE092i8NNxbOPfbOsbXEHg/edit?usp=sharing)
+- [Figma Design](https://www.figma.com/design/3MOoUXn1fM81b36aXTMpKJ/Telecom-Etude-Centralized-Tool?node-id=0-1&t=yhJvmaIEMpC5kIlt-1)
+- [DB Designer](https://dbdesigner.page.link/URRwLbFdp8r9qiiF6)
 
 ## Used technologies
 
 ### Technical stack
 
--   Fullstack [Next.js](https://nextjs.org/) (v14), with the App router.
--   [TypeScript](https://www.typescriptlang.org/), for type safety.
--   [Tailwind CSS](https://tailwindcss.com/), for styling.
--   [Auth.js](https://authjs.dev/) (v5 of [NextAuth.js](https://next-auth.js.org/)), for authentication, with the Google Provider.
--   [PostgreSQL](https://www.postgresql.org/), for the database.
--   [Prisma](https://www.prisma.io/), for object modeling.
+- Fullstack [Next.js](https://nextjs.org/) (v14), with the App router.
+- [TypeScript](https://www.typescriptlang.org/), for type safety.
+- [Tailwind CSS](https://tailwindcss.com/), for styling.
+- [Auth.js](https://authjs.dev/) (v5 of [NextAuth.js](https://next-auth.js.org/)), for authentication, with the Google Provider.
+- [PostgreSQL](https://www.postgresql.org/), for the database.
+- [Prisma](https://www.prisma.io/), for object modeling.
 
 ### Recommended tutorials
 
--   [Auth.js](https://www.youtube.com/watch?v=1MTyCvS05V4) (advanced level, for deep understanding)
--   [Google Provider](https://www.youtube.com/watch?v=Rs8018RO5YQ)
-
-## Used components
-
-See [components.md](./components.md)
+- [Auth.js](https://www.youtube.com/watch?v=1MTyCvS05V4) (advanced level, for deep understanding)
+- [Google Provider](https://www.youtube.com/watch?v=Rs8018RO5YQ)
