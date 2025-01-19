@@ -6,7 +6,8 @@
  * The middleware is great as it intercepts all requests before they reach the page.
  *
  * @file middleware.ts
- * @donotmove
+ * @donotmove - This file mus't be moved to another directory, as
+ * it's location has got importance.
  */
 
 import { NextResponse } from 'next/server';
