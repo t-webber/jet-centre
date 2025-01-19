@@ -91,6 +91,7 @@ async function createAndGetHumainIds(
 
     const company = await prisma.companies.create({
         data: {
+            companyInfos: {},
             name: data.company.name,
             address: {
                 create: {
