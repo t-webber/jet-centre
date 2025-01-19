@@ -3,20 +3,22 @@
 import { get_user_missions } from '@/actions/cdp';
 import { User } from '@prisma/client';
 import { useState } from 'react';
-import { NavigationTemplate } from '../menu-template';
 import { StudySelection } from './sidebar-study-selection';
 import { useSession } from 'next-auth/react';
 import { FaGears, FaHouse, FaNoteSticky } from 'react-icons/fa6';
-import { SideBarGroups } from '@/settings/sidebars/siderbar-trez';
+import { SideBarGroup } from '@/settings/sidebars/siderbar-trez';
+import { SidebarList } from './sidebar-list';
+import { SidebarSeparator } from '@/components/ui/sidebar';
 
 export default function SidebarCdp() {
     const session = useSession();
     const user = session.data?.user;
     const missions = get_user_missions(user);
-    const mission = missions[0];
     const [selectedMission, setSelectedMission] = useState(0);
 
-    const sidebar_groups: SideBarGroups[] = [
+    const mission = missions[selectedMission];
+
+    const sidebar_groups: SideBarGroup[] = [
         {
             title: 'Défaut',
             items: [
@@ -86,13 +88,11 @@ export default function SidebarCdp() {
 
     return (
         <div className="h-full flex flex-col justify-between">
-            <div className="flex-grow">
-                <NavigationTemplate sidebar_groups={sidebar_groups} />
-            </div>
+            <SidebarList sidebar_groups={sidebar_groups} />
             <div className="flex flex-col items-center gap-1">
                 <div className="flex flex-col items-center gap-1">
-                    {mission}
-                    <div className="h-1 w-[calc(100%+1rem)] rounded-full bg-secondary"></div>
+                    <div>{mission}</div>
+                    <SidebarSeparator className="h-1 w-[calc(100%+1rem)] rounded-full bg-secondary"></SidebarSeparator>
                 </div>
                 {/* Large separator */}
                 <StudySelection

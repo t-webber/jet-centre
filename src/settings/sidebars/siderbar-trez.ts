@@ -9,12 +9,12 @@ type SideBarItem = {
     icon: IconType;
 };
 
-export type SideBarGroups = {
+export type SideBarGroup = {
     title: string;
     items: SideBarItem[];
 };
 
-export const sidebar_trez: SideBarGroups[] = [
+export const sidebar_trez: SideBarGroup[] = [
     {
         title: 'default',
         items: [

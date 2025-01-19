@@ -22,7 +22,7 @@ import { UserDropdownMenu } from '../user-dropdown-menu';
 import { SidebarSwitch } from './sidebar-switch';
 
 export function SidebarApp({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const { state } = useSidebar();
+    const { state, isMobile } = useSidebar();
     const expanded = state == 'expanded';
 
     return (
@@ -38,7 +38,7 @@ export function SidebarApp({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
 
             <SidebarFooter>
-                <UserDropdownMenu username="Nicolas Glady" />
+                <UserDropdownMenu isOpen={expanded} isMobile username="Nicolas Glady" />
             </SidebarFooter>
         </Sidebar>
     );

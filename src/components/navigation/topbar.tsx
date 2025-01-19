@@ -11,24 +11,23 @@ import {
     BreadcrumbPage,
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
+import { SidebarTrigger } from '../ui/sidebar';
 
 export const TopBar = () => {
     return (
         <div className="flex w-full items-center">
+            <SidebarTrigger className="-ml-1" />
             <div className="flex-1"></div>
-            <div>
+            <div className="">
                 <Search />
             </div>
-            <div className="flex-1 flex justify-end text-primary">
-                <Button variant="underline" className=" items-center space-x-2 flex">
-                    <FaBug />
-                    <Button variant="underline" asChild>
-                        <Link href="/ticket" className="font-semi">
-                            Ticket SOS
-                        </Link>
-                    </Button>
+            <div className="flex-1"></div>
+            <Button variant="underline" className=" items-center space-x-2 flex p-0">
+                <FaBug />
+                <Button variant="underline" asChild className="font-semi p-0">
+                    <Link href="/ticket">Ticket SOS</Link>
                 </Button>
-            </div>
+            </Button>
         </div>
     );
 };
