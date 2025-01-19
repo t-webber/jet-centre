@@ -1,6 +1,6 @@
 model Clients {
     id           String         @id @default(cuid())
-    company      Companies        @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    company      Companies      @relation(fields: [companyId], references: [id], onDelete: Cascade)
     companyId    String
     person       People         @relation(fields: [peopleId], references: [id], onDelete: Cascade)
     peopleId     String         @unique
@@ -13,7 +13,7 @@ model StudyClients {
     study        Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
     studyId      String         @unique
     client       Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
-    clientId     String         
+    clientId     String
     satisfaction Satisfactions?
 }
 
@@ -28,24 +28,54 @@ model Satisfactions {
     whyUs                  String
     satisfactionObjectives Int
     easiness               Int
-    timelaps               Int
+    timeElapsed            Int
     recommendUs            Int
 }
 
 model Companies {
-    id           String        @id @default(cuid())
-    name         String        @unique
-    address      Address       @relation(fields: [addressId], references: [id], onDelete: Cascade)
-    addressId    String        @unique
-    members      Clients[]
-    companyInfos CompanyInfos?
+    id             String       @id @default(cuid())
+    name           String       @unique
+    address        Address      @relation(fields: [addressId], references: [id], onDelete: Cascade)
+    addressId      String       @unique
+    companyInfos   CompanyInfos @relation(fields: [companyInfosId], references: [id], onDelete: Cascade)
+    companyInfosId String       @unique
+    members        Clients[]
+}
+
+enum CompanySize {
+    MicroEntreprise
+    PetiteEntreprise
+    MoyenneEntreprise
+    GrandeEntreprise
 }
 
 model CompanyInfos {
-    id          String  @id @default(cuid())
-    company     Companies @relation(fields: [companyId], references: [id], onDelete: Cascade)
-    companyId   String  @unique
+    id          String      @id @default(cuid())
     nvEmployees Int
-    domains     String
-    size        Int
+    domains     Domain[]
+    ca          Int
+    size        CompanySize
+    Companies   Companies?
+}
+
+enum Domain {
+    DataScience
+    MachineLearning
+    IntelligenceArtificielle
+    DeveloppementWeb
+    DeveloppementMobile
+    DeveloppementLogiciel
+    CyberSecurite
+    Cryptographie
+    SystemesEmbarques
+    InternetDesObjets
+    Reseaux
+    Telecommunications
+    Internet
+    Image
+    ComputerGraphics
+    // Prefixé par d_ car un variant doit commencer par une lettre
+    d_3D
+    EtudeDeMarche
+    EtatDeLArt
 }

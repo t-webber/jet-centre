@@ -74,12 +74,13 @@ export function RenderMRI({ mri }: { mri: FormType }) {
                         </button>
 
                         <button className="p-4 bg-mri-button-bg text-mri-button-fg rounded-md font-bold">
-                            J'envoie mon CV
+                            J&apos;envoie mon CV
                         </button>
                     </div>
 
                     <p>
-                        N'hésitez pas à demander plus d'informations ou de détails à Lauren (
+                        N&apos;hésitez pas à demander plus d&apos;informations ou de détails à
+                        Lauren (
                         <a
                             href="mailto:lauren.calvosa@telecom-etude.fr"
                             className="text-mri-a hover:underline"
@@ -100,7 +101,7 @@ export function RenderMRI({ mri }: { mri: FormType }) {
                         <br />
                         À bientôt,
                         <br />
-                        L'équipe Telecom Etude !
+                        L&apos;équipe Telecom Etude !
                         <br />
                         <br />
                     </p>

@@ -56,6 +56,15 @@ const CommandInput = React.forwardRef<
 
 CommandInput.displayName = CommandPrimitive.Input.displayName;
 
+export const HiddenCommandInput = React.forwardRef<
+    React.ElementRef<typeof CommandPrimitive.Input>,
+    React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
+>(({ className, ...props }, ref) => (
+    <CommandPrimitive.Input ref={ref} className="hidden" {...props} />
+));
+
+HiddenCommandInput.displayName = CommandPrimitive.Input.displayName;
+
 const CommandList = React.forwardRef<
     React.ElementRef<typeof CommandPrimitive.List>,
     React.ComponentPropsWithoutRef<typeof CommandPrimitive.List>

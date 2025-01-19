@@ -10,7 +10,7 @@ export default function CompanyForm({ form }: { form: any }) {
     return (
         <Box className="w-full">
             <BoxHeader>
-                <BoxTitle>Informations générales sur l'entreprise</BoxTitle>
+                <BoxTitle>Informations générales sur l&apos;entreprise</BoxTitle>
             </BoxHeader>
             <BoxContent>
                 <div className="flex flex-col gap-2">

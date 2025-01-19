@@ -1,25 +1,27 @@
 model Docs {
-    id                  String        @id @default(cuid())
-    title               String
-    googlePath          String
-    extention           String
-    editable            Boolean
-    status              Status?
-    assigneeCni         AssigneeDocs? @relation("cni")
-    assigneeVitale      AssigneeDocs? @relation("vitale")
-    assigneeStudentCard AssigneeDocs? @relation("studentCard")
-    studyCE             StudyDocs?    @relation("ce")
-    studyCC             StudyDocs?    @relation("cc")
-    studyBR             StudyDocs?    @relation("br")
-    studyRM             StudyDocs?    @relation("rm")
-    studyACE            StudyDocs?    @relation("ace")
-    studyARM            StudyDocs?    @relation("arm")
-    studyACC            StudyDocs?    @relation("acc")
-    studyBCRC           StudyDocs?    @relation("bcrc")
-    studyPVRI           StudyDocs?    @relation("pvri")
-    studyPVRF           StudyDocs?    @relation("pvrf")
-    studyBV             StudyDocs?    @relation("bv")
-    studyCCONF          StudyDocs?    @relation("cconf")
+    id                     String        @id @default(cuid())
+    title                  String
+    googlePath             String
+    extension              String
+    editable               Boolean
+    status                 Status?
+    assigneeCni            AssigneeDocs? @relation("cni")
+    assigneeSocialSecurity AssigneeDocs? @relation("socialSecurity")
+    assigneeStudentCard    AssigneeDocs? @relation("studentCard")
+    studyCE                StudyDocs?    @relation("ce")
+    studyCC                StudyDocs?    @relation("cc")
+    studyBR                StudyDocs?    @relation("br")
+    studyRM                StudyDocs?    @relation("rm")
+    studyACE               StudyDocs?    @relation("ace")
+    studyARM               StudyDocs?    @relation("arm")
+    studyACC               StudyDocs?    @relation("acc")
+    studyBCR               StudyDocs?    @relation("bcr")
+    studyPVRI              StudyDocs?    @relation("pvri")
+    studyPVRF              StudyDocs?    @relation("pvrf")
+    studyBV                StudyDocs?    @relation("bv")
+    studyCCONF             StudyDocs?    @relation("cconf")
+    StudyDocs              StudyDocs?    @relation(fields: [studyDocsId], references: [id])
+    studyDocsId            String?
 }
 
 model Status {

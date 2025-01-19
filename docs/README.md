@@ -4,10 +4,12 @@
 
 ### `.env.local` setup
 
-Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 32`), and set up the following environment variables in a `.env.local` file at the root of the project.
+Generate a random `AUTH_SECRET` (e.g. by using `openssl rand -base64 255`), and set up the following environment variables in a `.env.local` file at the root of the project.
+
 Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`. Then add the `DB_URL` variable in your `.env.local` file in this format: `"postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"`
 
 Here's what your `.env.local` file looks like :
+
 ```bash
 AUTH_SECRET=your_auth_secret
 AUTH_GOOGLE_ID=your_google_id

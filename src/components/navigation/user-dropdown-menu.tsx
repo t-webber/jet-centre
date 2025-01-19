@@ -14,6 +14,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
+import Link from 'next/link';
 
 interface UserDropdownMenuProps {
     username: string;
@@ -111,21 +112,22 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
                     >
-                        Profile
+                        <Link href="/profile">Profile</Link>
                     </Button>
                     <Button
                         variant="ghost"
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
                     >
-                        Settings
+                        <Link href="/settings">Paramètres</Link>
                     </Button>
                     <Button
                         variant="destructive"
                         className="w-full text-left justify-start rounded-none"
                         onClick={() => setOpen(false)}
+                        asChild
                     >
-                        Log out
+                        <Link href="/auth/signout">Déconnexion</Link>
                     </Button>
                 </DropdownMenuContent>
             </div>
