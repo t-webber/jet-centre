@@ -1,6 +1,6 @@
-import { LogoBird } from '../../logo';
+import { LogoBird } from '@/components/logo/logo';
 
-export const NavbarHeader = () => {
+export function LogoLarge() {
     return (
         <a href="/" className="flex items-center gap-3 px-2">
             <LogoBird />
@@ -10,4 +10,4 @@ export const NavbarHeader = () => {
             </div>
         </a>
     );
-};
+}

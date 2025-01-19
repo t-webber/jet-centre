@@ -89,42 +89,87 @@ const config = {
                     emphasis: '#444444',
                     'button-bg': '#E54540',
                     'button-fg': '#FFFFFF'
+                },
+                sidebar: {
+                    DEFAULT: 'hsl(var(--sidebar-background))',
+                    foreground: 'hsl(var(--sidebar-foreground))',
+                    primary: 'hsl(var(--sidebar-primary))',
+                    'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+                    accent: 'hsl(var(--sidebar-accent))',
+                    'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+                    border: 'hsl(var(--sidebar-border))',
+                    ring: 'hsl(var(--sidebar-ring))'
                 }
             },
             spacing: {
                 main: '20px',
                 '2main': '40px',
-                remy: '5rem',
+                remy: '5rem'
             },
             keyframes: {
                 'accordion-down': {
-                    from: { height: '0' },
-                    to: { height: 'var(--radix-accordion-content-height)' }
+                    from: {
+                        height: '0'
+                    },
+                    to: {
+                        height: 'var(--radix-accordion-content-height)'
+                    }
                 },
                 'accordion-up': {
-                    from: { height: 'var(--radix-accordion-content-height)' },
-                    to: { height: '0' }
+                    from: {
+                        height: 'var(--radix-accordion-content-height)'
+                    },
+                    to: {
+                        height: '0'
+                    }
                 },
                 wiggle: {
-                    '0%, 100%': { transform: 'translate(0px, 0px) scale(0.5)' },
-                    '25%': { transform: 'translate(100px, 20px) scale(1)' },
-                    '50%': { transform: 'translate(100px, -20px) scale(0.2)' },
-                    '75%': { transform: 'translate(-100px, 20px) scale(1)' }
+                    '0%, 100%': {
+                        transform: 'translate(0px, 0px) scale(0.5)'
+                    },
+                    '25%': {
+                        transform: 'translate(100px, 20px) scale(1)'
+                    },
+                    '50%': {
+                        transform: 'translate(100px, -20px) scale(0.2)'
+                    },
+                    '75%': {
+                        transform: 'translate(-100px, 20px) scale(1)'
+                    }
                 },
                 largewiggle: {
-                    '0%, 100%': { transform: 'translate(0px, 0px) scale(1)' },
-                    '25%': { transform: 'translate(-100px, -20px) scale(0.5)' },
-                    '50%': { transform: 'translate(-100px, 20px) scale(0.8)' },
-                    '75%': { transform: 'translate(100px, 20px) scale(0.2)' }
+                    '0%, 100%': {
+                        transform: 'translate(0px, 0px) scale(1)'
+                    },
+                    '25%': {
+                        transform: 'translate(-100px, -20px) scale(0.5)'
+                    },
+                    '50%': {
+                        transform: 'translate(-100px, 20px) scale(0.8)'
+                    },
+                    '75%': {
+                        transform: 'translate(100px, 20px) scale(0.2)'
+                    }
                 },
                 pingonce: {
                     '75%, 100%': {
                         transform: 'scale(2)',
                         opacity: '0'
                     }
+                },
+                'fade-left': {
+                    '0%': {
+                        opacity: '0',
+                        transform: 'translateX(2rem)'
+                    },
+                    '100%': {
+                        opacity: '1',
+                        transform: 'translateX(0)'
+                    }
                 }
             },
             animation: {
+                'fade-left': 'fade-left 0.2s ease',
                 'accordion-down': 'accordion-down 0.2s ease-out',
                 'accordion-up': 'accordion-up 0.2s ease-out',
                 'float-around': 'wiggle 20s ease-in-out infinite',

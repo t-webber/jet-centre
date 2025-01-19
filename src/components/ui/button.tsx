@@ -17,8 +17,10 @@ const buttonVariants = cva(
                 underline: 'hover:underline text-primary',
                 secondary: 'bg-secondary text-secondary-foreground hover:bg-secondary/80',
                 ghost: 'hover:bg-accent hover:text-accent-foreground',
+                none: '',
                 link: 'text-primary underline-offset-4 hover:underline',
-                title: 'bg-box-title text-primary-foreground hover:bg-box-title/80'
+                title: 'bg-box-title text-primary-foreground hover:bg-box-title/80',
+                'selected-navbar': 'bg-[#414252]'
             },
             size: {
                 default: 'h-10 px-4 py-2',
