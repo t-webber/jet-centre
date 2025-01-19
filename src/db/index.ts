@@ -1,4 +1,10 @@
-// See: https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices
+/**
+ * File to initialise the prisma client for typescript. The goal of this script is to prevent
+ * multiple {@link PrismaClient}. For more information, please refer to
+ * {@link https://www.prisma.io/docs/orm/more/help-and-troubleshooting/help-articles/nextjs-prisma-client-dev-practices|the documentation}.
+ *
+ * @file index.ts
+ */
 
 import { PrismaClient } from '@prisma/client';
 

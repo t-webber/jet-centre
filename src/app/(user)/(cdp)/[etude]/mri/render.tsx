@@ -11,7 +11,7 @@ import {
 import { getDifficulty, getDomain, getPay, ImageElt } from './figures';
 import { FormType } from './form/schema';
 
-import { nbsp } from '@/lib/utils';
+import { NBSP } from '@/lib/utils';
 import BirdLogo from '@/../public/mri/bird.png';
 
 export function RenderMRI({ mri }: { mri: FormType }) {
@@ -29,7 +29,7 @@ export function RenderMRI({ mri }: { mri: FormType }) {
                         className="center"
                     />
                     <h3 className="text-center text-3xl font-bold text-mri-title my-6">
-                        {mri.title || nbsp}
+                        {mri.title || NBSP}
                     </h3>
                 </div>
             </div>
