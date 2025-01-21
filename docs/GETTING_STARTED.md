@@ -4,17 +4,19 @@
 
 ### Requirements
 
-- [Node.js and npm](https://nodejs.org/en/download)
-- [Postgresql](https://www.postgresql.org/download/)
+-   [Node.js and npm](https://nodejs.org/en/download)
+-   [Postgresql](https://www.postgresql.org/download/)
 
 ### Setting up the database
 
+For a more detailed explanation, read [database.md](./database.md).
+
 You will need to create a database for this project. You can do so either
 
-- in your postgresql environment terminal: Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`.  
-- With a gui application, such as [pgAdmin4](https://www.pgadmin.org/download/).
+-   in your postgresql environment terminal: Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`.
+-   With a gui application, such as [pgAdmin4](https://www.pgadmin.org/download/).
 
-With your postgresql login (ofter `postgres`), database name and password, you can make the database url as such:
+With your postgresql login (often `postgres`), database name and password, you can make the database url as such:
 
 ```txt
 postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name
@@ -56,7 +58,7 @@ npm run prisma:migrate
 Then you can install and run the project:
 
 ```bash
-npm install 
+npm install
 npm run dev
 ```
 
