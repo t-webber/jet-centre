@@ -1,4 +1,4 @@
-import { CSSProperties, Dispatch, forwardRef, ReactNode, SetStateAction, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 import {
     DndContext,
@@ -8,16 +8,12 @@ import {
     useSensor,
     useSensors,
     DraggableAttributes,
-    CollisionDetection,
     DragEndEvent,
-    DragOverlay,
     DragStartEvent,
     UniqueIdentifier
 } from '@dnd-kit/core';
-import { pointerWithin, rectIntersection } from '@dnd-kit/core';
 
 import {
-    arrayMove,
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
@@ -43,7 +39,7 @@ interface ItemManager<T extends WithId = WithId> {
     items: T[];
     moveItem(from: number, to: number): void;
     deleteItem: (id: string) => void;
-    updateItem: (newItem: T) => void;
+    updateItem: (newItem: T, idx: number) => void;
     addItem: (item: T) => void;
 }
 
@@ -96,12 +92,12 @@ export function SortableList<T extends WithId = WithId>({
         >
             <SortableContext items={items} strategy={verticalListSortingStrategy}>
                 <div className={cn('flex flex-col gap-2 w-full', className)}>
-                    {items.map((item) => (
+                    {items.map((item, idx) => (
                         <SortableItem
                             key={item.id}
                             item={item}
                             render={render}
-                            updateItem={updateItem}
+                            updateItem={(item) => updateItem(item, idx)}
                             active={item.id === activeId}
                         />
                     ))}
@@ -110,14 +106,6 @@ export function SortableList<T extends WithId = WithId>({
         </DndContext>
     );
 }
-
-// export const Item = forwardRef(({ id, ...props }, ref) => {
-//     return (
-//         <div {...props} ref={ref} className="z-10 h-10 w-10 bg-red-500">
-//             {id}
-//         </div>
-//     );
-// });
 
 function SortableItem<T extends WithId = WithId>({
     item,
@@ -156,8 +144,8 @@ export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): 
         setItems(result);
     }
 
-    function updateItem(newItem: T) {
-        setItems(items.map((item) => (item.id === newItem.id ? newItem : item)));
+    function updateItem(newItem: T, idx: number) {
+        setItems(items.map((item, idx_) => (idx === idx_ ? { ...item, ...newItem } : item)));
     }
 
     function deleteItem(id: string) {
