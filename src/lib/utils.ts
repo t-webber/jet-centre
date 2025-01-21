@@ -20,10 +20,6 @@ export function cn(...inputs: ClassValue[]): string {
     return twMerge(clsx(inputs));
 }
 
-export function getProperty(obj: any, path: string) {
-    return path.split('.').reduce((acc, key) => acc[key], obj);
-}
-
 /**
  * Non-breakable space
  *
@@ -34,3 +30,12 @@ export function getProperty(obj: any, path: string) {
  * @type {string}
  */
 export const NBSP: string = '\u00A0';
+
+function dbg<T>(value: T, msg?: string): T {
+    console.log(`// DBG ${msg + ' '}// ${value}`);
+    return value;
+}
+
+export function getProperty(obj: any, path: string) {
+    return path.split('.').reduce((acc, key) => acc[key], obj);
+}
