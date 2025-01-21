@@ -27,10 +27,10 @@ If you find a bug or have a question:
 
 1. Check the [issue tracker](https://github.com/telecom-etude/jet-centre/issues) to see if it’s already reported.
 2. If it’s not listed, open a [new issue](https://github.com/telecom-etude/jet-centre/issues/new).
-   - Provide a clear description of the issue.
-   - Include steps to reproduce the problem.
-   - Add screenshots or logs, if applicable.
-   - We will answer shortly, please keep in touch!
+    - Provide a clear description of the issue.
+    - Include steps to reproduce the problem.
+    - Add screenshots or logs, if applicable.
+    - We will answer shortly, please keep in touch!
 
 ### Contributing Code
 
@@ -39,12 +39,12 @@ If you find a bug or have a question:
 3. Make your changes, ensuring you follow the [Style Guidelines](#style-guidelines).
 4. Once finished with all your code on your fork, make sure you are up-to-date with the `main` branch of `jet-centre`.
 5. Once finished, make a [Pull request](https://github.com/telecom-etude/jet-centre/pulls) with your fork.
-   - Provide a clear description of the feature.
+    - Provide a clear description of the feature.
         - What the changes are.
         - The motivation behind them.
-        - Any related [issues]((https://github.com/telecom-etude/jet-centre/issues)).
-   - Add screenshots if applicable.
-   - We will answer shortly, please keep in touch!
+        - Any related [issues](<(https://github.com/telecom-etude/jet-centre/issues)>).
+    - Add screenshots if applicable.
+    - We will answer shortly, please keep in touch!
 
 ### Fork
 
@@ -52,11 +52,11 @@ If you find a bug or have a question:
 
 ### Style Guidelines
 
-- Code Style: Follow Next.js best practices and use ESLint and Prettier.
-- Formatting: Ensure code is formatted using the project's Prettier configuration.
-  - If you use *vscode*, some extensions will be recommended when you install the project: please install them.
-  - Otherwise, personally make sure your code is formatted and is correct relatively to the [.prettierrc] and [.eslintrc.json] files.
-  
+-   Code Style: Follow Next.js best practices and use ESLint and Prettier.
+-   Formatting: Ensure code is formatted using the project's Prettier configuration.
+    -   If you use _vscode_, some extensions will be recommended when you install the project: please install them.
+    -   Otherwise, personally make sure your code is formatted and is correct relatively to the [.prettierrc] and [.eslintrc.json] files.
+
 ### Commit Messages
 
 Follow the Conventional Commits format:
