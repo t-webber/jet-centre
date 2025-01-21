@@ -28,17 +28,22 @@ import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { cn } from '@/lib/utils';
 
 interface WithId {
-    id: string;
+    id: UniqueIdentifier;
 }
 
 export type DragHandle = (SyntheticListenerMap | undefined) & DraggableAttributes;
 
-type RenderFn<T extends WithId = WithId> = (item: T, dragHandleProps: DragHandle) => ReactNode;
+type RenderFn<T extends WithId = WithId> = (
+    item: T,
+    dragHandleProps: DragHandle,
+    updateItem: (newItem: T) => void
+) => ReactNode;
 
 interface ItemManager<T extends WithId = WithId> {
     items: T[];
     moveItem(from: number, to: number): void;
     deleteItem: (id: string) => void;
+    updateItem: (newItem: T) => void;
     addItem: (item: T) => void;
 }
 
@@ -50,6 +55,7 @@ interface SortableProps<T extends WithId = WithId> extends ItemManager<T> {
 export function SortableList<T extends WithId = WithId>({
     items,
     moveItem,
+    updateItem,
     render,
     className
 }: SortableProps<T>) {
@@ -95,6 +101,7 @@ export function SortableList<T extends WithId = WithId>({
                             key={item.id}
                             item={item}
                             render={render}
+                            updateItem={updateItem}
                             active={item.id === activeId}
                         />
                     ))}
@@ -115,10 +122,12 @@ export function SortableList<T extends WithId = WithId>({
 function SortableItem<T extends WithId = WithId>({
     item,
     active,
+    updateItem,
     render
 }: {
     item: T;
     active: boolean;
+    updateItem: (newItem: T) => void;
     render: RenderFn<T>;
 }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -132,13 +141,24 @@ function SortableItem<T extends WithId = WithId>({
 
     return (
         <div ref={setNodeRef} style={style} className={active ? 'z-10' : ''}>
-            {render(item, { ...attributes, ...listeners } as any)}
+            {render(item, { ...attributes, ...listeners } as any, updateItem)}
         </div>
     );
 }
 
 export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): ItemManager<T> {
     const [items, setItems] = useState(initialItems ?? []);
+
+    function moveItem(from: number, to: number) {
+        const result = Array.from(items);
+        const [removed] = result.splice(from, 1);
+        result.splice(to, 0, removed);
+        setItems(result);
+    }
+
+    function updateItem(newItem: T) {
+        setItems(items.map((item) => (item.id === newItem.id ? newItem : item)));
+    }
 
     function deleteItem(id: string) {
         setItems(items.filter((item) => item.id !== id));
@@ -148,16 +168,10 @@ export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): 
         setItems([...items, item]);
     }
 
-    function moveItem<T>(from: number, to: number) {
-        const result = Array.from(items);
-        const [removed] = result.splice(from, 1);
-        result.splice(to, 0, removed);
-        setItems(result);
-    }
-
     return {
         items,
         moveItem,
+        updateItem,
         deleteItem,
         addItem
     };
