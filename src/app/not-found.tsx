@@ -1,3 +1,9 @@
+/**
+ * Page rendered when no page was found. This is a default 404 page.
+ *
+ * @file not-found.tsx
+ */
+
 export default () => {
     return (
         <div>
