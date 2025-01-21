@@ -3,7 +3,7 @@
 import prisma from '@/db';
 import { studyCreationSchema, StudyCreationSchema } from './forms/schema';
 import { NotifLvl, StudyProgressStep } from '@prisma/client';
-import { CDP_ROLE_NAME } from '@/settings/vars';
+import { ROLE_NAME_CDP } from '@/settings/roles';
 import { NewAdmin } from './forms/settingsSchema';
 
 export async function onSubmit(jsonData: string) {
@@ -22,7 +22,7 @@ export async function onSubmit(jsonData: string) {
 
     const cdpRole = await prisma.roles.findUnique({
         where: {
-            name: CDP_ROLE_NAME
+            name: ROLE_NAME_CDP
         }
     });
 
