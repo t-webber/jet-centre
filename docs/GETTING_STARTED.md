@@ -59,3 +59,38 @@ Then you can install and run the project:
 npm install 
 npm run dev
 ```
+
+## The code base
+
+### Structure
+
+```
+.
+├── docs                Folder including documentation, including this file.
+├── package.json        File including dependencies and scripts to run (like `npm run dev`).
+├── prisma              Folder containing the database (data and schemas)
+├── public              Folder containing the static data (images, pdfs, etc.).
+├── src                 Folder containing the code (front-end, back-end, requests, api, etc..).
+└── tailwind.config.ts  Configuration for tailwind (variables, sizes, etc.).
+```
+
+> The non-important files and folders are ignored.
+
+Let's focus on the `src/` folder:
+
+```
+.
+├── actions             Contains the server actions (e.g. for authentication).
+├── app                 Contains the front-end pages of the app.
+├── components          Contains the components (see below).
+├── db                  Contains the database requests.
+├── fonts               Contains the font of the project (`Avenir Next`)
+├── lib                 Contains utils for different things
+├── middleware.ts       The middleware is executed between the client request and the server response,
+                            to handle redirections and check authorisations to access pages.
+└── settings            Different settings
+```
+
+### Components
+
+Before using a component, please check that it doesn't already exist. See [components.md] for this.
