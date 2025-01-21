@@ -1,6 +1,6 @@
 'use client';
 
-import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
+import { ReactNode, forwardRef } from 'react';
 import Link from 'next/link';
 
 import AnimateHeight from 'react-animate-height';
@@ -50,7 +50,7 @@ export const BoxHeader = forwardRef<
         className={cn(
             'bg-box-title/50 py-2 px-4',
             'border-b border-box-hover/10 rounded-t-xl',
-            'flex justify-between items-center',
+            'flex justify-between items-center gap-4',
             className
         )}
         {...props}
@@ -59,9 +59,13 @@ export const BoxHeader = forwardRef<
     </div>
 ));
 
-export const BoxHeaderBlock = ({ children }: { children?: ReactNode }) => (
-    <div className="flex justify-between items-center gap-2">{children}</div>
-);
+export const BoxHeaderBlock = ({
+    children,
+    className
+}: {
+    children?: ReactNode;
+    className?: string;
+}) => <div className={cn('flex justify-between items-center gap-2', className)}>{children}</div>;
 
 export type Height = 'auto' | 'limited';
 
@@ -104,8 +108,16 @@ export const BoxLink = ({ children, href }: { children: string | string[]; href:
     </Button>
 );
 
-export const BoxTitle = ({ children }: { children: string | string[] }) => (
-    <h2 className="font-semibold text-lg">{children}</h2>
+export const BoxTitle = ({
+    children,
+    className
+}: {
+    children: string | string[];
+    className?: string;
+}) => (
+    <h2 className={cn('font-semibold text-lg overflow-hidden text-ellipsis', className)}>
+        {children}
+    </h2>
 );
 
 export const BoxButtonPlus = ({
