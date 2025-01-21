@@ -1,3 +1,8 @@
+/* 
+ * Default styles applied to the website and variables to load tailwind.
+ * These variables are used in `tailwind.config.ts`
+ */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
