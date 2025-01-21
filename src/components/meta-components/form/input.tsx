@@ -10,6 +10,7 @@ interface InputFormElementProps<T extends FieldValues> extends FormElementProps<
     type?: string;
     className?: string;
     disabled?: boolean;
+    unwritable?: boolean;
     'ping-once'?: boolean;
 }
 
@@ -20,6 +21,7 @@ export const InputFormElement = <T extends FieldValues>({
     type,
     className,
     disabled = false,
+    unwritable = false,
     'ping-once': pingOnce,
     ...props
 }: InputFormElementProps<T>) => (
@@ -27,6 +29,7 @@ export const InputFormElement = <T extends FieldValues>({
         className={className}
         ping-once={pingOnce}
         disabled={disabled}
+        unwritable={unwritable}
         {...props}
         son={(field) => (
             <Input
@@ -46,6 +49,7 @@ export const InputFormElement = <T extends FieldValues>({
                 placeholder={placeholder?.[field.name] || ''}
                 form={formId}
                 disabled={field.disabled}
+                unwritable={unwritable}
             />
         )}
     />

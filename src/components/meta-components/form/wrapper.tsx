@@ -35,6 +35,7 @@ interface FormElementWrapperProps<T extends FieldValues> extends FormElementProp
     className?: string;
     labelStat?: LabelStat;
     disabled?: boolean;
+    unwritable?: boolean;
     'ping-once'?: boolean;
 }
 
@@ -46,6 +47,7 @@ export function FormElementWrapper<T extends FieldValues>({
     description,
     labelStat,
     disabled = false,
+    unwritable = false,
     'ping-once': pingOnce,
     className
 }: FormElementWrapperProps<T>) {
@@ -55,7 +57,13 @@ export function FormElementWrapper<T extends FieldValues>({
             name={name}
             disabled={disabled}
             render={({ field }) => (
-                <FormItem className={cn('group relative mb-4', className)}>
+                <FormItem
+                    className={cn(
+                        'group relative mb-4',
+                        (field.disabled || unwritable) && 'cursor-not-allowed',
+                        className
+                    )}
+                >
                     {pingOnce && (
                         <span className="pointer-events-none animate-ping-once absolute h-full w-full rounded-md bg-primary opacity-75"></span>
                     )}
@@ -70,7 +78,11 @@ export function FormElementWrapper<T extends FieldValues>({
                             'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none'
                         )}
                     >
-                        <div className={field.disabled ? 'text-input opacity-50' : ''}>{label}</div>
+                        <div
+                            className={field.disabled || unwritable ? 'text-input opacity-80' : ''}
+                        >
+                            {label}
+                        </div>
                     </FormLabel>
                     <FormControl>{son(field)}</FormControl>
                     {description && <FormDescription>{description}</FormDescription>}
