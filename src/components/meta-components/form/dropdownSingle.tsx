@@ -13,7 +13,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 import { FieldValues, Path, PathValue } from 'react-hook-form';
 import { FormElementProps, FormElementWrapper } from './wrapper';
 import { Check, ChevronsUpDown } from 'lucide-react';
-import { cn, getProperty } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import { useRef, useState } from 'react';
 
 interface DropdownFormElementProps<V, T extends FieldValues> extends FormElementProps<T> {
@@ -22,8 +22,9 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
     onChange?: (newValue: V) => void;
     displayValue?: (value: V) => string;
     getKeyOfValue?: (value: V) => string;
-    className?: string;
+    disabled?: boolean;
     'ping-once'?: boolean;
+    className?: string;
 }
 
 export function DropdownSingleFormElement<V, T extends FieldValues>({
@@ -35,8 +36,9 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     onChange,
     displayValue = (value: V) => (value as any).toString(),
     getKeyOfValue = (value: V) => (value as any).toString(),
-    className,
-    'ping-once': pingOnce
+    'ping-once': pingOnce,
+    disabled = false,
+    className
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
     const [open, setOpen] = useState(false);
@@ -61,6 +63,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                 name={name}
                 label={label}
                 labelStat={inFocus ? 'in-focus' : 'written'}
+                disabled={disabled}
                 son={(field) => (
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
@@ -68,12 +71,14 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={open}
+                                disabled={disabled}
                                 className={cn(
-                                    'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground',
+                                    'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground text-md',
+                                    'disabled:cursor-not-allowed disabled:opacity-50 disabled:text-input',
                                     inFocus && 'ring-0 border-foreground'
                                 )}
                             >
-                                {displayValue(getProperty(form.getValues(), name)) ||
+                                {field.value ||
                                     `Sélectionner un(e) ${label.toLocaleLowerCase()}...`}
                                 <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                             </Button>
@@ -90,39 +95,40 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                 <CommandList>
                                     <CommandEmpty>Entrée invalide.</CommandEmpty>
                                     <CommandGroup>
-                                        {values.map((value) => (
-                                            <CommandItem
-                                                key={getKeyOfValue(value)}
-                                                value={getKeyOfValue(value)}
-                                                onSelect={(newKey) => {
-                                                    const newValue = values.find(
-                                                        (v) => getKeyOfValue(v) === newKey
-                                                    )!;
+                                        {values.map((value, i) => {
+                                            return (
+                                                <CommandItem
+                                                    key={getKeyOfValue(value)}
+                                                    value={getKeyOfValue(value)}
+                                                    onSelect={(newKey) => {
+                                                        const newValue = values.find(
+                                                            (v) => getKeyOfValue(v) === newKey
+                                                        )!;
 
-                                                    if (onChange) {
-                                                        onChange(newValue);
-                                                    }
-                                                    setInputRef(newKey);
-                                                    form.setValue(
-                                                        name,
-                                                        newValue as PathValue<T, Path<T>>
-                                                    );
-                                                    setOpen(false);
-                                                }}
-                                            >
-                                                <Check
-                                                    className={cn(
-                                                        'mr-2 h-4 w-4',
-                                                        getKeyOfValue(
-                                                            getProperty(form.getValues(), name)
-                                                        ) === getKeyOfValue(value)
-                                                            ? 'opacity-100'
-                                                            : 'opacity-0'
-                                                    )}
-                                                />
-                                                {displayValue(value)}
-                                            </CommandItem>
-                                        ))}
+                                                        if (onChange) {
+                                                            onChange(newValue);
+                                                        }
+                                                        setInputRef(newKey);
+                                                        form.setValue(
+                                                            name,
+                                                            newValue as PathValue<T, Path<T>>
+                                                        );
+                                                        setOpen(false);
+                                                    }}
+                                                >
+                                                    <Check
+                                                        className={cn(
+                                                            'mr-2 h-4 w-4',
+                                                            getKeyOfValue(field.value) ===
+                                                                getKeyOfValue(value)
+                                                                ? 'opacity-100'
+                                                                : 'opacity-0'
+                                                        )}
+                                                    />
+                                                    {displayValue(value)}
+                                                </CommandItem>
+                                            );
+                                        })}
                                     </CommandGroup>
                                 </CommandList>
                             </Command>
