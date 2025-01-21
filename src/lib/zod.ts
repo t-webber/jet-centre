@@ -33,7 +33,7 @@ export function stringDate(val: any, ctx: RefinementCtx) {
         if (!dateRegex.test(val)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: 'Invalid date format, expected YYYY-MM-DD'
+                message: 'Invalid date format, expected dd/mm/yyyy'
             });
         }
     } else {
