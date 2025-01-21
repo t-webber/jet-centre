@@ -4,8 +4,7 @@ import { ButtonHTMLAttributes, ReactNode, forwardRef } from 'react';
 import Link from 'next/link';
 
 import AnimateHeight from 'react-animate-height';
-import { FaGripLines, FaPlus } from 'react-icons/fa6';
-import { FaRegTrashAlt } from 'react-icons/fa';
+import { FaGripLines, FaPlus, FaTrash } from 'react-icons/fa6';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -132,9 +131,9 @@ export const BoxButtonTrash = ({ onClick }: { onClick: () => void }) => (
     <Button
         onClick={onClick}
         variant="title"
-        className="p-[3px] h-6 w-6 bg-transparent hover:bg-transparent"
+        className="p-[3.5px] h-6 w-6 bg-transparent hover:bg-transparent"
     >
-        <FaRegTrashAlt className="w-full h-full" />
+        <FaTrash className="w-full h-full" />
     </Button>
 );
 
