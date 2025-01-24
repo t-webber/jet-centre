@@ -12,6 +12,7 @@ import {
     BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
 import { SidebarTrigger } from '../ui/sidebar';
+import { SearchBar } from '../meta-components/searchbar';
 
 export const TopBar = () => {
     return (
@@ -19,7 +20,8 @@ export const TopBar = () => {
             <SidebarTrigger className="-ml-1" />
             <div className="flex-1"></div>
             <div className="">
-                <Search />
+                {/* <Search /> */}
+                <SearchBar label="" />
             </div>
             <div className="flex-1"></div>
             <Button variant="underline" className=" items-center space-x-2 flex p-0">
