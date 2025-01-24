@@ -51,7 +51,7 @@ export default function Layout({
             <SidebarProvider>
                 <SidebarApp />
                 <SidebarInset>
-                    <header className="flex p-4 h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
+                    <header className="flex px-4 p-2 shrink-0 items-center gap-2 transition-[width,height] ease-linear">
                         <TopBar />
                     </header>
                     <main className="flex flex-1 flex-col gap-4 p-4 pt-0">
