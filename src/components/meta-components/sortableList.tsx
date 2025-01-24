@@ -41,6 +41,7 @@ interface ItemManager<T extends WithId = WithId> {
     deleteItem: (id: string) => void;
     updateItem: (newItem: T, idx: number) => void;
     addItem: (item: T) => void;
+    reset: () => void;
 }
 
 interface SortableProps<T extends WithId = WithId> extends ItemManager<T> {
@@ -156,12 +157,17 @@ export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): 
         setItems([...items, item]);
     }
 
+    function reset() {
+        setItems([]);
+    }
+
     return {
         items,
         moveItem,
         updateItem,
         deleteItem,
-        addItem
+        addItem,
+        reset
     };
 }
 
