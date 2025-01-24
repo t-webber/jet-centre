@@ -6,7 +6,7 @@
  * @file index.ts
  */
 
-import { Domains } from '@/settings/vars';
+import { Domain } from '@/settings/vars';
 import { PrismaClient } from '@prisma/client';
 
 function prismaClientSingleton() {
@@ -31,7 +31,7 @@ function prismaClientSingleton() {
                 domains: {
                     needs: { domains: true },
                     compute(companyInfo) {
-                        return companyInfo.domains.map((d): Domains => {
+                        return companyInfo.domains.map((d): Domain => {
                             switch (d) {
                                 case 'DataScience':
                                     return 'Data Science';

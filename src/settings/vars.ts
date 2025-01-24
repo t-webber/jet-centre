@@ -22,8 +22,8 @@ export const zDOMAINS = z.enum([
     "État de l'art"
 ]);
 
-export type Domains = z.infer<typeof zDOMAINS>;
-export const DOMAINS: Domains[] = zDOMAINS.options;
+export type Domain = z.infer<typeof zDOMAINS>;
+export const DOMAINS: Domain[] = zDOMAINS.options;
 
 // ~~~~~~~~~~~~~~~~~ Misc ~~~~~~~~~~~~~~~~ //
 export const DATA_FILES_PATH = './data';
