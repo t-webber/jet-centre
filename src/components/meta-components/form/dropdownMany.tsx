@@ -49,13 +49,16 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     const buttonRef = useRef<HTMLButtonElement>(null);
     const inputContainerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    const updateHeight = () => {
         if (buttonRef.current) {
             let target = buttonRef.current;
             target.style.height = 'inherit';
             target.style.height = `${target.scrollHeight}px`;
         }
-    }, [selected]);
+    };
+
+    const value = form.watch(name);
+    useEffect(updateHeight, [value]);
 
     function onRemove(value: V) {
         const newSelected = selected.filter((v) => getKeyOfValue(v) !== getKeyOfValue(value));
