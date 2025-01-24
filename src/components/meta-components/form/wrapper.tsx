@@ -93,3 +93,28 @@ export function FormElementWrapper<T extends FieldValues>({
         />
     );
 }
+
+interface LightFormElementProps<T extends FieldValues> {
+    form: UseFormReturn<T>;
+    name: Path<T>;
+    description?: string | ReactNode;
+}
+
+export function LightFormElement<T extends FieldValues>({
+    form,
+    name,
+    description
+}: LightFormElementProps<T>) {
+    return (
+        <FormField
+            control={form.control}
+            name={name}
+            render={({ field }) => (
+                <FormItem>
+                    {description && <FormDescription>{description}</FormDescription>}
+                    <FormMessage />
+                </FormItem>
+            )}
+        />
+    );
+}
