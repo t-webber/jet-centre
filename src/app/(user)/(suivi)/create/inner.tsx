@@ -1,79 +1,62 @@
 'use client';
 
-import { FormProvider } from '@/components/ui/form';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { emptyStudyCreationSchema, studyCreationSchema, StudyCreationSchema } from './forms/schema';
-import CompanyForm from './forms/companyForm';
-import { ContactCreationForm, ContactForm } from './forms/contactForm';
-import { AdminCreationForm, SettingsForm } from './forms/settingsForm';
+import { CompaniesForm } from './forms/companies/companiesForm';
+import { SettingsForm } from './forms/settings/settingsForm';
 import { Button } from '@/components/ui/button';
-import { ContactFormValue, NewContact } from './forms/contactSchema';
-import { useEffect, useState } from 'react';
-import { AdminFormValue } from './forms/settingsSchema';
+import { Company } from './forms/companies/companiesSchema';
+import { useEffect } from 'react';
+import { Admin } from './forms/settings/settingsSchema';
 import { onSubmit } from './actions';
+import { useRouter } from 'next/navigation';
+
+export const STUDY_FORM_ID = 'study-form-id';
 
 export type CreateStudyProps = {
-    contacts: ContactFormValue[];
-    admins: AdminFormValue[];
+    companies: Company[];
+    admins: Admin[];
 };
 
-export default function Inner({ contacts: contacts_, admins: admins_ }: CreateStudyProps) {
-    // -------- Contact ------- //
-    const [contacts, setContacts] = useState<ContactFormValue[]>(contacts_);
-    const [contactsUpdated, setContactsUpdated] = useState(false);
-    function addContact(contact: NewContact) {
-        setContacts((prev) => [...prev, contact]);
-        setTimeout(() => setContactsUpdated(true), 300);
-        setTimeout(() => setContactsUpdated(false), 300 + 1000 + 50);
-    }
+export default function Inner({ companies, admins }: CreateStudyProps) {
+    const router = useRouter();
 
-    // --------- Admin -------- //
-    const [admins, setAdmins] = useState<AdminFormValue[]>(admins_);
-    const [adminsUpdated, setAdminsUpdated] = useState(false);
-    function addAdmin(admin: AdminFormValue) {
-        setAdmins((prev) => [...prev, admin]);
-        setTimeout(() => setAdminsUpdated(true), 300);
-        setTimeout(() => setAdminsUpdated(false), 300 + 1000 + 50);
-    }
-
-    // ---- Principal form ---- //
-    const form = useForm<StudyCreationSchema>({
+    const formStudy = useForm<StudyCreationSchema>({
         resolver: zodResolver(studyCreationSchema),
         defaultValues: emptyStudyCreationSchema
     });
 
     useEffect(() => {
-        console.log('errors', form.formState.errors);
-    }, [form.formState.errors]);
+        console.log('errors', formStudy.formState.errors);
+    }, [formStudy.formState.errors]);
 
     return (
         <>
-            <div className="grid grid-cols-1 lg:grid-cols-7 gap-2main">
+            <form
+                onSubmit={formStudy.handleSubmit(async (d) => {
+                    console.log('// Study submit //', d);
+                    await onSubmit(JSON.stringify(d));
+                    router.push(`/${d.settings.name}/settings`);
+                    // formStudy.reset();
+                })}
+                id={STUDY_FORM_ID}
+            />
+            <div className="grid grid-cols-1 lg:grid-cols-7 gap-1.5main">
                 <div className="flex flex-col gap-main lg:col-span-4">
-                    <FormProvider {...form}>
-                        <form
-                            onSubmit={form.handleSubmit((d) => {
-                                onSubmit(JSON.stringify(d));
-                                form.reset();
-                            })}
-                            className="flex flex-col gap-main"
-                            id="create-study-form"
-                        >
-                            <SettingsForm form={form} admins={admins} updated={adminsUpdated} />
-                            <CompanyForm form={form} />
-                            <ContactForm
-                                form={form}
-                                contacts={contacts}
-                                updated={contactsUpdated}
-                            />
-                        </form>
-                    </FormProvider>
+                    <SettingsForm
+                        formStudy={formStudy}
+                        formStudyId={STUDY_FORM_ID}
+                        admins={admins}
+                    />
                 </div>
                 <div className="flex flex-col gap-main lg:col-span-3">
-                    <AdminCreationForm addAdmin={addAdmin} />
-                    <ContactCreationForm addContact={addContact} />
-                    <Button type="submit" className="w-fit ml-auto" formId="create-study-form">
+                    <CompaniesForm
+                        companies={companies}
+                        formStudy={formStudy}
+                        formStudyId={STUDY_FORM_ID}
+                    />
+                    <Button type="submit" className="w-fit ml-auto" formId={STUDY_FORM_ID}>
                         Créer une nouvelle étude
                     </Button>
                 </div>

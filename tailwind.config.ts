@@ -169,6 +169,7 @@ export default {
             colors,
             spacing: {
                 main: '20px',
+                '1.5main': '30px',
                 '2main': '40px',
                 remy: '5rem'
             },
