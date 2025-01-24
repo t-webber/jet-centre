@@ -15,8 +15,8 @@ const labelVariants = cva('', {
     variants: {
         labelStat: {
             unwritten: 'text-input',
-            'in-focus': 'text-foreground left-2 -top-2',
-            written: 'text-input left-2 -top-2'
+            'in-focus': 'text-foreground left-2 -top-2 py-0',
+            written: 'text-input left-2 -top-2 py-0'
         }
     }
 });
@@ -70,12 +70,13 @@ export function FormElementWrapper<T extends FieldValues>({
 
                     <FormLabel
                         className={cn(
-                            'absolute left-2 top-4 bg-box-background w-fit max-w-[calc(100%-0.75rem)] px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all overflow-ellipsis overflow-hidden z-10',
-                            (field.value ?? '').toString() !== '' && 'text-input left-2 -top-2',
+                            'absolute left-2 top-3 bg-box-background w-fit max-w-[calc(100%-0.75rem)] px-1 py-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all overflow-ellipsis overflow-hidden z-10',
+                            (field.value ?? '').toString() !== '' &&
+                                'text-input left-2 -top-2 py-0',
                             labelVariants({
                                 labelStat: labelStat
                             }),
-                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none'
+                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none group-focus-within:py-0'
                         )}
                     >
                         <div
