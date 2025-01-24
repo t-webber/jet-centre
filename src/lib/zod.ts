@@ -46,3 +46,15 @@ export function stringDate(val: any, ctx: RefinementCtx) {
         });
     }
 }
+
+export function nonemptyexcluded<T>(val: T[], ctx: RefinementCtx) {
+    if (val.every((v) => (v as any).excluded ?? false)) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.too_small,
+            message: 'Array must contain at least 1 non excluded element',
+            minimum: 1,
+            inclusive: true,
+            type: 'array'
+        });
+    }
+}
