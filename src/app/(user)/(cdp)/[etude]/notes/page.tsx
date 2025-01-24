@@ -1,6 +1,6 @@
 'use client';
 
-import { SortableList, useSortableList } from '@/components/animations/drag';
+import { SortableList, useSortableList } from '@/components/meta-components/sortableList';
 import Note from './note';
 
 const TEST_MD = `
@@ -69,18 +69,18 @@ export default function Notes() {
         {
             title: 'MRI à valider',
             markdown: TEST_MD,
-            id: 'box-0',
+            id: 'box-0'
         },
         {
             title: 'Prévisualiser le MRI',
             markdown: TEST_MD,
-            id: 'box-1',
+            id: 'box-1'
         },
         {
             title: 'Prévisualiser le MRI',
             markdown: TEST_MD,
-            id: 'box-2',
-        },
+            id: 'box-2'
+        }
     ];
 
     const mdList = useSortableList(notes);

@@ -13,7 +13,7 @@ import {
     BoxContent
 } from '@/components/boxes/boxes';
 import MDXEditor from '@/components/note/mdxEditor';
-import { DragHandle } from '@/components/animations/drag';
+import { DragHandle } from '@/components/meta-components/sortableList';
 
 export default function Notes({
     title,
@@ -31,8 +31,12 @@ export default function Notes({
             <BoxHeader>
                 <BoxTitle>{title}</BoxTitle>
                 <BoxHeaderBlock>
-                    <BoxCollapseButton collapse={collapse} setCollapse={setCollapse} onClick={() => console.log("98798778456456456")}/>
-                    <BoxDragHandle {...dragHandleProps}/>
+                    <BoxCollapseButton
+                        collapse={collapse}
+                        setCollapse={setCollapse}
+                        onClick={() => console.log('98798778456456456')}
+                    />
+                    <BoxDragHandle {...dragHandleProps} />
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxCollapser collapse={collapse}>

@@ -11,9 +11,7 @@ export default function MRICreationForm({ form }: { form: any }) {
             <form>
                 <InputFormElement label="Titre" name="title" form={form} />
                 <TextAreaFormElement label="Introduction" name="intro" form={form} resizable />
-
                 <FormRule />
-
                 <DropdownSingleFormElement
                     label="Domaine"
                     name="domain"
@@ -49,12 +47,11 @@ export default function MRICreationForm({ form }: { form: any }) {
                     values={DIFFICULTIES}
                     form={form}
                 />
-
                 <FormRule />
-
                 <TextAreaFormElement label="Compétences" name="skills" form={form} resizable />
                 <TextAreaFormElement label="Échéances" name="due_date" form={form} resizable />
                 <TextAreaFormElement label="Description" name="description" form={form} resizable />
+                // TODO: Les gens à la fin du form laaaaaaaa, faut être dynamique
             </form>
         </FormProvider>
     );
