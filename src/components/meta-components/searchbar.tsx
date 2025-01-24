@@ -1,3 +1,5 @@
+'use client';
+
 import {
     Command,
     CommandEmpty,
@@ -61,7 +63,7 @@ export function SearchBar<T>({
             <div className={cn('group relative flex flex-row', className)}>
                 <Label
                     className={cn(
-                        'absolute left-2 top-4 bg-box-background w-fit max-w-[calc(100%-0.75rem)] px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all overflow-ellipsis overflow-hidden z-10',
+                        'absolute left-2 top-4 bg-box-background w-fit px-1 text-lg line-h leading-4 rounded-md whitespace-nowrap pointer-events-none transition-all overflow-ellipsis overflow-hidden z-10',
                         (search ?? '').toString() !== '' && 'left-2 -top-2',
                         'group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none'
                     )}
@@ -70,7 +72,7 @@ export function SearchBar<T>({
                     {label}
                 </Label>
                 <Input
-                    className="pl-4 pr-10 h-12"
+                    className="pl-4 pr-10 h-8 rounded-t-md rounded-b-md px-md group-focus-within:rounded-b-[0pt]"
                     placeholder={placeholder}
                     aria-expanded={inFocus}
                     // role="search"
@@ -86,16 +88,9 @@ export function SearchBar<T>({
             <div
                 onFocus={() => setInFocus(true)}
                 // onBlur={() => setInFocus(false)}
-                className={cn(
-                    'absolute w-[calc(100%+4px)] -left-[2px] mt-2 z-50',
-                    !inFocus && 'hidden'
-                )}
+                className={cn('absolute w-[calc(100%+4px)] -left-[2px] z-50', !inFocus && 'hidden')}
             >
-                <Command
-                    value={value}
-                    onValueChange={setValue}
-                    className="border rounded-md shadow-sm shadow-[#ffffff0e]"
-                >
+                <Command value={value} onValueChange={setValue} className="rounded-b-md">
                     <CommandList>
                         <HiddenCommandInput value={search} onValueChange={setSearch} />
                         <CommandGroup>
