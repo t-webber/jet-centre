@@ -51,7 +51,7 @@ export default function MRICreationForm({ form }: { form: any }) {
                 <TextAreaFormElement label="Compétences" name="skills" form={form} resizable />
                 <TextAreaFormElement label="Échéances" name="due_date" form={form} resizable />
                 <TextAreaFormElement label="Description" name="description" form={form} resizable />
-                // TODO: Les gens à la fin du form laaaaaaaa, faut être dynamique
+                {/* TODO: Les gens à la fin du form laaaaaaaa, faut être dynamique */}
             </form>
         </FormProvider>
     );
