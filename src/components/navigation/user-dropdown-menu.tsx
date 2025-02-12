@@ -13,6 +13,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 
 interface UserDropdownMenuProps {
     username: string;
@@ -41,89 +42,6 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                         side={isMobile ? 'bottom' : 'right'}
                         align="end"
                         sideOffset={4}
-                    >
-                        <DropdownMenuLabel className="p-0 font-normal">
-                            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <UserAvatar />
-                                {isOpen && <span className="font-medium">{username}</span>}
-                            </div>
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem className="space-x-2">
-                                <Sparkles />
-                                <p>Upgrade to Pro</p>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem className="space-x-2">
-                                <BadgeCheck />
-                                <p>Account</p>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="space-x-2">
-                                <CreditCard />
-                                <p>Billing</p>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="space-x-2">
-                                <Bell />
-                                <p>Notifications</p>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="space-x-2">
-                            <LogOut />
-                            <p>Log out</p>
-                        </DropdownMenuItem>
-                    </DropdownMenuContent>
-                </DropdownMenu>
-            </SidebarMenuItem>
-        </SidebarMenu>
-    );
-
-    return (
-        <DropdownMenu open={open} onOpenChange={setOpen}>
-            <div className="place-items-center text-center flex">
-                {!isOpen && (
-                    <DropdownMenuTrigger>
-                        <UserAvatar />
-                    </DropdownMenuTrigger>
-                )}
-                {isOpen && (
-                    <DropdownMenuTrigger asChild>
-                        <Button
-                            variant="secondary"
-                            className="w-full justify-between rounded-lg hover:bg-accent h-auto"
-                        >
-                            <span className="font-medium">{username}</span>
-                            <UserAvatar />
-                        </Button>
-                    </DropdownMenuTrigger>
-                )}
-                <DropdownMenuContent
-                    align="start"
-                    className="w-[--radix-popper-anchor-width] bg-background rounded-lg p-0 flex flex-col [&>*]:px-2 [&>*]:py-1"
-                    sideOffset={8}
-                >
-                    <Button
-                        variant="ghost"
-                        className="w-full text-left justify-start rounded-none"
-                        onClick={() => setOpen(false)}
-                    >
-                        <Link href="/profile">Profile</Link>
-                    </Button>
-                    <Button
-                        variant="ghost"
-                        className="w-full text-left justify-start rounded-none"
-                        onClick={() => setOpen(false)}
-                    >
-                        <Link href="/settings">Paramètres</Link>
-                    </Button>
-                    <Button
-                        variant="destructive"
-                        className="w-full text-left justify-start rounded-none"
-                        onClick={() => setOpen(false)}
-                        asChild
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
