@@ -11,7 +11,7 @@ model Clients {
 model StudyClients {
     id           String         @id @default(cuid())
     study        Studies        @relation(fields: [studyId], references: [id], onDelete: Cascade)
-    studyId      String         @unique
+    studyId      String
     client       Clients        @relation(fields: [clientId], references: [id], onDelete: Cascade)
     clientId     String
     satisfaction Satisfactions?
@@ -50,11 +50,11 @@ enum CompanySize {
 }
 
 model CompanyInfos {
-    id          String      @id @default(cuid())
+    id          String       @id @default(cuid())
     nvEmployees Int
     domains     Domain[]
-    ca          Int
-    size        CompanySize
+    ca          Int?
+    size        CompanySize?
     Companies   Companies?
 }
 

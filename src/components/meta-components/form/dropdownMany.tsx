@@ -24,8 +24,10 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
     onChange?: (newValue: V, added: boolean) => void;
     displayValue?: (value: V) => React.ReactNode;
     getKeyOfValue?: (value: V) => string;
-    className?: string;
+    disabled?: boolean;
+    unwritable?: boolean;
     'ping-once'?: boolean;
+    className?: string;
 }
 
 export function DropdownManyFormElement<V, T extends FieldValues>({
@@ -37,21 +39,26 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     displayValue = (value: V) => value as string,
     getKeyOfValue = (value: V) => value as string,
     onChange,
-    className,
-    'ping-once': pingOnce
+    disabled = false,
+    unwritable = false,
+    'ping-once': pingOnce,
+    className
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
     const [selected, setSelected] = useState<V[]>([]);
     const buttonRef = useRef<HTMLButtonElement>(null);
     const inputContainerRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    const updateHeight = () => {
         if (buttonRef.current) {
             let target = buttonRef.current;
             target.style.height = 'inherit';
             target.style.height = `${target.scrollHeight}px`;
         }
-    }, [selected]);
+    };
+
+    const value = form.watch(name);
+    useEffect(updateHeight, [value]);
 
     function onRemove(value: V) {
         const newSelected = selected.filter((v) => getKeyOfValue(v) !== getKeyOfValue(value));
@@ -86,6 +93,8 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                 name={name}
                 label={label}
                 labelStat={inFocus ? 'in-focus' : undefined}
+                disabled={disabled}
+                unwritable={unwritable}
                 son={(field) => (
                     <Popover>
                         <PopoverTrigger asChild>
@@ -95,9 +104,11 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                                 className={cn(
                                     'flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background',
                                     'ring-0 outline-none focus-within:border-foreground',
+                                    'disabled:text-input disabled:opacity-80',
                                     inFocus && 'ring-0 border-foreground'
                                 )}
                                 ref={buttonRef}
+                                disabled={disabled || unwritable}
                             >
                                 <PillList
                                     values={getProperty(form.getValues(), name)}
@@ -184,16 +195,17 @@ interface PillListProps<V> {
 function PillList<V>({ values, displayValue, getKeyOfValue, onRemove }: PillListProps<V>) {
     return (
         <div className="flex flex-wrap items-center gap-1 h-full">
-            {values.map((value) => (
-                <Pill
-                    key={getKeyOfValue(value)}
-                    value={displayValue(value)}
-                    onRemove={(e) => {
-                        e.preventDefault();
-                        onRemove(value);
-                    }}
-                />
-            ))}
+            {values &&
+                values.map((value) => (
+                    <Pill
+                        key={getKeyOfValue(value)}
+                        value={displayValue(value)}
+                        onRemove={(e) => {
+                            e.preventDefault();
+                            onRemove(value);
+                        }}
+                    />
+                ))}
         </div>
     );
 }

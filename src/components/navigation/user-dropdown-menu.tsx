@@ -1,7 +1,5 @@
 'use client';
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
 import { UserAvatar } from '@/components/ui/user-avatar';
 import {
     DropdownMenu,
@@ -127,10 +125,42 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                         onClick={() => setOpen(false)}
                         asChild
                     >
-                        <Link href="/auth/signout">Déconnexion</Link>
-                    </Button>
-                </DropdownMenuContent>
-            </div>
-        </DropdownMenu>
+                        <DropdownMenuLabel className="p-0 font-normal">
+                            <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                                <UserAvatar />
+                                {isOpen && <span className="font-medium">{username}</span>}
+                            </div>
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem className="space-x-2">
+                                <Sparkles />
+                                <p>Upgrade to Pro</p>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuGroup>
+                            <DropdownMenuItem className="space-x-2">
+                                <BadgeCheck />
+                                <p>Account</p>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="space-x-2">
+                                <CreditCard />
+                                <p>Billing</p>
+                            </DropdownMenuItem>
+                            <DropdownMenuItem className="space-x-2">
+                                <Bell />
+                                <p>Notifications</p>
+                            </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem className="space-x-2">
+                            <LogOut />
+                            <p>Log out</p>
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
+            </SidebarMenuItem>
+        </SidebarMenu>
     );
 };

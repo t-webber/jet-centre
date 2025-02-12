@@ -1,5 +1,5 @@
 {
-    "name": "jetool",
+    "name": "jet-centre",
     "version": "0.1.0",
     "private": true,
     "scripts": {
@@ -7,8 +7,12 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
+        "fmt": "npx prettier . --write",
         "prisma:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
-        "fmt": "npx prettier . --write"
+        "prisma:seed": "dotenv -e .env.local -- npx prisma db seed"
+    },
+    "prisma": {
+        "seed": "ts-node prisma/seed.ts"
     },
     "dependencies": {
         "@dnd-kit/core": "^6.3.1",
@@ -16,7 +20,7 @@
         "@hookform/resolvers": "^3.6.0",
         "@mdxeditor/editor": "^3.8.0",
         "@monaco-editor/react": "^4.6.0",
-        "@prisma/client": "^5.20.0",
+        "@prisma/client": "^6.2.1",
         "@radix-ui/react-avatar": "^1.1.1",
         "@radix-ui/react-checkbox": "^1.1.1",
         "@radix-ui/react-collapsible": "^1.1.2",
@@ -29,6 +33,7 @@
         "@radix-ui/react-select": "^2.0.0",
         "@radix-ui/react-separator": "^1.1.1",
         "@radix-ui/react-slot": "^1.1.1",
+        "@radix-ui/react-switch": "^1.1.2",
         "@radix-ui/react-tabs": "^1.0.4",
         "@radix-ui/react-tooltip": "^1.1.6",
         "@tailwindcss/container-queries": "^0.1.1",
@@ -52,6 +57,7 @@
         "sharp": "^0.33.5",
         "tailwind-merge": "^2.3.0",
         "tailwindcss-animate": "^1.0.7",
+        "ts-node": "^10.9.2",
         "zod": "^3.23.8",
         "zod-i18n-map": "^2.27.0"
     },
@@ -63,7 +69,7 @@
         "eslint": "^8.0.0",
         "eslint-config-next": "14.2.3",
         "postcss": "^8",
-        "prisma": "^5.20.0",
+        "prisma": "^6.2.1",
         "tailwindcss": "^3.4.1",
         "typescript": "^5"
     }

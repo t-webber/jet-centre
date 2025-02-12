@@ -1,7 +1,8 @@
 import Image from 'next/image';
 import BirdLogo from '@/../public/bird_color.svg';
-import { SignInWithGoogle } from '@/app/(public)/auth/google';
+import { GoogleButton } from '@/app/(public)/auth/google';
 import { AuthLayout } from '../auth_layout';
+import { googleId, signIn } from '@/actions/auth';
 
 export default async function SignInPage() {
     return (
@@ -11,7 +12,18 @@ export default async function SignInPage() {
                 alt="logo telecom etude"
                 className="hidden md:block max-w-[30%] max-h-[50%]"
             />
-            <AuthLayout title="Connexion" button={<SignInWithGoogle />} />
+            <AuthLayout
+                title="Connexion"
+                button={
+                    <GoogleButton
+                        action={async () => {
+                            'use server';
+                            await signIn(googleId);
+                        }}
+                        text="Se connecter avec Google"
+                    />
+                }
+            />
         </div>
     );
 }

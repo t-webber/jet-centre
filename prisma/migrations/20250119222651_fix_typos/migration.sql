@@ -80,6 +80,24 @@ ADD COLUMN     "bcrId" TEXT NOT NULL;
 ALTER TABLE "UserSettings" DROP COLUMN "notifLvl",
 ADD COLUMN     "notificationLvl" "NotifLvl" NOT NULL;
 
+-- AlterTable
+ALTER TABLE "_DomainsToStudyInfos" ADD CONSTRAINT "_DomainsToStudyInfos_AB_pkey" PRIMARY KEY ("A", "B");
+
+-- DropIndex
+DROP INDEX "_DomainsToStudyInfos_AB_unique";
+
+-- AlterTable
+ALTER TABLE "_auditor" ADD CONSTRAINT "_auditor_AB_pkey" PRIMARY KEY ("A", "B");
+
+-- DropIndex
+DROP INDEX "_auditor_AB_unique";
+
+-- AlterTable
+ALTER TABLE "_cdp" ADD CONSTRAINT "_cdp_AB_pkey" PRIMARY KEY ("A", "B");
+
+-- DropIndex
+DROP INDEX "_cdp_AB_unique";
+
 -- CreateIndex
 CREATE UNIQUE INDEX "AssigneeDocs_socialSecurityId_key" ON "AssigneeDocs"("socialSecurityId");
 

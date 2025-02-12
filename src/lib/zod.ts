@@ -33,7 +33,7 @@ export function stringDate(val: any, ctx: RefinementCtx) {
         if (!dateRegex.test(val)) {
             ctx.addIssue({
                 code: z.ZodIssueCode.custom,
-                message: 'Invalid date format, expected YYYY-MM-DD'
+                message: 'Invalid date format, expected dd/mm/yyyy'
             });
         }
     } else {
@@ -43,6 +43,18 @@ export function stringDate(val: any, ctx: RefinementCtx) {
             received:
                 z.ZodParsedType[typeof val as keyof typeof z.ZodParsedType] ||
                 z.ZodParsedType.unknown
+        });
+    }
+}
+
+export function nonemptyexcluded<T>(val: T[], ctx: RefinementCtx) {
+    if (val.every((v) => (v as any).excluded ?? false)) {
+        ctx.addIssue({
+            code: z.ZodIssueCode.too_small,
+            message: 'Array must contain at least 1 non excluded element',
+            minimum: 1,
+            inclusive: true,
+            type: 'array'
         });
     }
 }

@@ -4,6 +4,14 @@ import { ReactNode } from 'react';
 import Image from 'next/image';
 import BirdLogo from '@/../public/bird.svg';
 
+/**
+ * Layout for wrapping the button next to the bird image in the login/logout pages.
+ *
+ * @export
+ * @param {{ title: string; button: ReactNode }} { title, button }
+ *      - title: title of the page ("Connexion"/"Déconnexion")
+ *      - button: the login/logout button for Google Provider
+ */
 export function AuthLayout({ title, button }: { title: string; button: ReactNode }) {
     return (
         <div className="flex flex-col flex-1 md:flex-none items-center space-y-10">

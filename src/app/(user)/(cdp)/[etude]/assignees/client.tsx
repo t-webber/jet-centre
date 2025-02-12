@@ -18,7 +18,7 @@ import {
     BoxDragHandle
 } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
-import { DragHandle } from '@/components/animations/drag';
+import { DragHandle } from '@/components/meta-components/sortableList';
 
 import { Assignee } from './page';
 import { Right } from './clientsAssignees';
@@ -70,7 +70,7 @@ export default function Client({ assignee, setCurrent, setRight, dragHandleProps
                         collapse={collapse}
                         setCollapse={setCollapse}
                     />
-                    <BoxDragHandle  {...dragHandleProps}/>
+                    <BoxDragHandle {...dragHandleProps} />
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxCollapser collapse={collapse}>
