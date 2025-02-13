@@ -3,7 +3,7 @@ model People {
     email     String     @unique
     firstName String
     lastName  String
-    number    String
+    number    String?
     address   Address?   @relation(fields: [addressId], references: [id])
     addressId String?
     User      User?

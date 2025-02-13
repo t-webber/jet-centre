@@ -99,10 +99,8 @@ export function SearchBar<T>({
                                     key={index}
                                     onSelect={() => {
                                         setInFocus(false);
-                                        // setSearch(displayValue(item));
                                         setSearch('');
                                         onSelect_ && onSelect_(item);
-                                        // onSelect_?.(item);
                                     }}
                                     value={displayValue(item)}
                                 >

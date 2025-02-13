@@ -18,7 +18,7 @@ import DifficultyMedium from '@/../public/mri/difficulties/medium.png';
 import DifficultyHard from '@/../public/mri/difficulties/hard.png';
 
 import { Pays, Difficulties } from './form/schema';
-import { Domains } from '@/settings/vars';
+import { Domain } from '@/settings/vars';
 import Image, { StaticImageData } from 'next/image';
 
 export function ImageElt({
@@ -39,7 +39,7 @@ export function ImageElt({
     );
 }
 
-export function getDomain(domain: Domains) {
+export function getDomain(domain: Domain) {
     let image = Data;
 
     switch (domain) {

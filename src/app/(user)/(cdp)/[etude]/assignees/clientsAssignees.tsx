@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { SortableList, useSortableList } from '@/components/animations/drag';
+import { SortableList, useSortableList } from '@/components/meta-components/sortableList';
 
 import { Assignee } from './page';
 import { Interview } from './right-components/interview';

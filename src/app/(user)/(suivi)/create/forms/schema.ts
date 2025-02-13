@@ -1,21 +1,15 @@
 import { z } from '@/lib/zod';
-import { companyCreationSchema, emptyCompanyCreationSchema } from './companySchema';
-import { contactSchema, emptyContactSchema } from './contactSchema';
-import { emptySettingsCreationSchema, settingsCreationSchema } from './settingsSchema';
+import { companiesCreationSchema, emptyCompaniesCreationSchema } from './companies/companiesSchema';
+import { emptySettingsCreationSchema, settingsCreationSchema } from './settings/settingsSchema';
 
 export const studyCreationSchema = z.object({
-    company: companyCreationSchema,
-    contact: contactSchema,
-    settings: settingsCreationSchema
+    settings: settingsCreationSchema,
+    companies: companiesCreationSchema
 });
 
 export type StudyCreationSchema = z.infer<typeof studyCreationSchema>;
 
 export const emptyStudyCreationSchema: StudyCreationSchema = {
-    // @ts-ignore - react-hook-form use empty string ("") as default value even for non-string fields
-    company: emptyCompanyCreationSchema,
-    // @ts-ignore - react-hook-form use empty string ("") as default value even for non-string fields
-    contact: emptyContactSchema,
-    // @ts-ignore - react-hook-form use empty string ("") as default value even for non-string fields
-    settings: emptySettingsCreationSchema
+    settings: emptySettingsCreationSchema,
+    companies: emptyCompaniesCreationSchema
 };

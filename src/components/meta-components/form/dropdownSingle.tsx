@@ -23,6 +23,7 @@ interface DropdownFormElementProps<V, T extends FieldValues> extends FormElement
     displayValue?: (value: V) => string;
     getKeyOfValue?: (value: V) => string;
     disabled?: boolean;
+    unwritable?: boolean;
     'ping-once'?: boolean;
     className?: string;
 }
@@ -38,6 +39,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     getKeyOfValue = (value: V) => (value as any).toString(),
     'ping-once': pingOnce,
     disabled = false,
+    unwritable = false,
     className
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
@@ -64,6 +66,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                 label={label}
                 labelStat={inFocus ? 'in-focus' : 'written'}
                 disabled={disabled}
+                unwritable={unwritable}
                 son={(field) => (
                     <Popover open={open} onOpenChange={setOpen}>
                         <PopoverTrigger asChild>
@@ -71,10 +74,10 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                 variant="outline"
                                 role="combobox"
                                 aria-expanded={open}
-                                disabled={disabled}
+                                disabled={disabled || unwritable}
                                 className={cn(
                                     'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground text-md',
-                                    'disabled:cursor-not-allowed disabled:opacity-50 disabled:text-input',
+                                    'disabled:cursor-not-allowed disabled:opacity-80 disabled:text-input',
                                     inFocus && 'ring-0 border-foreground'
                                 )}
                             >
@@ -119,8 +122,9 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                     <Check
                                                         className={cn(
                                                             'mr-2 h-4 w-4',
-                                                            getKeyOfValue(field.value) ===
-                                                                getKeyOfValue(value)
+                                                            getKeyOfValue(
+                                                                (field.value as any) ?? ''
+                                                            ) === getKeyOfValue(value)
                                                                 ? 'opacity-100'
                                                                 : 'opacity-0'
                                                         )}
