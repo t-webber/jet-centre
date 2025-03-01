@@ -2,10 +2,6 @@
 
 import * as React from 'react';
 
-// import { NavMain } from '@/components/nav-main';
-// import { NavProjects } from '@/components/nav-projects';
-// import { NavUser } from '@/components/nav-user';
-// import { TeamSwitcher } from '@/components/team-switcher';
 import { useSidebar } from '@/components/ui/sidebar';
 
 import {
@@ -13,7 +9,7 @@ import {
     SidebarHeader,
     SidebarSeparator,
     SidebarContent,
-    SidebarFooter
+    SidebarFooter,
 } from '@/components/ui/sidebar';
 
 import { cn } from '@/lib/utils';
