@@ -38,7 +38,7 @@ export function SidebarApp({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarContent>
 
             <SidebarFooter>
-                <UserDropdownMenu isOpen={expanded} isMobile username="Nicolas Glady" />
+                <UserDropdownMenu isOpen={expanded} isMobile />
             </SidebarFooter>
         </Sidebar>
     );

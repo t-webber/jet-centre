@@ -14,14 +14,18 @@ import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui
 import { BadgeCheck, Bell, ChevronsUpDown, CreditCard, LogOut, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { signOut } from 'next-auth/react';
 
 interface UserDropdownMenuProps {
-    username: string;
     isMobile: boolean;
     isOpen: boolean;
 }
 
-export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMenuProps) => {
+export const UserDropdownMenu = ({ isMobile, isOpen }: UserDropdownMenuProps) => {
+    const session = useSession();
+    const avatarUrl = session.data?.user.image ?? null;
+    const username = session.data?.user.name ?? null;
     const [open, setOpen] = useState(false);
 
     return (
@@ -34,7 +38,7 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                             className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground w-full justify-between"
                         >
                             {isOpen && <span className="font-medium">{username}</span>}
-                            <UserAvatar round={isOpen} />
+                            <UserAvatar round={isOpen} avatarUrl={avatarUrl} />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
@@ -45,17 +49,10 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                     >
                         <DropdownMenuLabel className="p-0 font-normal">
                             <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                                <UserAvatar />
+                                <UserAvatar avatarUrl={avatarUrl} />
                                 {isOpen && <span className="font-medium">{username}</span>}
                             </div>
                         </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem className="space-x-2">
-                                <Sparkles />
-                                <p>Upgrade to Pro</p>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
                         <DropdownMenuSeparator />
                         <DropdownMenuGroup>
                             <DropdownMenuItem className="space-x-2">
@@ -72,7 +69,7 @@ export const UserDropdownMenu = ({ username, isMobile, isOpen }: UserDropdownMen
                             </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem className="space-x-2">
+                        <DropdownMenuItem className="space-x-2" onClick={() => signOut()}>
                             <LogOut />
                             <p>Log out</p>
                         </DropdownMenuItem>

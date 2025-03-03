@@ -5,6 +5,13 @@ const nextConfig = {
         serverActions: {
             bodySizeLimit: '10mb'
         }
+    },
+    images: {
+        remotePatterns: [
+            {
+                hostname: '**.googleusercontent.com'
+            }
+        ]
     }
 };
 
