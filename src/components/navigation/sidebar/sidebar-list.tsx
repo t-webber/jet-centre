@@ -3,7 +3,7 @@ import {
     SidebarGroupLabel,
     SidebarMenu,
     SidebarMenuButton,
-    SidebarMenuItem
+    SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { SideBarGroup } from '@/settings/sidebars/siderbar-trez';
 

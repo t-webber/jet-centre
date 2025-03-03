@@ -24,7 +24,7 @@ export default function Inner({ companies, admins }: CreateStudyProps) {
 
     const formStudy = useForm<StudyCreationSchema>({
         resolver: zodResolver(studyCreationSchema),
-        defaultValues: emptyStudyCreationSchema
+        defaultValues: emptyStudyCreationSchema,
     });
 
     useEffect(() => {

@@ -21,14 +21,14 @@ const config = {
                     scope: ['openid email profile https://www.googleapis.com/auth/drive'],
                     prompt: 'consent',
                     access_type: 'offline',
-                    response_type: 'code'
-                }
-            }
-        })
+                    response_type: 'code',
+                },
+            },
+        }),
     ],
     pages: {
         signIn: '/auth/signin',
-        signOut: '/auth/signout'
+        signOut: '/auth/signout',
     },
     callbacks: {
         async jwt({ token, account }) {
@@ -45,14 +45,14 @@ const config = {
                     user: {
                         ...session.user,
                         access_token: token.access_token,
-                        refresh_token: token.refresh_token
-                    }
+                        refresh_token: token.refresh_token,
+                    },
                 };
             }
 
             return session;
-        }
-    }
+        },
+    },
 } satisfies NextAuthConfig;
 
 export const googleId = Google({}).id;

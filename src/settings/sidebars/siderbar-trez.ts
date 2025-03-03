@@ -19,8 +19,8 @@ export const sidebar_trez: SideBarGroup[] = [
             {
                 title: 'disponibilités',
                 icon: FaHouse,
-                href: '/'
-            }
-        ]
-    }
+                href: '/',
+            },
+        ],
+    },
 ];

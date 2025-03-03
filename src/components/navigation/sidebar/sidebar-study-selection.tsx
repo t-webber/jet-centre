@@ -5,13 +5,13 @@ import {
     PaginationContent,
     PaginationItem,
     PaginationNext,
-    PaginationPrevious
+    PaginationPrevious,
 } from '@/components/ui/pagination';
 
 export function StudySelection({
     missions,
     selectedMission,
-    setSelectedMission
+    setSelectedMission,
 }: {
     missions: string[];
     selectedMission: number;
@@ -24,7 +24,7 @@ export function StudySelection({
                     <PaginationPrevious
                         onClick={() =>
                             setSelectedMission(
-                                (selectedMission - 1 + missions.length) % missions.length
+                                (selectedMission - 1 + missions.length) % missions.length,
                             )
                         }
                     ></PaginationPrevious>

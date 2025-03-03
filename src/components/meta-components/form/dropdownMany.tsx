@@ -6,7 +6,7 @@ import {
     CommandGroup,
     CommandInput,
     CommandItem,
-    CommandList
+    CommandList,
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -42,7 +42,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
     disabled = false,
     unwritable = false,
     'ping-once': pingOnce,
-    className
+    className,
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
     const [selected, setSelected] = useState<V[]>([]);
@@ -74,8 +74,8 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                 .map(
                     (value, idx) =>
                         `<input type="text" name="${name}.${idx}" value="${getKeyOfValue(
-                            value
-                        )}" form="${formId}"/>`
+                            value,
+                        )}" form="${formId}"/>`,
                 )
                 .join('');
         } else {
@@ -105,7 +105,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                                     'flex w-full justify-between min-h-12 hover:has-[.prevent-hover:hover]:bg-box-background',
                                     'ring-0 outline-none focus-within:border-foreground',
                                     'disabled:text-input disabled:opacity-80',
-                                    inFocus && 'ring-0 border-foreground'
+                                    inFocus && 'ring-0 border-foreground',
                                 )}
                                 ref={buttonRef}
                                 disabled={disabled || unwritable}
@@ -135,7 +135,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                                                 value={getKeyOfValue(value)}
                                                 onSelect={(newKey) => {
                                                     const newValue = values.find(
-                                                        (v) => getKeyOfValue(v) === newKey
+                                                        (v) => getKeyOfValue(v) === newKey,
                                                     )!;
 
                                                     const included = selected.includes(newValue);
@@ -152,7 +152,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                                                     setInputContainerRef(newSelected);
                                                     form.setValue(
                                                         name,
-                                                        newSelected as PathValue<T, Path<T>>
+                                                        newSelected as PathValue<T, Path<T>>,
                                                     );
                                                     // console.log(
                                                     //     name,
@@ -167,7 +167,7 @@ export function DropdownManyFormElement<V, T extends FieldValues>({
                                                         'mr-2 h-4 w-4',
                                                         selected.includes(value)
                                                             ? 'opacity-100'
-                                                            : 'opacity-0'
+                                                            : 'opacity-0',
                                                     )}
                                                     checked={selected.includes(value)}
                                                     primary

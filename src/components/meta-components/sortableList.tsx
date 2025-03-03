@@ -10,14 +10,14 @@ import {
     DraggableAttributes,
     DragEndEvent,
     DragStartEvent,
-    UniqueIdentifier
+    UniqueIdentifier,
 } from '@dnd-kit/core';
 
 import {
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
-    verticalListSortingStrategy
+    verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 
 import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
@@ -32,7 +32,7 @@ export type DragHandle = (SyntheticListenerMap | undefined) & DraggableAttribute
 type RenderFn<T extends WithId = WithId> = (
     item: T,
     dragHandleProps: DragHandle,
-    updateItem: (newItem: T) => void
+    updateItem: (newItem: T) => void,
 ) => ReactNode;
 
 interface ItemManager<T extends WithId = WithId> {
@@ -54,13 +54,13 @@ export function SortableList<T extends WithId = WithId>({
     moveItem,
     updateItem,
     render,
-    className
+    className,
 }: SortableProps<T>) {
     const sensors = useSensors(
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
-            coordinateGetter: sortableKeyboardCoordinates
-        })
+            coordinateGetter: sortableKeyboardCoordinates,
+        }),
     );
 
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -112,7 +112,7 @@ function SortableItem<T extends WithId = WithId>({
     item,
     active,
     updateItem,
-    render
+    render,
 }: {
     item: T;
     active: boolean;
@@ -120,12 +120,12 @@ function SortableItem<T extends WithId = WithId>({
     render: RenderFn<T>;
 }) {
     const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-        id: item.id
+        id: item.id,
     });
 
     const style = {
         transform: transformToCSS(transform),
-        transition
+        transition,
     };
 
     return (
@@ -167,7 +167,7 @@ export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): 
         updateItem,
         deleteItem,
         addItem,
-        reset
+        reset,
     };
 }
 

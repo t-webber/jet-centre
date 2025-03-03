@@ -21,7 +21,7 @@ import Image, { StaticImageData } from 'next/image';
 export function ImageElt({
     value,
     label,
-    image
+    image,
 }: {
     value: string;
     label: string;
@@ -116,7 +116,7 @@ export function getPay(pay_under: number, pay_over: number, pay_level: Pays) {
     return {
         label: 'RÉMUNÉRATION',
         value: `${pay_under}€ - ${pay_over}€`,
-        image: image
+        image: image,
     };
 }
 export function getDifficulty(difficulty: Difficulties) {
@@ -137,6 +137,6 @@ export function getDifficulty(difficulty: Difficulties) {
     return {
         label: 'DIFFICULTÉ',
         value: difficulty,
-        image: image
+        image: image,
     };
 }

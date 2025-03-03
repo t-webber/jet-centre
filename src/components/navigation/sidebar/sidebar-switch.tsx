@@ -15,14 +15,14 @@ export function SidebarSwitch({ isOpen }: { isOpen: boolean }) {
             id: 'cdp',
             title: 'CDP',
             icon: FaUser,
-            content: <SidebarCdp />
+            content: <SidebarCdp />,
         },
         {
             id: 'role',
             title: 'Trésorier',
             icon: FaMoneyBill,
-            content: <SidebarRole />
-        }
+            content: <SidebarRole />,
+        },
     ];
 
     const [tab, setTab] = useState(0);

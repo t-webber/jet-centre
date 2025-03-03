@@ -18,7 +18,7 @@ export interface ContactFormProps {
 export function ContactForm({ defaultValues, onSubmit: onSubmit_, onCancel }: ContactFormProps) {
     const form = useForm<ContactCreationSchema>({
         resolver: zodResolver(contactCreationSchema),
-        defaultValues: defaultValues
+        defaultValues: defaultValues,
     });
 
     const onSubmit = (data: ContactCreationSchema) => {

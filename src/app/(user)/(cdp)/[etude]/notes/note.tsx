@@ -10,7 +10,7 @@ import {
     BoxCollapseButton,
     BoxDragHandle,
     BoxCollapser,
-    BoxContent
+    BoxContent,
 } from '@/components/boxes/boxes';
 import MDXEditor from '@/components/note/mdxEditor';
 import { DragHandle } from '@/components/meta-components/sortableList';
@@ -18,7 +18,7 @@ import { DragHandle } from '@/components/meta-components/sortableList';
 export default function Notes({
     title,
     markdown,
-    dragHandleProps
+    dragHandleProps,
 }: {
     title: string;
     markdown: string;

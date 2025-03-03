@@ -20,7 +20,7 @@ export const mriCreationSchema = z.object({
     pay_over: z.number(),
     skills: z.string(),
     due_date: z.string(),
-    description: z.string()
+    description: z.string(),
 });
 
 export type FormType = z.infer<typeof mriCreationSchema>;
@@ -35,7 +35,7 @@ export const emptyMriCreationSchema = {
     pay_level: '',
     skills: '',
     due_date: '',
-    description: ''
+    description: '',
 };
 
 export const defaultMriCreationSchema = {
@@ -44,6 +44,6 @@ export const defaultMriCreationSchema = {
         intro: 'Nous vous proposons une étude...',
         skills: 'Nous recherchons un.e intervenant.e ayant des compétences en...',
         due_date: 'Le client désire commencer le plus tôt possible.',
-        description: 'Le but de cette étude est de...'
-    }
+        description: 'Le but de cette étude est de...',
+    },
 };

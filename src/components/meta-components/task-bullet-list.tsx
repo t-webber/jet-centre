@@ -12,7 +12,7 @@ export interface Task {
 
 export function TaskBulletList({
     initialList,
-    saveTasks
+    saveTasks,
 }: {
     initialList: Task[];
     saveTasks: (tasks: Task[]) => void;
@@ -21,7 +21,7 @@ export function TaskBulletList({
 
     const checkTask = (id: string) => {
         setTasks(
-            tasks.map((task) => (task.id === id ? { ...task, checked: !task.checked } : task))
+            tasks.map((task) => (task.id === id ? { ...task, checked: !task.checked } : task)),
         );
     };
 

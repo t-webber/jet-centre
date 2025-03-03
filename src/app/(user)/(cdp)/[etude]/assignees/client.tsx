@@ -14,7 +14,7 @@ import {
     BoxContent,
     BoxCollapser,
     BoxCollapseButton,
-    BoxDragHandle
+    BoxDragHandle,
 } from '@/components/boxes/boxes';
 import { Button } from '@/components/ui/button';
 import { DragHandle } from '@/components/meta-components/sortableList';

@@ -8,7 +8,7 @@ import {
     BoxCollapser,
     BoxContent,
     BoxHeader,
-    BoxTitle
+    BoxTitle,
 } from '@/components/boxes/boxes';
 import { FormProvider, FormRule } from '@/components/ui/form';
 import { InputFormElement } from '@/components/meta-components/form/input';
@@ -123,7 +123,7 @@ export function SettingsForm({ formStudy, formStudyId, admins }: SettingsFormPro
                                         <AdminForm
                                             defaultValues={{
                                                 id: 'tmp-id-' + Math.random().toString(),
-                                                ...emptyAdminCreationSchema
+                                                ...emptyAdminCreationSchema,
                                             }}
                                             onSubmit={(admin) => {
                                                 setCollapseAdminForm(true);

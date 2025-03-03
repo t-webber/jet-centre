@@ -15,7 +15,7 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                     let target = e.target as HTMLElement;
                     target.style.height = 'inherit';
                     target.style.height = `${target.scrollHeight}px`;
-                }
+                },
             };
         }
 
@@ -26,13 +26,13 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
                     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
                     'disabled:cursor-not-allowed disabled:opacity-50',
                     'placeholder:text-muted-foreground',
-                    className
+                    className,
                 )}
                 ref={ref}
                 {...props}
             />
         );
-    }
+    },
 );
 Textarea.displayName = 'Textarea';
 

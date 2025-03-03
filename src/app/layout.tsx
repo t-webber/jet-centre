@@ -14,29 +14,29 @@ const avenir: NextFont = localFont({
         {
             path: '../fonts/Avenir/Avenir-Bold.otf',
             weight: '700',
-            style: 'normal'
+            style: 'normal',
         },
         {
             path: '../fonts/Avenir/Avenir-Demi.otf',
             weight: '600',
-            style: 'normal'
+            style: 'normal',
         },
         {
             path: '../fonts/Avenir/Avenir-DemiIt.otf',
             weight: '600',
-            style: 'italic'
+            style: 'italic',
         },
         {
             path: '../fonts/Avenir/Avenir-It.otf',
             weight: '400',
-            style: 'italic'
+            style: 'italic',
         },
         {
             path: '../fonts/Avenir/Avenir-Regular.otf',
             weight: '400',
-            style: 'normal'
-        }
-    ]
+            style: 'normal',
+        },
+    ],
 });
 
 /**
@@ -50,7 +50,7 @@ const avenir: NextFont = localFont({
  * @return {Promise<ReactNode>}
  */
 export default async function RootLayout({
-    children
+    children,
 }: Readonly<{
     children: ReactNode;
 }>): Promise<ReactNode> {

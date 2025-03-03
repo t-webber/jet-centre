@@ -24,7 +24,7 @@ export const Box = forwardRef<
             'backdrop-blur-sm',
             'transition-all duration-200 ease-in-out',
             'hover:border-box-hover/20',
-            className
+            className,
         )}
         {...props}
     >
@@ -51,7 +51,7 @@ export const BoxHeader = forwardRef<
             'bg-box-title/50 py-2 px-4',
             'border-b border-box-hover/10 rounded-t-xl',
             'flex justify-between items-center gap-4',
-            className
+            className,
         )}
         {...props}
     >
@@ -61,7 +61,7 @@ export const BoxHeader = forwardRef<
 
 export const BoxHeaderBlock = ({
     children,
-    className
+    className,
 }: {
     children?: ReactNode;
     className?: string;
@@ -72,7 +72,7 @@ export type Height = 'auto' | 'limited';
 export const BoxContent = ({
     children,
     height = 'auto',
-    noPadding = false
+    noPadding = false,
 }: {
     children: ReactNode;
     height?: Height;
@@ -83,7 +83,7 @@ export const BoxContent = ({
             'space-y-4 flex-grow max-h-full',
             height === 'auto' && 'h-auto max-h-auto',
             height === 'limited' && '',
-            noPadding ? 'p-0' : 'p-4'
+            noPadding ? 'p-0' : 'p-4',
         )}
     >
         {children}
@@ -92,7 +92,7 @@ export const BoxContent = ({
 
 export const BoxCollapser = ({
     children,
-    collapse = false
+    collapse = false,
 }: {
     children: ReactNode;
     collapse: boolean;
@@ -110,7 +110,7 @@ export const BoxLink = ({ children, href }: { children: string | string[]; href:
 
 export const BoxTitle = ({
     children,
-    className
+    className,
 }: {
     children: string | string[];
     className?: string;
@@ -123,7 +123,7 @@ export const BoxTitle = ({
 export const BoxButtonPlus = ({
     onClick,
     label,
-    className
+    className,
 }: {
     onClick: () => void;
     label?: string;
@@ -158,7 +158,7 @@ export const BoxDragHandle = forwardRef<HTMLDivElement>((props, ref) => (
 export const BoxCollapseButton = ({
     collapse,
     setCollapse,
-    onClick
+    onClick,
 }: {
     collapse: boolean;
     setCollapse: (c: boolean) => void;

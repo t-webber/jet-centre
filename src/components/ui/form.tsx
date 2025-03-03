@@ -7,7 +7,7 @@ import {
     FieldPath,
     FieldValues,
     FormProvider as FP,
-    useFormContext
+    useFormContext,
 } from 'react-hook-form';
 
 import { cn } from '@/lib/utils';
@@ -17,7 +17,7 @@ const FormProvider = FP;
 
 type FormFieldContextValue<
     TFieldValues extends FieldValues = FieldValues,
-    TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+    TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > = {
     name: TName;
 };
@@ -26,7 +26,7 @@ const FormFieldContext = React.createContext<FormFieldContextValue>({} as FormFi
 
 const FormField = <
     TFieldValues extends FieldValues = FieldValues,
-    TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>
+    TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
     ...props
 }: ControllerProps<TFieldValues, TName>) => {
@@ -56,7 +56,7 @@ const useFormField = () => {
         formItemId: `${id}-form-item`,
         formDescriptionId: `${id}-form-item-description`,
         formMessageId: `${id}-form-item-message`,
-        ...fieldState
+        ...fieldState,
     };
 };
 
@@ -75,7 +75,7 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
                 <div ref={ref} className={className} {...props} />
             </FormItemContext.Provider>
         );
-    }
+    },
 );
 FormItem.displayName = 'FormItem';
 
@@ -166,7 +166,7 @@ const FormRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
                 {...props}
             />
         );
-    }
+    },
 );
 
 interface FormRuleProps extends React.HTMLAttributes<HTMLHRElement> {
@@ -182,7 +182,7 @@ const FormRule = React.forwardRef<HTMLHRElement, FormRuleProps>(
                 {...props}
             />
         );
-    }
+    },
 );
 
 export {
@@ -195,5 +195,5 @@ export {
     FormMessage,
     FormField,
     FormRow,
-    FormRule
+    FormRule,
 };

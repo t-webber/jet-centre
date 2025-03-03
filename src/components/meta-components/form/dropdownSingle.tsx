@@ -6,7 +6,7 @@ import {
     CommandGroup,
     CommandInput,
     CommandItem,
-    CommandList
+    CommandList,
 } from '@/components/ui/command';
 import { Button } from '@/components/ui/button';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -40,7 +40,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
     'ping-once': pingOnce,
     disabled = false,
     unwritable = false,
-    className
+    className,
 }: DropdownFormElementProps<V, T>) {
     const [inFocus, setInFocus] = useState(false);
     const [open, setOpen] = useState(false);
@@ -78,7 +78,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                 className={cn(
                                     'flex w-full justify-between h-12 focus-visible:ring-0 focus:border-foreground text-md',
                                     'disabled:cursor-not-allowed disabled:opacity-80 disabled:text-input',
-                                    inFocus && 'ring-0 border-foreground'
+                                    inFocus && 'ring-0 border-foreground',
                                 )}
                             >
                                 {field.value ||
@@ -105,7 +105,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                     value={getKeyOfValue(value)}
                                                     onSelect={(newKey) => {
                                                         const newValue = values.find(
-                                                            (v) => getKeyOfValue(v) === newKey
+                                                            (v) => getKeyOfValue(v) === newKey,
                                                         )!;
 
                                                         if (onChange) {
@@ -114,7 +114,7 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                         setInputRef(newKey);
                                                         form.setValue(
                                                             name,
-                                                            newValue as PathValue<T, Path<T>>
+                                                            newValue as PathValue<T, Path<T>>,
                                                         );
                                                         setOpen(false);
                                                     }}
@@ -123,10 +123,10 @@ export function DropdownSingleFormElement<V, T extends FieldValues>({
                                                         className={cn(
                                                             'mr-2 h-4 w-4',
                                                             getKeyOfValue(
-                                                                (field.value as any) ?? ''
+                                                                (field.value as any) ?? '',
                                                             ) === getKeyOfValue(value)
                                                                 ? 'opacity-100'
-                                                                : 'opacity-0'
+                                                                : 'opacity-0',
                                                         )}
                                                     />
                                                     {displayValue(value)}

@@ -24,14 +24,14 @@ export default function SidebarCdp() {
                 {
                     title: 'Tableau de bord',
                     icon: FaHouse,
-                    href: '/' + mission + '/dashboard'
+                    href: '/' + mission + '/dashboard',
                 },
                 {
                     title: "Paramètres de l'étude",
                     icon: FaGears,
-                    href: '/' + mission + '/params'
-                }
-            ]
+                    href: '/' + mission + '/params',
+                },
+            ],
         },
         {
             title: 'Pré-étude',
@@ -39,24 +39,24 @@ export default function SidebarCdp() {
                 {
                     title: 'Notes clients & étude',
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/notes'
+                    href: '/' + mission + '/notes',
                 },
                 {
                     title: 'Écriture MRI',
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/mri'
+                    href: '/' + mission + '/mri',
                 },
                 {
                     title: "Sélection d'intervenants",
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/assignees'
+                    href: '/' + mission + '/assignees',
                 },
                 {
                     title: 'Documents',
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/docs'
-                }
-            ]
+                    href: '/' + mission + '/docs',
+                },
+            ],
         },
         {
             title: 'Suivi',
@@ -64,14 +64,14 @@ export default function SidebarCdp() {
                 {
                     title: "Suivi de l'étude",
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/suivi'
+                    href: '/' + mission + '/suivi',
                 },
                 {
                     title: "Finalisation de l'étude",
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/finalisation'
-                }
-            ]
+                    href: '/' + mission + '/finalisation',
+                },
+            ],
         },
         {
             title: 'Espace fun',
@@ -79,10 +79,10 @@ export default function SidebarCdp() {
                 {
                     title: 'Espace trésorerie',
                     icon: FaNoteSticky,
-                    href: '/' + mission + '/treso'
-                }
-            ]
-        }
+                    href: '/' + mission + '/treso',
+                },
+            ],
+        },
     ];
 
     return (

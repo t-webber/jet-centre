@@ -13,8 +13,8 @@ export async function onSubmit(jsonData: string) {
 
     const cdpRole = await prisma.roles.findUnique({
         where: {
-            name: ROLE_NAME_CDP
-        }
+            name: ROLE_NAME_CDP,
+        },
     });
 
     if (!cdpRole) {
@@ -27,14 +27,14 @@ export async function onSubmit(jsonData: string) {
         data.settings.cdps.map(async (cdp) => {
             const person = await prisma.people.findUnique({
                 where: {
-                    email: cdp.email
+                    email: cdp.email,
                 },
                 select: {
-                    User: true
-                }
+                    User: true,
+                },
             });
             return { userId: person?.User?.id ?? falseId, ...cdp };
-        })
+        }),
     );
 
     const companies_ = await Promise.all(
@@ -45,15 +45,15 @@ export async function onSubmit(jsonData: string) {
                 company.members.map(async (member) => {
                     const person = await prisma.people.findUnique({
                         where: {
-                            email: member.email
-                        }
+                            email: member.email,
+                        },
                     });
                     return { peopleId: person?.id ?? falseId, ...member };
-                })
+                }),
             );
 
             return { ...company, members };
-        })
+        }),
     );
     const companies = companies_.filter((c) => c !== null);
 
@@ -62,13 +62,13 @@ export async function onSubmit(jsonData: string) {
             cdps: {
                 connectOrCreate: cdps.map((cdp) => ({
                     where: {
-                        userId: cdp.userId
+                        userId: cdp.userId,
                     },
                     create: {
                         role: {
                             connect: {
-                                id: cdpRole.id
-                            }
+                                id: cdpRole.id,
+                            },
                         },
                         user: {
                             create: {
@@ -78,20 +78,20 @@ export async function onSubmit(jsonData: string) {
                                         firstName: cdp.firstName,
                                         lastName: cdp.lastName,
                                         // If we don't connect, that mean we have a new user
-                                        number: orUndefine((cdp as NewAdmin).tel)
-                                    }
+                                        number: orUndefine((cdp as NewAdmin).tel),
+                                    },
                                 },
                                 settings: {
                                     create: {
                                         theme: 'dark',
                                         notificationLvl: NotifLvl.HIGH,
-                                        gui: true
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }))
+                                        gui: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                })),
             },
             clients: {
                 create: companies
@@ -102,7 +102,7 @@ export async function onSubmit(jsonData: string) {
                                 client: {
                                     connectOrCreate: {
                                         where: {
-                                            peopleId: member.peopleId
+                                            peopleId: member.peopleId,
                                         },
                                         create: {
                                             job: member.job,
@@ -111,13 +111,13 @@ export async function onSubmit(jsonData: string) {
                                                     email: member.email,
                                                     firstName: member.firstName,
                                                     lastName: member.lastName,
-                                                    number: ''
-                                                }
+                                                    number: '',
+                                                },
                                             },
                                             company: {
                                                 connectOrCreate: {
                                                     where: {
-                                                        name: company.name
+                                                        name: company.name,
                                                     },
                                                     create: {
                                                         name: company.name,
@@ -127,8 +127,8 @@ export async function onSubmit(jsonData: string) {
                                                                 street: company.address.street,
                                                                 city: company.address.city,
                                                                 zipCode: company.address.zip,
-                                                                country: company.address.country
-                                                            }
+                                                                country: company.address.country,
+                                                            },
                                                         },
                                                         companyInfos: {
                                                             create: {
@@ -136,28 +136,28 @@ export async function onSubmit(jsonData: string) {
                                                                 ca: orUndefine(company.ca),
                                                                 size: map(
                                                                     orUndefine(
-                                                                        company.size
+                                                                        company.size,
                                                                     ) as CompanySize,
-                                                                    toPgCompanySize
+                                                                    toPgCompanySize,
                                                                 ),
                                                                 domains: !isEmtpyString(
-                                                                    company.domains
+                                                                    company.domains,
                                                                 )
                                                                     ? (
                                                                           company.domains as Domain[]
                                                                       ).map(toPgDomain)
-                                                                    : []
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
+                                                                    : [],
+                                                            },
+                                                        },
+                                                    },
+                                                },
+                                            },
+                                        },
+                                    },
+                                },
                             }));
                     })
-                    .flat()
+                    .flat(),
             },
             information: {
                 create: {
@@ -166,15 +166,15 @@ export async function onSubmit(jsonData: string) {
                     duration: orUndefine(data.settings.duration),
                     // deadlinePreStudy: new Date(data.settings.deadline),
                     deadlinePreStudy: map(orUndefine(data.settings.deadline), (x) => new Date(x)),
-                    cc: data.settings.cc
-                }
+                    cc: data.settings.cc,
+                },
             },
             progress: {
                 create: {
-                    step: StudyProgressStep.PRELIMINARY_STUDY
-                }
-            }
-        }
+                    step: StudyProgressStep.PRELIMINARY_STUDY,
+                },
+            },
+        },
     });
 }
 

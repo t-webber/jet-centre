@@ -23,7 +23,7 @@ const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root
                     ? 'peer border border-primary data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground'
                     : 'border-[2.5px] border-checkbox-border data-[state=checked]:bg-checkbox-background data-[state=checked]:text-primary-foreground',
 
-                className
+                className,
             )}
             {...props}
         >
@@ -31,13 +31,13 @@ const Checkbox = React.forwardRef<React.ElementRef<typeof CheckboxPrimitive.Root
                 className={cn(
                     primary
                         ? 'flex items-center justify-center text-current -translate-y-[1px]'
-                        : 'h-full w-full bg-slate-200'
+                        : 'h-full w-full bg-slate-200',
                 )}
             >
                 {primary && <Check className="h-4 w-4" />}
             </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
-    )
+    ),
 );
 Checkbox.displayName = CheckboxPrimitive.Root.displayName;
 

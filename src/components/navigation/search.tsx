@@ -12,7 +12,7 @@ export function Search() {
     const commands: CommandProp[] = [
         { value: 'calendar', label: 'Calendar' },
         { value: 'search-emoji', label: 'Search Emoji' },
-        { value: 'calculator', label: 'Calculator' }
+        { value: 'calculator', label: 'Calculator' },
     ];
     const [open, setOpen] = React.useState(false);
     const [inputValue, setInputValue] = React.useState('');
@@ -24,7 +24,7 @@ export function Search() {
 
     const filteredCommands = Array.isArray(commands)
         ? commands.filter((command) =>
-              command.label.toLowerCase().includes(inputValue.toLowerCase())
+              command.label.toLowerCase().includes(inputValue.toLowerCase()),
           )
         : [];
 

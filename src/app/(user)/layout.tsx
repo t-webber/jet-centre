@@ -6,7 +6,7 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { SessionProvider } from 'next-auth/react';
 
 export default function Layout({
-    children
+    children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {

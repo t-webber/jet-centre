@@ -7,7 +7,7 @@ import {
     FormField,
     FormItem,
     FormLabel,
-    FormMessage
+    FormMessage,
 } from '../../ui/form';
 import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
@@ -63,7 +63,7 @@ const CheckboxFormElementWrapper = <T extends FieldValues>({
     name,
     son,
     description,
-    className
+    className,
 }: FormElementWrapperProps<T>) => (
     <FormField
         control={form.control}
