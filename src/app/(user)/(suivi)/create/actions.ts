@@ -34,7 +34,7 @@ export async function onSubmit(jsonData: string) {
                 },
             });
             return { userId: person?.User?.id ?? falseId, ...cdp };
-        }),
+        })
     );
 
     const companies_ = await Promise.all(
@@ -49,11 +49,11 @@ export async function onSubmit(jsonData: string) {
                         },
                     });
                     return { peopleId: person?.id ?? falseId, ...member };
-                }),
+                })
             );
 
             return { ...company, members };
-        }),
+        })
     );
     const companies = companies_.filter((c) => c !== null);
 
@@ -77,8 +77,8 @@ export async function onSubmit(jsonData: string) {
                                         email: cdp.email,
                                         firstName: cdp.firstName,
                                         lastName: cdp.lastName,
-                                        // If we don't connect, that mean we have a new user
-                                        number: orUndefine((cdp as NewAdmin).tel),
+                                        // If we don't connect, that means we have a new user
+                                        number: orUndefined((cdp as NewAdmin).tel),
                                     },
                                 },
                                 settings: {
@@ -133,15 +133,15 @@ export async function onSubmit(jsonData: string) {
                                                         companyInfos: {
                                                             create: {
                                                                 nvEmployees: 0,
-                                                                ca: orUndefine(company.ca),
+                                                                ca: orUndefined(company.ca),
                                                                 size: map(
-                                                                    orUndefine(
-                                                                        company.size,
+                                                                    orUndefined(
+                                                                        company.size
                                                                     ) as CompanySize,
-                                                                    toPgCompanySize,
+                                                                    toPgCompanySize
                                                                 ),
-                                                                domains: !isEmtpyString(
-                                                                    company.domains,
+                                                                domains: !isEmptyString(
+                                                                    company.domains
                                                                 )
                                                                     ? (
                                                                           company.domains as Domain[]
@@ -163,9 +163,9 @@ export async function onSubmit(jsonData: string) {
                 create: {
                     title: data.settings.name,
                     // applicationFee: 0,
-                    duration: orUndefine(data.settings.duration),
+                    duration: orUndefined(data.settings.duration),
                     // deadlinePreStudy: new Date(data.settings.deadline),
-                    deadlinePreStudy: map(orUndefine(data.settings.deadline), (x) => new Date(x)),
+                    deadlinePreStudy: map(orUndefined(data.settings.deadline), (x) => new Date(x)),
                     cc: data.settings.cc,
                 },
             },
@@ -178,11 +178,11 @@ export async function onSubmit(jsonData: string) {
     });
 }
 
-function isEmtpyString<T>(value: T): boolean {
+function isEmptyString<T>(value: T): boolean {
     return typeof value === 'string' && value === '';
 }
 
-function orUndefine<T>(value: T | string | null | undefined): T | undefined {
+function orUndefined<T>(value: T | string | null | undefined): T | undefined {
     return value === null || value === undefined || (typeof value === 'string' && value === '')
         ? undefined
         : (value as T);
