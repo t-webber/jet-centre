@@ -1,16 +1,13 @@
 'use server';
 
 import prisma from '@/db';
-import { studyCreationSchema, StudyCreationSchema } from './forms/schema';
-import { NotifLvl, StudyProgressStep } from '@prisma/client';
+import { StudyCreationSchema } from './forms/schema';
+import { NotifLvl } from '@prisma/client';
 import { ROLE_NAME_CDP } from '@/settings/roles';
 import { NewAdmin } from './forms/settings/settingsSchema';
 import { CompanySize, Domain, toPgCompanySize, toPgDomain } from '@/settings/vars';
 
-export async function onSubmit(jsonData: string) {
-    const data_ = JSON.parse(jsonData);
-    const data: StudyCreationSchema = studyCreationSchema.parse(data_);
-
+export async function createNewStudy(data: StudyCreationSchema) {
     const cdpRole = await prisma.roles.findUnique({
         where: {
             name: ROLE_NAME_CDP,
@@ -161,17 +158,11 @@ export async function onSubmit(jsonData: string) {
             },
             information: {
                 create: {
+                    code: data.settings.code,
                     title: data.settings.name,
-                    // applicationFee: 0,
                     duration: orUndefined(data.settings.duration),
-                    // deadlinePreStudy: new Date(data.settings.deadline),
                     deadlinePreStudy: map(orUndefined(data.settings.deadline), (x) => new Date(x)),
                     cc: data.settings.cc,
-                },
-            },
-            progress: {
-                create: {
-                    step: StudyProgressStep.PRELIMINARY_STUDY,
                 },
             },
         },

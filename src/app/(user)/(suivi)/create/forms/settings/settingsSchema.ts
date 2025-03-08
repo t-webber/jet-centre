@@ -46,7 +46,11 @@ export type AdminFormValue = z.infer<typeof zAdminFormValue>;
 // ====================================================== //
 
 export const settingsCreationSchema = z.object({
-    name: z.string().superRefine(required),
+    code: z
+        .string()
+        .superRefine(required)
+        .refine((v) => /^22/.test(v), { message: "Code de l'étude doit commencer par 22!" }),
+    name: z.string().optional(),
     duration: z.number().or(EMPTY_STRING),
     deadline: z.string().superRefine(stringDate).or(EMPTY_STRING),
     cc: z.boolean(),
@@ -56,6 +60,7 @@ export const settingsCreationSchema = z.object({
 export type SettingsCreationSchema = z.infer<typeof settingsCreationSchema>;
 
 export const emptySettingsCreationSchema: SettingsCreationSchema = {
+    code: '',
     name: '',
     duration: '',
     deadline: '',

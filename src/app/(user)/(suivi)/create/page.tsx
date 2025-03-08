@@ -16,8 +16,6 @@ export default async function CreateStudy() {
         },
     });
 
-    // TODO: fix this ts-ignore
-    // @ts-ignore (I don't see what ts don't like here, so I'll ignore it)
     const companies: Company[] = rawCompanies.map((c) => ({
         id: c.id,
         name: c.name,

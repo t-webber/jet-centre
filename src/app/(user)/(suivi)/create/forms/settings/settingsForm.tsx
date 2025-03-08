@@ -56,6 +56,12 @@ export function SettingsForm({ formStudy, formStudyId, admins }: SettingsFormPro
                 <div className="flex flex-col gap-2">
                     <FormProvider {...formStudy}>
                         <InputFormElement
+                            label="Code de l'étude"
+                            name="settings.code"
+                            form={formStudy}
+                            formId={formStudyId}
+                        />
+                        <InputFormElement
                             label="Nom de l'étude"
                             name="settings.name"
                             form={formStudy}
