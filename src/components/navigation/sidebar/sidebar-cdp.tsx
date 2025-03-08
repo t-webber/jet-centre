@@ -9,10 +9,8 @@ import { SideBarGroup } from '@/settings/sidebars/siderbar-trez';
 import { SidebarList } from './sidebar-list';
 import { SidebarSeparator } from '@/components/ui/sidebar';
 
-export default function SidebarCdp() {
+export default function SidebarCdp({ missions }: { missions: string[] }) {
     const session = useSession();
-    const user = session.data?.user;
-    const missions = get_user_missions(user);
     const [selectedMission, setSelectedMission] = useState(0);
 
     const mission = missions[selectedMission];

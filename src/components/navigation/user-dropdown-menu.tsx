@@ -15,6 +15,7 @@ import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 interface UserDropdownMenuProps {
     isMobile: boolean;
@@ -34,14 +35,14 @@ export const UserDropdownMenu = ({ isMobile, isOpen }: UserDropdownMenuProps) =>
                     <DropdownMenuTrigger asChild>
                         <SidebarMenuButton
                             size="lg"
-                            className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground w-full justify-between"
+                            className="hover:bg-accent hover:text-muted-foreground data-[state=open]:bg-accent data-[state=open]:text-muted-foreground w-full justify-between"
                         >
                             {isOpen && <span className="font-medium">{username}</span>}
                             <UserAvatar round={isOpen} avatarUrl={avatarUrl} />
                         </SidebarMenuButton>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
-                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
+                        className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg bg-background"
                         side={isMobile ? 'bottom' : 'right'}
                         align="end"
                         sideOffset={4}
@@ -53,24 +54,14 @@ export const UserDropdownMenu = ({ isMobile, isOpen }: UserDropdownMenuProps) =>
                             </div>
                         </DropdownMenuLabel>
                         <DropdownMenuSeparator />
-                        <DropdownMenuGroup>
-                            <DropdownMenuItem className="space-x-2">
-                                <BadgeCheck />
-                                <p>Account</p>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="space-x-2">
-                                <CreditCard />
-                                <p>Billing</p>
-                            </DropdownMenuItem>
-                            <DropdownMenuItem className="space-x-2">
-                                <Bell />
-                                <p>Notifications</p>
-                            </DropdownMenuItem>
-                        </DropdownMenuGroup>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem className="space-x-2" onClick={() => signOut()}>
-                            <LogOut />
-                            <p>Log out</p>
+                        <DropdownMenuItem
+                            className="space-x-2 cursor-pointer focus:text-primary-foreground"
+                            asChild
+                        >
+                            <Link href="/auth/signout">
+                                <LogOut />
+                                <p>Log out</p>
+                            </Link>
                         </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>

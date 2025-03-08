@@ -8,13 +8,16 @@ export function SidebarLogo() {
     return (
         <SidebarMenu>
             <SidebarMenuItem>
-                <div className="flex space-x-main">
+                <SidebarMenuButton
+                    size="lg"
+                    className="hover:bg-inherit active:bg-inherit cursor-auto"
+                >
                     <LogoBird />
                     <div className="flex flex-col items-center">
                         <h1 className="font-semibold text-lg">JET&nbsp;CENTRE</h1>
                         <p className="text-sm text-muted-foreground">Telecom Etude</p>
                     </div>
-                </div>
+                </SidebarMenuButton>
             </SidebarMenuItem>
         </SidebarMenu>
     );

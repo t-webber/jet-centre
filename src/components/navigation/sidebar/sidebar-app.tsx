@@ -17,12 +17,16 @@ import { SidebarLogo } from './sidebar-logo';
 import { UserDropdownMenu } from '../user-dropdown-menu';
 import { SidebarSwitch } from './sidebar-switch';
 
-export function SidebarApp({ ...props }: React.ComponentProps<typeof Sidebar>) {
+interface Props {
+    userInfo?: { missions: string[]; position: string };
+}
+
+export function SidebarApp({ ...props }: Props) {
     const { state, isMobile } = useSidebar();
     const expanded = state == 'expanded';
 
     return (
-        <Sidebar collapsible="icon" {...props}>
+        <Sidebar collapsible="icon">
             <SidebarHeader className={cn('items-center', expanded ? 'p-4' : '')}>
                 <SidebarLogo />
             </SidebarHeader>
@@ -30,7 +34,7 @@ export function SidebarApp({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarSeparator />
 
             <SidebarContent>
-                <SidebarSwitch isOpen={expanded} />
+                <SidebarSwitch isOpen={expanded} {...props.userInfo} />
             </SidebarContent>
 
             <SidebarFooter>
