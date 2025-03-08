@@ -19,23 +19,13 @@ export default function SidebarCdp() {
 
     const sidebar_groups: SideBarGroup[] = [
         {
-            title: 'Défaut',
+            title: 'Pré-étude',
             items: [
-                {
-                    title: 'Tableau de bord',
-                    icon: FaHouse,
-                    href: '/' + mission + '/dashboard',
-                },
                 {
                     title: "Paramètres de l'étude",
                     icon: FaGears,
                     href: '/' + mission + '/params',
                 },
-            ],
-        },
-        {
-            title: 'Pré-étude',
-            items: [
                 {
                     title: 'Notes clients & étude',
                     icon: FaNoteSticky,
@@ -58,13 +48,14 @@ export default function SidebarCdp() {
                 },
             ],
         },
+
         {
             title: 'Suivi',
             items: [
                 {
-                    title: "Suivi de l'étude",
-                    icon: FaNoteSticky,
-                    href: '/' + mission + '/suivi',
+                    title: 'Tableau de bord',
+                    icon: FaHouse,
+                    href: '/' + mission + '/dashboard',
                 },
                 {
                     title: "Finalisation de l'étude",
