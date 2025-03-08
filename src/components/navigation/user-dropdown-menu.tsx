@@ -4,17 +4,14 @@ import { UserAvatar } from '@/components/ui/user-avatar';
 import {
     DropdownMenu,
     DropdownMenuContent,
-    DropdownMenuGroup,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from '@/components/ui/sidebar';
-import { BadgeCheck, Bell, CreditCard, LogOut, Sparkles } from 'lucide-react';
-import { useState } from 'react';
+import { LogOut } from 'lucide-react';
 import { useSession } from 'next-auth/react';
-import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 
 interface UserDropdownMenuProps {
@@ -26,7 +23,6 @@ export const UserDropdownMenu = ({ isMobile, isOpen }: UserDropdownMenuProps) =>
     const session = useSession();
     const avatarUrl = session.data?.user.image ?? null;
     const username = session.data?.user.name ?? null;
-    const [open, setOpen] = useState(false);
 
     return (
         <SidebarMenu>

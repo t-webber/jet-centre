@@ -75,7 +75,7 @@ const FormItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEl
                 <div ref={ref} className={className} {...props} />
             </FormItemContext.Provider>
         );
-    },
+    }
 );
 FormItem.displayName = 'FormItem';
 
@@ -166,7 +166,7 @@ const FormRow = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivEle
                 {...props}
             />
         );
-    },
+    }
 );
 
 interface FormRuleProps extends React.HTMLAttributes<HTMLHRElement> {
@@ -182,7 +182,7 @@ const FormRule = React.forwardRef<HTMLHRElement, FormRuleProps>(
                 {...props}
             />
         );
-    },
+    }
 );
 
 export {

@@ -22,7 +22,7 @@ interface Props {
 }
 
 export function SidebarApp({ ...props }: Props) {
-    const { state, isMobile } = useSidebar();
+    const { state } = useSidebar();
     const expanded = state == 'expanded';
 
     return (

@@ -1,6 +1,6 @@
 'use client';
 
-import { FaMoneyBill, FaUser, FaBug, FaQuestion } from 'react-icons/fa6';
+import { FaUser, FaBug, FaQuestion } from 'react-icons/fa6';
 import SidebarCdp from './sidebar-cdp';
 import SidebarRole from './sidebar-role';
 import { useState } from 'react';
@@ -27,7 +27,7 @@ export function SidebarSwitch({
             content: <SidebarCdp missions={missions} />,
         });
     }
-    var positionIcon;
+    let positionIcon;
     switch (position) {
         case 'Trésorier': {
             positionIcon = FaQuestion;

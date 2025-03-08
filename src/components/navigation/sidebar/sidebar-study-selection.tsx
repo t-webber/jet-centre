@@ -24,7 +24,7 @@ export function StudySelection({
                     <PaginationPrevious
                         onClick={() =>
                             setSelectedMission(
-                                (selectedMission - 1 + missions.length) % missions.length,
+                                (selectedMission - 1 + missions.length) % missions.length
                             )
                         }
                     ></PaginationPrevious>

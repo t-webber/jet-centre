@@ -5,6 +5,7 @@ export const metadata = {
     title: 'Écriture MRI',
 } satisfies Metadata;
 
-export default function MRI({ params: { etude } }: { params: { etude: string } }) {
+export default async function MRI({ params }: { params: Promise<{ etude: string }> }) {
+    const { etude } = await params;
     return <Inner etude={etude} />;
 }

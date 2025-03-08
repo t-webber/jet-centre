@@ -11,7 +11,7 @@ import { PDF } from './right-components/pdf';
 import Client from './client';
 
 function getCurrentTitle(right: Right, current: Assignee) {
-    var currentTitle;
+    let currentTitle;
     switch (right) {
         case 'pass_interview':
             currentTitle = "Effectuer l'entretien";

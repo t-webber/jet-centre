@@ -24,7 +24,7 @@ export function Search() {
 
     const filteredCommands = Array.isArray(commands)
         ? commands.filter((command) =>
-              command.label.toLowerCase().includes(inputValue.toLowerCase()),
+              command.label.toLowerCase().includes(inputValue.toLowerCase())
           )
         : [];
 

@@ -125,7 +125,7 @@ function CompanyForm({
     const field = useCallback(
         (name: string): Path<StudyCreationSchema> =>
             `companies.companies.${defaultValues.idx}.${name}` as any,
-        [defaultValues.idx],
+        [defaultValues.idx]
     );
 
     useEffect(() => {
@@ -150,12 +150,12 @@ function CompanyForm({
 
     // ~~~~~~~~~~~~~~~ Contacts ~~~~~~~~~~~~~~ //
     const contactList = useSortableList(
-        defaultValues.members.map((c, idx) => ({ ...c, id: idx.toString() })),
+        defaultValues.members.map((c, idx) => ({ ...c, id: idx.toString() }))
     );
     useEffect(() => {
         formStudy.setValue(
             field('members'),
-            contactList.items.filter((c) => !(c.excluded ?? false)),
+            contactList.items.filter((c) => !(c.excluded ?? false))
         );
     }, [contactList.items, formStudy, field]);
 

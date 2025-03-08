@@ -17,14 +17,14 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     'focus-visible:outline-none focus-visible:border-foreground',
                     'placeholder:text-muted-foreground placeholder:italic',
                     'file:border-0 file:bg-transparent file:text-sm file:font-medium',
-                    className,
+                    className
                 )}
                 ref={ref}
                 {...props}
                 disabled={unwritable || props.disabled}
             />
         );
-    },
+    }
 );
 Input.displayName = 'Input';
 

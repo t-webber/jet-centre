@@ -1,7 +1,5 @@
 import { Metadata } from 'next';
 
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
 import FilesBrowser from '@/components/gdrive/FilesBrowser';
 
 export const metadata = {

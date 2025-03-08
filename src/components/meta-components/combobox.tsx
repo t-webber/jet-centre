@@ -74,7 +74,7 @@ export const ManyComboBox = ({
                                             'mr-2 h-4 w-4',
                                             selectedKeys.includes(item)
                                                 ? 'opacity-100'
-                                                : 'opacity-0',
+                                                : 'opacity-0'
                                         )}
                                         checked={selectedKeys.includes(item)}
                                     />
@@ -132,7 +132,7 @@ export const SingleCombobox = ({
                                     <Check
                                         className={cn(
                                             'mr-2 h-4 w-4',
-                                            currentKey === item ? 'opacity-100' : 'opacity-0',
+                                            currentKey === item ? 'opacity-100' : 'opacity-0'
                                         )}
                                     />
                                     {item}

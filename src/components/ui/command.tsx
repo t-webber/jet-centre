@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { type DialogProps } from '@radix-ui/react-dialog';
 import { Command as CommandPrimitive } from 'cmdk';
-import { Search } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
@@ -16,16 +15,14 @@ const Command = React.forwardRef<
         ref={ref}
         className={cn(
             'flex h-full w-full flex-col overflow-hidden rounded-md bg-popover text-popover-foreground',
-            className,
+            className
         )}
         {...props}
     />
 ));
 Command.displayName = CommandPrimitive.displayName;
 
-interface CommandDialogProps extends DialogProps {}
-
-const CommandDialog = ({ children, ...props }: CommandDialogProps) => {
+const CommandDialog = ({ children, ...props }: DialogProps) => {
     return (
         <Dialog {...props}>
             <DialogContent className="overflow-hidden p-0 shadow-lg">
@@ -47,7 +44,7 @@ const CommandInput = React.forwardRef<
             ref={ref}
             className={cn(
                 'flex h-11 w-full rounded-md bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50',
-                className,
+                className
             )}
             {...props}
         />
@@ -59,6 +56,7 @@ CommandInput.displayName = CommandPrimitive.Input.displayName;
 export const HiddenCommandInput = React.forwardRef<
     React.ElementRef<typeof CommandPrimitive.Input>,
     React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
 >(({ className, ...props }, ref) => (
     <CommandPrimitive.Input ref={ref} className="hidden" {...props} />
 ));
@@ -95,7 +93,7 @@ const CommandGroup = React.forwardRef<
         ref={ref}
         className={cn(
             'overflow-hidden p-1 text-foreground [&_[cmdk-group-heading]]:px-2 [&_[cmdk-group-heading]]:py-1.5 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:text-muted-foreground',
-            className,
+            className
         )}
         {...props}
     />
@@ -125,7 +123,7 @@ const CommandItem = React.forwardRef<
             'relative flex items-center px-2 py-1.5 cursor-default select-none rounded-sm text-sm outline-none',
             'data-[selected=true]:bg-accent data-[selected=true]:font-semibold',
             'data-[disabled=true]:opacity-50 data-[disabled=true]:pointer-events-none',
-            className,
+            className
         )}
         {...props}
     />

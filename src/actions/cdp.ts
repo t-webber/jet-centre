@@ -3,7 +3,6 @@
  */
 
 import prisma from '@/db';
-import { User } from 'next-auth';
 
 /**
  * Function to fetch the different mission of a CDP.

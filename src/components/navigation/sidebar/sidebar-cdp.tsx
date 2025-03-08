@@ -1,16 +1,13 @@
 'use client';
 
-import { get_user_missions } from '@/actions/cdp';
 import { useState } from 'react';
 import { StudySelection } from './sidebar-study-selection';
-import { useSession } from 'next-auth/react';
 import { FaGears, FaHouse, FaNoteSticky } from 'react-icons/fa6';
 import { SideBarGroup } from '@/settings/sidebars/siderbar-trez';
 import { SidebarList } from './sidebar-list';
 import { SidebarSeparator } from '@/components/ui/sidebar';
 
 export default function SidebarCdp({ missions }: { missions: string[] }) {
-    const session = useSession();
     const [selectedMission, setSelectedMission] = useState(0);
 
     const mission = missions[selectedMission];

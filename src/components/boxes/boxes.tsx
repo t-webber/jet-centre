@@ -24,7 +24,7 @@ export const Box = forwardRef<
             'backdrop-blur-sm',
             'transition-all duration-200 ease-in-out',
             'hover:border-box-hover/20',
-            className,
+            className
         )}
         {...props}
     >
@@ -51,7 +51,7 @@ export const BoxHeader = forwardRef<
             'bg-box-title/50 py-2 px-4',
             'border-b border-box-hover/10 rounded-t-xl',
             'flex justify-between items-center gap-4',
-            className,
+            className
         )}
         {...props}
     >
@@ -83,7 +83,7 @@ export const BoxContent = ({
             'space-y-4 flex-grow max-h-full',
             height === 'auto' && 'h-auto max-h-auto',
             height === 'limited' && '',
-            noPadding ? 'p-0' : 'p-4',
+            noPadding ? 'p-0' : 'p-4'
         )}
     >
         {children}
@@ -165,7 +165,9 @@ export const BoxCollapseButton = ({
     onClick?: () => void;
 }) => {
     function toggleCollapse() {
-        onClick && onClick();
+        if (onClick) {
+            onClick();
+        }
         setCollapse(!collapse);
     }
 

@@ -61,7 +61,7 @@ export function FormElementWrapper<T extends FieldValues>({
                     className={cn(
                         'group relative mb-4',
                         (field.disabled || unwritable) && 'cursor-not-allowed',
-                        className,
+                        className
                     )}
                 >
                     {pingOnce && (
@@ -76,7 +76,7 @@ export function FormElementWrapper<T extends FieldValues>({
                             labelVariants({
                                 labelStat: labelStat,
                             }),
-                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none group-focus-within:py-0',
+                            'group-focus-within:text-inherit group-focus-within:left-2 group-focus-within:-top-2 group-focus-within:max-w-none group-focus-within:py-0'
                         )}
                     >
                         <div
@@ -109,7 +109,7 @@ export function LightFormElement<T extends FieldValues>({
         <FormField
             control={form.control}
             name={name}
-            render={({ field }) => (
+            render={() => (
                 <FormItem>
                     {description && <FormDescription>{description}</FormDescription>}
                     <FormMessage />

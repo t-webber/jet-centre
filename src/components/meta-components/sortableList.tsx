@@ -32,7 +32,7 @@ export type DragHandle = (SyntheticListenerMap | undefined) & DraggableAttribute
 type RenderFn<T extends WithId = WithId> = (
     item: T,
     dragHandleProps: DragHandle,
-    updateItem: (newItem: T) => void,
+    updateItem: (newItem: T) => void
 ) => ReactNode;
 
 interface ItemManager<T extends WithId = WithId> {
@@ -60,7 +60,7 @@ export function SortableList<T extends WithId = WithId>({
         useSensor(PointerSensor),
         useSensor(KeyboardSensor, {
             coordinateGetter: sortableKeyboardCoordinates,
-        }),
+        })
     );
 
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -174,7 +174,7 @@ export function useSortableList<T extends WithId = WithId>(initialItems?: T[]): 
 // Code from: https://github.com/clauderic/dnd-kit/blob/master/packages/utilities/src/css.ts
 // Licence: MIT
 function transformToCSS(transform: any) {
-    const { x, y, scaleX, scaleY } = transform ?? { x: 0, y: 0, scaleX: 1, scaleY: 1 };
+    const { x, y } = transform ?? { x: 0, y: 0, scaleX: 1, scaleY: 1 };
 
     return `translate3d(${x ? Math.round(x) : 0}px, ${y ? Math.round(y) : 0}px, 0)`;
 }

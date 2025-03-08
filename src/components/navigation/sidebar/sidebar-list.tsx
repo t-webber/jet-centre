@@ -16,7 +16,7 @@ export function SidebarList({ sidebar_groups }: Props) {
     return (
         <div className="flex-grow">
             {sidebar_groups.map((sidebar_group, i) => (
-                <SidebarGroup key={sidebar_group.title}>
+                <SidebarGroup key={i}>
                     <SidebarGroupLabel>{sidebar_group.title}</SidebarGroupLabel>
                     <SidebarMenu>
                         {sidebar_group.items.map((item) => (

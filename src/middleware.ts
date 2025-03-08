@@ -16,7 +16,7 @@ import { auth } from './actions/auth';
 
 import type { Session } from 'next-auth';
 import type { NextRequest } from 'next/server';
-import { AUTH_PREFIX, DEFAULT_LOGIN_REDIRECT } from './routes';
+import { DEFAULT_LOGIN_REDIRECT } from './routes';
 
 /**
  * Extends the internal NextAuth type to add `auth` session.
@@ -40,14 +40,13 @@ export default auth((request: NextAuthRequest) => {
     }
 
     const { pathname } = request.nextUrl;
-    const isAuthRoute = pathname.startsWith(AUTH_PREFIX);
 
     if (isLoggedIn) {
-        if (isAuthRoute) {
+        if (pathname === '/auth/signin') {
             return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, request.nextUrl));
         }
     } else {
-        if (!isAuthRoute) {
+        if (pathname !== '/auth/signin') {
             return NextResponse.redirect(new URL('/auth/signin', request.nextUrl));
         }
     }

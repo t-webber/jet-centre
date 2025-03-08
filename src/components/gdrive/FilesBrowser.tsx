@@ -71,11 +71,11 @@ function FileComponent({ pFile }: { pFile: Promise<File> | null }) {
 }
 
 const FilesBrowser = () => {
-    const [itemsPerPage, setItemsPerPage] = useState(10);
+    const itemsPerPage = 10;
     const [files, setFiles] = useState<(Promise<File> | null)[]>([]);
 
     async function fetchFiles() {
-        setFiles([...Array(itemsPerPage)].map((_) => null));
+        setFiles(new Array(itemsPerPage).fill(null));
         const fileIds = await getFileIds();
         const files = await getFiles(fileIds);
 

@@ -22,6 +22,7 @@ interface CheckboxFormElementProps<T extends FieldValues> extends FormElementPro
 export const CheckboxFormElement = <T extends FieldValues>({
     formId,
     onChange,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type,
     className,
     ...props
