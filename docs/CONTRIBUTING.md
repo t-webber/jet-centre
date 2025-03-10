@@ -34,7 +34,7 @@ If you find a bug or have a question:
 
 ### Contributing Code
 
-1. **Read the [Getting Started Guide](./docs/GETTING_STARTED.md)** to set up the project locally.
+1. **Read the [Getting Started Guide](/docs/GETTING_STARTED.md)** to set up the project locally.
 2. [Fork](#fork) the project.
 3. Make your changes, ensuring you follow the [Style Guidelines](#style-guidelines).
 4. Once finished with all your code on your fork, make sure you are up-to-date with the `main` branch of `jet-centre`.
