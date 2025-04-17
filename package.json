@@ -3,9 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --port 5005",
-        "build": "next build",
-        "start": "next start",
+        "dev": "next dev --port 5005 --turbopack",
+        "build": "next build --turbopack",
+        "start": "next start --turbopack",
         "lint": "next lint",
         "prettier": "npx prettier",
         "fmt": "npx prettier . --write",
