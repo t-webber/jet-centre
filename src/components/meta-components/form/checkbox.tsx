@@ -14,16 +14,13 @@ import { cn } from '@/lib/utils';
 
 interface CheckboxFormElementProps<T extends FieldValues> extends FormElementProps<T> {
     formId?: string;
-    onChange?: (newValue: string) => void;
-    type?: string;
+    onChange?: (checked: boolean) => void;
     className?: string;
 }
 
 export const CheckboxFormElement = <T extends FieldValues>({
     formId,
     onChange,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    type,
     className,
     ...props
 }: CheckboxFormElementProps<T>) => (
@@ -33,13 +30,13 @@ export const CheckboxFormElement = <T extends FieldValues>({
         son={(field) => (
             <Checkbox
                 {...field}
-                onChange={(e) => {
-                    console.log(e.target);
+                onCheckedChange={(e) => {
                     field.onChange(e);
                     if (onChange) {
-                        // onChange(e.target.value);
+                        onChange(e.valueOf() as boolean);
                     }
                 }}
+                defaultChecked={props.form.getValues()[props.name]}
                 form={formId}
             />
         )}
