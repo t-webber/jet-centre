@@ -8,13 +8,13 @@ build:
 	$(COMPOSE) -f docker-compose.yml build
 
 studio:
-	$(EXEC) app-dev npm run prisma:studio
+	$(EXEC) app-dev npx prisma studio
 
 seed: reset_db
-	$(EXEC) app-dev npm run prisma:seed_raw dev
+	$(EXEC) app-dev npx prisma db seed -- --environment dev
 
 seed-prod: reset_db
-	$(EXEC) app-dev npm run prisma:seed_raw prod
+	$(EXEC) app-dev npx prisma db seed -- --environment prod
 
 reset_db:
 	$(EXEC) app-dev npx prisma db push --force-reset

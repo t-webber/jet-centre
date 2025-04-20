@@ -19,7 +19,7 @@ services:
         volumes:
             - cache:/data
         networks:
-            - app-network
+            - cache-network
 
     app:
         build:
@@ -28,7 +28,6 @@ services:
         container_name: app-dev
         volumes:
             - .:/app
-            # - /app/node_modules # Prevent overwriting node_modules
         ports:
             # For the app
             - '5005:5005'
@@ -38,16 +37,19 @@ services:
             - DB_URL=postgres://postgres:postgres@postgres:5432/maindb?schema=public
             - REDIS_URL=redis://cache:6379/0
         env_file:
-            - .env.local
+            - .env
         depends_on:
             - postgres
             - cache
         networks:
             - app-network
+            - cache-network
         command: npm run dev
 
 networks:
     app-network:
+        driver: bridge
+    cache-network:
         driver: bridge
 
 volumes:
