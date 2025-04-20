@@ -1,6 +1,7 @@
 services:
     postgres:
         image: postgres:15
+        restart: always
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
@@ -18,26 +19,27 @@ services:
         command: redis-server --save 20 1 --loglevel warning
         volumes:
             - cache:/data
+        networks:
+            - app-network
 
     app:
         build:
             context: .
-            dockerfile: Dockerfile.dev
-        container_name: app-dev
-        volumes:
-            - .:/app
-            # - /app/node_modules # Prevent overwriting node_modules
+            dockerfile: Dockerfile
+        container_name: app-prod
         ports:
-            - '5005:5005'
-            - '5555:5555'
+            - '4000:5005'
+        environment:
+            NODE_ENV: production
+        #     DATABASE_URL: postgres://postgres:postgres@postgres:5432/mydatabase
+        #     REDIS_URL: redis://cache:6379/0
         env_file:
-            - .env.local
+            - .env.prod
         depends_on:
             - postgres
             - cache
         networks:
             - app-network
-        command: npm run dev
 
 networks:
     app-network:

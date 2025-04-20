@@ -3,14 +3,16 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev --port 5005 --turbopack",
+        "dev": "npx prisma migrate dev && next dev --port 5005 --turbopack",
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
         "prettier": "npx prettier",
         "fmt": "npx prettier . --write",
         "prisma:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
-        "prisma:seed": "dotenv -e .env.local -- npx prisma db seed"
+        "prisma:seed": "npx prisma db seed -- --environment prod",
+        "prisma:seed_raw": "npx prisma db seed -- --environment ",
+        "prisma:studio": "npx prisma studio"
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"
