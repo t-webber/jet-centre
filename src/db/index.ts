@@ -8,13 +8,17 @@
 
 import { Prisma, PrismaClient } from '@prisma/client';
 import { DefaultArgs } from '@prisma/client/runtime/library';
+import Redis from 'ioredis';
 
 declare const globalThis: {
     prismaGlobal: PrismaClient<Prisma.PrismaClientOptions, never, DefaultArgs>;
+    redisGlobal: Redis;
 } & typeof global;
 
 const prisma = globalThis.prismaGlobal ?? new PrismaClient();
+export const redis = globalThis.redisGlobal ?? new Redis('redis://cache:6379/0');
 
 export default prisma;
 
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
+if (process.env.NODE_ENV !== 'production') globalThis.redisGlobal = redis;
