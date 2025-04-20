@@ -28,8 +28,13 @@ services:
             - .:/app
             # - /app/node_modules # Prevent overwriting node_modules
         ports:
+            # For the app
             - '5005:5005'
+            # For prisma studio
             - '5555:5555'
+        environment:
+            - DB_URL=postgres://postgres:postgres@postgres:5432/maindb?schema=public
+            - REDIS_URL=redis://cache:6379/0
         env_file:
             - .env.local
         depends_on:

@@ -9,10 +9,11 @@ const prisma = new PrismaClient();
 
 async function seed_dev() {
     const email = process.env.ADMIN_EMAIL || 'example@telecom-etude.fr';
+    const position = process.env.ADMIN_POSITION || 'president';
 
     await prisma.admin.create({
         data: {
-            position: 'Admin',
+            position,
             user: {
                 create: {
                     person: {
@@ -29,11 +30,11 @@ async function seed_dev() {
 }
 
 async function seed_prod() {
-    const email = process.env.ADMIN_EMAIL || 'example@telecom-etude.fr';
+    const email = 'admin@telecom-etude.fr';
 
     await prisma.admin.create({
         data: {
-            position: 'Admin_prod',
+            position: 'respo-info',
             user: {
                 create: {
                     person: {
