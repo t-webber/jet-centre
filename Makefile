@@ -7,6 +7,9 @@ dev:
 build:
 	$(COMPOSE) -f docker-compose.dev.yml build
 
+fmt:
+	$(EXEC) app-dev npm run fmt
+
 studio:
 	$(EXEC) app-dev npx prisma studio
 
