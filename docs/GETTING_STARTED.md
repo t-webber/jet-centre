@@ -45,6 +45,8 @@ The redirection URI should br `http://localhost:5005/api/auth/callback/google`
 
 Finally, to make tests on your drive, you will need to specify what folder is used by Jet Centre. For that, create a folder in your drive and copy the ID (in the url, after `folders/`) and add it `DOSSIER_SUIVI`.
 
+> If you want to run _next start_ locally, also set `AUTH_TRUST_HOST="http://localhost:5005"`
+
 Here's what your `.env` file must look like at this stage:
 
 ```bash
@@ -55,6 +57,10 @@ AUTH_GOOGLE_SECRET="your_google_secret"
 # Database
 DB_URL="postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"
 DOSSIER_SUIVI="LJHlkj1LjhLEKJhlKJDHlkjhIUY3063hOIU89367IGd"
+
+# Others
+DEV_MODE=true
+AUTH_TRUST_HOST="http://localhost:5005"
 ```
 
 ### Initialise the database
