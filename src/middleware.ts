@@ -16,7 +16,7 @@ import { auth } from './actions/auth';
 
 import type { Session } from 'next-auth';
 import type { NextRequest } from 'next/server';
-import { DEFAULT_LOGIN_REDIRECT } from './routes';
+import { authorizedRoutes, DEFAULT_LOGIN_REDIRECT, UNAUTHORIZED_REDIRECT } from './routes';
 import { redis } from './db';
 
 /**
@@ -35,6 +35,7 @@ interface NextAuthRequest extends NextRequest {
 export default auth(async (request: NextAuthRequest) => {
     const session = request.auth;
     const isLoggedIn = !!session?.user.email;
+    const position = session?.user.position;
 
     const res = await redis.get('test');
     console.log('redis returned', res);
@@ -59,6 +60,19 @@ export default auth(async (request: NextAuthRequest) => {
             return NextResponse.redirect(new URL('/auth/signin', request.nextUrl));
         }
     }
+
+    const pathnamePosition = '/' + pathname.split('/')[1];
+    if (pathnamePosition != UNAUTHORIZED_REDIRECT) {
+        const authorizedPath = authorizedRoutes[position as keyof typeof authorizedRoutes];
+        const isAuthorized =
+            authorizedRoutes.default.includes(pathnamePosition) ||
+            authorizedPath?.includes(pathnamePosition);
+        if (!isAuthorized && isLoggedIn) {
+            return NextResponse.redirect(new URL(UNAUTHORIZED_REDIRECT, request.nextUrl));
+        }
+    }
+
+    return NextResponse.next();
 });
 
 /**
