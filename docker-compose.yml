@@ -20,7 +20,7 @@ services:
         volumes:
             - cache:/data
         networks:
-            - app-network
+            - cache-network
 
     app:
         build:
@@ -28,7 +28,7 @@ services:
             dockerfile: Dockerfile
         container_name: app-prod
         ports:
-            - '4000:5005'
+            - '5005:5005'
         environment:
             NODE_ENV: production
         env_file:
@@ -38,9 +38,13 @@ services:
             - cache
         networks:
             - app-network
+            - cache-network
+        command: npm run build
 
 networks:
     app-network:
+        driver: bridge
+    cache-network:
         driver: bridge
 
 volumes:
