@@ -8,7 +8,7 @@
         "start": "next start",
         "lint": "next lint",
         "prettier": "npx prettier",
-        "fmt": "npx prettier . --write"
+        "fmt": "npx prettier -cw ."
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"

@@ -4,6 +4,10 @@
 
 We use [PostgreSQL](https://www.postgresql.org/) as our [BDMS](https://en.wikipedia.org/wiki/Database#Database_management_system) and [Prisma](https://www.prisma.io/) to write schema, migration and access to the data in typescript.
 
+## Important notice
+
+This is a legacy page, since we since setup docker you don't have to setup postgresql manually anymore.
+
 ## Setup (installation)
 
 To set up the database, first install postgresql and connect the server.

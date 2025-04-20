@@ -2,10 +2,10 @@ COMPOSE := docker compose
 EXEC := docker exec
 
 dev:
-	$(COMPOSE) up --build
+	$(COMPOSE) -f docker-compose.dev.yml up --build
 
 build:
-	$(COMPOSE) -f docker-compose.yml build
+	$(COMPOSE) -f docker-compose.dev.yml build
 
 studio:
 	$(EXEC) app-dev npx prisma studio
@@ -19,16 +19,19 @@ seed-prod: reset_db
 reset_db:
 	$(EXEC) app-dev npx prisma db push --force-reset
 
+migrate:
+	$(EXEC) app-dev npx prisma migrate deploy
+
 stop:
 	$(COMPOSE) down
 
 build-prod:
-	$(COMPOSE) -f docker-compose.prod.yml build
+	$(COMPOSE) -f docker-compose.yml build
 
 run-prod:
-	$(COMPOSE) -f docker-compose.prod.yml up -d
+	$(COMPOSE) -f docker-compose.yml up -d
 
 stop-prod:
-	$(COMPOSE) -f docker-compose.prod.yml down
+	$(COMPOSE) -f docker-compose.yml down
 
 .PHONY: build dev studio seed reset_db stop build-prod run-prod stop-prod

@@ -4,8 +4,8 @@
 
 ### Requirements
 
-- [Node.js and npm](https://nodejs.org/en/download)
-- [Postgresql](https://www.postgresql.org/download/)
+-   [Node.js and npm](https://nodejs.org/en/download)
+-   [Postgresql](https://www.postgresql.org/download/)
 
 ### Node setup
 
@@ -15,26 +15,12 @@ Start by installing all project dependencies.
 npm install
 ```
 
-### Setting up the database
-
-For a more detailed explanation, read [database.md](./database.md).
-
-You will need to create a database for this project. You can do so either
-
-- in your postgresql environment terminal: Install Postgres, then create a local Postgres database and Postgres role with `CREATEDB`, `LOGIN` and `PASSWORD`.
-- with a gui application, such as [pgAdmin4](https://www.pgadmin.org/download/).
-
-With your postgresql login (often `postgres`), database name and password, you can make the database url as such:
-
-```txt
-postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public
-```
-
-### Environment variables
+### Setup your .env
 
 > At the end of this step, you can check you have all the variables by looking at `env.d.ts`.
 
-Add the `DB_URL` variable in your `.env.local` file containing the url mentioned above.
+Add the `DB_URL` variable in your `.env` file like so : `DB_URL=postgres://postgres:postgres@postgres:5432/maindb?schema=public`
+The port and database names are defined in the `docker-compose.yml` file.
 
 > If you just want to test it locally with access to all pages, you can just set `DEV_MODE=true` and enter rubbish in the 3 `AUTH_` variables.
 
@@ -52,24 +38,26 @@ AUTH_GOOGLE_ID="your_google_id"
 AUTH_GOOGLE_SECRET="your_google_secret"
 
 # Database
-DB_URL="postgresql://your_pg_user:your_pg_password@localhost:5432/your_pg_database_name?schema=public"
+DB_URL=postgres://postgres:postgres@postgres:5432/maindb?schema=public
+REDIS_URL=redis://cache:6379/0
+
 DOSSIER_SUIVI="LJHlkj1LjhLEKJhlKJDHlkjhIUY3063hOIU89367IGd"
-```
-
-### Initialise the database
-
-You now need to initialise your database:
-
-```bash
-npm run prisma:migrate
 ```
 
 ### Running the project
 
 You can now run the project:
 
+Makefile
+
 ```bash
-npm run dev
+make dev
+```
+
+Legacy
+
+```bash
+docker-compose up --build
 ```
 
 ## The code base
