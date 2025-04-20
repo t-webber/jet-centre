@@ -18,6 +18,7 @@ import type { Session } from 'next-auth';
 import type { NextRequest } from 'next/server';
 import { authorizedRoutes, DEFAULT_LOGIN_REDIRECT, UNAUTHORIZED_REDIRECT } from './routes';
 import { redis } from './db';
+import { env } from 'process';
 
 /**
  * Extends the internal NextAuth type to add `auth` session.
@@ -37,12 +38,14 @@ export default auth(async (request: NextAuthRequest) => {
     const isLoggedIn = !!session?.user.email;
     const position = session?.user.position;
 
-    const res = await redis.get('test');
-    console.log('redis returned', res);
-    if (res === null) {
-        redis.set('test', 0);
-    } else {
-        redis.incr('test');
+    if (!env.NO_CACHE) {
+        const res = await redis?.get('test');
+        console.log('redis returned', res);
+        if (res === null) {
+            redis?.set('test', 0);
+        } else {
+            redis?.incr('test');
+        }
     }
 
     if (process.env.DEV_MODE) {
