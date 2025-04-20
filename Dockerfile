@@ -26,4 +26,4 @@ COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 5005
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start"]
