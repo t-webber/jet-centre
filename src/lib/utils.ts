@@ -43,3 +43,31 @@ export function getProperty(obj: any, path: string) {
 export function log(msg: string) {
     console.log(`\x1b[33m 📢 ${msg}\x1b[0m`);
 }
+
+export function unwrap<T>(x: T | undefined | null): T {
+    if (x === undefined || x === null) throw new Error('Option unwrap on a None value');
+    return x;
+}
+
+export function arrayEqual<T>(
+    lhs: T[],
+    rhs: T[],
+    equal: (lhs: T, rhs: T) => boolean = (lhs, rhs) => lhs === rhs
+): boolean {
+    if ((!lhs && rhs) || (lhs && !rhs)) return false;
+    if (!lhs && !rhs) return true;
+    if (lhs.length !== rhs.length) return false;
+    for (let i = 0; i < lhs.length; ++i) {
+        if (!equal(lhs[i], rhs[i])) return false;
+    }
+    return true;
+}
+
+/**
+ * Reloads the window.
+ *
+ * This checks that the component is in the client-side version of the component.
+ */
+export function reloadWindow() {
+    if (typeof window != 'undefined') location.reload();
+}

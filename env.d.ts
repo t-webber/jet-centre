@@ -25,5 +25,6 @@ declare namespace NodeJS {
         DB_URL: string;
         REDIS_URL: string;
         DEV_MODE?: '';
+        AUTH_TRUST_HOST: string?;
     }
 }
