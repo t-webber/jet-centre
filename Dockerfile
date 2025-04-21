@@ -1,15 +1,15 @@
-FROM node:19
+FROM node:22-slim AS builder
 
 WORKDIR /app
 
-COPY package.json ./
+COPY package*.json ./
 
-RUN npm install @next/swc-linux-x64-gnu
+RUN apt update -y && apt install -y openssl
 
-RUN npm install --force
+RUN npm install --omit=dev
 
 COPY . .
 
-EXPOSE 3000
+RUN npx prisma generate
 
-CMD ["npm", "run", "dev"]
+EXPOSE 5005

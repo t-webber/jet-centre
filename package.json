@@ -8,9 +8,7 @@
         "start": "next start --port 5005 --turbopack",
         "lint": "next lint",
         "prettier": "npx prettier",
-        "fmt": "npx prettier . --write",
-        "prisma:migrate": "dotenv -e .env -- npx prisma migrate dev",
-        "prisma:seed": "dotenv -e .env -- npx prisma db seed"
+        "fmt": "npx prettier -cw ."
     },
     "prisma": {
         "seed": "ts-node prisma/seed.ts"
@@ -47,8 +45,9 @@
         "googleapis": "^148.0.0",
         "i18next": "^24.2.3",
         "immutability-helper": "^3.1.1",
+        "ioredis": "^5.6.1",
         "lucide-react": "^0.485.0",
-        "next": "^15.3.0",
+        "next": "15.3.1-canary.15",
         "next-auth": "^5.0.0-beta.25",
         "react": "^19.1.0",
         "react-animate-height": "^3.2.3",
@@ -64,7 +63,7 @@
         "zod-i18n-map": "^2.27.0"
     },
     "devDependencies": {
-        "@types/node": "^22.13.14",
+        "@types/node": "^22.14.1",
         "@types/react": "^19.0.12",
         "@types/react-beautiful-dnd": "^13.1.8",
         "@types/react-dom": "^19.0.4",

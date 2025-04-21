@@ -28,6 +28,7 @@ Please refer to the [Contribution Guide](/docs/CONTRIBUTING.md) before contribut
 - [Auth.js](https://authjs.dev/) (v5 of [NextAuth.js](https://next-auth.js.org/)), for authentication, with the Google Provider.
 - [PostgreSQL](https://www.postgresql.org/), for the database.
 - [Prisma](https://www.prisma.io/), for object modeling.
+- [Docker](https://www.docker.com/) for easy deployment
 
 ### Recommended tutorials
 

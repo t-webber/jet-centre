@@ -1,5 +1,3 @@
-import { ReactNode, useState } from 'react';
-
 import {
     DndContext,
     closestCenter,
@@ -12,15 +10,15 @@ import {
     DragStartEvent,
     UniqueIdentifier,
 } from '@dnd-kit/core';
-
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import {
     SortableContext,
     sortableKeyboardCoordinates,
     useSortable,
     verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
+import { ReactNode, useState } from 'react';
 
-import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities';
 import { cn } from '@/lib/utils';
 
 interface WithId {
