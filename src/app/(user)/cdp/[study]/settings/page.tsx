@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { ErrorPage } from '@/components/error';
@@ -64,28 +64,46 @@ async function BoxLoader<ServerFormData>({
     Editor,
 }: SuspenseBoxProps<ServerFormData>) {
     const data = await fetcher(studyCode);
-    return data ? <Editor title={title} studyCode={studyCode} {...data} /> : <Error />;
+    return data ? (
+        <Editor title={title} studyCode={studyCode} {...data} />
+    ) : (
+        <Error title={title} />
+    );
 }
 
-function LoadingFallback({ title }: { title: string }) {
+interface Title {
+    title: string;
+}
+
+function FakeBox({ children, title }: Title & { children: ReactNode }) {
     return (
         <Box className="w-full">
             <BoxHeader>
                 <BoxTitle>{title}</BoxTitle>
             </BoxHeader>
-            <BoxContent>
-                <div className="h-full">
-                    <p>Loading</p>
-                </div>
-            </BoxContent>
+            <BoxContent>{children}</BoxContent>
         </Box>
     );
 }
 
-function Error() {
+function LoadingFallback({ title }: Title) {
     return (
-        <ErrorPage title="Erreur lors du chargement de l'étude">
-            <p>Merci de rafraîchir la page ou de faire un ticket SOS.</p>
-        </ErrorPage>
+        <FakeBox title={title}>
+            <div className="h-full p-6">
+                <p>Loading</p>
+            </div>
+        </FakeBox>
+    );
+}
+
+function Error({ title }: Title) {
+    return (
+        <FakeBox title={title}>
+            <div className="p-6">
+                <ErrorPage title="Erreur lors du chargement de l'étude">
+                    <p>Merci de rafraîchir la page ou de faire un ticket SOS.</p>
+                </ErrorPage>
+            </div>
+        </FakeBox>
     );
 }

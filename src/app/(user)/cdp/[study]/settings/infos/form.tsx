@@ -78,7 +78,6 @@ export function StudyInfosParamsEditor({
                     />
                 </form>
             </FormProvider>
-            {JSON.stringify(form.watch())}
         </UpdateBox>
     );
 }

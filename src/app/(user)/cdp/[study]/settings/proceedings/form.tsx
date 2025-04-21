@@ -162,7 +162,6 @@ export function StudyProceedingsParamsEditor({
                     onSubmit={(values) => updatePhase(values).then(() => checkServerValues())}
                 />
             )}
-            {JSON.stringify(form.watch())}
         </UpdateBox>
     );
 }
