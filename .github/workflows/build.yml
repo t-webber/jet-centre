@@ -16,13 +16,13 @@ jobs:
             postgres:
                 image: postgres:14
                 env:
-                    POSTGRES_USER: test_user
-                    POSTGRES_PASSWORD: test_password
-                    POSTGRES_DB: test_db
+                    POSTGRES_USER: postgres
+                    POSTGRES_PASSWORD: postgres
+                    POSTGRES_DB: maindb
                 ports:
                     - 5432:5432
                 options: >-
-                    --health-cmd="pg_isready -U test_user"
+                    --health-cmd="pg_isready -U postgres"
                     --health-interval=10s
                     --health-timeout=5s
                     --health-retries=3
@@ -49,21 +49,25 @@ jobs:
                   cache: 'npm'
 
             - name: Install dependencies
-              run: npm install
+              run: npm install --legacy-peer-deps
+
+            - name: Show Next.js version
+              run: npx next --version
 
             - name: Wait for PostgreSQL
               run: |
-                  until pg_isready -h localhost -p 5432 -U test_user; do
+                  until pg_isready -h localhost -p 5432 -U postgres; do
                     echo "Waiting for PostgreSQL..."
                     sleep 1
                   done
 
             - name: Deploy prisma
               env:
-                  DB_URL: postgres://test_user:test_password@localhost:5432/test_db
+                  DB_URL: postgres://postgres:postgres@localhost:5432/maindb
               run: npx prisma migrate deploy
 
             - name: Next build
               env:
-                  DB_URL: postgres://test_user:test_password@localhost:5432/test_db
+                  DB_URL: postgres://postgres:postgres@postgres:5432/maindb
+                  NO_CACHE: true
               run: npm run build

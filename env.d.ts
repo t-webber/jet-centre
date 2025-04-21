@@ -23,6 +23,7 @@ declare namespace NodeJS {
         ADMIN_EMAIL: string;
         WEBSITE_URL: string;
         DB_URL: string;
+        REDIS_URL: string;
         DEV_MODE?: '';
         AUTH_TRUST_HOST: string?;
     }

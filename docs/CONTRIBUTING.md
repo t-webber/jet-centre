@@ -70,7 +70,15 @@ git pull upstream main
     - If you use _vscode_, some extensions will be recommended when you install the project: please install them.
     - Otherwise, personally make sure your code is formatted and is correct relatively to the [.prettierrc] and [.eslintrc.json] files.
 
-To format your code using the Prettier configuration, run the following command:
+To format your code using the Prettier configuration, run one of the following command:
+
+Makefile
+
+```bash
+make fmt
+```
+
+Legacy
 
 ```bash
 npm run fmt

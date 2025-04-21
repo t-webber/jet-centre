@@ -1,7 +1,6 @@
 services:
     postgres:
         image: postgres:15
-        restart: always
         environment:
             POSTGRES_USER: postgres
             POSTGRES_PASSWORD: postgres
@@ -16,7 +15,7 @@ services:
         restart: always
         ports:
             - '6379:6379'
-        command: redis-server --save 20 1 --loglevel warning
+        command: redis-server --save 20 1
         volumes:
             - cache:/data
         networks:
@@ -25,12 +24,15 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
-        container_name: app-prod
+            dockerfile: Dockerfile.dev
+        container_name: app-dev
+        volumes:
+            - .:/app
         ports:
+            # For the app
             - '5005:5005'
-        environment:
-            NODE_ENV: production
+            # For prisma studio
+            - '5555:5555'
         env_file:
             - .env
         depends_on:
@@ -39,7 +41,7 @@ services:
         networks:
             - app-network
             - cache-network
-        command: npm run build
+        command: npm run dev
 
 networks:
     app-network:
