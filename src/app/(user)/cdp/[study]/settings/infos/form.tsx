@@ -18,11 +18,13 @@ import { dbg } from '@/lib/utils';
 
 interface StudyInfosParamsEditorParams extends ServerStudyInfos {
     studyCode: string;
+    title: string;
 }
 
 export function StudyInfosParamsEditor({
     serverStudyInfo,
     studyInfoId,
+    title,
 }: StudyInfosParamsEditorParams) {
     const form = useForm<StudyInfosParamsEditorFormType>({
         resolver: zodResolver(studyInfosParamsEditorFormSchema),
@@ -46,7 +48,7 @@ export function StudyInfosParamsEditor({
     };
 
     return (
-        <UpdateBox title="Informations générales" update={updateServer} status={status}>
+        <UpdateBox title={title} update={updateServer} status={status}>
             <FormProvider {...form}>
                 <form className="space-y-main">
                     <InputFormElement

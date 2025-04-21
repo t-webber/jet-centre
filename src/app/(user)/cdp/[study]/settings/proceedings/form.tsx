@@ -57,12 +57,14 @@ function SinglePhaseInnerBox({ study, editPhase }: SinglePhaseInnerBoxParams) {
 
 interface StudyProceedingsParamsEditorParams extends ServerStudyProceedings {
     studyCode: string;
+    title: string;
 }
 
 export function StudyProceedingsParamsEditor({
     studyCode,
     serverStudyProceedingId,
     serverStudyProceeding,
+    title,
 }: StudyProceedingsParamsEditorParams) {
     const form = useForm<StudyProceedingsParamsEditorFormType>({
         resolver: zodResolver(studyProceedingsParamsEditorFormSchema),
@@ -118,7 +120,7 @@ export function StudyProceedingsParamsEditor({
     const [currentPhaseEditor, setCurrentPhaseEditor] = useState<StudyPhaseFormType | undefined>();
 
     return (
-        <UpdateBox title="Phases de l'étude" update={updateServer} status={status}>
+        <UpdateBox title={title} update={updateServer} status={status}>
             <FormProvider {...form}>
                 <form className="space-y-main">
                     <DropdownSingleFormElement
