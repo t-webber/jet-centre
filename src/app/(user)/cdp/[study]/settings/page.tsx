@@ -11,9 +11,13 @@ export default async function StudySettingsPage({ params }: StudyParams) {
     const studyProceedings = await getStudyProceedings(study);
     return studyInfos && studyProceedings ? (
         <div className="flex flex-col gap-main">
-            <StudyInfosParamsEditor study={study} {...studyInfos} />
-            <StudyProceedingsParamsEditor code={study} {...studyProceedings} />
+            <StudyInfosParamsEditor studyCode={study} {...studyInfos} />
+            <StudyProceedingsParamsEditor studyCode={study} {...studyProceedings} />
         </div>
+    ) : studyInfos || studyProceedings ? (
+        <ErrorPage title="Erreur lors du chargement de l'étude">
+            <p>Merci de rafraîchir la page ou de faire un ticket SOS.</p>
+        </ErrorPage>
     ) : (
         <ErrorPage title="Étude inexistante">
             <p>Vous avez essayé d'accéder à une étude qui n'existe pas.</p>

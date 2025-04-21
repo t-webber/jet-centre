@@ -56,11 +56,11 @@ function SinglePhaseInnerBox({ study, editPhase }: SinglePhaseInnerBoxParams) {
 }
 
 interface StudyProceedingsParamsEditorParams extends ServerStudyProceedings {
-    code: string;
+    studyCode: string;
 }
 
 export function StudyProceedingsParamsEditor({
-    code,
+    studyCode,
     serverStudyProceedingId,
     serverStudyProceeding,
 }: StudyProceedingsParamsEditorParams) {
@@ -82,7 +82,7 @@ export function StudyProceedingsParamsEditor({
         dbg(newStep, 'saving step');
         setStatus(UpdateBoxStatus.Loading);
         updateStudyStep(newStep, serverStudyProceedingId).then(() => {
-            getStudyProceedings(code).then((serverProceeding) => {
+            getStudyProceedings(studyCode).then((serverProceeding) => {
                 if (
                     serverProceeding &&
                     serverProceeding.serverStudyProceeding.studyProcessStep == newStep
@@ -100,7 +100,7 @@ export function StudyProceedingsParamsEditor({
 
     const checkServerValues = () => {
         setStatus(UpdateBoxStatus.Loading);
-        getStudyProceedings(code).then((data) => {
+        getStudyProceedings(studyCode).then((data) => {
             if (!data) {
                 setStatus(UpdateBoxStatus.Error);
             } else if (checkEqual(data.serverStudyProceeding, form.getValues())) {

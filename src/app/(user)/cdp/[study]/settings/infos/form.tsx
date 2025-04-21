@@ -17,7 +17,7 @@ import { DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { dbg } from '@/lib/utils';
 
 interface StudyInfosParamsEditorParams extends ServerStudyInfos {
-    study: string;
+    studyCode: string;
 }
 
 export function StudyInfosParamsEditor({
@@ -39,10 +39,8 @@ export function StudyInfosParamsEditor({
             dbg(data, 'response data from server');
             if (data && checkEqual(data, mri)) {
                 setStatus(UpdateBoxStatus.Ok);
-                dbg('', 'synced');
             } else {
                 setStatus(UpdateBoxStatus.NotSynced);
-                dbg('', 'not synced');
             }
         });
     };
