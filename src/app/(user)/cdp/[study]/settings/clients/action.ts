@@ -2,7 +2,7 @@
 
 import prisma from '@/db';
 
-import { ClientFormType, StudyClientsFormType } from './schema';
+import { AddressType, ClientFormType, CompanyType, StudyClientsFormType } from './schema';
 
 export async function getMissionClients(studyCode: string): Promise<StudyClientsFormType | void> {
     try {
@@ -14,7 +14,14 @@ export async function getMissionClients(studyCode: string): Promise<StudyClients
                         include: {
                             clients: {
                                 include: {
-                                    client: { include: { person: { include: { address: true } } } },
+                                    client: {
+                                        include: {
+                                            company: {
+                                                include: { companyInfos: true, address: true },
+                                            },
+                                            person: { include: { address: true } },
+                                        },
+                                    },
                                 },
                             },
                         },
@@ -27,15 +34,35 @@ export async function getMissionClients(studyCode: string): Promise<StudyClients
         }
         return {
             clients: study.clients.map(({ id, client }) => {
-                const serverAddress = client.person.address;
-                let address = undefined;
-                if (serverAddress) {
-                    address = {
-                        number: serverAddress.number,
-                        street: serverAddress.street,
-                        city: serverAddress.city,
-                        country: serverAddress.country,
-                        zipCode: serverAddress.zipCode,
+                let clientAddress: AddressType | undefined;
+                if (client.person.address) {
+                    clientAddress = {
+                        number: client.person.address.number,
+                        street: client.person.address.street,
+                        city: client.person.address.city,
+                        country: client.person.address.country,
+                        zipCode: client.person.address.zipCode,
+                    };
+                }
+                let company: CompanyType | undefined;
+                if (client.company) {
+                    let companyAddress: AddressType | undefined;
+                    if (client.company.address) {
+                        companyAddress = {
+                            number: client.company.address.number,
+                            street: client.company.address.street,
+                            city: client.company.address.city,
+                            country: client.company.address.country,
+                            zipCode: client.company.address.zipCode,
+                        };
+                    }
+                    company = {
+                        address: companyAddress,
+                        name: client.company.name,
+                        size: client.company.companyInfos.size ?? undefined,
+                        ca: client.company.companyInfos.ca ?? undefined,
+                        domains: client.company.companyInfos.domains,
+                        id: client.company.companyInfos.id,
                     };
                 }
                 return {
@@ -45,8 +72,9 @@ export async function getMissionClients(studyCode: string): Promise<StudyClients
                     firstName: client.person.firstName,
                     lastName: client.person.lastName,
                     email: client.person.email ?? undefined,
-                    address,
+                    address: clientAddress,
                     number: client.person.number ?? undefined,
+                    company,
                 } satisfies ClientFormType;
             }),
             studyId: study.id,
@@ -100,6 +128,36 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                 },
             };
         }
+        let company;
+        if (clientData.company) {
+            prisma.company.update({
+                where: { id: clientData.company.id },
+                data: {
+                    name: clientData.company?.name,
+                    address: {
+                        update: {
+                            number: clientData.company?.address?.number,
+                            street: clientData.company?.address?.street,
+                            city: clientData.company?.address?.city,
+                            country: clientData.company?.address?.country,
+                            zipCode: clientData.company?.address?.zipCode,
+                        },
+                    },
+                    companyInfos: {
+                        create: {
+                            domains: clientData.company?.domains,
+                            size: clientData.company?.size,
+                            ca: clientData.company?.ca,
+                        },
+                    },
+                },
+            });
+            company = {
+                connect: {
+                    id: clientData.company.id,
+                },
+            };
+        }
         prisma.study.update({
             where: { id: studyId },
             data: {
@@ -117,6 +175,7 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                                         address,
                                     },
                                 },
+                                company,
                             },
                         },
                     },
@@ -128,7 +187,7 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
     }
 }
 
-export async function removeClient(studyId: string, studyClientId: string) {
+export async function removeClient(studyClientId: string) {
     try {
         prisma.studyClient.delete({ where: { id: studyClientId } });
     } catch (e) {

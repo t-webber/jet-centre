@@ -1,11 +1,12 @@
 model Client {
-    id           String        @id @default(cuid())
-    company      Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
-    companyId    String
-    person       Person        @relation(fields: [personId], references: [id], onDelete: Cascade)
-    personId     String        @unique
-    job          String
-    studyClients StudyClient[]
+    id                String        @id @default(cuid())
+    privateIndividual Boolean       @default(false)
+    company           Company?      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+    companyId         String
+    person            Person        @relation(fields: [personId], references: [id], onDelete: Cascade)
+    personId          String        @unique
+    job               String
+    studyClients      StudyClient[]
 }
 
 model StudyClient {
@@ -35,7 +36,7 @@ model Satisfaction {
 model Company {
     id             String       @id @default(cuid())
     name           String       @unique
-    address        Address      @relation(fields: [addressId], references: [id], onDelete: Cascade)
+    address        Address?     @relation(fields: [addressId], references: [id], onDelete: Cascade)
     addressId      String       @unique
     companyInfos   CompanyInfos @relation(fields: [companyInfosId], references: [id])
     members        Client[]

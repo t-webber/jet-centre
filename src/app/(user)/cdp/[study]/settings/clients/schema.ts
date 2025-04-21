@@ -1,8 +1,9 @@
+import { CompanySize, Domain } from '@prisma/client';
 import { z } from 'zod';
 
 import { arrayEqual } from '@/lib/utils';
 
-export const clientAddressSchema = z.object({
+export const addressSchema = z.object({
     number: z.string(),
     street: z.string(),
     city: z.string(),
@@ -10,17 +11,29 @@ export const clientAddressSchema = z.object({
     zipCode: z.string(),
 });
 
-export type ClientAddressType = z.infer<typeof clientAddressSchema>;
+export type AddressType = z.infer<typeof addressSchema>;
+
+export const companySchema = z.object({
+    id: z.string(),
+    name: z.string(),
+    address: addressSchema.optional(),
+    size: z.nativeEnum(CompanySize).optional(),
+    ca: z.number().optional(),
+    domains: z.array(z.nativeEnum(Domain)),
+});
+
+export type CompanyType = z.infer<typeof companySchema>;
 
 export const clientFormSchema = z.object({
     studyClientId: z.string(),
     clientId: z.string(),
+    company: companySchema.optional(),
     job: z.string(),
     firstName: z.string(),
     lastName: z.string(),
     number: z.string().optional(),
     email: z.string().optional(),
-    address: clientAddressSchema.optional(),
+    address: addressSchema.optional(),
 });
 
 export type ClientFormType = z.infer<typeof clientFormSchema>;

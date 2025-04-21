@@ -2,7 +2,7 @@ import { z } from '@/lib/zod';
 import { Domain, Level, MriStatus } from '@prisma/client';
 
 export interface AdminDisplay {
-    email: string;
+    email?: string;
     firstName: string;
     lastName: string;
 }
@@ -15,9 +15,9 @@ export interface MriServerData {
 }
 
 export function adminDisplay(cdp: {
-    user: { person: { email: string; firstName: string; lastName: string } };
+    user: { person: { email: string | null; firstName: string; lastName: string } };
 }): AdminDisplay {
-    return cdp.user.person;
+    return { ...cdp.user.person, email: cdp.user.person.email ?? undefined };
 }
 
 export const mriCreationSchema = z.object({
