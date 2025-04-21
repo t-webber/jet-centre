@@ -51,7 +51,7 @@ model Address {
     city     String
     zipCode  String
     country  String
-    people   Person   @relation(fields: [personId], references: [id])
+    person   Person?  @relation(fields: [personId], references: [id])
     company  Company?
     personId String   @unique
 }

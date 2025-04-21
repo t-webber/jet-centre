@@ -12,7 +12,7 @@ const zIsNew = z.object({
 export const zAdmin = z.object({
     firstName: z.string(),
     lastName: z.string(),
-    email: z.string().email(),
+    email: z.string().email().optional(),
     id: z.string(),
 });
 export type Admin = z.infer<typeof zAdmin>;
