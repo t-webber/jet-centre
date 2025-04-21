@@ -4,7 +4,9 @@ import prisma from '@/db';
 
 import { AddressType, ClientFormType, CompanyType, StudyClientsFormType } from './schema';
 
-export async function getMissionClients(studyCode: string): Promise<StudyClientsFormType | void> {
+export async function getMissionClients(
+    studyCode: string
+): Promise<StudyClientsFormType | undefined> {
     try {
         const study = (
             await prisma.studyInfos.findUnique({

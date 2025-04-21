@@ -2,10 +2,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FaPencil, FaPlus, FaTrash } from 'react-icons/fa6';
+import { FaPencil, FaTrash } from 'react-icons/fa6';
 
 import { InnerBox } from '@/components/boxes/boxes';
 import { UpdateBox, UpdateBoxStatus } from '@/components/boxes/update-box';
+import { AddButton } from '@/components/buttons';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { Button } from '@/components/ui/button';
 import { FormProvider } from '@/components/ui/form';
@@ -142,14 +143,7 @@ export function StudyProceedingsParamsEditor({
                     editPhase={() => setCurrentPhaseEditor(study)}
                 />
             ))}
-            <Button
-                variant="outline"
-                className="m-auto flex items-center gap-main"
-                onClick={() => setNewPhaseOpen(true)}
-            >
-                <p>Nouvelle phase</p>
-                <FaPlus />
-            </Button>
+            <AddButton onClick={() => setNewPhaseOpen(true)} text="Nouvelle phase" />
             <StudyPhaseEditor
                 open={newPhaseOpen}
                 close={() => setNewPhaseOpen(false)}
