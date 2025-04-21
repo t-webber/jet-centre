@@ -65,10 +65,10 @@ git pull upstream main
 
 ### Style Guidelines
 
--   Code Style: Follow Next.js best practices and use ESLint and Prettier.
--   Formatting: Ensure code is formatted using the project's Prettier configuration.
-    -   If you use _vscode_, some extensions will be recommended when you install the project: please install them.
-    -   Otherwise, personally make sure your code is formatted and is correct relatively to the [.prettierrc] and [.eslintrc.json] files.
+- Code Style: Follow Next.js best practices and use ESLint and Prettier.
+- Formatting: Ensure code is formatted using the project's Prettier configuration.
+    - If you use _vscode_, some extensions will be recommended when you install the project: please install them.
+    - Otherwise, personally make sure your code is formatted and is correct relatively to the [.prettierrc] and [.eslintrc.json] files.
 
 To format your code using the Prettier configuration, run one of the following command:
 
@@ -94,9 +94,9 @@ Follow the Conventional Commits format:
 
 Examples of _actions_ include:
 
--   **fix**: A functionnality that wasn't working before is now working
--   **add**: A functionnality that didn't exist before has been added
--   **ref** (short for [refactor](https://en.wikipedia.org/wiki/Code_refactoring)): Some code has been rewritten but functionnalities have not been modified
+- **fix**: A functionnality that wasn't working before is now working
+- **add**: A functionnality that didn't exist before has been added
+- **ref** (short for [refactor](https://en.wikipedia.org/wiki/Code_refactoring)): Some code has been rewritten but functionnalities have not been modified
 
 For instance, if you fix the redirection callback on the signin page, a good commit name is
 
