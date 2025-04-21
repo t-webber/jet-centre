@@ -1,66 +1,74 @@
 model Study {
-    id              String          @id @default(cuid())
-    cdps            Admin[]         @relation("cdp")
-    auditors        Admin[]         @relation("auditor")
-    information     StudyInfos      @relation(fields: [informationId], references: [id])
-    informationId   String          @unique
-    progress        StudyProgress?
-    clients         StudyClient[]
-    mri             Mri?
-    studyAssignees  StudyAssignee[]
-    satisfaction    Satisfaction?
-    studyProgressId String?
+    id                 String            @id @default(cuid())
+    cdps               Admin[]           @relation("cdp")
+    auditors           Admin[]           @relation("auditor")
+    information        StudyInfos        @relation(fields: [informationId], references: [id])
+    informationId      String            @unique
+    studyProceedings   StudyProceedings?
+    clients            StudyClient[]
+    mri                Mri?
+    studyAssignees     StudyAssignee[]
+    satisfaction       Satisfaction?
+    studyProceedingsId String?
 }
 
 model StudyInfos {
-    id               String    @id @default(cuid())
-    code             String    @unique
-    googleFolder     String?   @unique
-    title            String?
-    description      String?
-    applicationFee   Float?
-    duration         Int?
-    deadlinePreStudy DateTime?
-    cc               Boolean
-    domain           Domain[]
-    study            Study?
+    id                String    @id @default(cuid())
+    code              String    @unique
+    googleFolder      String?   @unique
+    title             String?
+    applicationFee    Float     @default(5)
+    cc                Boolean
+    domains           Domain[]
+    estimatedDuration Int?
+    deadlinePreStudy  DateTime?
+    study             Study?
 }
 
-model StudyProgress {
-    id      String            @id @default(cuid())
-    studyId String            @unique
-    phases  Phase[]
-    step    StudyProgressStep
-    study   Study             @relation(fields: [studyId], references: [id])
+model StudyProceedings {
+    id               String            @id @default(cuid())
+    studyId          String            @unique
+    phases           Phase[]
+    studyProcessStep StudyProgressStep @default(Created)
+    study            Study             @relation(fields: [studyId], references: [id])
 }
 
 enum StudyProgressStep {
-    Recruiting
+    Created
+    Recruited
     TripartiteMeeting
-    WritingDocuments
+    DocumentsWrote
     InStudy
     Ended
     CompanyFactored
     AssigneePaid
-    SatisfactionForm
+    SatisfactionFormSent
+    WarrantyExpired
 }
 
 model Phase {
-    id              String         @id @default(cuid())
-    jehs            Int
-    deliverable     Deliverable?
-    unitPrice       Float
-    startDate       DateTime
-    endDate         DateTime
-    studyProgress   StudyProgress? @relation(fields: [studyProgressId], references: [id])
-    studyProgressId String?
+    id                 String           @id @default(cuid())
+    jehs               Int
+    title              String
+    deliverable        Deliverable?
+    unitPrice          Float
+    startDate          DateTime?
+    endDate            DateTime?
+    studyProceedings   StudyProceedings @relation(fields: [studyProceedingsId], references: [id])
+    studyProceedingsId String
 }
 
 model Deliverable {
-    id      String  @id @default(cuid())
-    content String
-    given   Boolean
-    done    Boolean
-    phase   Phase   @relation(fields: [phaseId], references: [id])
-    phaseId String  @unique
+    id          String            @id @default(cuid())
+    description String
+    status      DeliverableStatus @default(NotStarted)
+    phase       Phase             @relation(fields: [phaseId], references: [id], onDelete: Cascade)
+    phaseId     String            @unique
+}
+
+enum DeliverableStatus {
+    NotStarted
+    InProgress
+    Finished
+    Given
 }

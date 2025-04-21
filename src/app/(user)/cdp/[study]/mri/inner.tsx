@@ -1,51 +1,18 @@
 'use client';
 
-import {
-    Box,
-    BoxButtonIcon,
-    BoxContent,
-    BoxHeader,
-    BoxHeaderBlock,
-    BoxTitle,
-} from '@/components/boxes/boxes';
+import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import MRICreationForm from './form/form';
 import { MriFormType, MriServerData, equalMri, mriCreationSchema } from './form/schema';
 import { RenderMRI } from './render';
-import { AiOutlineLoading3Quarters } from 'react-icons/ai';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, UseFormReturn } from 'react-hook-form';
 import { loadMriData, setMriStatus, storeMriData } from './form/mri';
-import { FaBug, FaCheck, FaQuestion } from 'react-icons/fa6';
 import { useState } from 'react';
-import { IoWarning } from 'react-icons/io5';
-import { reloadWindow } from '../docs/utils';
 import { Button } from '@/components/ui/button';
 import { MriStatus } from '@prisma/client';
-import { dbg, log } from '@/lib/utils';
+import { dbg, log, reloadWindow } from '@/lib/utils';
 import { LoadingFullStops } from '@/components/loading';
-
-enum Status {
-    Ok,
-    Error,
-    NotSynced,
-    Loading,
-    NotFound,
-}
-
-function getIcon(status: Status) {
-    switch (status) {
-        case Status.Ok:
-            return { Icon: FaCheck };
-        case Status.Loading:
-            return { Icon: AiOutlineLoading3Quarters, className: 'animate-spin' };
-        case Status.Error:
-            return { Icon: IoWarning, className: 'text-destructive' };
-        case Status.NotSynced:
-            return { Icon: FaBug, className: 'text-destructive' };
-        case Status.NotFound:
-            return { Icon: FaQuestion, className: 'text-destructive' };
-    }
-}
+import { UpdateBox, UpdateBoxStatus } from '@/components/boxes/update-box';
 
 interface InnerProps {
     study: string;
@@ -60,20 +27,22 @@ export default function Inner({ study, serverMriData }: InnerProps) {
 
     const mri = form.watch();
 
-    const [status, setStatus] = useState(Status.Ok);
+    const [status, setStatus] = useState(UpdateBoxStatus.Ok);
 
     const updateServer = () => {
-        setStatus(Status.Loading);
+        setStatus(UpdateBoxStatus.Loading);
         log('##### Storing #####');
         storeMriData(study, form.watch()).then((success) => {
             if (!success) {
-                setStatus(Status.Error);
+                setStatus(UpdateBoxStatus.Error);
             }
             log('##### Checking #####');
             loadMriData(study).then((data) => {
                 log('##### Finished #####');
                 setStatus(
-                    data && equalMri(data?.data, form.watch()) ? Status.Ok : Status.NotSynced
+                    data && equalMri(data?.data, form.watch())
+                        ? UpdateBoxStatus.Ok
+                        : UpdateBoxStatus.NotSynced
                 );
             });
         });
@@ -81,23 +50,15 @@ export default function Inner({ study, serverMriData }: InnerProps) {
 
     return (
         <div className="flex space-x-main h-full">
-            <Box className="w-full">
-                <BoxHeader>
-                    <BoxTitle>MRI - {study}</BoxTitle>
-                    <BoxHeaderBlock>
-                        <BoxButtonIcon {...getIcon(status)} onClick={() => updateServer()} />
-                    </BoxHeaderBlock>
-                </BoxHeader>
-                <BoxContent height="limited">
-                    <MriEditorContent
-                        form={form}
-                        updateServer={updateServer}
-                        serverMriId={serverMriData.mriId}
-                        status={serverMriData.status}
-                        study={study}
-                    />
-                </BoxContent>
-            </Box>
+            <UpdateBox status={status} update={updateServer} title="Écriture du MRI">
+                <MriEditorContent
+                    form={form}
+                    updateServer={updateServer}
+                    serverMriId={serverMriData.mriId}
+                    status={serverMriData.status}
+                    study={study}
+                />
+            </UpdateBox>
             <Box className="w-full">
                 <BoxHeader>
                     <BoxTitle>Prévisualisation du MRI</BoxTitle>
@@ -132,7 +93,11 @@ function MriEditorContent({
 
     switch (status) {
         case MriStatus.Sent:
-            return <p>Trop tard... Il est parti...</p>;
+            return (
+                <div className="flex flex-col items-center justify-center">
+                    <p>Trop tard... Il est parti...</p>
+                </div>
+            );
         case MriStatus.Finished:
         case MriStatus.Validated:
             return (

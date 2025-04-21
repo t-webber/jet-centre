@@ -24,5 +24,6 @@ declare namespace NodeJS {
         WEBSITE_URL: string;
         DB_URL: string;
         DEV_MODE?: '';
+        AUTH_TRUST_HOST: string?;
     }
 }
