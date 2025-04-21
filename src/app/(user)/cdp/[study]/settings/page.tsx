@@ -1,58 +1,62 @@
-import { StudyParams } from '@/routes';
-import { StudyInfosParamsEditor } from './infos/form';
-import { getStudyInfos } from './infos/action';
+import { Suspense } from 'react';
+
+import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { ErrorPage } from '@/components/error';
+import { StudyParams } from '@/routes';
+
+import { getStudyInfos } from './infos/action';
+import { StudyInfosParamsEditor } from './infos/form';
 import { getStudyProceedings } from './proceedings/action';
 import { StudyProceedingsParamsEditor } from './proceedings/form';
-import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { Suspense } from 'react';
 
 export default async function StudySettingsPage({ params }: StudyParams) {
     const { study } = await params;
     return (
         <div className="flex flex-col gap-main">
-            <StudyInfosSuspenseBox title="Informations génériques" studyCode={study} />
-            <StudyProceedingsSuspenseBox title="Détail des phases" studyCode={study} />
+            <SuspenseBox
+                title="Informations génériques"
+                studyCode={study}
+                fetcher={getStudyInfos}
+                Editor={StudyInfosParamsEditor}
+            />
+            <SuspenseBox
+                title="Détail des phases"
+                studyCode={study}
+                fetcher={getStudyProceedings}
+                Editor={StudyProceedingsParamsEditor}
+            />
         </div>
     );
 }
 
-interface SuspenseBoxParams {
+interface SuspenseBoxProps<ServerFormData> {
     title: string;
     studyCode: string;
+    fetcher: (studyCode: string) => Promise<ServerFormData>;
+    Editor: React.ComponentType<ServerFormData & { title: string; studyCode: string }>;
 }
 
-async function StudyInfosSuspenseBox({ title, studyCode }: SuspenseBoxParams) {
+function SuspenseBox<ServerFormData>({
+    title,
+    studyCode,
+    fetcher,
+    Editor,
+}: SuspenseBoxProps<ServerFormData>) {
     return (
         <Suspense fallback={<LoadingFallback title={title} />}>
-            <StudyInfosBox title={title} studyCode={studyCode} />
+            <BoxLoader title={title} studyCode={studyCode} fetcher={fetcher} Editor={Editor} />
         </Suspense>
     );
 }
 
-async function StudyInfosBox({ title, studyCode }: SuspenseBoxParams) {
-    const studyInfos = await getStudyInfos(studyCode);
-    return studyInfos ? (
-        <StudyInfosParamsEditor title={title} studyCode={studyCode} {...studyInfos} />
-    ) : (
-        <Error />
-    );
-}
-async function StudyProceedingsSuspenseBox({ title, studyCode }: SuspenseBoxParams) {
-    return (
-        <Suspense fallback={<LoadingFallback title={title} />}>
-            <StudyProceedingsBox title={title} studyCode={studyCode} />
-        </Suspense>
-    );
-}
-
-async function StudyProceedingsBox({ title, studyCode }: SuspenseBoxParams) {
-    const studyProceedings = await getStudyProceedings(studyCode);
-    return studyProceedings ? (
-        <StudyProceedingsParamsEditor title={title} studyCode={studyCode} {...studyProceedings} />
-    ) : (
-        <Error />
-    );
+async function BoxLoader<ServerFormData>({
+    title,
+    studyCode,
+    fetcher,
+    Editor,
+}: SuspenseBoxProps<ServerFormData>) {
+    const data = await fetcher(studyCode);
+    return data ? <Editor title={title} studyCode={studyCode} {...data} /> : <Error />;
 }
 
 function LoadingFallback({ title }: { title: string }) {
