@@ -1,10 +1,10 @@
 model Person {
     id        String    @id @default(cuid())
-    email     String    @unique
+    email     String?   @unique
     firstName String
     lastName  String
-    number    String?
-    address   Address?  @relation(fields: [addressId], references: [id])
+    number    String?   @unique
+    address   Address?
     addressId String?
     user      User?
     assignee  Assignee?
@@ -45,12 +45,13 @@ enum NotificationLevel {
 }
 
 model Address {
-    id      String   @id @default(cuid())
-    number  String
-    street  String
-    city    String
-    zipCode String
-    country String
-    people  Person[]
-    company Company?
+    id       String   @id @default(cuid())
+    number   String
+    street   String
+    city     String
+    zipCode  String
+    country  String
+    people   Person   @relation(fields: [personId], references: [id])
+    company  Company?
+    personId String   @unique
 }
