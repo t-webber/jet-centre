@@ -105,11 +105,15 @@ export function StudyProceedingsParamsEditor({
 
     const checkServerValues = () => {
         setStatus(UpdateBoxStatus.Loading);
+        dbg('checking', 'checking');
         getStudyProceedings(studyCode).then((data) => {
+            dbg('checked', 'checked');
             if (!data) {
                 setStatus(UpdateBoxStatus.Error);
             } else if (checkEqual(data.serverStudyProceeding, form.getValues())) {
                 setStatus(UpdateBoxStatus.Ok);
+                setNewPhaseOpen(false);
+                setCurrentPhaseEditor(undefined);
             } else {
                 setStatus(UpdateBoxStatus.NotSynced);
             }

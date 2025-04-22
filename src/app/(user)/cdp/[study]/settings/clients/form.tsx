@@ -10,7 +10,6 @@ import { InputFormElement } from '@/components/meta-components/form/input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { FormProvider } from '@/components/ui/form';
-import { reloadWindow } from '@/lib/utils';
 
 import { addClient } from './action';
 import { clientFormSchema, ClientFormType, StudyClientsFormType } from './schema';
@@ -100,8 +99,8 @@ export function StudyClientsParamsEditor({
                         <ClientAdder
                             onSubmit={(client) => {
                                 addClient(studyId, client).then(() => {
-                                    setClientAddOpen(false);
-                                    reloadWindow();
+                                    // setClientAddOpen(false);
+                                    // reloadWindow();
                                 });
                             }}
                         />
