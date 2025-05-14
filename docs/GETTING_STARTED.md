@@ -59,13 +59,11 @@ DEV_MODE=true
 AUTH_TRUST_HOST="http://localhost:5005"
 ```
 
-### Initialise the database
+### Setting up Docker
 
-You now need to initialise your database:
+After you've installed Docker using [this guide](https://docs.docker.com/engine/install) (you'll need to have systemd for Docker to work), you may want to also follow [these extra steps](https://docs.docker.com/engine/install/linux-postinstall/), notably ```Manage Docker as a non-root user``` to avoid having to write ```sudo``` before each command.
 
-```bash
-npm run prisma:migrate
-```
+> If you're on Windows... good luck (I had to switch to Linux to avoid the headache)
 
 ### Running the project
 
@@ -79,30 +77,18 @@ sudo docker start app-dev jet-centre-postgres-1 jet-centre-cache-1
 
 Now initialize the database:
 
-- Makefile (preferred method)
+- Makefile
 
 ```bash
 sudo make migrate
 ```
 
-- Legacy
-
-```bash
-npm run prisma:migrate
-```
-
 You can now run the project:
 
-- Makefile (preferred method)
+- Makefile
 
 ```bash
 sudo make dev
-```
-
-- Legacy
-
-```bash
-docker-compose up --build
 ```
 
 **Check out the [Makefile](../Makefile) for other commands you can run !**
