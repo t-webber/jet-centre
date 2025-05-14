@@ -1,6 +1,7 @@
 'use server';
 
 import prisma from '@/db';
+import { dbg } from '@/lib/utils';
 
 import { AddressType, ClientFormType, CompanyType, StudyClientsFormType } from './schema';
 
@@ -118,6 +119,7 @@ export async function updateClient(clientId: string, clientData: ClientFormType)
 
 export async function addClient(studyId: string, clientData: ClientFormType) {
     try {
+        dbg(clientData, `adding data for ${studyId}`);
         let address = {};
         if (clientData.address) {
             address = {

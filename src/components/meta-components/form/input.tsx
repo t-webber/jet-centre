@@ -1,5 +1,5 @@
 import React from 'react';
-import { FieldValues } from 'react-hook-form';
+import { ControllerRenderProps, FieldValues } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 

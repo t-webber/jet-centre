@@ -10,6 +10,7 @@ import { InputFormElement } from '@/components/meta-components/form/input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { FormProvider } from '@/components/ui/form';
+import { reloadWindow } from '@/lib/utils';
 
 import { addClient } from './action';
 import { clientFormSchema, ClientFormType, StudyClientsFormType } from './schema';
@@ -29,46 +30,64 @@ function ClientAdder({ onSubmit }: { onSubmit: (values: ClientFormType) => void 
     });
 
     return (
-        <FormProvider {...form}>
-            <form className="space-y-main py-main" onSubmit={() => form.handleSubmit(onSubmit)}>
-                <InputFormElement className="mb-0" form={form} label="Nom de l'emploi" name="job" />
-                <InputFormElement form={form} label="Prénom" name="firstName" />
-                <InputFormElement form={form} label="Nom de famille" name="lastName" />
-                <InputFormElement form={form} label="Numéro de téléphone" name="number" />
-                <div className="grid-cols-5 grid gap-x-main">
-                    <InputFormElement
-                        form={form}
-                        className="mb-0"
-                        label="N°"
-                        name="address.number"
-                    />
-                    <InputFormElement
-                        className="col-span-4 mb-0"
-                        form={form}
-                        label="Rue"
-                        name="address.street"
-                    />
-                </div>
-                <div className="grid-cols-2 grid gap-x-main">
+        <>
+            <FormProvider {...form}>
+                <form
+                    className="space-y-main py-main"
+                    action={() => console.log('hahahah')}
+                    onSubmit={() => console.log('héhéhéh')}
+                >
                     <InputFormElement
                         className="mb-0"
                         form={form}
-                        label="Ville"
-                        name="address.city"
+                        label="Nom de l'emploi"
+                        name="job"
                     />
-                    <InputFormElement
-                        className="mb-0"
-                        form={form}
-                        label="Code postal"
-                        name="address.zipCode"
-                    />
-                </div>
-                <InputFormElement form={form} label="Pays" name="address.country" />
-                <Button className="w-full" type="submit">
-                    Valider
-                </Button>
-            </form>
-        </FormProvider>
+                    <InputFormElement form={form} label="Prénom" name="firstName" />
+                    <InputFormElement form={form} label="Nom de famille" name="lastName" />
+                    <InputFormElement form={form} label="Numéro de téléphone" name="number" />
+                    <div className="grid-cols-5 grid gap-x-main">
+                        <InputFormElement
+                            form={form}
+                            className="mb-0"
+                            label="N°"
+                            name="address.number"
+                        />
+                        <InputFormElement
+                            className="col-span-4 mb-0"
+                            form={form}
+                            label="Rue"
+                            name="address.street"
+                        />
+                    </div>
+                    <div className="grid-cols-2 grid gap-x-main">
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Ville"
+                            name="address.city"
+                        />
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Code postal"
+                            name="address.zipCode"
+                        />
+                    </div>
+                    <InputFormElement form={form} label="Pays" name="address.country" />
+                </form>
+            </FormProvider>
+            <Button
+                type="button"
+                className="w-full"
+                onClick={(e) => {
+                    e.preventDefault();
+                    form.handleSubmit(() => console.log('blob'))();
+                }}
+            >
+                Valider
+            </Button>
+        </>
     );
 }
 
@@ -98,9 +117,10 @@ export function StudyClientsParamsEditor({
                         <DialogTitle>Nouveau client</DialogTitle>
                         <ClientAdder
                             onSubmit={(client) => {
+                                console.log('REMYYYYYYYYYYYYYYY');
                                 addClient(studyId, client).then(() => {
-                                    // setClientAddOpen(false);
-                                    // reloadWindow();
+                                    setClientAddOpen(false);
+                                    reloadWindow();
                                 });
                             }}
                         />
