@@ -21,6 +21,7 @@ declare namespace NodeJS {
         TEMPLATE_RM: string;
         /// Others
         ADMIN_EMAIL: string;
+        ADMIN_POSITION?: string;
         WEBSITE_URL: string;
         DB_URL: string;
         REDIS_URL: string;
