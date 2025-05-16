@@ -10,11 +10,11 @@ export const TRESO_ICON: IconType = FaMoneyBill;
 export const MRI_VALIDATION: SideBarItem = {
     title: 'Validation MRI',
     icon: MRI_ICON,
-    href: '/mri-validation',
+    href: '/suivi/mri-validation',
 };
 
 export const CREATE_STUDY: SideBarItem = {
     title: 'Nouvelle étude',
     icon: FaBriefcase,
-    href: '/create',
+    href: '/suvi/create',
 };
