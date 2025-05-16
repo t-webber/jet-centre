@@ -30,7 +30,9 @@ export function SidebarList({ sidebar_groups, missionCode }: Props) {
                                 >
                                     <Link
                                         href={
-                                            missionCode ? '/' + missionCode + item.href : item.href
+                                            missionCode
+                                                ? '/cdp/' + missionCode + item.href
+                                                : item.href
                                         }
                                     >
                                         <item.icon />

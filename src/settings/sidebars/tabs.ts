@@ -16,5 +16,5 @@ export const MRI_VALIDATION: SideBarItem = {
 export const CREATE_STUDY: SideBarItem = {
     title: 'Nouvelle étude',
     icon: FaBriefcase,
-    href: '/suvi/create',
+    href: '/suivi/create',
 };
