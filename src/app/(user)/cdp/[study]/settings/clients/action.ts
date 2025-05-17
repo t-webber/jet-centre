@@ -89,7 +89,7 @@ export async function getMissionClients(
 
 export async function updateClient(clientId: string, clientData: ClientFormType) {
     try {
-        prisma.client.update({
+        await prisma.client.update({
             where: { id: clientId },
             data: {
                 job: clientData.job,
@@ -134,7 +134,8 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
         }
         let company;
         if (clientData.company) {
-            prisma.company.update({
+            dbg(clientData.company, 'haha company');
+            await prisma.company.update({
                 where: { id: clientData.company.id },
                 data: {
                     name: clientData.company?.name,
@@ -162,7 +163,8 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                 },
             };
         }
-        prisma.study.update({
+        dbg(company, 'hehe company');
+        await prisma.study.update({
             where: { id: studyId },
             data: {
                 clients: {
@@ -193,7 +195,7 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
 
 export async function removeClient(studyClientId: string) {
     try {
-        prisma.studyClient.delete({ where: { id: studyClientId } });
+        await prisma.studyClient.delete({ where: { id: studyClientId } });
     } catch (e) {
         console.error(`[removeClient] ${e}`);
     }
