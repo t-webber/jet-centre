@@ -1,9 +1,9 @@
 model Person {
     id        String    @id @default(cuid())
-    email     String?   @unique
+    email     String?
     firstName String
     lastName  String
-    number    String?   @unique
+    number    String?
     address   Address?
     addressId String?
     user      User?

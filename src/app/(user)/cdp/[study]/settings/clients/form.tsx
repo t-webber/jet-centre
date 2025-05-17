@@ -15,6 +15,9 @@ import { FormProvider } from '@/components/ui/form';
 
 import { addClient, removeClient } from './action';
 import { clientFormSchema, ClientFormType, StudyClientsFormType } from './schema';
+import { DialogButton } from '@mdxeditor/editor';
+import { LoadingFullStops } from '@/components/loading';
+import { reloadWindow } from '@/lib/utils';
 
 interface StudyInfosParamsEditorParams extends StudyClientsFormType {
     studyCode: string;
@@ -23,6 +26,8 @@ interface StudyInfosParamsEditorParams extends StudyClientsFormType {
 
 function ClientEditor({ client }: { client: ClientFormType }) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+
     const studyClientId: string | undefined = client.studyClientId;
 
     return (
@@ -46,7 +51,7 @@ function ClientEditor({ client }: { client: ClientFormType }) {
                         <IconButton
                             hoverContent="Remove client from study"
                             Icon={FaTrash}
-                            onClick={() => {}}
+                            onClick={() => setIsDeleteOpen(true)}
                         />
                     </div>
                     <Dialog
@@ -62,9 +67,21 @@ function ClientEditor({ client }: { client: ClientFormType }) {
                                     risque de corrompre certaines données si l'étude est trop
                                     avancée.
                                 </DialogDescription>
-                                <DialogClose onClick={() => removeClient(studyClientId)}>
-                                    Confirmer la suppression
-                                </DialogClose>
+                                {isLoading ? (
+                                    <div className="w-full items-center flex justify-center">
+                                        <LoadingFullStops />
+                                    </div>
+                                ) : (
+                                    <Button
+                                        variant="default"
+                                        onClick={() => {
+                                            setIsLoading(true);
+                                            removeClient(studyClientId).then(() => reloadWindow());
+                                        }}
+                                    >
+                                        Confirmer la suppression
+                                    </Button>
+                                )}
                             </DialogHeader>
                         </DialogContent>
                     </Dialog>
