@@ -15,7 +15,7 @@ export async function createNewStudy(data: StudyCreationSchema) {
         data.settings.cdps.map(async (cdp) => {
             const person = await prisma.person.findUnique({
                 where: {
-                    email: cdp.email,
+                    name: cdp,
                 },
                 select: {
                     user: true,
@@ -33,7 +33,7 @@ export async function createNewStudy(data: StudyCreationSchema) {
                 company.members.map(async (member) => {
                     const person = await prisma.person.findUnique({
                         where: {
-                            email: member.email,
+                            name: member,
                         },
                     });
                     return { personId: person?.id ?? falseId, ...member };
@@ -83,8 +83,8 @@ export async function createNewStudy(data: StudyCreationSchema) {
                         if (company.address) {
                             address = {
                                 create: {
-                                    number: company.address?.number,
-                                    street: company.address?.street,
+                                    streetNumber: company.address?.number,
+                                    streetName: company.address?.street,
                                     city: company.address?.city,
                                     zipCode: company.address?.zip,
                                     country: company.address?.country,

@@ -9,8 +9,8 @@ type ExtendedUser = User & {
 };
 
 type ExtendJWT = DefaultJWT & {
-    given_name: string;
-    family_name: string;
+    firstName: string;
+    lastName: string;
 };
 
 declare module 'next-auth' {

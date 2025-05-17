@@ -21,8 +21,8 @@ export default async function CreateStudy() {
         let address = undefined;
         if (company.address) {
             address = {
-                number: company.address?.number,
-                street: company.address?.street,
+                number: company.address?.streetNumber,
+                street: company.address?.streetName,
                 city: company.address?.city,
                 zip: company.address?.zipCode,
                 country: company.address?.country,
