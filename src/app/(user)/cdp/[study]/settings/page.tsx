@@ -67,7 +67,7 @@ async function BoxLoader<ServerFormData>({
     return data ? (
         <Editor title={title} studyCode={studyCode} {...data} />
     ) : (
-        <Error title={title} />
+        <ErrorBoxComponent title={title} />
     );
 }
 
@@ -96,7 +96,7 @@ function LoadingFallback({ title }: Title) {
     );
 }
 
-function Error({ title }: Title) {
+export function ErrorBoxComponent({ title }: Title) {
     return (
         <FakeBox title={title}>
             <div className="p-6">

@@ -25,11 +25,11 @@ export const DELIVERABLE_STEPS_NAMES = Object.keys(DELIVERABLE_STEPS) as Deliver
 export const STUDY_STEPS: Record<StudyProgressStep, EnumInfo> = {
     Created: { display: 'En cours de création' },
     Recruited: { display: 'En cours de recrutement' },
-    TripartiteMeeting: { display: 'TripartiteMeeting' },
-    DocumentsWrote: { display: 'WritingDocuments' },
-    InStudy: { display: 'InStudy' },
-    Ended: { display: 'Ended' },
-    CompanyFactored: { display: 'CompanyFactored' },
+    TripartiteMeeting: { display: 'Réunion tripartite' },
+    DocumentsWrote: { display: 'Documents écrits' },
+    InStudy: { display: 'Mission en cours' },
+    Ended: { display: 'Mission finie' },
+    CompanyFactored: { display: 'Entreprise facturée' },
     AssigneePaid: { display: 'AssigneePaid' },
     SatisfactionFormSent: { display: 'QS envoyé' },
     WarrantyExpired: { display: 'Période de garantie finie' },
@@ -74,7 +74,7 @@ export const DOMAINS: Record<Domain, DomainInfo> = {
     ComputerVision: { display: 'Computer Vision', image: Ima },
     ComputerGraphics: { display: 'Computer Graphics', image: Ima },
     d_3D: { display: '3D', image: Ima },
-    /// marché
+    // marché
     MarketAnalysis: { display: 'Étude de marché', image: Market },
     StateOfTheArt: { display: "État de l'art", image: Market },
 };
