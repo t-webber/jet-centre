@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@mdxeditor/editor';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import { InputFormElement } from '@/components/meta-components/form/input';
+import { Button } from '@/components/ui/button';
 
 import { clientFormSchema, ClientFormType } from './schema';
 

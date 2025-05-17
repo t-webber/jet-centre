@@ -1,11 +1,16 @@
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@radix-ui/react-dialog';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FaEye, FaPencil, FaTrash } from 'react-icons/fa6';
 
 import { IconButton } from '@/components/buttons';
 import { LoadingFullStops } from '@/components/loading';
+import {
+    AlertDialog,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogHeader,
+    AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { DialogHeader } from '@/components/ui/dialog';
 import { reloadWindow } from '@/lib/utils';
 
 import { removeClient } from './action';
@@ -25,33 +30,43 @@ function DeleteClientDialog({
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <Dialog open={isDeleteOpen} onOpenChange={() => setIsDeleteOpen((isOpen) => !isOpen)}>
-            <DialogContent>
-                <DialogHeader>
-                    <DialogTitle>Confirmer la suppression du client</DialogTitle>
-                    <DialogDescription>
+        <AlertDialog open={isDeleteOpen} onOpenChange={() => setIsDeleteOpen((isOpen) => !isOpen)}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Confirmer la suppression du client</AlertDialogTitle>
+                    <AlertDialogDescription>
                         Ce client sera enlevé de cette étude. Il existera toujours dans la base si
                         vous désirez l'ajouter plus tard. Changer le client risque de corrompre
                         certaines données si l'étude est trop avancée.
-                    </DialogDescription>
+                    </AlertDialogDescription>
                     {isLoading ? (
                         <div className="w-full items-center flex justify-center">
                             <LoadingFullStops />
                         </div>
                     ) : (
-                        <Button
-                            variant="default"
-                            onClick={() => {
-                                setIsLoading(true);
-                                removeClient(studyClientId).then(() => reloadWindow());
-                            }}
-                        >
-                            Confirmer la suppression
-                        </Button>
+                        <div className="w-full items-center flex justify-between pt-4">
+                            <Button
+                                variant="outline"
+                                onClick={() => {
+                                    setIsDeleteOpen(false);
+                                }}
+                            >
+                                Annuler la suppression
+                            </Button>
+                            <Button
+                                variant="default"
+                                onClick={() => {
+                                    setIsLoading(true);
+                                    removeClient(studyClientId).then(() => reloadWindow());
+                                }}
+                            >
+                                Confirmer la suppression
+                            </Button>
+                        </div>
                     )}
-                </DialogHeader>
-            </DialogContent>
-        </Dialog>
+                </AlertDialogHeader>
+            </AlertDialogContent>
+        </AlertDialog>
     );
 }
 
