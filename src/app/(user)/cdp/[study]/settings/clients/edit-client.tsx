@@ -11,26 +11,65 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from '@/components/ui/dialog';
 import { reloadWindow } from '@/lib/utils';
 
 import { removeClient } from './action';
 import { ClientFormType } from './schema';
 
+interface ViewClientDialogProps {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    client: ClientFormType;
+}
+
+function ViewClientDialog({ isOpen, setIsOpen, client }: ViewClientDialogProps) {
+    return (
+        <Dialog open={isOpen} onOpenChange={() => setIsOpen((isOpen) => !isOpen)}>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>{client.firstName + ' ' + client.lastName}</DialogTitle>
+                    <DialogDescription>
+                        <div className="grid grid-cols-2">
+                            <p>Métier</p>
+                            <p>{client.job}</p>
+                            <p>Email</p>
+                            <p>{client.email || 'Inconnu'}</p>
+                            <p>Numéro de téléphone</p>
+                            <p>{client.number || 'Inconnu'}</p>
+                            <p>Addresse</p>
+                            <p>
+                                {client.address === undefined
+                                    ? 'Inconnue'
+                                    : `${client.address.number} ${client.address.street}, ${client.address.zipCode}, ${client.address.city}, ${client.address.country}`}
+                                ,
+                            </p>
+                        </div>
+                    </DialogDescription>
+                </DialogHeader>
+            </DialogContent>
+        </Dialog>
+    );
+}
+
 interface DeleteClientDialogProps {
-    isDeleteOpen: boolean;
-    setIsDeleteOpen: Dispatch<SetStateAction<boolean>>;
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
     studyClientId: string;
 }
 
-function DeleteClientDialog({
-    isDeleteOpen,
-    setIsDeleteOpen,
-    studyClientId,
-}: DeleteClientDialogProps) {
+function DeleteClientDialog({ isOpen, setIsOpen, studyClientId }: DeleteClientDialogProps) {
     const [isLoading, setIsLoading] = useState(false);
 
     return (
-        <AlertDialog open={isDeleteOpen} onOpenChange={() => setIsDeleteOpen((isOpen) => !isOpen)}>
+        <AlertDialog open={isOpen} onOpenChange={() => setIsOpen((isOpen) => !isOpen)}>
             <AlertDialogContent>
                 <AlertDialogHeader>
                     <AlertDialogTitle>Confirmer la suppression du client</AlertDialogTitle>
@@ -48,7 +87,7 @@ function DeleteClientDialog({
                             <Button
                                 variant="outline"
                                 onClick={() => {
-                                    setIsDeleteOpen(false);
+                                    setIsOpen(false);
                                 }}
                             >
                                 Annuler la suppression
@@ -72,6 +111,7 @@ function DeleteClientDialog({
 
 export function ClientEditor({ client }: { client: ClientFormType }) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [isViewOpen, setIsViewOpen] = useState(false);
     const studyClientId: string | undefined = client.studyClientId;
 
     return (
@@ -85,7 +125,7 @@ export function ClientEditor({ client }: { client: ClientFormType }) {
                         <IconButton
                             hoverContent="See client information"
                             Icon={FaEye}
-                            onClick={() => {}}
+                            onClick={() => setIsViewOpen(true)}
                         />
                         <IconButton
                             hoverContent="Update client infromation"
@@ -99,9 +139,14 @@ export function ClientEditor({ client }: { client: ClientFormType }) {
                         />
                     </div>
                     <DeleteClientDialog
-                        isDeleteOpen={isDeleteOpen}
-                        setIsDeleteOpen={setIsDeleteOpen}
+                        isOpen={isDeleteOpen}
+                        setIsOpen={setIsDeleteOpen}
                         studyClientId={studyClientId}
+                    />
+                    <ViewClientDialog
+                        isOpen={isViewOpen}
+                        setIsOpen={setIsViewOpen}
+                        client={client}
                     />
                 </>
             )}
