@@ -1,5 +1,7 @@
 'use server';
 
+import { Address } from '@prisma/client';
+
 import prisma from '@/db';
 import { dbg } from '@/lib/utils';
 
@@ -40,8 +42,8 @@ export async function getMissionClients(
                 let clientAddress: AddressType | undefined;
                 if (client.person.address) {
                     clientAddress = {
-                        number: client.person.address.number,
-                        street: client.person.address.street,
+                        number: client.person.address.streetNumber,
+                        street: client.person.address.streetName,
                         city: client.person.address.city,
                         country: client.person.address.country,
                         zipCode: client.person.address.zipCode,
@@ -52,8 +54,8 @@ export async function getMissionClients(
                     let companyAddress: AddressType | undefined;
                     if (client.company.address) {
                         companyAddress = {
-                            number: client.company.address.number,
-                            street: client.company.address.street,
+                            number: client.company.address.streetNumber,
+                            street: client.company.address.streetName,
                             city: client.company.address.city,
                             country: client.company.address.country,
                             zipCode: client.company.address.zipCode,
@@ -101,8 +103,8 @@ export async function updateClient(clientId: string, clientData: ClientFormType)
                         number: clientData.number,
                         address: {
                             update: {
-                                number: clientData.address?.number,
-                                street: clientData.address?.street,
+                                streetNumber: clientData.address?.number,
+                                streetName: clientData.address?.street,
                                 city: clientData.address?.city,
                                 country: clientData.address?.country,
                                 zipCode: clientData.address?.zipCode,
@@ -120,19 +122,19 @@ export async function updateClient(clientId: string, clientData: ClientFormType)
 export async function addClient(studyId: string, clientData: ClientFormType) {
     try {
         dbg(clientData, `adding data for ${studyId}`);
-        let address = {};
+        let address: { create: Omit<Address, 'id' | 'personId'> } | undefined;
         if (clientData.address) {
             address = {
                 create: {
-                    number: clientData.address?.number,
-                    street: clientData.address?.street,
+                    streetNumber: clientData.address?.number,
+                    streetName: clientData.address?.street,
                     city: clientData.address?.city,
                     country: clientData.address?.country,
                     zipCode: clientData.address?.zipCode,
                 },
             };
         }
-        let company;
+        let company: { connect: { id: string } } | undefined;
         if (clientData.company) {
             dbg(clientData.company, 'haha company');
             await prisma.company.update({
@@ -141,8 +143,8 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                     name: clientData.company?.name,
                     address: {
                         update: {
-                            number: clientData.company?.address?.number,
-                            street: clientData.company?.address?.street,
+                            streetNumber: clientData.company?.address?.number,
+                            streetName: clientData.company?.address?.street,
                             city: clientData.company?.address?.city,
                             country: clientData.company?.address?.country,
                             zipCode: clientData.company?.address?.zipCode,
