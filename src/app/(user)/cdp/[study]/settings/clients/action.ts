@@ -14,15 +14,21 @@ export async function getMissionClients(
         const study = (
             await prisma.studyInfos.findUnique({
                 where: { code: studyCode },
-                include: {
+                select: {
                     study: {
-                        include: {
+                        select: {
+                            id: true,
                             clients: {
-                                include: {
+                                select: {
+                                    id: true,
                                     client: {
                                         include: {
                                             company: {
-                                                include: { companyInfos: true, address: true },
+                                                select: {
+                                                    name: true,
+                                                    companyInfos: true,
+                                                    address: true,
+                                                },
                                             },
                                             person: { include: { address: true } },
                                         },
@@ -37,6 +43,7 @@ export async function getMissionClients(
         if (!study) {
             throw new Error('Erroneous study code');
         }
+        dbg(study, 'fetched study');
         return {
             clients: study.clients.map(({ id, client }) => {
                 let clientAddress: AddressType | undefined;
