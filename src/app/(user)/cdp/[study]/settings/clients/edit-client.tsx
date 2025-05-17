@@ -5,6 +5,8 @@ import { FaEye, FaPencil, FaTrash } from 'react-icons/fa6';
 
 import { IconButton } from '@/components/buttons';
 import { LoadingFullStops } from '@/components/loading';
+import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
+import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import {
     AlertDialog,
@@ -24,7 +26,7 @@ import {
     DialogTitle,
 } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
-import { COMPANY_SIZES, DOMAINS } from '@/db/types';
+import { COMPANY_SIZE_NAMES, COMPANY_SIZES, DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { personName, reloadWindow } from '@/lib/utils';
 
 import { removeClient, updateClient } from './action';
@@ -95,6 +97,7 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
                     <InputFormElement form={form} label="Prénom" name="firstName" />
                     <InputFormElement form={form} label="Nom de famille" name="lastName" />
                     <InputFormElement form={form} label="Numéro de téléphone" name="number" />
+                    <Separator />
                     <div className="grid-cols-5 grid gap-x-main">
                         <InputFormElement
                             form={form}
@@ -124,6 +127,59 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
                         />
                     </div>
                     <InputFormElement form={form} label="Pays" name="address.country" />
+                    <Separator />
+                    <h2>L'entreprise</h2>
+                    <InputFormElement form={form} label="Nom" name="company.name" />
+                    <InputFormElement
+                        form={form}
+                        label="Chiffre d'Affaire"
+                        name="company.ca"
+                        type="number"
+                    />
+                    <DropdownSingleFormElement
+                        form={form}
+                        label="Taille"
+                        name="company.size"
+                        values={COMPANY_SIZE_NAMES}
+                        displayValue={(size) => size && COMPANY_SIZES[size].display}
+                    />
+                    <DropdownManyFormElement
+                        form={form}
+                        label="Domaines"
+                        name="company.domains"
+                        values={DOMAIN_NAMES}
+                        displayValue={(domain) => domain && DOMAINS[domain].display}
+                    />
+                    <Separator />
+                    <div className="grid-cols-5 grid gap-x-main">
+                        <InputFormElement
+                            form={form}
+                            className="mb-0"
+                            label="N°"
+                            name="company.address.number"
+                        />
+                        <InputFormElement
+                            className="col-span-4 mb-0"
+                            form={form}
+                            label="Rue"
+                            name="company.address.street"
+                        />
+                    </div>
+                    <div className="grid-cols-2 grid gap-x-main">
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Ville"
+                            name="company.address.city"
+                        />
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Code postal"
+                            name="company.address.zipCode"
+                        />
+                    </div>
+                    <InputFormElement form={form} label="Pays" name="company.address.country" />
                 </form>
             </FormProvider>
             {isLoading ? (
