@@ -1,12 +1,18 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Dispatch, SetStateAction, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { FaEye, FaPencil, FaTrash } from 'react-icons/fa6';
 
 import { IconButton } from '@/components/buttons';
 import { LoadingFullStops } from '@/components/loading';
+import { InputFormElement } from '@/components/meta-components/form/input';
 import {
     AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
     AlertDialogContent,
     AlertDialogDescription,
+    AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
@@ -17,12 +23,127 @@ import {
     DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from '@/components/ui/dialog';
-import { reloadWindow } from '@/lib/utils';
+import { personName, reloadWindow } from '@/lib/utils';
 
-import { removeClient } from './action';
-import { ClientFormType } from './schema';
+import { removeClient, updateClient } from './action';
+import { clientFormSchema, ClientFormType } from './schema';
+
+interface EditClientDialogProps {
+    isOpen: boolean;
+    setIsOpen: Dispatch<SetStateAction<boolean>>;
+    client: ClientFormType;
+}
+
+function EditClientDialog({ isOpen, setIsOpen, client }: EditClientDialogProps) {
+    const clientId = client.clientId;
+    const [isLoading, setIsLoading] = useState(false);
+
+    return (
+        <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+            <AlertDialogContent>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Edition de {personName(client)}</AlertDialogTitle>
+                </AlertDialogHeader>
+                {clientId === undefined ? (
+                    <p>Erreur lors du chargement du client</p>
+                ) : (
+                    <EditClientForm
+                        client={client}
+                        onSubmit={(newClientData) => {
+                            setIsLoading(true);
+                            updateClient(clientId, newClientData).then(() => reloadWindow());
+                        }}
+                        isLoading={isLoading}
+                    />
+                )}
+                <AlertDialogFooter>
+                    <AlertDialogCancel className="w-full">Annuler</AlertDialogCancel>
+                </AlertDialogFooter>
+            </AlertDialogContent>
+        </AlertDialog>
+    );
+}
+
+interface EditClientFormProps {
+    client: ClientFormType;
+    onSubmit: (values: ClientFormType) => void;
+    isLoading: boolean;
+}
+
+function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
+    const form = useForm<ClientFormType>({
+        resolver: zodResolver(clientFormSchema),
+        defaultValues: client,
+    });
+
+    return (
+        <>
+            <FormProvider {...form}>
+                <form
+                    className="space-y-main py-main"
+                    action={() => console.log('hahahah')}
+                    onSubmit={() => console.log('héhéhéh')}
+                >
+                    <InputFormElement
+                        className="mb-0"
+                        form={form}
+                        label="Nom de l'emploi"
+                        name="job"
+                    />
+                    <InputFormElement form={form} label="Prénom" name="firstName" />
+                    <InputFormElement form={form} label="Nom de famille" name="lastName" />
+                    <InputFormElement form={form} label="Numéro de téléphone" name="number" />
+                    <div className="grid-cols-5 grid gap-x-main">
+                        <InputFormElement
+                            form={form}
+                            className="mb-0"
+                            label="N°"
+                            name="address.number"
+                        />
+                        <InputFormElement
+                            className="col-span-4 mb-0"
+                            form={form}
+                            label="Rue"
+                            name="address.street"
+                        />
+                    </div>
+                    <div className="grid-cols-2 grid gap-x-main">
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Ville"
+                            name="address.city"
+                        />
+                        <InputFormElement
+                            className="mb-0"
+                            form={form}
+                            label="Code postal"
+                            name="address.zipCode"
+                        />
+                    </div>
+                    <InputFormElement form={form} label="Pays" name="address.country" />
+                </form>
+            </FormProvider>
+            {isLoading ? (
+                <div className="flex items-center justify-center">
+                    <LoadingFullStops />
+                </div>
+            ) : (
+                <Button
+                    type="button"
+                    className="w-full"
+                    onClick={(e) => {
+                        e.preventDefault();
+                        form.handleSubmit(onSubmit)();
+                    }}
+                >
+                    Valider
+                </Button>
+            )}
+        </>
+    );
+}
 
 interface ViewClientDialogProps {
     isOpen: boolean;
@@ -35,7 +156,7 @@ function ViewClientDialog({ isOpen, setIsOpen, client }: ViewClientDialogProps) 
         <Dialog open={isOpen} onOpenChange={() => setIsOpen((isOpen) => !isOpen)}>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>{client.firstName + ' ' + client.lastName}</DialogTitle>
+                    <DialogTitle>{personName(client)}</DialogTitle>
                     <DialogDescription>
                         <div className="grid grid-cols-2">
                             <p>Métier</p>
@@ -111,6 +232,7 @@ function DeleteClientDialog({ isOpen, setIsOpen, studyClientId }: DeleteClientDi
 
 export function ClientEditor({ client }: { client: ClientFormType }) {
     const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+    const [isEditorOpen, setIsEditorOpen] = useState(false);
     const [isViewOpen, setIsViewOpen] = useState(false);
     const studyClientId: string | undefined = client.studyClientId;
 
@@ -120,7 +242,7 @@ export function ClientEditor({ client }: { client: ClientFormType }) {
                 <p>Failed to load client</p>
             ) : (
                 <>
-                    <p>{client.firstName + ' ' + client.lastName}</p>
+                    <p>{personName(client)}</p>
                     <div>
                         <IconButton
                             hoverContent="See client information"
@@ -129,7 +251,7 @@ export function ClientEditor({ client }: { client: ClientFormType }) {
                         />
                         <IconButton
                             hoverContent="Update client infromation"
-                            onClick={() => {}}
+                            onClick={() => setIsEditorOpen(true)}
                             Icon={FaPencil}
                         />
                         <IconButton
@@ -142,6 +264,11 @@ export function ClientEditor({ client }: { client: ClientFormType }) {
                         isOpen={isDeleteOpen}
                         setIsOpen={setIsDeleteOpen}
                         studyClientId={studyClientId}
+                    />
+                    <EditClientDialog
+                        isOpen={isEditorOpen}
+                        setIsOpen={setIsEditorOpen}
+                        client={client}
                     />
                     <ViewClientDialog
                         isOpen={isViewOpen}

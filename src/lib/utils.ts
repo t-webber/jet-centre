@@ -71,3 +71,7 @@ export function arrayEqual<T>(
 export function reloadWindow() {
     if (typeof window != 'undefined') location.reload();
 }
+
+export function personName({ firstName, lastName }: { firstName: string; lastName: string }) {
+    return firstName + ' ' + lastName;
+}
