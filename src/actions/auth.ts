@@ -7,8 +7,9 @@
  * @file auth.ts
  */
 
-import type { NextAuthConfig, Profile } from 'next-auth';
+import type { Account, NextAuthConfig, Profile, Session, User } from 'next-auth';
 import NextAuth from 'next-auth';
+import { JWT } from 'next-auth/jwt';
 import Google, { GoogleProfile } from 'next-auth/providers/google';
 
 import prisma from '@/db';
@@ -33,18 +34,36 @@ const config = {
         signOut: '/auth/signout',
     },
     callbacks: {
-        async jwt({ user, token, account }) {
+        async jwt({
+            user,
+            token,
+            account,
+        }: {
+            user: User;
+            token: JWT;
+            account?: Account | null | undefined;
+        }) {
             if (account?.access_token) {
                 token.access_token = account.access_token;
                 token.refresh_token = account.refresh_token;
             }
+
+            const firstName = token.firstName;
+            const lastName = token.lastName;
+
             if (user !== undefined) {
                 const person = await prisma.person.findUnique({
-                    where: { email: token.email ?? undefined },
+                    where: {
+                        name: {
+                            firstName,
+                            lastName,
+                        },
+                    },
                     select: {
                         user: true,
                     },
                 });
+
                 const admin = await prisma.admin.findFirst({
                     where: { userId: person?.user?.id },
                     select: {
@@ -57,7 +76,10 @@ const config = {
 
             return token;
         },
-        async session({ session, token }) {
+
+        async session({ session, token }: { session: Session; token: JWT }) {
+            token.firstName = session.user.given_name;
+            token.lastName = session.user.family_name;
             if (token.access_token) {
                 return {
                     ...session,
@@ -66,21 +88,24 @@ const config = {
                         position: token.position,
                         access_token: token.access_token,
                         refresh_token: token.refresh_token,
+                        firstName: session.user.given_name,
+                        lastName: session.user.family_name,
                     },
                 };
             }
 
             return session;
         },
+
         async signIn({ profile }: { profile?: Profile }) {
             if (!profile) return false;
             const { email, given_name, family_name, picture } = profile as GoogleProfile;
-            const firstName = given_name ?? '<no given_name>';
-            const lastName = family_name ?? '<no family_name>';
+            if (!given_name || !family_name) return false;
+            const firstName = given_name;
+            const lastName = family_name;
             const image = picture;
-            if (!email) return false;
             await prisma.person.upsert({
-                where: { email },
+                where: { name: { lastName, firstName } },
                 create: {
                     email,
                     firstName,
@@ -112,7 +137,8 @@ const config = {
             return true;
         },
     },
-} satisfies NextAuthConfig;
+} as const satisfies NextAuthConfig;
 
 export const googleId = Google({}).id;
+
 export const { handlers, auth, signIn, signOut } = NextAuth(config);
