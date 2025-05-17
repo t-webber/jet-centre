@@ -81,9 +81,11 @@ export const DOMAINS: Record<Domain, DomainInfo> = {
 
 export const DOMAIN_NAMES: Domain[] = Object.keys(DOMAINS) as Domain[];
 
-export const COMPANY_SIZES: CompanySize[] = [
-    'MicroEntreprise',
-    'PetiteEntreprise',
-    'MoyenneEntreprise',
-    'GrandeEntreprise',
-];
+export const COMPANY_SIZES: Record<CompanySize, EnumInfo> = {
+    MicroEntreprise: { display: 'Micro entreprise' },
+    PetiteEntreprise: { display: 'Petite entreprise' },
+    MoyenneEntreprise: { display: 'Moyenne entreprise' },
+    GrandeEntreprise: { display: 'Grande entreprise' },
+};
+
+export const COMPANY_SIZE_NAMES: CompanySize[] = Object.keys(COMPANY_SIZES) as CompanySize[];
