@@ -45,13 +45,13 @@ enum NotificationLevel {
 }
 
 model Address {
-    id       String   @id @default(cuid())
-    number   String
-    street   String
-    city     String
-    zipCode  String
-    country  String
-    person   Person?  @relation(fields: [personId], references: [id])
-    company  Company?
-    personId String   @unique
+    id           String   @id @default(cuid())
+    streetNumber String
+    streetName   String
+    city         String
+    zipCode      String
+    country      String
+    person       Person?  @relation(fields: [personId], references: [id])
+    company      Company?
+    personId     String?  @unique
 }
