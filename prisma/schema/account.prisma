@@ -9,6 +9,8 @@ model Person {
     user      User?
     assignee  Assignee?
     clients   Client?
+
+    @@unique(name: "name", [firstName, lastName])
 }
 
 model User {
