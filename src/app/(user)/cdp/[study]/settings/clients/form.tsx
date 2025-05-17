@@ -3,14 +3,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FaEye, FaPencil, FaRecycle } from 'react-icons/fa6';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
-import { AddButton } from '@/components/buttons';
+import { AddButton, IconButton } from '@/components/buttons';
 import { InputFormElement } from '@/components/meta-components/form/input';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { FormProvider } from '@/components/ui/form';
-import { reloadWindow } from '@/lib/utils';
 
 import { addClient } from './action';
 import { clientFormSchema, ClientFormType, StudyClientsFormType } from './schema';
@@ -20,8 +20,25 @@ interface StudyInfosParamsEditorParams extends StudyClientsFormType {
     title: string;
 }
 
-function ClientEditor({}: { client: ClientFormType }) {
-    return <></>;
+function ClientEditor({ client }: { client: ClientFormType }) {
+    return (
+        <div className="flex justify-between items-center border rounded-md pl-2 border-input">
+            <p>{client.firstName + ' ' + client.lastName}</p>
+            <div>
+                <IconButton hoverContent="See client information" Icon={FaEye} onClick={() => {}} />
+                <IconButton
+                    hoverContent="Update client infromation"
+                    onClick={() => {}}
+                    Icon={FaPencil}
+                />
+                <IconButton
+                    hoverContent="Remove client from study"
+                    Icon={FaRecycle}
+                    onClick={() => {}}
+                />
+            </div>
+        </div>
+    );
 }
 
 function ClientAdder({ onSubmit }: { onSubmit: (values: ClientFormType) => void }) {
