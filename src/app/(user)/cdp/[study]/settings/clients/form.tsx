@@ -82,7 +82,7 @@ function ClientAdder({ onSubmit }: { onSubmit: (values: ClientFormType) => void 
                 className="w-full"
                 onClick={(e) => {
                     e.preventDefault();
-                    form.handleSubmit(() => console.log('blob'))();
+                    form.handleSubmit(onSubmit)();
                 }}
             >
                 Valider
@@ -120,7 +120,7 @@ export function StudyClientsParamsEditor({
                                 console.log('REMYYYYYYYYYYYYYYY');
                                 addClient(studyId, client).then(() => {
                                     setClientAddOpen(false);
-                                    reloadWindow();
+                                    // reloadWindow();
                                 });
                             }}
                         />

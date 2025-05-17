@@ -25,8 +25,8 @@ export const companySchema = z.object({
 export type CompanyType = z.infer<typeof companySchema>;
 
 export const clientFormSchema = z.object({
-    studyClientId: z.string(),
-    clientId: z.string(),
+    studyClientId: z.string().optional(),
+    clientId: z.string().optional(),
     company: companySchema.optional(),
     job: z.string(),
     firstName: z.string(),
