@@ -4,8 +4,8 @@ type ExtendedUser = User & {
     access_token: string;
     refresh_token: string;
     position: string;
-    given_name: string;
-    family_name: string;
+    firstName: string;
+    lastName: string;
 };
 
 type ExtendJWT = DefaultJWT & {
