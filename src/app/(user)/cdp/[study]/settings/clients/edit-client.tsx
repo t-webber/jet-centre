@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { CompanySize } from '@prisma/client';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { FaEye, FaPencil, FaTrash } from 'react-icons/fa6';
@@ -18,13 +19,7 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import {
-    Dialog,
-    DialogContent,
-    DialogDescription,
-    DialogHeader,
-    DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { COMPANY_SIZE_NAMES, COMPANY_SIZES, DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { personName, reloadWindow } from '@/lib/utils';
@@ -75,6 +70,18 @@ interface EditClientFormProps {
 }
 
 function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
+    const defaultValues = client;
+
+    if (defaultValues.company === undefined) {
+        defaultValues.company = {
+            name: '',
+            address: undefined,
+            size: CompanySize.MicroEntreprise,
+            ca: 0,
+            domains: [],
+        };
+    }
+
     const form = useForm<ClientFormType>({
         resolver: zodResolver(clientFormSchema),
         defaultValues: client,
@@ -83,11 +90,7 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
     return (
         <>
             <FormProvider {...form}>
-                <form
-                    className="space-y-main py-main"
-                    action={() => console.log('hahahah')}
-                    onSubmit={() => console.log('héhéhéh')}
-                >
+                <form className="space-y-main py-main">
                     <InputFormElement
                         className="mb-0"
                         form={form}
@@ -141,14 +144,14 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
                         label="Taille"
                         name="company.size"
                         values={COMPANY_SIZE_NAMES}
-                        displayValue={(size) => size && COMPANY_SIZES[size].display}
+                        displayValue={(size) => (size ? COMPANY_SIZES[size].display : '')}
                     />
                     <DropdownManyFormElement
                         form={form}
                         label="Domaines"
                         name="company.domains"
                         values={DOMAIN_NAMES}
-                        displayValue={(domain) => domain && DOMAINS[domain].display}
+                        displayValue={(domain) => (domain ? DOMAINS[domain].display : '')}
                     />
                     <Separator />
                     <div className="grid-cols-5 grid gap-x-main">
@@ -214,56 +217,54 @@ function ViewClientDialog({ isOpen, setIsOpen, client }: ViewClientDialogProps) 
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>{personName(client)}</DialogTitle>
-                    <DialogDescription>
-                        <div className="grid grid-cols-2">
-                            <p>Métier</p>
-                            <p>{client.job}</p>
-                            <p>Email</p>
-                            <p>{client.email || 'Inconnu'}</p>
-                            <p>Numéro de téléphone</p>
-                            <p>{client.number || 'Inconnu'}</p>
-                            <p>Adresse</p>
-                            <p>
-                                {client.address === undefined
-                                    ? 'Inconnue'
-                                    : `${client.address.number} ${client.address.street}, ${client.address.zipCode}, ${client.address.city}, ${client.address.country}`}
-                                ,
-                            </p>
-                        </div>
-                        {client.company === undefined ? (
-                            <p>Entreprise non spécifiée</p>
-                        ) : (
-                            <>
-                                <Separator />
-                                <h2>Son entreprise</h2>
-                                <div className="grid grid-cols-2">
-                                    <p>Nom</p>
-                                    <p>{client.company.name}</p>
-                                    <p>Taille</p>
-                                    <p>
-                                        {client.company.size === undefined
-                                            ? 'Inconnu'
-                                            : COMPANY_SIZES[client.company.size].display}
-                                    </p>
-                                    <p>CA</p>
-                                    <p>{client.company.ca || 'Inconnu'}</p>
-                                    <p>Domaines</p>
-                                    <div>
-                                        {client.company.domains.map((domain, i) => (
-                                            <p key={i}>{DOMAINS[domain].display}</p>
-                                        ))}
-                                    </div>
-                                    <p>Adresse</p>
-                                    <p>
-                                        {client.company.address === undefined
-                                            ? 'Inconnue'
-                                            : `${client.company.address.number} ${client.company.address.street}, ${client.company.address.zipCode}, ${client.company.address.city}, ${client.company.address.country}`}
-                                        ,
-                                    </p>
+                    <div className="grid grid-cols-2">
+                        <p>Métier</p>
+                        <p>{client.job}</p>
+                        <p>Email</p>
+                        <p>{client.email || 'Inconnu'}</p>
+                        <p>Numéro de téléphone</p>
+                        <p>{client.number || 'Inconnu'}</p>
+                        <p>Adresse</p>
+                        <p>
+                            {client.address === undefined
+                                ? 'Inconnue'
+                                : `${client.address.number} ${client.address.street}, ${client.address.zipCode}, ${client.address.city}, ${client.address.country}`}
+                            ,
+                        </p>
+                    </div>
+                    {client.company === undefined ? (
+                        <p>Entreprise non spécifiée</p>
+                    ) : (
+                        <>
+                            <Separator />
+                            <h2>Son entreprise</h2>
+                            <div className="grid grid-cols-2">
+                                <p>Nom</p>
+                                <p>{client.company.name}</p>
+                                <p>Taille</p>
+                                <p>
+                                    {client.company.size === undefined
+                                        ? 'Inconnu'
+                                        : COMPANY_SIZES[client.company.size].display}
+                                </p>
+                                <p>CA</p>
+                                <p>{client.company.ca || 'Inconnu'}</p>
+                                <p>Domaines</p>
+                                <div>
+                                    {client.company.domains.map((domain, i) => (
+                                        <p key={i}>{DOMAINS[domain].display}</p>
+                                    ))}
                                 </div>
-                            </>
-                        )}
-                    </DialogDescription>
+                                <p>Adresse</p>
+                                <p>
+                                    {client.company.address === undefined
+                                        ? 'Inconnue'
+                                        : `${client.company.address.number} ${client.company.address.street}, ${client.company.address.zipCode}, ${client.company.address.city}, ${client.company.address.country}`}
+                                    ,
+                                </p>
+                            </div>
+                        </>
+                    )}
                 </DialogHeader>
             </DialogContent>
         </Dialog>

@@ -5,7 +5,7 @@ import { ErrorPage } from '@/components/error';
 import { StudyParams } from '@/routes';
 
 import { getMissionClients } from './clients/action';
-import { StudyClientsParamsEditor } from './clients/form';
+import { StudyClientsParamsEditor } from './clients/clients';
 import { getStudyInfos } from './infos/action';
 import { StudyInfosParamsEditor } from './infos/form';
 import { getStudyProceedings } from './proceedings/action';
