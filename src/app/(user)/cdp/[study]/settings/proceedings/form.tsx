@@ -20,7 +20,7 @@ import {
     ServerStudyProceedings,
     updatePhase,
     updateStudyStep,
-} from './action';
+} from './actions';
 import { StudyPhaseEditor } from './phase';
 import {
     checkEqual,

@@ -12,7 +12,7 @@ import { FormProvider } from '@/components/ui/form';
 import { DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { dbg } from '@/lib/utils';
 
-import { ServerStudyInfos, updateStudyInfos } from './action';
+import { ServerStudyInfos, updateStudyInfos } from './actions';
 import {
     checkEqual,
     studyInfosParamsEditorFormSchema,

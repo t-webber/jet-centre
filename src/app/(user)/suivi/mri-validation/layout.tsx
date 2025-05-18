@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 
-import { listMriToValidate } from './action';
+import { listMriToValidate } from './actions';
 import { ValidationButton } from './validation-button';
 
 export default async function Layout({ children }: { children: ReactNode }) {

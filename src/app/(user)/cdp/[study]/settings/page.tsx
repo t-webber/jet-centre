@@ -4,11 +4,11 @@ import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 import { ErrorPage } from '@/components/error';
 import { StudyParams } from '@/routes';
 
-import { getMissionClients } from './clients/action';
+import { getStudyClients } from './clients/actions';
 import { StudyClientsParamsEditor } from './clients/clients';
-import { getStudyInfos } from './infos/action';
+import { getStudyInfos } from './infos/actions';
 import { StudyInfosParamsEditor } from './infos/form';
-import { getStudyProceedings } from './proceedings/action';
+import { getStudyProceedings } from './proceedings/actions';
 import { StudyProceedingsParamsEditor } from './proceedings/form';
 
 export default async function StudySettingsPage({ params }: StudyParams) {
@@ -30,7 +30,7 @@ export default async function StudySettingsPage({ params }: StudyParams) {
             <SuspenseBox
                 title="Clients concernés"
                 studyCode={study}
-                fetcher={getMissionClients}
+                fetcher={getStudyClients}
                 Editor={StudyClientsParamsEditor}
             />
         </div>
