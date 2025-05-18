@@ -19,6 +19,7 @@ import {
     AlertDialogTitle,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Separator } from '@/components/ui/separator';
 import { COMPANY_SIZE_NAMES, COMPANY_SIZES, DOMAIN_NAMES, DOMAINS } from '@/db/types';
@@ -63,6 +64,15 @@ function EditClientDialog({ isOpen, setIsOpen, client }: EditClientDialogProps) 
     );
 }
 
+function EnableBox({ label, onClick }: { label: string; onClick: (value: boolean) => void }) {
+    return (
+        <div className="flex items-center gap-x-2">
+            <Checkbox onCheckedChange={onClick} />
+            <p>{label}</p>
+        </div>
+    );
+}
+
 interface EditClientFormProps {
     client: ClientFormType;
     onSubmit: (values: ClientFormType) => void;
@@ -87,102 +97,132 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
         defaultValues: client,
     });
 
+    const [editCompany, setEditCompany] = useState(false);
+    const [editAddress, setEditAddress] = useState(false);
+    const [editCompanyAddress, setEditCompanyAddress] = useState(false);
+
     return (
         <>
             <FormProvider {...form}>
+                <h2>Informations sur le client</h2>
                 <form className="space-y-main py-main">
+                    <InputFormElement form={form} label="Prénom" name="firstName" />
+                    <InputFormElement form={form} label="Nom de famille" name="lastName" />
                     <InputFormElement
                         className="mb-0"
                         form={form}
                         label="Nom de l'emploi"
                         name="job"
                     />
-                    <InputFormElement form={form} label="Prénom" name="firstName" />
-                    <InputFormElement form={form} label="Nom de famille" name="lastName" />
+                    <InputFormElement form={form} label="Email" name="email" />
                     <InputFormElement form={form} label="Numéro de téléphone" name="number" />
                     <Separator />
-                    <div className="grid-cols-5 grid gap-x-main">
-                        <InputFormElement
-                            form={form}
-                            className="mb-0"
-                            label="N°"
-                            name="address.number"
-                        />
-                        <InputFormElement
-                            className="col-span-4 mb-0"
-                            form={form}
-                            label="Rue"
-                            name="address.street"
-                        />
-                    </div>
-                    <div className="grid-cols-2 grid gap-x-main">
-                        <InputFormElement
-                            className="mb-0"
-                            form={form}
-                            label="Ville"
-                            name="address.city"
-                        />
-                        <InputFormElement
-                            className="mb-0"
-                            form={form}
-                            label="Code postal"
-                            name="address.zipCode"
-                        />
-                    </div>
-                    <InputFormElement form={form} label="Pays" name="address.country" />
+                    <h2>Addresse du client</h2>
+                    <EnableBox onClick={setEditAddress} label="Addresse du client" />
+                    {editAddress && (
+                        <>
+                            <div className="grid-cols-5 grid gap-x-main">
+                                <InputFormElement
+                                    form={form}
+                                    className="mb-0"
+                                    label="N°"
+                                    name="address.number"
+                                />
+                                <InputFormElement
+                                    className="col-span-4 mb-0"
+                                    form={form}
+                                    label="Rue"
+                                    name="address.street"
+                                />
+                            </div>
+                            <div className="grid-cols-2 grid gap-x-main">
+                                <InputFormElement
+                                    className="mb-0"
+                                    form={form}
+                                    label="Ville"
+                                    name="address.city"
+                                />
+                                <InputFormElement
+                                    className="mb-0"
+                                    form={form}
+                                    label="Code postal"
+                                    name="address.zipCode"
+                                />
+                            </div>
+                            <InputFormElement form={form} label="Pays" name="address.country" />
+                        </>
+                    )}
                     <Separator />
                     <h2>L'entreprise</h2>
-                    <InputFormElement form={form} label="Nom" name="company.name" />
-                    <InputFormElement
-                        form={form}
-                        label="Chiffre d'Affaire"
-                        name="company.ca"
-                        type="number"
-                    />
-                    <DropdownSingleFormElement
-                        form={form}
-                        label="Taille"
-                        name="company.size"
-                        values={COMPANY_SIZE_NAMES}
-                        displayValue={(size) => (size ? COMPANY_SIZES[size].display : '')}
-                    />
-                    <DropdownManyFormElement
-                        form={form}
-                        label="Domaines"
-                        name="company.domains"
-                        values={DOMAIN_NAMES}
-                        displayValue={(domain) => (domain ? DOMAINS[domain].display : '')}
-                    />
-                    <Separator />
-                    <div className="grid-cols-5 grid gap-x-main">
-                        <InputFormElement
-                            form={form}
-                            className="mb-0"
-                            label="N°"
-                            name="company.address.number"
-                        />
-                        <InputFormElement
-                            className="col-span-4 mb-0"
-                            form={form}
-                            label="Rue"
-                            name="company.address.street"
-                        />
-                    </div>
-                    <div className="grid-cols-2 grid gap-x-main">
-                        <InputFormElement
-                            className="mb-0"
-                            form={form}
-                            label="Ville"
-                            name="company.address.city"
-                        />
-                        <InputFormElement
-                            className="mb-0"
-                            form={form}
-                            label="Code postal"
-                            name="company.address.zipCode"
-                        />
-                    </div>
-                    <InputFormElement form={form} label="Pays" name="company.address.country" />
+                    <EnableBox onClick={setEditCompany} label="Entreprise du client" />
+                    {editCompany && (
+                        <>
+                            <InputFormElement form={form} label="Nom" name="company.name" />
+                            <InputFormElement
+                                form={form}
+                                label="Chiffre d'Affaire"
+                                name="company.ca"
+                                type="number"
+                            />
+                            <DropdownSingleFormElement
+                                form={form}
+                                label="Taille"
+                                name="company.size"
+                                values={COMPANY_SIZE_NAMES}
+                                displayValue={(size) => (size ? COMPANY_SIZES[size].display : '')}
+                            />
+                            <DropdownManyFormElement
+                                form={form}
+                                label="Domaines"
+                                name="company.domains"
+                                values={DOMAIN_NAMES}
+                                displayValue={(domain) => (domain ? DOMAINS[domain].display : '')}
+                            />
+                            <Separator />
+                            <h2>Adresse de 'entreprise</h2>
+                            <EnableBox
+                                onClick={setEditCompanyAddress}
+                                label="Adresse de l'entreprise"
+                            />
+                            {editCompanyAddress && (
+                                <>
+                                    <div className="grid-cols-5 grid gap-x-main">
+                                        <InputFormElement
+                                            form={form}
+                                            className="mb-0"
+                                            label="N°"
+                                            name="company.address.number"
+                                        />
+                                        <InputFormElement
+                                            className="col-span-4 mb-0"
+                                            form={form}
+                                            label="Rue"
+                                            name="company.address.street"
+                                        />
+                                    </div>
+                                    <div className="grid-cols-2 grid gap-x-main">
+                                        <InputFormElement
+                                            className="mb-0"
+                                            form={form}
+                                            label="Ville"
+                                            name="company.address.city"
+                                        />
+                                        <InputFormElement
+                                            className="mb-0"
+                                            form={form}
+                                            label="Code postal"
+                                            name="company.address.zipCode"
+                                        />
+                                    </div>
+                                    <InputFormElement
+                                        form={form}
+                                        label="Pays"
+                                        name="company.address.country"
+                                    />
+                                </>
+                            )}
+                        </>
+                    )}
                 </form>
             </FormProvider>
             {isLoading ? (
@@ -195,7 +235,13 @@ function EditClientForm({ onSubmit, client, isLoading }: EditClientFormProps) {
                     className="w-full"
                     onClick={(e) => {
                         e.preventDefault();
-                        form.handleSubmit(onSubmit)();
+                        form.handleSubmit((values) => {
+                            if (!editAddress) values.address = undefined;
+                            if (!editCompany) values.company = undefined;
+                            if (values.company && !editCompanyAddress)
+                                values.company.address = undefined;
+                            onSubmit(values);
+                        })();
                     }}
                 >
                     Valider
