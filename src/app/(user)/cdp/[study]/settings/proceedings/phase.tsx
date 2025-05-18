@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DeliverableStatus } from '@prisma/client';
-import { DialogTitle } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -9,7 +8,13 @@ import { InputFormElement } from '@/components/meta-components/form/input';
 import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui/dialog';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 import { FormProvider } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { DELIVERABLE_STEPS, DELIVERABLE_STEPS_NAMES } from '@/db/types';

@@ -1,11 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import {
-    AlertDialog,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogTitle,
-} from '@radix-ui/react-alert-dialog';
-import { Checkbox } from '@radix-ui/react-checkbox';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
@@ -13,8 +6,11 @@ import { LoadingFullStops } from '@/components/loading';
 import { DropdownManyFormElement } from '@/components/meta-components/form/dropdownMany';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { InputFormElement } from '@/components/meta-components/form/input';
+import { AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogCancel, AlertDialogContent } from '@/components/ui/alert-dialog';
 import { AlertDialogFooter, AlertDialogHeader } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Separator } from '@/components/ui/separator';
 import { COMPANY_SIZE_NAMES, COMPANY_SIZES, DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { dbg, personName, reloadWindow } from '@/lib/utils';
