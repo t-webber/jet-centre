@@ -4,8 +4,7 @@ model Person {
     firstName String
     lastName  String
     number    String?
-    address   Address?  @relation(fields: [addressId], references: [id], onDelete: Cascade)
-    addressId String?   @unique
+    address   Address?
     user      User?
     assignee  Assignee?
     clients   Client?
@@ -53,6 +52,8 @@ model Address {
     city         String
     zipCode      String
     country      String
-    person       Person?
-    Company      Company?
+    person       Person?  @relation(fields: [personId], references: [id])
+    Company      Company? @relation(fields: [companyId], references: [id])
+    personId     String?  @unique
+    companyId    String?  @unique
 }
