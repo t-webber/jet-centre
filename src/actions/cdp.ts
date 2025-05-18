@@ -5,7 +5,6 @@
  */
 
 import prisma from '@/db';
-import { dbg } from '@/lib/utils';
 
 /**
  * Function to fetch the different mission of a CDP.

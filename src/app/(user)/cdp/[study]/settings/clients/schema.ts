@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { arrayEqual } from '@/lib/utils';
 
 export const addressSchema = z.object({
+    id: z.string().optional(),
     number: z.string(),
     street: z.string(),
     city: z.string(),
@@ -14,7 +15,7 @@ export const addressSchema = z.object({
 export type AddressType = z.infer<typeof addressSchema>;
 
 export const companySchema = z.object({
-    id: z.string(),
+    id: z.string().optional(),
     name: z.string(),
     address: addressSchema.optional(),
     size: z.nativeEnum(CompanySize).optional(),

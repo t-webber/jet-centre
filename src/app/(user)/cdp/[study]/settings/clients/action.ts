@@ -1,6 +1,6 @@
 'use server';
 
-import { Address } from '@prisma/client';
+import { Address, Company, CompanyInfos } from '@prisma/client';
 
 import prisma from '@/db';
 import { dbg } from '@/lib/utils';
@@ -43,7 +43,6 @@ export async function getMissionClients(
         if (!study) {
             throw new Error('Erroneous study code');
         }
-        dbg(study, 'fetched study');
         return {
             clients: study.clients.map(({ id, client }) => {
                 let clientAddress: AddressType | undefined;
@@ -96,8 +95,112 @@ export async function getMissionClients(
     }
 }
 
+type IdlessAddressInfos = Omit<Address, 'id'>;
+type IdlessCompanyInfos = Omit<CompanyInfos, 'id'>;
+type IdlessAllCompany = Omit<Company, 'id' | 'companyInfosId' | 'addressId'>;
+
+type IdlessAddressUpsert =
+    | { update: IdlessAddressInfos }
+    | { create: IdlessAddressInfos }
+    | undefined;
+
 export async function updateClient(clientId: string, clientData: ClientFormType) {
     try {
+        let clientAddress: { update: Omit<Address, 'id'> } | undefined;
+
+        if (clientData.address) {
+            clientAddress = {
+                update: {
+                    streetNumber: clientData.address?.number,
+                    streetName: clientData.address?.street,
+                    city: clientData.address?.city,
+                    country: clientData.address?.country,
+                    zipCode: clientData.address?.zipCode,
+                },
+            };
+        }
+
+        let companyAddress: IdlessAddressUpsert;
+
+        if (clientData.company?.address) {
+            if (clientData.company.address.id) {
+                companyAddress = {
+                    update: {
+                        streetNumber: clientData.company.address?.number,
+                        streetName: clientData.company.address?.street,
+                        city: clientData.company.address?.city,
+                        country: clientData.company.address?.country,
+                        zipCode: clientData.company.address?.zipCode,
+                    },
+                };
+            } else
+                companyAddress = {
+                    create: {
+                        streetNumber: clientData.company.address?.number,
+                        streetName: clientData.company.address?.street,
+                        city: clientData.company.address?.city,
+                        country: clientData.company.address?.country,
+                        zipCode: clientData.company.address?.zipCode,
+                    },
+                };
+        }
+
+        let company:
+            | {
+                  update: {
+                      where: { id: string };
+                      data: IdlessAllCompany & {
+                          companyInfos: { update: IdlessCompanyInfos };
+                          address: IdlessAddressUpsert;
+                      };
+                  };
+              }
+            | {
+                  create: IdlessAllCompany & {
+                      companyInfos: { create: IdlessCompanyInfos };
+                      address: { create: IdlessAddressInfos };
+                  };
+              }
+            | undefined;
+
+        if (clientData.company?.id) {
+            company = {
+                update: {
+                    where: { id: clientData.company.id },
+                    data: {
+                        name: clientData.company.name,
+                        companyInfos: {
+                            update: {
+                                size: clientData.company.size ?? null,
+                                ca: clientData.company.ca ?? null,
+                                domains: clientData.company.domains,
+                            },
+                        },
+                        address: companyAddress,
+                    },
+                },
+            };
+        } else if (clientData.company) {
+            if (clientData.address?.id !== undefined)
+                throw new Error(
+                    "Address id defined but company id undefined: can't updated address for non-created company."
+                );
+
+            company = {
+                create: {
+                    name: clientData.company.name,
+                    companyInfos: {
+                        create: {
+                            size: clientData.company.size ?? null,
+                            ca: clientData.company.ca ?? null,
+                            domains: clientData.company.domains,
+                        },
+                    },
+                    address: companyAddress as { create: IdlessAddressInfos },
+                },
+            };
+        }
+
         await prisma.client.update({
             where: { id: clientId },
             data: {
@@ -108,17 +211,10 @@ export async function updateClient(clientId: string, clientData: ClientFormType)
                         lastName: clientData.lastName,
                         email: clientData.email,
                         number: clientData.number,
-                        address: {
-                            update: {
-                                streetNumber: clientData.address?.number,
-                                streetName: clientData.address?.street,
-                                city: clientData.address?.city,
-                                country: clientData.address?.country,
-                                zipCode: clientData.address?.zipCode,
-                            },
-                        },
+                        address: clientAddress,
                     },
                 },
+                company,
             },
         });
     } catch (e) {
@@ -129,7 +225,7 @@ export async function updateClient(clientId: string, clientData: ClientFormType)
 export async function addClient(studyId: string, clientData: ClientFormType) {
     try {
         dbg(clientData, `adding data for ${studyId}`);
-        let address: { create: Omit<Address, 'id' | 'personId'> } | undefined;
+        let address: { create: Omit<Address, 'id'> } | undefined;
         if (clientData.address) {
             address = {
                 create: {
@@ -141,10 +237,10 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                 },
             };
         }
-        let company: { connect: { id: string } } | undefined;
+        let connectCompany: { connect: { id: string } } | undefined;
         if (clientData.company) {
             dbg(clientData.company, 'haha company');
-            await prisma.company.update({
+            const company = await prisma.company.update({
                 where: { id: clientData.company.id },
                 data: {
                     name: clientData.company?.name,
@@ -166,13 +262,12 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                     },
                 },
             });
-            company = {
+            connectCompany = {
                 connect: {
-                    id: clientData.company.id,
+                    id: company.id,
                 },
             };
         }
-        dbg(company, 'hehe company');
         await prisma.study.update({
             where: { id: studyId },
             data: {
@@ -190,7 +285,7 @@ export async function addClient(studyId: string, clientData: ClientFormType) {
                                         address,
                                     },
                                 },
-                                company,
+                                company: connectCompany,
                             },
                         },
                     },
