@@ -1,6 +1,8 @@
 import { Domain } from '@prisma/client';
 import { z } from 'zod';
 
+import { arrayEqual } from '@/lib/utils';
+
 export const studyInfosParamsEditorFormSchema = z.object({
     title: z
         .string()
@@ -19,15 +21,10 @@ export function checkEqual(
     lhs: StudyInfosParamsEditorFormType,
     rhs: StudyInfosParamsEditorFormType
 ) {
-    if (
-        lhs.title !== rhs.title &&
-        lhs.applicationFee !== rhs.applicationFee &&
-        lhs.cc !== rhs.cc &&
-        lhs.domains.length === rhs.domains.length
-    )
-        return false;
-    for (let i = 0; i < lhs.domains.length; ++i) {
-        if (lhs.domains[i] !== rhs.domains[i]) return false;
-    }
-    return true;
+    return (
+        lhs.title === rhs.title &&
+        lhs.applicationFee === rhs.applicationFee &&
+        lhs.cc === rhs.cc &&
+        arrayEqual(lhs.domains, rhs.domains)
+    );
 }

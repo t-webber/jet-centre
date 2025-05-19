@@ -1,8 +1,6 @@
 import { CompanySize, Domain } from '@prisma/client';
 import { z } from 'zod';
 
-import { arrayEqual } from '@/lib/utils';
-
 const addressSchema = z.object({
     id: z.string().optional(),
     number: z.string(),
