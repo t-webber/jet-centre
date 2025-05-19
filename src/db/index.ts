@@ -16,12 +16,8 @@ declare const globalThis: {
 } & typeof global;
 
 const prisma = globalThis.prismaGlobal ?? new PrismaClient();
-export const redis = !process.env.NO_CACHE
-    ? (globalThis.redisGlobal ?? new Redis('redis://cache:6379/0'))
-    : undefined;
 
 export default prisma;
+export const redis: Redis | undefined = undefined;
 
 if (process.env.NODE_ENV !== 'production') globalThis.prismaGlobal = prisma;
-if (process.env.NODE_ENV !== 'production' && !process.env.NO_CACHE)
-    globalThis.redisGlobal = redis as Redis;
