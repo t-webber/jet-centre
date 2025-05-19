@@ -9,12 +9,12 @@ import {
 } from '@/components/ui/sidebar';
 import { SideBarGroup } from '@/settings/sidebars/types';
 
-type Props = {
+interface SidebarListProps {
     sidebar_groups: SideBarGroup[];
     missionCode?: string;
-};
+}
 
-export function SidebarList({ sidebar_groups, missionCode }: Props) {
+export function SidebarList({ sidebar_groups, missionCode }: SidebarListProps) {
     return (
         <div className="flex-grow">
             {sidebar_groups.map((sidebar_group, i) => (

@@ -27,3 +27,6 @@ data/cv
 
 # non-official package managers
 bun.lock
+
+# auto-generated docs
+docs/schema
