@@ -12,8 +12,7 @@ export const ADMIN_SIDEBAR: RoleSideBar = {
                 {
                     title: 'Users',
                     icon: FaPeopleGroup,
-                    href: '/users',
-                    prefix: 'info',
+                    href: '/info/users',
                 },
             ],
         },

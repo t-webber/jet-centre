@@ -2,10 +2,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
-import { FaPencil, FaPlus, FaTrash } from 'react-icons/fa6';
+import { FaPencil, FaTrash } from 'react-icons/fa6';
 
 import { InnerBox } from '@/components/boxes/boxes';
 import { UpdateBox, UpdateBoxStatus } from '@/components/boxes/update-box';
+import { AddButton } from '@/components/buttons';
 import { DropdownSingleFormElement } from '@/components/meta-components/form/dropdownSingle';
 import { Button } from '@/components/ui/button';
 import { FormProvider } from '@/components/ui/form';
@@ -19,7 +20,7 @@ import {
     ServerStudyProceedings,
     updatePhase,
     updateStudyStep,
-} from './action';
+} from './actions';
 import { StudyPhaseEditor } from './phase';
 import {
     checkEqual,
@@ -58,13 +59,15 @@ function SinglePhaseInnerBox({ study, editPhase }: SinglePhaseInnerBoxParams) {
 }
 
 interface StudyProceedingsParamsEditorParams extends ServerStudyProceedings {
-    code: string;
+    studyCode: string;
+    title: string;
 }
 
 export function StudyProceedingsParamsEditor({
-    code,
+    studyCode,
     serverStudyProceedingId,
     serverStudyProceeding,
+    title,
 }: StudyProceedingsParamsEditorParams) {
     const form = useForm<StudyProceedingsParamsEditorFormType>({
         resolver: zodResolver(studyProceedingsParamsEditorFormSchema),
@@ -84,7 +87,7 @@ export function StudyProceedingsParamsEditor({
         dbg(newStep, 'saving step');
         setStatus(UpdateBoxStatus.Loading);
         updateStudyStep(newStep, serverStudyProceedingId).then(() => {
-            getStudyProceedings(code).then((serverProceeding) => {
+            getStudyProceedings(studyCode).then((serverProceeding) => {
                 if (
                     serverProceeding &&
                     serverProceeding.serverStudyProceeding.studyProcessStep == newStep
@@ -102,11 +105,15 @@ export function StudyProceedingsParamsEditor({
 
     const checkServerValues = () => {
         setStatus(UpdateBoxStatus.Loading);
-        getStudyProceedings(code).then((data) => {
+        dbg('checking', 'checking');
+        getStudyProceedings(studyCode).then((data) => {
+            dbg('checked', 'checked');
             if (!data) {
                 setStatus(UpdateBoxStatus.Error);
             } else if (checkEqual(data.serverStudyProceeding, form.getValues())) {
                 setStatus(UpdateBoxStatus.Ok);
+                setNewPhaseOpen(false);
+                setCurrentPhaseEditor(undefined);
             } else {
                 setStatus(UpdateBoxStatus.NotSynced);
             }
@@ -120,7 +127,7 @@ export function StudyProceedingsParamsEditor({
     const [currentPhaseEditor, setCurrentPhaseEditor] = useState<StudyPhaseFormType | undefined>();
 
     return (
-        <UpdateBox title="Phases de l'étude" update={updateServer} status={status}>
+        <UpdateBox title={title} update={updateServer} status={status}>
             <FormProvider {...form}>
                 <form className="space-y-main">
                     <DropdownSingleFormElement
@@ -140,14 +147,7 @@ export function StudyProceedingsParamsEditor({
                     editPhase={() => setCurrentPhaseEditor(study)}
                 />
             ))}
-            <Button
-                variant="outline"
-                className="m-auto flex items-center gap-main"
-                onClick={() => setNewPhaseOpen(true)}
-            >
-                <p>Nouvelle phase</p>
-                <FaPlus />
-            </Button>
+            <AddButton onClick={() => setNewPhaseOpen(true)} text="Nouvelle phase" />
             <StudyPhaseEditor
                 open={newPhaseOpen}
                 close={() => setNewPhaseOpen(false)}
@@ -166,7 +166,6 @@ export function StudyProceedingsParamsEditor({
                     onSubmit={(values) => updatePhase(values).then(() => checkServerValues())}
                 />
             )}
-            {JSON.stringify(form.watch())}
         </UpdateBox>
     );
 }

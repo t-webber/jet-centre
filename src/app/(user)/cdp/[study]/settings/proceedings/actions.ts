@@ -3,7 +3,6 @@
 import { StudyProgressStep } from '@prisma/client';
 
 import prisma from '@/db';
-import { dbg } from '@/lib/utils';
 
 import { StudyPhaseFormType, StudyProceedingsParamsEditorFormType } from './schema';
 
@@ -13,12 +12,11 @@ export interface ServerStudyProceedings {
 }
 
 export async function getStudyProceedings(
-    code: string
+    studyCode: string
 ): Promise<ServerStudyProceedings | undefined> {
     try {
-        dbg(code, 'code');
         const studyInfos = await prisma.studyInfos.findUnique({
-            where: { code },
+            where: { code: studyCode },
             include: {
                 study: {
                     include: {

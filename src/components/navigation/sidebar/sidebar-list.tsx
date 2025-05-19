@@ -31,8 +31,8 @@ export function SidebarList({ sidebar_groups, missionCode }: SidebarListProps) {
                                     <Link
                                         href={
                                             missionCode
-                                                ? `/${item.prefix}/${missionCode}${item.href}`
-                                                : `/${item.prefix}${item.href}`
+                                                ? '/cdp/' + missionCode + item.href
+                                                : item.href
                                         }
                                     >
                                         <item.icon />

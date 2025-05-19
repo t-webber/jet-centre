@@ -1,4 +1,5 @@
 'use client';
+
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -11,7 +12,7 @@ import { FormProvider } from '@/components/ui/form';
 import { DOMAIN_NAMES, DOMAINS } from '@/db/types';
 import { dbg } from '@/lib/utils';
 
-import { ServerStudyInfos, updateStudyInfos } from './action';
+import { ServerStudyInfos, updateStudyInfos } from './actions';
 import {
     checkEqual,
     studyInfosParamsEditorFormSchema,
@@ -19,12 +20,14 @@ import {
 } from './schema';
 
 interface StudyInfosParamsEditorParams extends ServerStudyInfos {
-    study: string;
+    studyCode: string;
+    title: string;
 }
 
 export function StudyInfosParamsEditor({
     serverStudyInfo,
     studyInfoId,
+    title,
 }: StudyInfosParamsEditorParams) {
     const form = useForm<StudyInfosParamsEditorFormType>({
         resolver: zodResolver(studyInfosParamsEditorFormSchema),
@@ -41,16 +44,14 @@ export function StudyInfosParamsEditor({
             dbg(data, 'response data from server');
             if (data && checkEqual(data, mri)) {
                 setStatus(UpdateBoxStatus.Ok);
-                dbg('', 'synced');
             } else {
                 setStatus(UpdateBoxStatus.NotSynced);
-                dbg('', 'not synced');
             }
         });
     };
 
     return (
-        <UpdateBox title="Informations générales" update={updateServer} status={status}>
+        <UpdateBox title={title} update={updateServer} status={status}>
             <FormProvider {...form}>
                 <form className="space-y-main">
                     <InputFormElement
@@ -77,7 +78,6 @@ export function StudyInfosParamsEditor({
                     />
                 </form>
             </FormProvider>
-            {JSON.stringify(form.watch())}
         </UpdateBox>
     );
 }

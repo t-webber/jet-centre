@@ -4,16 +4,17 @@
 /// will never have access to the ERP.
 model Person {
     id        String    @id @default(cuid())
-    email     String    @unique
+    email     String?
     firstName String
     lastName  String
     /// Telephone number
     number    String?
-    address   Address?  @relation(fields: [addressId], references: [id])
-    addressId String?
+    address   Address?
     user      User?
     assignee  Assignee?
     clients   Client?
+
+    @@unique(name: "name", [firstName, lastName])
 }
 
 /// A user is a person that can access the ERP tool by signing in.
@@ -60,12 +61,14 @@ enum NotificationLevel {
 
 /// Stores the address of a person/company
 model Address {
-    id      String   @id @default(cuid())
-    number  String
-    street  String
-    city    String
-    zipCode String
-    country String
-    people  Person[]
-    company Company?
+    id           String   @id @default(cuid())
+    streetNumber String
+    streetName   String
+    city         String
+    zipCode      String
+    country      String
+    person       Person?  @relation(fields: [personId], references: [id])
+    Company      Company? @relation(fields: [companyId], references: [id])
+    personId     String?  @unique
+    companyId    String?  @unique
 }

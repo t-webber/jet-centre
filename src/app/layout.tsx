@@ -77,9 +77,7 @@ async function AdminSideBar({ children, session }: { children: ReactNode; sessio
     return (
         <SessionProvider>
             <SidebarProvider>
-                <SidebarApp
-                    userInfo={await get_user_sidebar_info(session.user.email || undefined)}
-                />
+                <SidebarApp userInfo={await get_user_sidebar_info(session.user)} />
                 <SidebarInset>
                     <header className="flex px-4 p-2 shrink-0 items-center gap-2 transition-[width,height] ease-linear">
                         <TopBar />
