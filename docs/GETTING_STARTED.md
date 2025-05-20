@@ -61,9 +61,7 @@ AUTH_TRUST_HOST="http://localhost:5005"
 
 ### Setting up Docker
 
-After you've installed Docker using [this guide](https://docs.docker.com/engine/install) (you'll need to have systemd for Docker to work), you may want to also follow [these extra steps](https://docs.docker.com/engine/install/linux-postinstall/), notably `Manage Docker as a non-root user` to avoid having to write `sudo` before each command.
-
-> If you're on Windows... good luck (I had to switch to Linux to avoid the headache)
+After you've installed Docker using [this guide](https://docs.docker.com/engine/install), you may want to also follow [these extra steps](https://docs.docker.com/engine/install/linux-postinstall/), notably `Manage Docker as a non-root user` to avoid having to write `sudo` before each command.
 
 ### Running the project
 

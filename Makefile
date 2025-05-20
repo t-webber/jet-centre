@@ -1,6 +1,8 @@
 COMPOSE := docker compose
 EXEC := docker exec
 
+docker-start:
+	docker start app-dev jet-centre-postgres-1 jet-centre-cache-1
 dev:
 	$(COMPOSE) -f docker-compose.dev.yml up --build
 
