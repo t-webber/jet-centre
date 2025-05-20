@@ -12,8 +12,7 @@ export const TREASURER_SIDEBAR: RoleSideBar = {
                 {
                     title: 'disponibilités',
                     icon: FaHouse,
-                    href: '/',
-                    prefix: 'treso',
+                    href: '/treso',
                 },
             ],
         },

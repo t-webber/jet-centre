@@ -17,28 +17,34 @@ export default async function CreateStudy() {
         },
     });
 
-    const companies: Company[] = rawCompanies.map((company) => ({
-        id: company.id,
-        name: company.name,
-        size: company.companyInfos.size,
-        domains: company.companyInfos.domains,
-        ca: company.companyInfos.ca,
-        address: {
-            number: company.address.number,
-            street: company.address.street,
-            city: company.address.city,
-            zip: company.address.zipCode,
-            country: company.address.country,
-        },
-        members: company.members.map((member) => ({
-            id: member.id,
-            firstName: member.person.firstName,
-            lastName: member.person.lastName,
-            email: member.person.email,
-            job: member.job,
-            excluded: false,
-        })),
-    }));
+    const companies: Company[] = rawCompanies.map((company) => {
+        let address = undefined;
+        if (company.address) {
+            address = {
+                number: company.address?.streetNumber,
+                street: company.address?.streetName,
+                city: company.address?.city,
+                zip: company.address?.zipCode,
+                country: company.address?.country,
+            };
+        }
+        return {
+            id: company.id,
+            name: company.name,
+            size: company.companyInfos.size,
+            domains: company.companyInfos.domains,
+            ca: company.companyInfos.ca,
+            address,
+            members: company.members.map((member) => ({
+                id: member.id,
+                firstName: member.person.firstName,
+                lastName: member.person.lastName,
+                email: member.person.email ?? undefined,
+                job: member.job,
+                excluded: false,
+            })),
+        };
+    });
 
     // ----- Administrator ---- //
     const rawAdmin = await prisma.admin.findMany({
@@ -61,7 +67,7 @@ export default async function CreateStudy() {
         id: admin.id,
         firstName: admin.user.person.firstName,
         lastName: admin.user.person.lastName,
-        email: admin.user.person.email,
+        email: admin.user.person.email ?? undefined,
     }));
 
     return <Inner companies={companies} admins={admins} />;

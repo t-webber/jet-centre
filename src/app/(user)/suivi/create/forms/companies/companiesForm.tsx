@@ -24,7 +24,7 @@ import {
     useSortableList,
 } from '@/components/meta-components/sortableList';
 import { FormProvider, FormRule } from '@/components/ui/form';
-import { COMPANY_SIZES, DOMAIN_NAMES } from '@/db/types';
+import { COMPANY_SIZE_NAMES, COMPANY_SIZES, DOMAIN_NAMES } from '@/db/types';
 import { cn } from '@/lib/utils';
 import { ANIMATION_DURATION_MS } from '@/settings/vars';
 
@@ -197,7 +197,8 @@ function CompanyForm({
                             <DropdownSingleFormElement
                                 label="Taille de l'entreprise"
                                 name={field('size')}
-                                values={COMPANY_SIZES}
+                                values={COMPANY_SIZE_NAMES}
+                                displayValue={(size) => COMPANY_SIZES[size].display}
                                 form={formStudy}
                                 formId={formStudyId}
                                 unwritable={!isNew}

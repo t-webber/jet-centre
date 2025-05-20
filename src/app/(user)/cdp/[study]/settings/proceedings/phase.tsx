@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { DeliverableStatus } from '@prisma/client';
-import { DialogTitle } from '@radix-ui/react-dialog';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -9,7 +8,13 @@ import { InputFormElement } from '@/components/meta-components/form/input';
 import { TextAreaFormElement } from '@/components/meta-components/form/textarea';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import { Dialog, DialogContent, DialogFooter, DialogHeader } from '@/components/ui/dialog';
+import {
+    Dialog,
+    DialogContent,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog';
 import { FormProvider } from '@/components/ui/form';
 import { Label } from '@/components/ui/label';
 import { DELIVERABLE_STEPS, DELIVERABLE_STEPS_NAMES } from '@/db/types';
@@ -44,7 +49,7 @@ export function StudyPhaseEditor({ open, close, defaultValues, onSubmit }: Study
         defaultValues: defaultValuesWithState,
     });
 
-    const [deliverable, setDeliverable] = useState(false);
+    const [deliverable, setDeliverable] = useState(!!defaultValues?.deliverable);
 
     return (
         <Dialog open={open} onOpenChange={() => close()}>
@@ -54,7 +59,10 @@ export function StudyPhaseEditor({ open, close, defaultValues, onSubmit }: Study
                 </DialogHeader>
                 <DialogFooter>
                     <FormProvider {...form}>
-                        <form className="gap-y-main w-full flex flex-col">
+                        <form
+                            className="gap-y-main w-full flex flex-col"
+                            onSubmit={form.handleSubmit(onSubmit)}
+                        >
                             <InputFormElement form={form} label="Titre" name="title" />
                             <InputFormElement
                                 form={form}
@@ -82,7 +90,10 @@ export function StudyPhaseEditor({ open, close, defaultValues, onSubmit }: Study
                             />
                             <div className="w-full flex items-center gap-main">
                                 <Label>Livrable ?</Label>
-                                <Checkbox onCheckedChange={() => setDeliverable(!deliverable)} />
+                                <Checkbox
+                                    checked={deliverable}
+                                    onCheckedChange={() => setDeliverable(!deliverable)}
+                                />
                             </div>
                             {deliverable && (
                                 <>
@@ -101,10 +112,11 @@ export function StudyPhaseEditor({ open, close, defaultValues, onSubmit }: Study
                                 </>
                             )}
                             <Button
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    onSubmit(form.watch()); //TODO: handle deliverable toggle
-                                }}
+                                type="submit"
+                                // onClick={(e) => {
+                                //     e.preventDefault();
+                                //     onSubmit(form.watch()); //TODO: handle deliverable toggle
+                                // }}
                             >
                                 Valider
                             </Button>

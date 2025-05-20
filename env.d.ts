@@ -21,10 +21,12 @@ declare namespace NodeJS {
         TEMPLATE_RM: string;
         /// Others
         ADMIN_EMAIL: string;
+        ADMIN_POSITION?: string;
         WEBSITE_URL: string;
         DB_URL: string;
+        NO_CACHE?: string;
         REDIS_URL: string;
         DEV_MODE?: '';
-        AUTH_TRUST_HOST: string?;
+        AUTH_TRUST_HOST?: string;
     }
 }

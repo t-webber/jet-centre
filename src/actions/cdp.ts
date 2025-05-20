@@ -13,15 +13,13 @@ import prisma from '@/db';
  * @param {(string | undefined)} email of the user
  * @return {{ missions: string[]; position: string }} the list of codes of the missions (e.g. [224AE, 224028]) and the position (e.g. "Trésorier" or "Chargée template")
  */
-export async function get_user_sidebar_info(
-    email: string | undefined
-): Promise<{ missions: string[]; position: string } | undefined> {
-    if (!email) {
-        return;
-    }
+export async function get_user_sidebar_info(name: {
+    firstName: string;
+    lastName: string;
+}): Promise<{ missions: string[]; position: string } | undefined> {
     try {
         const person = await prisma.person.findUnique({
-            where: { email },
+            where: { name: { firstName: name.firstName, lastName: name.lastName } },
             include: {
                 user: {
                     include: {

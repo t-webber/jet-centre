@@ -4,7 +4,7 @@ import { adminDisplay, MriFormType } from '@/app/(user)/cdp/[study]/mri/form/sch
 import { RenderMRI } from '@/app/(user)/cdp/[study]/mri/render';
 import { Box, BoxContent, BoxHeader, BoxTitle } from '@/components/boxes/boxes';
 
-import { getStudyInfosWithMRI } from '../action';
+import { getStudyInfosWithMRI } from '../actions';
 
 function assertAllFieldsFull(
     mri: Mri | null,

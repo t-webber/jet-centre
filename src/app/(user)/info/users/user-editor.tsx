@@ -8,7 +8,7 @@ import { getPosition, updatePosition } from './users';
 
 interface UserEditorProps {
     adminId: string;
-    email: string;
+    email: string | null;
     position: string | null;
 }
 
@@ -25,7 +25,7 @@ export function UserEditor({ adminId, email, position }: UserEditorProps) {
 
     return (
         <div className="bg-box-background flex items-center gap-main p-2 rounded-sm">
-            <p className="w-full px-2">{email}</p>
+            <p className="w-full px-2">{email || 'no-email'}</p>
             {status === Status.Ok ? (
                 <Input
                     defaultValue={uiPosition || 'Unset'}

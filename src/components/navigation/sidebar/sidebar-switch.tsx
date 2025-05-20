@@ -36,7 +36,7 @@ export function SidebarSwitch({
             id: 'cdp',
             title: 'CDP',
             icon: FaUser,
-            content: <SidebarCdp missions={missions} />,
+            content: <SidebarCdp missions={missions} isOpen={isOpen} />,
         });
     }
 

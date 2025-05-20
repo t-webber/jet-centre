@@ -18,7 +18,7 @@ const zIsNew = z.object({
 const zContact = z.object({
     firstName: z.string(),
     lastName: z.string(),
-    email: z.string().email(),
+    email: z.string().email().optional(),
     job: z.string(),
     excluded: z.boolean().default(false),
     id: z.string(),
@@ -28,7 +28,7 @@ const zContact = z.object({
 export const contactCreationSchema = z.object({
     firstName: z.string().superRefine(required),
     lastName: z.string().superRefine(required),
-    email: z.string().email(),
+    email: z.string().email().optional(),
     tel: z.string().or(EMPTY_STRING),
     job: z.string(),
     description: z.string(),
@@ -63,13 +63,15 @@ const zCompany = z.object({
     size: z.nativeEnum(CompanySize).or(EMPTY_STRING).nullish(),
     domains: z.array(z.nativeEnum(Domain)).or(EMPTY_STRING),
     ca: z.number().or(EMPTY_STRING).nullable(),
-    address: z.object({
-        number: z.string(),
-        street: z.string(),
-        city: z.string(),
-        zip: z.string(),
-        country: z.string(),
-    }),
+    address: z
+        .object({
+            number: z.string(),
+            street: z.string(),
+            city: z.string(),
+            zip: z.string(),
+            country: z.string(),
+        })
+        .optional(),
     members: zContactFormValue.array().superRefine(nonEmptyExcluded),
 });
 export type Company = z.infer<typeof zCompany>;

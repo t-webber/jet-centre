@@ -4,7 +4,6 @@ export interface SideBarItem {
     title: string;
     icon: IconType;
     href: string;
-    prefix: string;
 }
 
 export interface SideBarGroup {

@@ -3,6 +3,8 @@
         "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "bradlc.vscode-tailwindcss",
-        "burkeholland.simple-react-snippets"
+        "burkeholland.simple-react-snippets",
+        "Prisma.prisma",
+        "nrjdalal.shadcn-ui-next"
     ]
 }

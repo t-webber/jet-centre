@@ -1,16 +1,27 @@
 import { FlatCompat } from '@eslint/eslintrc';
-import importPlugin from 'eslint-plugin-import';
 
-const compat = new FlatCompat({
+const compat: FlatCompat = new FlatCompat({
     baseDirectory: import.meta.dirname,
 });
 
 const eslintConfig = [
     {
-        plugins: {
-            import: importPlugin,
-        },
+        files: ['**/*.{ts,tsx}'],
+
         rules: {
+            'no-restricted-imports': [
+                'error',
+                {
+                    paths: [
+                        {
+                            name: 'radix-ui',
+                            message:
+                                'Please import components from @/src/components/ui instead of radix-ui.',
+                        },
+                    ],
+                    patterns: ['@radix-ui/*'],
+                },
+            ],
             'import/order': [
                 'error',
                 {
@@ -32,7 +43,12 @@ const eslintConfig = [
             ],
         },
     },
-
+    {
+        files: ['src/components/ui/**/*.{ts,tsx}'],
+        rules: {
+            'no-restricted-imports': 'off',
+        },
+    },
     ...compat.config({
         extends: ['next/core-web-vitals', 'next/typescript'],
         rules: {
@@ -43,6 +59,7 @@ const eslintConfig = [
             'no-unused-vars': 'off',
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/ban-ts-comment': 'off',
+            'prefer-const': 'error',
         },
     }),
 ];

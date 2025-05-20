@@ -15,7 +15,7 @@ export async function createNewStudy(data: StudyCreationSchema) {
         data.settings.cdps.map(async (cdp) => {
             const person = await prisma.person.findUnique({
                 where: {
-                    email: cdp.email,
+                    name: cdp,
                 },
                 select: {
                     user: true,
@@ -33,7 +33,7 @@ export async function createNewStudy(data: StudyCreationSchema) {
                 company.members.map(async (member) => {
                     const person = await prisma.person.findUnique({
                         where: {
-                            email: member.email,
+                            name: member,
                         },
                     });
                     return { personId: person?.id ?? falseId, ...member };
@@ -79,55 +79,62 @@ export async function createNewStudy(data: StudyCreationSchema) {
             clients: {
                 create: companies
                     .map((company) => {
+                        let address = undefined;
+                        if (company.address) {
+                            address = {
+                                create: {
+                                    streetNumber: company.address?.number,
+                                    streetName: company.address?.street,
+                                    city: company.address?.city,
+                                    zipCode: company.address?.zip,
+                                    country: company.address?.country,
+                                },
+                            };
+                        }
+
                         return company.members
                             .filter((member) => !(member.excluded ?? false))
-                            .map((member) => ({
-                                client: {
-                                    connectOrCreate: {
-                                        where: {
-                                            personId: member.personId,
-                                        },
-                                        create: {
-                                            job: member.job,
-                                            person: {
-                                                create: {
-                                                    email: member.email,
-                                                    firstName: member.firstName,
-                                                    lastName: member.lastName,
-                                                    number: '',
-                                                },
+                            .map((member) => {
+                                return {
+                                    client: {
+                                        connectOrCreate: {
+                                            where: {
+                                                personId: member.personId,
                                             },
-                                            company: {
-                                                connectOrCreate: {
-                                                    where: {
-                                                        name: company.name,
-                                                    },
+                                            create: {
+                                                job: member.job,
+                                                person: {
                                                     create: {
-                                                        name: company.name,
-                                                        address: {
-                                                            create: {
-                                                                number: company.address.number,
-                                                                street: company.address.street,
-                                                                city: company.address.city,
-                                                                zipCode: company.address.zip,
-                                                                country: company.address.country,
-                                                            },
+                                                        email: member.email,
+                                                        firstName: member.firstName,
+                                                        lastName: member.lastName,
+                                                        number: '',
+                                                    },
+                                                },
+                                                company: {
+                                                    connectOrCreate: {
+                                                        where: {
+                                                            name: company.name,
                                                         },
-                                                        companyInfos: {
-                                                            create: {
-                                                                nvEmployees: 0,
-                                                                ca: orUndefined(company.ca),
-                                                                size: map(
-                                                                    orUndefined(
-                                                                        company.size
-                                                                    ) as CompanySize,
-                                                                    toPgCompanySize
-                                                                ),
-                                                                domains: !isEmptyString(
-                                                                    company.domains
-                                                                )
-                                                                    ? (company.domains as unknown as Domain[])
-                                                                    : [],
+                                                        create: {
+                                                            name: company.name,
+                                                            address,
+                                                            companyInfos: {
+                                                                create: {
+                                                                    nvEmployees: 0,
+                                                                    ca: orUndefined(company.ca),
+                                                                    size: map(
+                                                                        orUndefined(
+                                                                            company.size
+                                                                        ) as CompanySize,
+                                                                        toPgCompanySize
+                                                                    ),
+                                                                    domains: !isEmptyString(
+                                                                        company.domains
+                                                                    )
+                                                                        ? (company.domains as unknown as Domain[])
+                                                                        : [],
+                                                                },
                                                             },
                                                         },
                                                     },
@@ -135,8 +142,8 @@ export async function createNewStudy(data: StudyCreationSchema) {
                                             },
                                         },
                                     },
-                                },
-                            }));
+                                };
+                            });
                     })
                     .flat(),
             },
