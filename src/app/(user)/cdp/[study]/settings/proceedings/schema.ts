@@ -3,12 +3,10 @@ import { z } from 'zod';
 
 import { arrayEqual } from '@/lib/utils';
 
-export const deliverableFormSchema = z.object({
+const deliverableFormSchema = z.object({
     description: z.string(),
     status: z.nativeEnum(DeliverableStatus),
 });
-
-export type DeliverableFormType = z.infer<typeof deliverableFormSchema>;
 
 export const studyPhaseFormSchema = z.object({
     id: z.string(),

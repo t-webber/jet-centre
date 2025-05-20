@@ -68,17 +68,17 @@ After you've installed Docker using [this guide](https://docs.docker.com/engine/
 First make sure that Docker is running (see [website](https://docs.docker.com/engine/install)), then activate the Docker containers:
 
 ```bash
-sudo docker start app-dev jet-centre-postgres-1 jet-centre-cache-1
+docker start app-dev jet-centre-postgres-1 jet-centre-cache-1
 ```
 
-> To check your containers run `sudo docker ps -a`
+> To check your containers run `docker ps -a`
 
 Now initialize the database:
 
 - Makefile
 
 ```bash
-sudo make migrate
+make migrate
 ```
 
 You can now run the project:
@@ -86,7 +86,7 @@ You can now run the project:
 - Makefile
 
 ```bash
-sudo make dev
+make dev
 ```
 
 **Check out the [Makefile](../Makefile) for other commands you can run !**

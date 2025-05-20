@@ -9,7 +9,7 @@ const zIsNew = z.object({
 // ====================================================== //
 
 // ~~~~~~~~~~~~~~~~ Admin ~~~~~~~~~~~~~~~~ //
-export const zAdmin = z.object({
+const zAdmin = z.object({
     firstName: z.string(),
     lastName: z.string(),
     email: z.string().email(),
@@ -35,10 +35,10 @@ export const emptyAdminCreationSchema = {
 };
 
 // ~~~~~~~~~~~ Admin Form Value ~~~~~~~~~~ //
-export const zNewAdmin = adminCreationSchema.merge(zIsNew);
+const zNewAdmin = adminCreationSchema.merge(zIsNew);
 export type NewAdmin = z.infer<typeof zNewAdmin>;
 
-export const zAdminFormValue = zNewAdmin.or(zAdmin);
+const zAdminFormValue = zNewAdmin.or(zAdmin);
 export type AdminFormValue = z.infer<typeof zAdminFormValue>;
 
 // ====================================================== //
@@ -57,7 +57,7 @@ export const settingsCreationSchema = z.object({
     cdps: zAdminFormValue.array(),
 });
 
-export type SettingsCreationSchema = z.infer<typeof settingsCreationSchema>;
+type SettingsCreationSchema = z.infer<typeof settingsCreationSchema>;
 
 export const emptySettingsCreationSchema: SettingsCreationSchema = {
     code: '',
