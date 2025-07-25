@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import { FaBug, FaCheck } from 'react-icons/fa6';
+import { FaBug, FaCheck, FaUser } from 'react-icons/fa6';
 import { IoWarning } from 'react-icons/io5';
 import { IconType } from 'react-icons/lib';
 
@@ -44,6 +44,12 @@ export enum UpdateBoxStatus {
      * This is typically when the operation needs interaction with the database or with Google Drive, and thus takes time to execute.
      */
     Loading,
+    /**
+     * The update function can't be run yet: the user hasn't finished.
+     *
+     * This is used when you need to fill all the entries before updating, all the data shouldn't be saved automatically.
+     */
+    UserPending,
 }
 
 /** An object containing information needed to display the status on the {@link UpdateBox}. */
@@ -57,13 +63,13 @@ interface StatusInfos {
 }
 
 /**
- * @function getIcon
+ * @function getUpdateBoxStatusInfos
  * @brief Returns an icon configuration based on the given update box status.
  *
  * @param {UpdateBoxStatus} status - The current status of the update box.
  * @returns {StatusInfos} The data needed to display the status.
  */
-function getInfos(status: UpdateBoxStatus): StatusInfos {
+export function getUpdateBoxStatusInfos(status: UpdateBoxStatus): StatusInfos {
     switch (status) {
         case UpdateBoxStatus.Ok:
             return {
@@ -91,6 +97,13 @@ function getInfos(status: UpdateBoxStatus): StatusInfos {
                 hoverContent:
                     "Le serveur est toujours vivant, mais vos données n'ont pas été sauvegardées 🤔. Réessayez!",
             };
+        case UpdateBoxStatus.UserPending:
+            return {
+                Icon: FaUser,
+                iconClassName: 'text-destructive',
+                hoverContent:
+                    'Lorsque vous avez terminé, cliquez ici pour sauvegarder. Attention, en attendant, vos données ne sont pas sauvegardée.',
+            };
     }
 }
 
@@ -102,12 +115,14 @@ function getInfos(status: UpdateBoxStatus): StatusInfos {
  * @property {ReactNode} children - The content rendered inside the update box.
  * @property {UpdateBoxStatus} status - The current status of the update box, affecting the icon.
  * @property {() => void} update - Callback function triggered when the update icon is clicked.
+ * @property {boolean} withBackdrop - Boolean to indicate if the box should have a backdrop.
  */
 interface UpdateBoxProps {
     title: string;
     children: ReactNode;
     status: UpdateBoxStatus;
     update: () => void;
+    withBackdrop?: boolean;
 }
 
 /**
@@ -116,14 +131,20 @@ interface UpdateBoxProps {
  *
  * @param {UpdateBoxProps} props - The properties for the component.
  */
-export function UpdateBox({ title, children, status, update }: UpdateBoxProps) {
+export function UpdateBox({
+    title,
+    children,
+    status,
+    update,
+    withBackdrop = true,
+}: UpdateBoxProps) {
     'use client';
     return (
-        <Box className="w-full">
+        <Box className="w-full" withBackdrop={withBackdrop}>
             <BoxHeader>
                 <BoxTitle>{title}</BoxTitle>
                 <BoxHeaderBlock>
-                    <BoxButtonIcon {...getInfos(status)} onClick={update} />
+                    <BoxButtonIcon {...getUpdateBoxStatusInfos(status)} onClick={update} />
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxContent>{children}</BoxContent>

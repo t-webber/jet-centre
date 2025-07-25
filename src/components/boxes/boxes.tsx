@@ -2,7 +2,7 @@
 
 import { ReactNode, forwardRef } from 'react';
 import AnimateHeight from 'react-animate-height';
-import { FaGripLines, FaPlus, FaTrash } from 'react-icons/fa6';
+import { FaGripLines, FaPencil, FaPlus, FaTrash } from 'react-icons/fa6';
 import { GoProjectTemplate } from 'react-icons/go';
 import { HiRefresh } from 'react-icons/hi';
 import { IconType } from 'react-icons/lib';
@@ -14,8 +14,11 @@ import { ANIMATION_DURATION_MS } from '@/settings/vars';
 
 const Box = forwardRef<
     HTMLDivElement,
-    { children: ReactNode; className?: string | string[] } & Omit<any, 'children' | 'className'>
->(({ children, className, ...props }, ref) => (
+    { children: ReactNode; withBackdrop?: boolean; className?: string | string[] } & Omit<
+        any,
+        'children' | 'className'
+    >
+>(({ children, withBackdrop = true, className, ...props }, ref) => (
     <div
         ref={ref}
         className={cn(
@@ -23,7 +26,7 @@ const Box = forwardRef<
             'border border-box-hover/10',
             'rounded-xl bg-box-background',
             'shadow-lg shadow-black/5',
-            'backdrop-blur-sm',
+            withBackdrop && 'backdrop-blur-sm',
             'transition-all duration-200 ease-in-out',
             'hover:border-box-hover/20',
             className
@@ -130,9 +133,11 @@ const BoxButtonTemplate = (props: BoxButtonProps) =>
     BoxButtonIcon({ ...props, Icon: GoProjectTemplate });
 const BoxButtonTrash = (props: BoxButtonProps) => BoxButtonIcon({ ...props, Icon: FaTrash });
 const BoxButtonReload = (props: BoxButtonProps) => BoxButtonIcon({ ...props, Icon: HiRefresh });
+const BoxButtonEdit = (props: BoxButtonProps) => BoxButtonIcon({ ...props, Icon: FaPencil });
 
 interface BoxButtonProps {
     onClick: () => void;
+    hoverContent?: string;
 }
 
 const BoxButton = ({ onClick, children }: BoxButtonProps & { children: ReactNode }) => (
@@ -247,6 +252,7 @@ export {
     BoxButtonPlus,
     BoxButtonTrash,
     BoxButtonIcon,
+    BoxButtonEdit,
     BoxButtonReload,
     BoxCollapseButton,
     BoxCollapser,

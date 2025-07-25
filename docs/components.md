@@ -19,6 +19,7 @@ To create the boxes of the template.
 
 import {
     Box,
+    BoxButtonEdit,
     BoxButtonPlus,
     BoxButtonReload,
     BoxButtonTemplate,
@@ -39,6 +40,7 @@ export default function Page() {
                     <BoxButtonReload onClick={() => {}} />
                     <BoxButtonTemplate onClick={() => {}} />
                     <BoxButtonPlus onClick={() => {}} />
+                    <BoxButtonEdit onClick={() => {}} />
                 </BoxHeaderBlock>
             </BoxHeader>
             <BoxContent>Contenu de la boite</BoxContent>
