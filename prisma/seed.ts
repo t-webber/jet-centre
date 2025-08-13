@@ -70,7 +70,7 @@ async function main() {
 
     if (!process.env.NO_DB_INIT) {
         process.stdout.write('🌱  Adding the test data for development database.');
-        seedTestData();
+        await seedTestData();
     }
 
     return;
