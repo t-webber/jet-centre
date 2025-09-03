@@ -64,6 +64,6 @@ jobs:
 
             - name: Next build
               env:
-                  DB_URL: postgres://postgres:postgres@postgres:5432/maindb
+                  DB_URL: postgres://postgres:postgres@localhost:5432/maindb
                   NO_CACHE: true
               run: bun run build
